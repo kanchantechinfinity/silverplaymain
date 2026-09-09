@@ -1,0 +1,52 @@
+{%- comment -%}
+  Product info accordion. "Material & Craft" prefers the product's own
+  custom.material_craft metafield, then the sitewide theme setting; shipping,
+  returns and care are sitewide policy copy from theme settings.
+{%- endcomment -%}
+{%- liquid
+  assign material = product.metafields.custom.material_craft.value | default: settings.pdp_material
+  assign care = product.metafields.custom.care_instructions.value | default: settings.pdp_care
+-%}
+<div class="accordion">
+  <div class="accordion__row is-open" data-accordion-row>
+    <button type="button" class="accordion__btn" data-accordion-btn aria-expanded="true">
+      <span>Material &amp; Craft</span><span class="accordion__plus" aria-hidden="true">+</span>
+    </button>
+    <div class="accordion__panel">
+      <p>
+        {{ material }}
+        {%- if product.tags.size > 0 %} Tags: {{ product.tags | slice: 0, 5 | join: ', ' }}.{% endif -%}
+      </p>
+    </div>
+  </div>
+
+  <div class="accordion__row" data-accordion-row>
+    <button type="button" class="accordion__btn" data-accordion-btn aria-expanded="false">
+      <span>Shipping</span><span class="accordion__plus" aria-hidden="true">+</span>
+    </button>
+    <div class="accordion__panel"><p>{{ settings.pdp_shipping }}</p></div>
+  </div>
+
+  <div class="accordion__row" data-accordion-row>
+    <button type="button" class="accordion__btn" data-accordion-btn aria-expanded="false">
+      <span>Returns &amp; Exchanges</span><span class="accordion__plus" aria-hidden="true">+</span>
+    </button>
+    <div class="accordion__panel"><p>{{ settings.pdp_returns }}</p></div>
+  </div>
+
+  <div class="accordion__row" data-accordion-row>
+    <button type="button" class="accordion__btn" data-accordion-btn aria-expanded="false">
+      <span>Care Instructions</span><span class="accordion__plus" aria-hidden="true">+</span>
+    </button>
+    <div class="accordion__panel"><p>{{ care }}</p></div>
+  </div>
+
+  {%- if product.metafields.custom.stone.value != blank -%}
+    <div class="accordion__row" data-accordion-row>
+      <button type="button" class="accordion__btn" data-accordion-btn aria-expanded="false">
+        <span>The Stone</span><span class="accordion__plus" aria-hidden="true">+</span>
+      </button>
+      <div class="accordion__panel"><p>{{ product.metafields.custom.stone.value }}</p></div>
+    </div>
+  {%- endif -%}
+</div>

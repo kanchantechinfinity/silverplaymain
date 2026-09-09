@@ -1,0 +1,13 @@
+<div class="wrap wrap--tight" style="padding-top:9rem;padding-bottom:5rem">
+  <h1 class="h-sec">{{ 'customer.activate_account.title' | t }}</h1>
+  <p class="lede mt-2">{{ 'customer.activate_account.subtext' | t }}</p>
+  {% form 'activate_customer_password' %}
+    {{ form.errors | default_errors }}
+    <div class="mt-6" style="max-width:24rem;display:grid;gap:1rem">
+      <div><label class="field-label" for="ActPass">{{ 'customer.register.password' | t }}</label><input class="field" id="ActPass" type="password" name="customer[password]"></div>
+      <div><label class="field-label" for="ActPassConf">Confirm password</label><input class="field" id="ActPassConf" type="password" name="customer[password_confirmation]"></div>
+    </div>
+    <button type="submit" class="btn btn--ink mt-5">{{ 'customer.activate_account.submit' | t }}</button>
+    <button type="submit" name="decline" class="link-cta mt-4">{{ 'customer.activate_account.cancel' | t }}</button>
+  {% endform %}
+</div>

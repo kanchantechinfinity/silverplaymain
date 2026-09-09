@@ -1,0 +1,20 @@
+{%- comment -%}
+  Recently viewed — populated client-side from this visitor's own localStorage
+  history (theme.js -> initRecentlyViewed), which fetches each product's
+  `?view=card` alternate template. Renders nothing on a first visit.
+{%- endcomment -%}
+<span hidden data-recently-viewed-current="{{ product.handle }}"></span>
+<section hidden data-recently-viewed style="border-top:1px solid var(--sp-line);background:var(--sp-bone);padding-block:5rem">
+  <div class="wrap">
+    <p class="eyebrow">{{ section.settings.heading }}</p>
+    <div class="grid-products grid-products--5 mt-8" data-recently-viewed-grid></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Recently viewed",
+  "tag": "section",
+  "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Recently Viewed" }]
+}
+{% endschema %}

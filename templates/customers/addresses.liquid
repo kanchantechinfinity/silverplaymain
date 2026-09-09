@@ -1,0 +1,39 @@
+<div class="wrap" style="padding-top:9rem;padding-bottom:5rem">
+  <p class="eyebrow">{{ 'customer.account.title' | t }}</p>
+  <h1 class="h-sec mt-3">{{ 'customer.addresses.title' | t }}</h1>
+
+  {%- paginate customer.addresses by 10 -%}
+    {%- for address in customer.addresses -%}
+      <div style="border-top:1px solid var(--sp-line);padding-block:1.5rem">
+        {%- if address == customer.default_address -%}
+          <p class="eyebrow">{{ 'customer.addresses.default' | t }}</p>
+        {%- endif -%}
+        <p class="lede mt-2">{{ address | format_address }}</p>
+        {% form 'customer_address', address %}
+          <div style="display:grid;gap:.75rem;max-width:24rem" class="mt-4">
+            <input class="field" name="address[address1]" value="{{ address.address1 }}" placeholder="Address">
+            <input class="field" name="address[city]" value="{{ address.city }}" placeholder="City">
+            <input class="field" name="address[zip]" value="{{ address.zip }}" placeholder="ZIP">
+            <input class="field" name="address[country]" value="{{ address.country }}" placeholder="Country">
+          </div>
+          <button type="submit" class="btn btn--outline-gold mt-4">{{ 'customer.addresses.edit' | t }}</button>
+        {% endform %}
+      </div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+
+  <h2 class="h-sec--sm mt-10">{{ 'customer.addresses.add_new' | t }}</h2>
+  {% form 'customer_address', customer.new_address %}
+    <div style="display:grid;gap:.75rem;max-width:24rem" class="mt-4">
+      <input class="field" name="address[first_name]" placeholder="First name">
+      <input class="field" name="address[last_name]" placeholder="Last name">
+      <input class="field" name="address[address1]" placeholder="Address">
+      <input class="field" name="address[city]" placeholder="City">
+      <input class="field" name="address[zip]" placeholder="ZIP">
+      <input class="field" name="address[country]" placeholder="Country">
+    </div>
+    <button type="submit" class="btn btn--ink mt-4">{{ 'customer.addresses.add_new' | t }}</button>
+  {% endform %}
+
+  <p class="mt-8"><a href="{{ routes.account_url }}" class="link-cta">{{ 'customer.account.return' | t }} <span>&rarr;</span></a></p>
+</div>

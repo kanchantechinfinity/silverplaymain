@@ -1,0 +1,45 @@
+<section class="sec--sm on-dark">
+  <div class="wrap">
+    <div class="founder__grid">
+      <div data-reveal style="height:100%">
+        <div class="founder__photo">
+          {%- if section.settings.image != blank -%}
+            <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.name | escape }}" loading="lazy" width="1200" height="1500">
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: '' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="founder__text">
+        <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="mt-4" style="font-size:clamp(1.9rem,4vw,3rem);text-transform:none" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+        <div data-reveal data-delay="0.15">
+          <p class="lede mt-6" style="max-width:36rem">{{ section.settings.bio }}</p>
+        </div>
+        <div data-reveal data-delay="0.3">
+          <div class="mt-8">
+            <p class="founder__name">{{ section.settings.name }}</p>
+            <p class="founder__role">{{ section.settings.role }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founder",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Portrait" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Founder" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Timeless Curation by" },
+    { "type": "textarea", "id": "bio", "label": "Bio", "default": "Dalljiet Kaur believes jewellery should make people feel seen, valued and connected. Her vision for Silver Play is to create a brand where silver feels luxurious, meaningful and relevant for modern life." },
+    { "type": "text", "id": "name", "label": "Name", "default": "Dalljiet Kaur" },
+    { "type": "text", "id": "role", "label": "Role", "default": "Founder, Silver Play" }
+  ],
+  "presets": [{ "name": "Founder" }]
+}
+{% endschema %}

@@ -1,0 +1,70 @@
+{%- comment -%}Page-level modal shells: quick view, 3D tilt viewer, reel player, note pop-out.{%- endcomment -%}
+
+<div class="modal" data-modal data-quickview aria-hidden="true">
+  <div class="modal__scrim" data-modal-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-label="{{ 'products.product.quick_view' | t }}">
+    <button type="button" class="modal__close" data-modal-close aria-label="{{ 'accessibility.close' | t }}">
+      {% render 'icon', name: 'close', size: 18 %}
+    </button>
+    <div class="modal__grid" data-quickview-body></div>
+  </div>
+</div>
+
+{%- if settings.pdp_show_3d -%}
+<div class="modal modal--tilt" data-modal data-tilt-modal aria-hidden="true">
+  <div class="modal__scrim" data-modal-close></div>
+  <button type="button" class="round-btn" data-modal-close aria-label="{{ 'accessibility.close' | t }}"
+          style="position:absolute;right:1.5rem;top:1.5rem;z-index:20;color:var(--sp-bone);border-color:rgba(242,232,208,.25)">
+    {% render 'icon', name: 'close', size: 18 %}
+  </button>
+  <p style="position:absolute;top:1.75rem;left:50%;transform:translateX(-50%);font-family:var(--font-display);font-size:.62rem;text-transform:uppercase;letter-spacing:.24em;color:rgba(242,232,208,.6)">
+    Move to tilt · Click image to zoom
+  </p>
+  <div class="modal__panel">
+    <div class="tilt-stage">
+      <div class="tilt-stage__inner"><img src="" alt=""></div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+<div class="modal modal--media" data-modal data-reel-modal aria-hidden="true">
+  <div class="modal__scrim" data-modal-close></div>
+  <div class="modal__panel">
+    <button type="button" class="modal__close" data-modal-close aria-label="{{ 'accessibility.close' | t }}">
+      {% render 'icon', name: 'close', size: 18 %}
+    </button>
+    <div style="position:relative;aspect-ratio:9/16;overflow:hidden;border-radius:calc(var(--radius-lg) - 3px);background:var(--sp-ink-2)">
+      {%- comment -%}
+        Shopify's assets/ folder does not accept .mp4, so no video ships with
+        the theme. Upload the brand film under Content > Files and paste its
+        URL into Theme settings > Social > "Brand video URL".
+      {%- endcomment -%}
+      {%- if settings.reel_video_url != blank -%}
+        <video src="{{ settings.reel_video_url }}" controls playsinline style="height:100%;width:100%;object-fit:cover"></video>
+      {%- else -%}
+        <div class="reel-modal__empty" style="display:flex;height:100%;align-items:center;justify-content:center;padding:2rem;text-align:center;color:var(--sp-cream)">
+          Add a brand video under Theme settings &rsaquo; Social &rsaquo; Brand video URL.
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<div class="note-modal" data-note-modal aria-hidden="true">
+  <div class="note-modal__scrim" data-note-close></div>
+  <div class="note-modal__panel" role="dialog" aria-modal="true">
+    <div class="note">
+      <div class="note__inner">
+        <span class="note__foxing-a" aria-hidden="true"></span>
+        <span class="note__foxing-b" aria-hidden="true"></span>
+        <div class="note__body">
+          <span class="note__mark" aria-hidden="true">&#10087;</span>
+          <p class="note__quote" data-note-quote-out></p>
+          <p class="note__by" data-note-by-out></p>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="link-cta link-cta--bone mt-4" data-note-close style="margin-inline:auto;display:flex">{{ 'accessibility.close' | t }}</button>
+  </div>
+</div>

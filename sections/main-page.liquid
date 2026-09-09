@@ -1,0 +1,23 @@
+{% render 'page-hero',
+  eyebrow: section.settings.eyebrow,
+  heading: page.title,
+  image: section.settings.banner_image,
+  description: section.settings.description %}
+
+<div style="background:var(--sp-bone);padding-block:4rem">
+  <div class="wrap article__body">
+    <div class="rte" data-reveal>{{ page.content }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "textarea", "id": "description", "label": "Banner description" },
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image" }
+  ]
+}
+{% endschema %}

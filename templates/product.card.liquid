@@ -1,0 +1,5 @@
+{%- comment -%}
+  Alternate product template used by theme.js's recently-viewed fetch
+  (`/products/<handle>?view=card`). Emits just the card markup.
+{%- endcomment -%}
+{% layout none %}{% render 'product-card', product: product %}

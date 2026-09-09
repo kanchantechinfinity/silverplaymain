@@ -1,0 +1,30 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ shop.name }} — Gift card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="wrap wrap--tight text-center" style="padding-block:5rem">
+      <p class="eyebrow">{{ shop.name }}</p>
+      <h1 class="h-sec mt-4">Gift card</h1>
+      <div class="gilt gilt--lg mt-8" style="max-width:26rem;margin-inline:auto">
+        <div class="gilt__inner" style="padding:2rem">
+          <p style="font-family:var(--font-display);font-size:2rem">{{ gift_card.initial_value | money }}</p>
+          {%- if gift_card.expired -%}<p class="lede mt-2">Expired</p>{%- endif -%}
+          <img src="{{ gift_card.qr_identifier }}" alt="" class="mt-6" style="margin-inline:auto">
+          <p class="mt-4" style="font-family:var(--font-display);letter-spacing:.2em">{{ gift_card.code | format_code }}</p>
+          <p class="lede mt-2" style="font-size:.85rem">Balance: {{ gift_card.balance | money }}</p>
+        </div>
+      </div>
+      <a href="{{ shop.url }}" class="btn btn--ink mt-8">Shop {{ shop.name }}</a>
+    </main>
+  </body>
+</html>

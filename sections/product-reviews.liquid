@@ -1,0 +1,79 @@
+{%- comment -%}
+  Ratings summary. Reads the standard reviews.rating / reviews.rating_count
+  metafields any Shopify review app writes; the per-star breakdown comes from
+  custom.rating_breakdown (list.number, 5 down to 1) when an app supplies one.
+  With no review data at all only the honest empty state renders.
+{%- endcomment -%}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value.rating | default: 0
+  assign count = product.metafields.reviews.rating_count.value | default: 0
+  assign breakdown = product.metafields.custom.rating_breakdown.value
+-%}
+<section id="reviews" style="scroll-margin-top:7rem;border-top:1px solid var(--sp-line);background:var(--sp-bone);padding-block:5rem">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>Ratings &amp; Reviews</p>
+
+    {%- if rating > 0 -%}
+      <div class="reviews__grid">
+        <div class="reviews__avg">
+          <p>{{ rating }}</p>
+          {% render 'stars', rating: rating, size: 16 %}
+          <p class="lede mt-2" style="font-size:.85rem">Based on {{ count }} ratings</p>
+        </div>
+
+        {%- if breakdown != blank -%}
+          <div class="reviews__bars">
+            {%- for c in breakdown -%}
+              {%- liquid
+                assign stars = 5 | minus: forloop.index0
+                assign pct = 0
+                if count > 0
+                  assign pct = c | times: 100.0 | divided_by: count | round
+                endif
+              -%}
+              <div class="reviews__bar">
+                <span>{{ stars }}</span>
+                <span class="reviews__track"><span class="reviews__fill" style="width: {{ pct }}%"></span></span>
+                <span class="reviews__pct">{{ pct }}%</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div></div>
+        {%- endif -%}
+
+        {%- if product.media[1] -%}
+          <div class="gilt" style="width:220px;margin-inline:auto">
+            <div class="gilt__inner" style="aspect-ratio:4/3;background:var(--sp-bone-2)">
+              <img src="{{ product.media[1].preview_image | image_url: width: 520 }}" alt="" loading="lazy" width="520" height="390" style="height:100%;width:100%;object-fit:cover">
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="reviews__empty">
+      <p style="font-family:var(--font-display);font-size:.95rem;color:rgba(36,26,16,.7)">{{ section.settings.empty_title }}</p>
+      <p class="lede mt-2" style="font-size:.85rem">{{ section.settings.empty_body }}</p>
+    </div>
+
+    {%- comment -%}App blocks let a review app inject its own review list here.{%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        <div class="mt-8" {{ block.shopify_attributes }}>{% render block %}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ratings summary",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "empty_title", "label": "Empty state title", "default": "No written reviews yet" },
+    { "type": "text", "id": "empty_body", "label": "Empty state body", "default": "Be the first to share how you wear this piece." }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

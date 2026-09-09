@@ -1,0 +1,36 @@
+<div class="wrap" style="padding-top:9rem;padding-bottom:5rem">
+  <p class="eyebrow">{{ 'customer.account.title' | t }}</p>
+  <h1 class="h-sec mt-3">{{ customer.name }}</h1>
+  <p class="mt-4"><a href="{{ routes.account_addresses_url }}" class="link-cta">{{ 'customer.account.view_addresses' | t }} <span>&rarr;</span></a></p>
+  <p class="mt-2"><a href="{{ routes.account_logout_url }}" class="link-cta">Log out <span>&rarr;</span></a></p>
+
+  <h2 class="h-sec--sm mt-12">{{ 'customer.orders.title' | t }}</h2>
+  {%- paginate customer.orders by 20 -%}
+    {%- if customer.orders.size == 0 -%}
+      <p class="lede mt-4">{{ 'customer.orders.none' | t }}</p>
+    {%- else -%}
+      <table class="cart-table mt-6">
+        <thead>
+          <tr>
+            <th>{{ 'customer.orders.order_number' | t }}</th>
+            <th>{{ 'customer.orders.date' | t }}</th>
+            <th>{{ 'customer.orders.payment_status' | t }}</th>
+            <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+            <th style="text-align:right">{{ 'customer.orders.total' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for order in customer.orders -%}
+            <tr>
+              <td><a href="{{ order.customer_url }}" class="link-cta">{{ order.name }}</a></td>
+              <td>{{ order.created_at | date: '%-d %b %Y' }}</td>
+              <td>{{ order.financial_status_label }}</td>
+              <td>{{ order.fulfillment_status_label }}</td>
+              <td style="text-align:right">{{ order.total_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>

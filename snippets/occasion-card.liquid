@@ -1,0 +1,25 @@
+{%- liquid
+  assign col = collections[block.settings.collection]
+  assign img = block.settings.image
+  if img == blank
+    assign img = col.image
+  endif
+  if img == blank
+    assign img = col.products.first.featured_media.preview_image
+  endif
+  assign title = block.settings.title | default: col.title
+-%}
+<div class="occasion__cell" style="flex: {{ flex }}" {{ block.shopify_attributes }}>
+  <a href="{{ col.url | default: routes.collections_url }}" class="occ-card{% if wide %} occ-card--wide{% endif %}">
+    {%- if img -%}
+      <img src="{{ img | image_url: width: 900 }}" alt="{{ title | escape }}" loading="lazy" width="900" height="1100">
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag: '' }}
+    {%- endif -%}
+    <span class="occ-card__scrim" aria-hidden="true"></span>
+    <span class="occ-card__foot">
+      <p>{{ title }}</p>
+      <span class="occ-card__go" aria-hidden="true">&rarr;</span>
+    </span>
+  </a>
+</div>

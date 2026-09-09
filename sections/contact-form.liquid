@@ -1,0 +1,97 @@
+{%- comment -%}
+  Contact page: info cards + Shopify's native contact_form (replaces the
+  source's mailto handoff, which existed only because that build had no backend).
+{%- endcomment -%}
+{% render 'page-hero',
+  eyebrow: section.settings.eyebrow,
+  heading: section.settings.heading,
+  image: section.settings.banner_image,
+  description: section.settings.description %}
+
+<div class="wrap wrap--narrow" style="max-width:1300px;padding-block:4rem">
+  <div class="contact__grid">
+    <div data-reveal>
+      <div class="infocard">
+        <span class="infocard__glyph" aria-hidden="true">&#9993;</span>
+        <div>
+          <p class="infocard__label">Email Us</p>
+          <a href="mailto:{{ settings.brand_email }}" class="mt-2" style="font-family:var(--font-display);font-size:1.05rem;color:var(--sp-gold-deep)">{{ settings.brand_email }}</a>
+        </div>
+      </div>
+      <div class="infocard">
+        <span class="infocard__glyph" aria-hidden="true">&#9719;</span>
+        <div>
+          <p class="infocard__label">Hours</p>
+          <p class="mt-2" style="font-family:var(--font-body);color:rgba(36,26,16,.7)">{{ settings.brand_hours }}</p>
+        </div>
+      </div>
+      <div class="infocard">
+        <span class="infocard__glyph" aria-hidden="true">&#10022;</span>
+        <div>
+          <p class="infocard__label">Follow Along</p>
+          <div class="mt-2" style="display:flex;gap:1rem;flex-wrap:wrap">
+            {%- if settings.social_instagram != blank -%}
+              <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener noreferrer" style="color:var(--sp-gold-deep);text-decoration:underline;text-underline-offset:4px">Instagram</a>
+            {%- endif -%}
+            {%- if settings.social_facebook != blank -%}
+              <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener noreferrer" style="color:var(--sp-gold-deep);text-decoration:underline;text-underline-offset:4px">Facebook</a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+      {%- if page.content != blank -%}<div class="rte mt-8">{{ page.content }}</div>{%- endif -%}
+    </div>
+
+    <div data-reveal="right" data-delay="0.1">
+      <div class="gilt gilt--lg">
+        <div class="gilt__inner" style="padding:2rem">
+          {% form 'contact' %}
+            {%- if form.posted_successfully? -%}
+              <p class="lede" style="color:var(--sp-gold-deep)">{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <div class="mt-2">
+                <p class="field-label">{{ 'contact.form.error_heading' | t }}</p>
+                <ul class="rte">{%- for field in form.errors -%}<li>{{ form.errors.messages[field] }}</li>{%- endfor -%}</ul>
+              </div>
+            {%- endif -%}
+
+            <div style="display:grid;gap:1.25rem;grid-template-columns:repeat(2,minmax(0,1fr))">
+              <div>
+                <label class="field-label" for="ContactName">{{ 'contact.form.name' | t }} *</label>
+                <input class="field" id="ContactName" type="text" name="contact[name]" required value="{{ form.name }}">
+              </div>
+              <div>
+                <label class="field-label" for="ContactEmail">{{ 'contact.form.email' | t }} *</label>
+                <input class="field" id="ContactEmail" type="email" name="contact[email]" required value="{{ form.email }}">
+              </div>
+            </div>
+            <div class="mt-5">
+              <label class="field-label" for="ContactSubject">{{ 'contact.form.subject' | t }}</label>
+              <input class="field" id="ContactSubject" type="text" name="contact[subject]">
+            </div>
+            <div class="mt-5">
+              <label class="field-label" for="ContactBody">{{ 'contact.form.message' | t }} *</label>
+              <textarea class="field" id="ContactBody" name="contact[body]" rows="5" required>{{ form.body }}</textarea>
+            </div>
+            <button type="submit" class="btn btn--ink mt-6">{{ 'contact.form.send' | t }} <span class="btn__arrow">&rarr;</span></button>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get in Touch" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We'd Love to Hear from You" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Silver Play Studio — handcrafted 925 silver jewellery from the heart of Jaipur. We respond to all queries within 24 hours." },
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image" }
+  ],
+  "presets": [{ "name": "Contact form" }]
+}
+{% endschema %}

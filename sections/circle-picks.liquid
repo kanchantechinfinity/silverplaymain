@@ -1,0 +1,64 @@
+{%- comment -%}
+  Compact category-strip band ("Kavach" in the source): heading + tagline on the
+  left, a draggable row of gold-ringed circular product picks on the right.
+  Mobile falls back to a continuous marquee so no drag is needed.
+{%- endcomment -%}
+{%- assign col = collections[section.settings.collection] -%}
+<section class="wrap" style="padding-block: 6rem">
+  <div class="kavach heritage-sec on-dark">
+    {% render 'heritage-bg',
+      image: section.settings.bg_image,
+      fallback: 'vanity-mood.jpg',
+      wash: 'linear-gradient(to right, #241a10, rgba(36,26,16,.85) 50%, rgba(36,26,16,.55))' %}
+
+    <div class="kavach__text">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="mt-3" style="font-size:clamp(1.6rem,3vw,2.2rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+      {%- if section.settings.lede != blank -%}
+        <p class="lede mt-3" style="max-width:20rem;font-size:.95rem" data-reveal data-delay="0.15">{{ section.settings.lede }}</p>
+      {%- endif -%}
+      {%- if col != blank -%}
+        <div data-reveal data-delay="0.25">
+          <a href="{{ col.url }}" class="link-cta link-cta--bone mt-6">{{ section.settings.cta_label }} <span>&rarr;</span></a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="kavach__viewport">
+      <div class="kavach__rail" data-drag-rail>
+        {%- for product in col.products limit: section.settings.count -%}
+          <div class="kavach__pick">
+            <a href="{{ product.url }}" class="kavach__circle">
+              {%- if product.featured_media -%}
+                <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" width="400" height="400">
+              {%- endif -%}
+              <span class="photo-vignette" aria-hidden="true"></span>
+            </a>
+            <p>{{ product.metafields.custom.chip.value | default: product.type | default: product.title | truncate: 22 }}</p>
+          </div>
+        {%- else -%}
+          {%- for i in (1..6) -%}
+            <div class="kavach__pick"><span class="kavach__circle">{{ 'product-1' | placeholder_svg_tag: '' }}</span></div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Circle picks strip",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Edit" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Kavach" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Earthy stones for strength, grounding, courage and quiet power — Tiger Eye, Blood Stone, Black Banded Agate and more, set in 925 sterling silver as a protective piece worn close." },
+    { "type": "text", "id": "cta_label", "label": "Link label", "default": "Shop The Edit" },
+    { "type": "range", "id": "count", "min": 4, "max": 20, "step": 1, "label": "Picks shown", "default": 10 },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
+  ],
+  "presets": [{ "name": "Circle picks strip" }]
+}
+{% endschema %}

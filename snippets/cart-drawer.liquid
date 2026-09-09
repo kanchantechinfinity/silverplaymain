@@ -1,0 +1,10 @@
+{%- if settings.cart_drawer_enabled -%}
+<div class="cart-drawer" data-cart-drawer aria-hidden="true">
+  <div class="cart-drawer__scrim" data-cart-close></div>
+  <aside class="cart-drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'cart.general.title' | t }}">
+    <div data-cart-drawer-inner style="display:flex;flex-direction:column;height:100%">
+      {% render 'cart-drawer-contents' %}
+    </div>
+  </aside>
+</div>
+{%- endif -%}

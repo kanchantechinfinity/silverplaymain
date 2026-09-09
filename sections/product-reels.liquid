@@ -1,0 +1,77 @@
+{%- comment -%}
+  "Loved By Creators" — a draggable rail of 9:16 tiles. Instagram Reels can't
+  be embedded without an app, so each tile opens the brand video modal instead.
+  Tiles are merchant-supplied blocks, falling back to a collection's photos.
+{%- endcomment -%}
+{%- assign col = collections[section.settings.collection] -%}
+<section class="heritage-sec sec--sm on-dark" style="background:var(--sp-ink)">
+  {% render 'heritage-bg', image: section.settings.bg_image, fallback: 'story-veena.jpg', wash: 'rgba(36,26,16,0.82)' %}
+
+  <div class="wrap">
+    <div class="text-center">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="h-sec--sm mt-3" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+      <div data-reveal data-delay="0.12">
+        <p class="lede mt-4" style="margin-inline:auto;max-width:28rem;font-size:.95rem">{{ section.settings.lede }}</p>
+      </div>
+    </div>
+
+    <div class="mt-12" style="width:100%;overflow:hidden">
+      <div class="reels__rail" data-drag-rail>
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <button type="button" class="reels__tile" data-reel-open {{ block.shopify_attributes }}>
+              <span class="reels__inner">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 500 }}" alt="" loading="lazy" width="500" height="889">
+                {%- endif -%}
+                <span class="reels__scrim" aria-hidden="true"></span>
+                <span class="reels__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
+                <span class="reels__handle">@{{ settings.instagram_handle }}</span>
+              </span>
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for p in col.products limit: 8 -%}
+            <button type="button" class="reels__tile" data-reel-open>
+              <span class="reels__inner">
+                {%- if p.featured_media -%}
+                  <img src="{{ p.featured_media | image_url: width: 500 }}" alt="{{ p.title | escape }}" loading="lazy" width="500" height="889">
+                {%- endif -%}
+                <span class="reels__scrim" aria-hidden="true"></span>
+                <span class="reels__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
+                <span class="reels__handle">@{{ settings.instagram_handle }}</span>
+              </span>
+            </button>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if settings.social_instagram != blank -%}
+      <div class="center-cta" data-reveal data-delay="0.15">
+        <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline-gold" style="color:rgba(242,232,208,.7)">
+          See More On Instagram
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Loved by creators",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In The Wild" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved By Creators" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Real Silver Play pieces, styled by the people who wear them." },
+    { "type": "collection", "id": "collection", "label": "Fallback collection" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
+  ],
+  "blocks": [
+    { "type": "tile", "name": "Tile", "settings": [{ "type": "image_picker", "id": "image", "label": "Image (9:16)" }] }
+  ],
+  "presets": [{ "name": "Loved by creators" }]
+}
+{% endschema %}

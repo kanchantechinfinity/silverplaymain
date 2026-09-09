@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": { "type": "main-product", "settings": { "show_dynamic_checkout": true } },
+    "box_contents": {
+      "type": "product-box-contents",
+      "blocks": {
+        "b1": { "type": "item", "settings": { "icon": "gem", "title": "Your Silver Play Piece", "copy": "Individually assayed and laser-hallmarked before it ships." } },
+        "b2": { "type": "item", "settings": { "icon": "certificate", "title": "BIS Hallmark Certificate", "copy": "A digital QR card verifying purity and provenance." } },
+        "b3": { "type": "item", "settings": { "icon": "pouch", "title": "Anti-Tarnish Pouch", "copy": "Airtight storage that keeps the shine for years." } },
+        "b4": { "type": "item", "settings": { "icon": "cloth", "title": "Silver Polishing Cloth", "copy": "For the gentle at-home clean between wears." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": { "eyebrow": "Unboxing", "heading": "What's Inside The Box" }
+    },
+    "paired": { "type": "product-paired-with", "settings": { "eyebrow": "Complete The Look", "heading": "Paired Well With" } },
+    "reviews": { "type": "product-reviews", "settings": {} },
+    "reels": { "type": "product-reels", "settings": { "eyebrow": "In The Wild", "heading": "Loved By Creators" } },
+    "related": { "type": "related-products", "settings": { "heading": "Similar Products", "count": 5 } },
+    "recent": { "type": "recently-viewed", "settings": { "heading": "Recently Viewed" } },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": { "type": "faq", "settings": { "question": "How long does delivery take?", "answer": "Orders are dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free." } },
+        "q2": { "type": "faq", "settings": { "question": "What is the return policy?", "answer": "We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered — reported within 24 hours of delivery with photos or an unboxing video." } },
+        "q3": { "type": "faq", "settings": { "question": "How do I care for my silver jewellery?", "answer": "Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions, and water. Wipe gently with a soft cloth after wearing." } },
+        "q4": { "type": "faq", "settings": { "question": "Why is silver called sterling silver?", "answer": "Sterling silver is 92.5% pure silver blended with 7.5% other metals for strength — which is why every piece is stamped '925'." } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"],
+      "settings": { "eyebrow": "Good To Know", "heading": "Frequently Asked" }
+    }
+  },
+  "order": ["main", "box_contents", "paired", "reviews", "reels", "related", "recent", "faq"]
+}

@@ -1,0 +1,86 @@
+{%- comment -%}
+  "Effortless Elegance" — text + deckle-edged preview on the left, a hover
+  thumbnail stack in the middle, a looping video on the right. Hovering a
+  thumbnail crossfades the preview (theme.js -> initElegance).
+{%- endcomment -%}
+{%- assign col = collections[section.settings.collection] -%}
+<section class="heritage-sec sec--sm" style="background: var(--sp-bone-2)" data-elegance>
+  {% render 'heritage-bg',
+    image: section.settings.bg_image,
+    fallback: 'elegance-lotus.jpg',
+    wash: 'rgba(232,216,179,0.75)' %}
+
+  <div class="wrap">
+    <div class="elegance__grid">
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="h-sec mt-4" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+        <div data-reveal data-delay="0.15">
+          <p class="lede mt-5" style="max-width:24rem;font-size:1rem">{{ section.settings.lede }}</p>
+        </div>
+        {%- if col != blank -%}
+          <div data-reveal data-delay="0.3">
+            <a href="{{ col.url }}" class="link-cta mt-6">{{ section.settings.cta_label }} <span>&rarr;</span></a>
+          </div>
+        {%- endif -%}
+
+        <div data-reveal data-delay="0.4">
+          <div class="elegance__preview">
+            {%- for product in col.products limit: section.settings.count -%}
+              {%- if product.featured_media -%}
+                <img data-eleg-preview class="{% if forloop.first %}is-active{% endif %}"
+                     src="{{ product.featured_media | image_url: width: 800 }}"
+                     alt="{{ product.title | escape }}" loading="lazy" width="800" height="450">
+              {%- endif -%}
+            {%- endfor -%}
+            <span class="photo-vignette" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="elegance__thumbs" data-stagger="0.09">
+        {%- for product in col.products limit: section.settings.count -%}
+          <a href="{{ product.url }}" class="elegance__thumb{% if forloop.first %} is-active{% endif %}"
+             data-eleg-thumb aria-label="View {{ product.title | escape }}">
+            {%- if product.featured_media -%}
+              <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" width="400" height="500">
+            {%- endif -%}
+            <span class="photo-vignette" aria-hidden="true"></span>
+          </a>
+        {%- endfor -%}
+      </div>
+
+      <div class="elegance__video">
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '900x' }}
+        {%- elsif section.settings.video_url != blank -%}
+          <video src="{{ section.settings.video_url }}" autoplay muted loop playsinline></video>
+        {%- elsif section.settings.video_image != blank -%}
+          <img src="{{ section.settings.video_image | image_url: width: 900 }}" alt="" loading="lazy" width="900" height="1200">
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: '' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Edit with video",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Edit" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Effortless Elegance" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Perfect for women who love Indian silhouettes, celebrity inspired ethnic styling, statement silver and looks that feel graceful but not predictable." },
+    { "type": "text", "id": "cta_label", "label": "Link label", "default": "Shop The Edit" },
+    { "type": "range", "id": "count", "min": 3, "max": 6, "step": 1, "label": "Thumbnails", "default": 4 },
+    { "type": "video", "id": "video", "label": "Video" },
+    { "type": "url", "id": "video_url", "label": "Video URL (MP4)" },
+    { "type": "image_picker", "id": "video_image", "label": "Video fallback image" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
+  ],
+  "presets": [{ "name": "Edit with video" }]
+}
+{% endschema %}

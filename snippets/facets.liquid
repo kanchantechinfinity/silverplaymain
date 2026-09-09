@@ -1,0 +1,59 @@
+{%- comment -%}
+  Storefront filter panel, driven by Shopify's native filtering (Search &
+  Discovery). Replaces the source's hand-rolled type/vibe/price filters:
+  "Category" and "Shop by Vibe" become real product-type / collection /
+  tag filters the merchant configures in the admin.
+  Params: results (collection or search object), id_suffix
+{%- endcomment -%}
+<form class="filters" data-filter-form method="get" action="{{ results_url }}">
+  {%- if results_terms != blank -%}<input type="hidden" name="q" value="{{ results_terms | escape }}">{%- endif -%}
+  {%- if sort_by != blank -%}<input type="hidden" name="sort_by" value="{{ sort_by }}">{%- endif -%}
+
+  <p class="eyebrow" style="margin-bottom:1.5rem;color:var(--sp-gold-mid)">{{ 'products.facets.filter_and_sort' | t }}</p>
+
+  {%- for filter in results.filters -%}
+    <div class="filters__group">
+      {%- case filter.type -%}
+        {%- when 'price_range' -%}
+          <p class="filters__label">{{ 'products.facets.price_up_to' | t }}</p>
+          <input class="filters__range" type="range"
+                 name="{{ filter.max_value.param_name }}"
+                 min="0" max="{{ filter.range_max }}" step="100"
+                 value="{{ filter.max_value.value | default: filter.range_max }}"
+                 aria-label="{{ 'products.facets.price_up_to' | t }}">
+          <p class="filters__value" data-range-output>
+            {{ filter.max_value.value | default: filter.range_max | money_without_trailing_zeros }}
+          </p>
+
+        {%- else -%}
+          <p class="filters__label">{{ filter.label }}</p>
+          <div class="filters__list">
+            {%- for value in filter.values -%}
+              <label class="check">
+                <span class="check__box">
+                  <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value | escape }}"
+                         {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                  <span class="check__fill" aria-hidden="true"></span>
+                  <svg class="check__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.2 6.2 11.4 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                {{ value.label }} ({{ value.count }})
+              </label>
+            {%- endfor -%}
+          </div>
+      {%- endcase -%}
+    </div>
+
+    {%- unless forloop.last -%}
+      <div class="filters__divider" aria-hidden="true">
+        <span></span><span class="filters__diamond"></span><span></span>
+      </div>
+    {%- endunless -%}
+  {%- else -%}
+    <p class="lede" style="color:rgba(242,232,208,.6);font-size:.85rem">
+      Install and configure Shopify's free Search &amp; Discovery app to expose filters here.
+    </p>
+  {%- endfor -%}
+
+  <noscript><button type="submit" class="btn btn--bone btn--block mt-6">{{ 'products.facets.apply' | t }}</button></noscript>
+  <a href="{{ results_url }}" class="link-cta link-cta--bone mt-6">{{ 'products.facets.clear_all' | t }}</a>
+</form>

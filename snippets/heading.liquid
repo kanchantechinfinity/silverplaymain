@@ -1,0 +1,16 @@
+{%- comment -%}
+  Eyebrow + split-animated heading + optional lede.
+  Params: eyebrow, heading, lede, class, tag, align, dark
+{%- endcomment -%}
+{%- liquid
+  assign t = tag | default: 'h2'
+-%}
+{%- if eyebrow != blank -%}
+  <p class="eyebrow" data-reveal>{{ eyebrow }}</p>
+{%- endif -%}
+{%- if heading != blank -%}
+  <{{ t }} class="{{ class | default: 'h-sec' }} mt-4" data-split data-reveal="none">{{ heading }}</{{ t }}>
+{%- endif -%}
+{%- if lede != blank -%}
+  <p class="lede mt-6" data-reveal data-delay="0.12">{{ lede }}</p>
+{%- endif -%}

@@ -1,0 +1,101 @@
+{%- comment -%}
+  Product tile.
+  Params:
+    product   — a product object (required)
+    style     — 'gilt' (default, used on PLP/related) or 'heritage' (deckle paper, editorial grids)
+    lazy      — 'eager' for above-the-fold tiles
+    sizes     — responsive sizes attribute
+{%- endcomment -%}
+{%- liquid
+  assign card_style = style | default: 'gilt'
+  assign img_sizes = sizes | default: '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 22vw'
+  assign loading = 'lazy'
+  if lazy == 'eager'
+    assign loading = 'eager'
+  endif
+  assign main_image = product.featured_media.preview_image
+  assign alt_image = blank
+  if product.media.size > 1 and settings.card_show_second_image
+    assign alt_image = product.media[1].preview_image
+  endif
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+    assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+  endif
+  assign rating_value = product.metafields.reviews.rating.value.rating | default: 0
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign chip = product.metafields.custom.chip.value | default: product.type
+-%}
+
+<a href="{{ product.url }}" class="card {% if card_style == 'heritage' %}card--heritage{% endif %}" data-product-card>
+  <div class="card__frame">
+    {%- if card_style == 'heritage' -%}<div class="card__paper">{%- endif -%}
+      {%- if card_style == 'heritage' -%}
+        {% render 'icon', name: 'corner-mark', class: 'card__cornermark' %}
+      {%- endif -%}
+
+      <div class="card__media">
+        {%- if main_image -%}
+          <img
+            class="card__img card__img--main{% if alt_image != blank %} has-alt{% endif %}"
+            src="{{ main_image | image_url: width: 800 }}"
+            srcset="{{ main_image | image_url: width: 400 }} 400w, {{ main_image | image_url: width: 800 }} 800w, {{ main_image | image_url: width: 1200 }} 1200w"
+            sizes="{{ img_sizes }}"
+            alt="{{ product.featured_media.alt | escape | default: product.title | escape }}"
+            width="{{ main_image.width }}" height="{{ main_image.height }}"
+            loading="{{ loading }}">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'card__img card__img--main' }}
+        {%- endif -%}
+
+        {%- if alt_image != blank -%}
+          <img class="card__img card__img--alt"
+            src="{{ alt_image | image_url: width: 800 }}"
+            sizes="{{ img_sizes }}" alt="" aria-hidden="true" loading="lazy"
+            width="{{ alt_image.width }}" height="{{ alt_image.height }}">
+        {%- endif -%}
+
+        <span class="photo-vignette" aria-hidden="true"></span>
+
+        {%- if on_sale and product.available -%}
+          {%- assign sale_lines = discount | append: '%,Off' | split: ',' -%}
+          {% render 'seal', lines: sale_lines, class: 'card__badge' %}
+        {%- endif -%}
+        {%- unless product.available -%}
+          {%- assign sold_lines = 'Sold,Out' | split: ',' -%}
+          {% render 'seal', lines: sold_lines, class: 'card__badge' %}
+        {%- endunless -%}
+
+        {%- if settings.card_show_wishlist -%}
+          <button type="button" class="icon-btn icon-btn--wish" data-wishlist="{{ product.handle }}"
+                  aria-pressed="false" aria-label="{{ 'accessibility.wishlist' | t }}">
+            {% render 'icon', name: 'heart', size: 16 %}
+          </button>
+        {%- endif -%}
+        {%- if settings.card_show_quick_view -%}
+          <button type="button" class="icon-btn icon-btn--quick" data-quickview-open="{{ product.url }}"
+                  aria-label="{{ 'products.product.quick_view' | t }}">
+            {% render 'icon', name: 'eye', size: 16 %}
+          </button>
+        {%- endif -%}
+      </div>
+
+      <div class="card__body">
+        <h3 class="card__title">{{ product.title }}</h3>
+        <p class="card__price">
+          <span>{{ product.price | money }}</span>
+          {%- if on_sale -%}<span class="card__was">{{ product.compare_at_price | money }}</span>{%- endif -%}
+          {%- if settings.card_show_rating and rating_value > 0 -%}
+            <span class="card__dot" aria-hidden="true"></span>
+            <span style="display:flex;align-items:center;gap:.25rem">
+              {% render 'stars', rating: rating_value, size: 9 %}
+              <span style="font-family:var(--font-body);font-size:.62rem;font-weight:400;color:var(--sp-gold-deep)">({{ rating_count }})</span>
+            </span>
+          {%- endif -%}
+        </p>
+        <span class="card__buy">{{ settings.card_cta_label | default: 'Buy Now' }}</span>
+      </div>
+    {%- if card_style == 'heritage' -%}</div>{%- endif -%}
+  </div>
+</a>

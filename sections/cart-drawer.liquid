@@ -1,0 +1,10 @@
+{%- comment -%}
+  Section shell used only by theme.js's `/?section_id=cart-drawer` refresh.
+  Not placed in any template.
+{%- endcomment -%}
+<div data-cart-drawer-inner style="display:flex;flex-direction:column;height:100%">
+  {% render 'cart-drawer-contents' %}
+</div>
+{% schema %}
+{ "name": "Cart drawer" }
+{% endschema %}

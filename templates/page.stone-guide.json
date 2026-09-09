@@ -1,0 +1,355 @@
+{
+  "sections": {
+    "stones": {
+      "type": "stone-explorer",
+      "blocks": {
+        "s1": {
+          "type": "stone",
+          "settings": {
+            "name": "Rose Quartz",
+            "tagline": "The stone of gentle love and the open heart.",
+            "meaning": "Rose Quartz embodies tenderness, self-acceptance, and emotional healing. Associated with the heart chakra, it promotes friendship and calm energy. Historically valued as a symbol of love across ancient civilizations.",
+            "properties": "Encourages emotional healing and self-love\nPromotes tenderness and softness in relationships\nSupports calm and peaceful meditation practices\nEnhances skin vitality (historical belief)\nStrengthens friendship and compassion",
+            "how_to_wear": "Position closer to the heart using longer chains, or layer with delicate silver pieces for romantic everyday styling.",
+            "care": "Wipe with a soft dry cloth regularly. Protect from perfume, hairspray, and extended water exposure, and store separately from harder stones.",
+            "when_to_wear": "Weddings, anniversaries, first dates, romantic gifts, self-care rituals",
+            "collection": "rose-quartz"
+          }
+        },
+        "s2": {
+          "type": "stone",
+          "settings": {
+            "name": "Ocean Jasper",
+            "tagline": "Orbs of the sea, captured in stone.",
+            "meaning": "Ocean Jasper promotes calm and renewal, encouraging a positive, adaptable outlook. Its natural orbicular rings inspire patience and joy while grounding the wearer.",
+            "properties": "Encourages patience and joy\nPromotes calm and renewal\nSupports a positive, go-with-the-flow perspective\nEach piece is naturally unique\nSuits travel and new beginnings",
+            "how_to_wear": "Let the stone's lively patterns be the focal point; pair with simple jewelry to avoid competing aesthetics.",
+            "care": "Use a soft cloth, dry or slightly damp, and dry immediately after contact with water. Avoid soaking and harsh cleaners.",
+            "when_to_wear": "Travel, new beginnings, holidays, everyday grounding",
+            "collection": "ocean-jasper"
+          }
+        },
+        "s3": {
+          "type": "stone",
+          "settings": {
+            "name": "Tiger Eye",
+            "tagline": "Golden bands of courage and focus.",
+            "meaning": "Tiger Eye channels confidence and willpower, grounding scattered energy into decisive action. Prized since antiquity for promoting self-assurance and steady determination.",
+            "properties": "Enhances focus and clear decision-making\nBuilds confidence and courage\nGrounds dispersed energy into purposeful action\nOffers protection and bravery\nCreates a bold, polished presence",
+            "how_to_wear": "Pair with sterling silver in both ethnic and contemporary styles for striking warmth and impact.",
+            "care": "Wipe with a soft, dry cloth regularly. Avoid harsh chemicals and store separately from softer stones.",
+            "when_to_wear": "Interviews, presentations, exams, important meetings",
+            "collection": "tiger-eye"
+          }
+        },
+        "s4": {
+          "type": "stone",
+          "settings": {
+            "name": "Scolecite",
+            "tagline": "Quiet light for a peaceful mind.",
+            "meaning": "Scolecite promotes inner peace and restful sleep through its gentle, calming energy. This delicate zeolite mineral offers serene clarity for reflective moments and meditative practices.",
+            "properties": "Supports inner peace and emotional calm\nEncourages restful, quality sleep\nProvides gentle mental clarity\nAids meditation and mindfulness\nOffers refined, understated elegance",
+            "how_to_wear": "Its soft white luminescence pairs effortlessly with any outfit for a minimal, sophisticated aesthetic.",
+            "care": "Handle gently and clean only with a dry, soft cloth. Store separately from harder gemstones and keep away from water and chemicals.",
+            "when_to_wear": "Evenings, meditation, bedtime routines, calm reflective days",
+            "collection": "scolecite"
+          }
+        },
+        "s5": {
+          "type": "stone",
+          "settings": {
+            "name": "Blue Opal",
+            "tagline": "The serene blue of calm waters.",
+            "meaning": "Blue Opal promotes soothing communication and emotional calm. This stone encourages gentle self-expression and has symbolized hope and imagination across cultures for centuries.",
+            "properties": "Supports tranquil communication\nCultivates emotional serenity\nEnhances creative expression\nAssociated with hope and imagination\nIdeal for grounding and peaceful energy",
+            "how_to_wear": "Showcase its tranquil blue during daytime or summer occasions; wear solo or pair with cool-toned silver.",
+            "care": "Clean only with a soft, slightly damp cloth and dry gently. Avoid heat, harsh chemicals, and prolonged water exposure, as opal retains natural moisture.",
+            "when_to_wear": "Holidays, beach days, creative pursuits, calm conversations",
+            "collection": "blue-opal"
+          }
+        },
+        "s6": {
+          "type": "stone",
+          "settings": {
+            "name": "Dragon Blood",
+            "tagline": "Earthy green and fiery red, like ancient lore.",
+            "meaning": "Dragon Blood stone embodies courage and vitality, channeling grounded strength through its striking natural coloration. Associated with bold energy, it serves as a powerful ally for those seeking fortitude and rooted presence.",
+            "properties": "Enhances courage and personal strength\nPromotes vitality and energizing force\nGrounds and stabilizes during challenging periods\nSupports bold action and new ventures\nBuilds resilience and determination",
+            "how_to_wear": "Pair the rich green-and-red marbling with simple silver settings to let the stone's natural character dominate.",
+            "care": "Wipe with a soft, dry cloth regularly. Avoid harsh chemicals and store separately to maintain its polish.",
+            "when_to_wear": "Demanding workdays, physical training, new projects",
+            "collection": "dragon-blood"
+          }
+        },
+        "s7": {
+          "type": "stone",
+          "settings": {
+            "name": "Maligano Jasper",
+            "tagline": "Painterly swirls from the Indonesian earth.",
+            "meaning": "Maligano Jasper channels creativity and imagination while grounding the wearer in calm. Each stone's unique patterns inspire artistic expression and mindful presence.",
+            "properties": "Stimulates creativity and imagination\nProvides grounded, centering energy\nEnhances artistic vision and inspiration\nCollectible thanks to its unique druzy sparkle\nSupports statement-making confidence",
+            "how_to_wear": "Let the dramatic patterns shine — wear as a standalone pendant with minimal additional jewelry.",
+            "care": "Clean with a soft, dry cloth only. Store separately from harder stones to preserve surface integrity.",
+            "when_to_wear": "Creative projects, gallery visits, everyday statement wear",
+            "collection": "maligano-jasper"
+          }
+        },
+        "s8": {
+          "type": "stone",
+          "settings": {
+            "name": "Red Jasper",
+            "tagline": "The warm red of steady strength.",
+            "meaning": "Red Jasper grounds energy and builds courage. Ancient civilizations valued it as a protective amulet linked to stamina and endurance, making it a stone for quiet, steady confidence.",
+            "properties": "Enhances stamina and endurance\nPromotes grounding and stability\nBuilds courage and confidence\nOffers protection\nSupports everyday resilience",
+            "how_to_wear": "The deep brick-red pairs timelessly with silver in both ethnic and casual styles.",
+            "care": "Wipe with a soft cloth and avoid harsh chemicals; jasper is highly durable and low-maintenance.",
+            "when_to_wear": "Long workdays, travel, training, grounded everyday wear",
+            "collection": "red-jasper"
+          }
+        },
+        "s9": {
+          "type": "stone",
+          "settings": {
+            "name": "Chevron Amethyst",
+            "tagline": "Purple and white in striking V-bands.",
+            "meaning": "Chevron Amethyst promotes calm focus and mental clarity. Historically valued by royalty and clergy, it's linked to intuition and a settled mind.",
+            "properties": "Enhances mental clarity and focus\nSupports intuitive insight\nPromotes calm and emotional balance\nNatural V-shaped banding creates visual distinction\nConnects to meditative states",
+            "how_to_wear": "The crisp purple-and-white banding suits both formal occasions and relaxed everyday styling.",
+            "care": "Avoid prolonged direct sunlight to prevent fading; wipe with a soft dry cloth and keep away from harsh chemicals.",
+            "when_to_wear": "Study, meditation, evening events, focused work days",
+            "collection": "chevron-amethyst"
+          }
+        },
+        "s10": {
+          "type": "stone",
+          "settings": {
+            "name": "Shattuckite",
+            "tagline": "Deep celestial blue, rare and prized.",
+            "meaning": "Associated with clear communication, intuition, and truthful expression, this rare stone promotes authentic self-expression and inner clarity.",
+            "properties": "Enhances clear communication\nStrengthens intuition\nSupports truthful expression\nRare, collector-grade stone\nLuxurious aesthetic appeal",
+            "how_to_wear": "Wear as a refined pendant centerpiece against silver for maximum impact and elegance.",
+            "care": "Clean with a soft, dry cloth only; avoid water and chemicals. Store separately due to its softer nature.",
+            "when_to_wear": "Special occasions, creative work, speaking engagements",
+            "collection": "shattuckite"
+          }
+        },
+        "s11": {
+          "type": "stone",
+          "settings": {
+            "name": "Black Banded Agate",
+            "tagline": "Bold monochrome bands of grounding calm.",
+            "meaning": "Black Banded Agate promotes grounding, protection, and steady balance. Its naturally formed bands create a unique pattern in each stone, making it a versatile companion for cultivating calm confidence.",
+            "properties": "Grounding and stabilizing energy\nProtective qualities\nPromotes steady balance and confidence\nHard-wearing, suitable for daily wear\nNaturally unique band patterns",
+            "how_to_wear": "The neutral monochrome design pairs effortlessly with any outfit, day or evening.",
+            "care": "Wipe with a soft, dry cloth and avoid harsh chemicals to maintain its polish.",
+            "when_to_wear": "Work, travel, everyday occasions",
+            "collection": "black-banded-agate"
+          }
+        },
+        "s12": {
+          "type": "stone",
+          "settings": {
+            "name": "Wild Horse Magnesite",
+            "tagline": "Earthy freedom in brown and white patterns.",
+            "meaning": "Wild Horse Magnesite embodies grounding energy and emotional balance. Named for its striking pinto markings, it connects wearers to freedom and stability, ideal for natural, centered wellness.",
+            "properties": "Promotes grounding and emotional equilibrium\nEncourages free, uninhibited energy\nEnhances connection to earth elements\nSupports relaxation and natural rhythms\nAids stress relief during transitions",
+            "how_to_wear": "Pair with bohemian or natural aesthetic pieces; its soft brown-and-cream palette suits earthy, casual styling.",
+            "care": "Wipe gently with a soft, dry cloth only. Avoid water, perfume, and oils, since magnesite is porous and delicate.",
+            "when_to_wear": "Travel, outdoor activities, relaxed weekends, grounding rituals",
+            "collection": "wild-horse-magnesite"
+          }
+        },
+        "s13": {
+          "type": "stone",
+          "settings": {
+            "name": "Amazonite",
+            "tagline": "The soothing turquoise-green of still water.",
+            "meaning": "Amazonite embodies courage and truth, fostering calm communication and emotional balance. Its gentle energy promotes honest expression and inner peace during challenging conversations.",
+            "properties": "Encourages truthful communication\nPromotes emotional calm and serenity\nEnhances courage and self-expression\nBalances energy and reduces stress\nSupports creative endeavors",
+            "how_to_wear": "Pair with silver for a fresh color accent; its blue-green hue suits daytime elegance.",
+            "care": "Wipe with a soft dry cloth; avoid chemicals and water. Store separately from harder gemstones to prevent scratches.",
+            "when_to_wear": "Daytime, travel, creative work, calm conversations",
+            "collection": "amazonite"
+          }
+        },
+        "s14": {
+          "type": "stone",
+          "settings": {
+            "name": "Noreena Jasper",
+            "tagline": "Ancient desert strength grounded in earth.",
+            "meaning": "Noreena Jasper connects you to earth's resilience and grounding energy. This stone from Australia's ancient Pilbara region embodies stability and natural strength for daily centering.",
+            "properties": "Grounding and stabilizing energy\nPromotes resilience and durability\nEnhances connection to nature\nSupports everyday wear with strength\nUnique, one-of-a-kind patterns",
+            "how_to_wear": "Let its warm desert tones anchor earthy, layered looks as a focal statement piece.",
+            "care": "Wipe with a soft, dry cloth; avoid harsh chemicals to preserve the finish on this durable stone.",
+            "when_to_wear": "Travel, outdoor adventures, grounded everyday moments",
+            "collection": "noreena-jasper"
+          }
+        },
+        "s15": {
+          "type": "stone",
+          "settings": {
+            "name": "Mother of Pearl",
+            "tagline": "Iridescent shimmer from the sea.",
+            "meaning": "Associated with calm, intuition, and gentle protection, Mother of Pearl embodies a soothing, feminine energy that brings emotional balance and nurturing support.",
+            "properties": "Promotes intuition and emotional clarity\nOffers gentle protective energy\nCreates a luminous, timeless aesthetic\nSupports calm and tranquility\nEnhances refined elegance",
+            "how_to_wear": "Its pearly shimmer is timeless and bridal-friendly, ideal for soft, elegant looks.",
+            "care": "Wipe with a soft, dry cloth only. Avoid water, perfume, acids, chemicals, and contact with harder stones.",
+            "when_to_wear": "Weddings, festivities, gifting, refined everyday elegance",
+            "collection": "mother-of-pearl"
+          }
+        },
+        "s16": {
+          "type": "stone",
+          "settings": {
+            "name": "Pyrite",
+            "tagline": "Golden 'fool's gold' with a metallic gleam.",
+            "meaning": "Pyrite symbolizes abundance and confidence, channeling protective, energizing drive. Used since ancient times, from Incan mirrors to early fire-starting tools, this metallic stone has captivated civilizations for millennia.",
+            "properties": "Attracts abundance and prosperity\nBoosts confidence and personal power\nProvides protection and energetic shielding\nEnhances ambition and drive\nDistinctive metallic gold appearance",
+            "how_to_wear": "Wear as a standout pendant against silver for bold, modern impact.",
+            "care": "Wipe only with a soft, dry cloth. Keep completely dry, as iron content causes tarnishing with moisture exposure.",
+            "when_to_wear": "Work days, ambitious ventures, new projects, bold evening looks",
+            "collection": "pyrite"
+          }
+        },
+        "s17": {
+          "type": "stone",
+          "settings": {
+            "name": "Nellite",
+            "tagline": "Rare blend of two soothing minerals.",
+            "meaning": "Nellite promotes insight and calm focus through grounded intuition. Its unique combination of minerals offers collectors a stone valued for both its rarity and subtle sophistication.",
+            "properties": "Enhances insight and clarity\nSupports calm focus and emotional balance\nEncourages grounded intuition\nIdeal for reflective and creative pursuits\nPrized by collectors for its uniqueness",
+            "how_to_wear": "Its muted, swirling patterns suit understated statement pieces that don't overpower personal style.",
+            "care": "Wipe with a soft, dry cloth; avoid water and chemicals, and store apart from harder stones to preserve polish.",
+            "when_to_wear": "Reflective days, creative work sessions",
+            "collection": "nellite"
+          }
+        },
+        "s18": {
+          "type": "stone",
+          "settings": {
+            "name": "Pinolith Jasper",
+            "tagline": "Snowfall white scattered on dark stone.",
+            "meaning": "Pinolith embodies calm, self-reliance, and quiet strength. Its distinctive appearance grounds the wearer in composed, focused energy.",
+            "properties": "Promotes calm and composure\nEnhances self-reliance\nSupports quiet inner strength\nVisually grounding with striking contrast",
+            "how_to_wear": "The dramatic black-and-white pattern works beautifully with sterling silver for modern, monochrome looks.",
+            "care": "Wipe gently with a soft, dry cloth; avoid water and chemicals as the stone contains soft, porous elements.",
+            "when_to_wear": "Monochrome outfits, work settings, focused days",
+            "collection": "pinolith-jasper"
+          }
+        },
+        "s19": {
+          "type": "stone",
+          "settings": {
+            "name": "Purpurite",
+            "tagline": "Vivid violet, a collector's delight.",
+            "meaning": "Associated with confidence, freedom, and breaking from old patterns, Purpurite embodies transformation and bold self-expression through its intense natural violet color.",
+            "properties": "Intense natural violet color from manganese content\nRare and collectible gemstone\nSymbolizes confidence and liberation\nUnique tonal variation in every piece\nLuxurious aesthetic appeal",
+            "how_to_wear": "Wear as a bold, collectible centerpiece for special occasions and evening looks.",
+            "care": "Clean gently with a soft, dry cloth; avoid water and chemicals, and protect from impact as it is relatively soft.",
+            "when_to_wear": "Special occasions, bold evening looks, collector pieces",
+            "collection": "purpurite"
+          }
+        },
+        "s20": {
+          "type": "stone",
+          "settings": {
+            "name": "Blue Opal Eye",
+            "tagline": "A serene blue gaze in stone.",
+            "meaning": "Blue Opal Eye promotes calm, protection, and clear insight. Its distinctive eye pattern makes each piece uniquely captivating and meaningful for personal reflection.",
+            "properties": "Enhances tranquility and emotional calm\nOffers protective energy\nSupports gentle, clear perception\nEncourages creative expression\nIdeal for mindful moments",
+            "how_to_wear": "Showcase as a pendant where its striking eye-like pattern becomes the focal point.",
+            "care": "Clean with a soft, damp cloth and dry gently. Avoid heat and chemicals, since opal is delicate and water-sensitive.",
+            "when_to_wear": "Calm days, creative work, travel, meaningful gifts",
+            "collection": "blue-opal-eye"
+          }
+        },
+        "s21": {
+          "type": "stone",
+          "settings": {
+            "name": "Black Moonstone",
+            "tagline": "Smoky shimmer of new-moon nights.",
+            "meaning": "Associated with new beginnings, intuition, and gentle grounding, this stone's layered feldspar structure creates an adularescent glow, connecting it to lunar energy and inner reflection.",
+            "properties": "Supports new beginnings and fresh starts\nEnhances intuition and inner knowing\nProvides gentle grounding energy\nVersatile for both evening and daily wear\nEach piece is uniquely patterned",
+            "how_to_wear": "Its smoky shimmer works beautifully as a pendant for evening occasions or everyday styling.",
+            "care": "Wipe with a soft, dry cloth; avoid knocks, chemicals, and prolonged water exposure, since moonstone is moderately delicate.",
+            "when_to_wear": "New starts, evening wear, reflective moments, gifting",
+            "collection": "black-moonstone"
+          }
+        },
+        "s22": {
+          "type": "stone",
+          "settings": {
+            "name": "Zebra Jasper",
+            "tagline": "Bold black-and-white stripes of balance.",
+            "meaning": "Associated with equilibrium, motivation, and grounded optimism, Zebra Jasper promotes stability and positive energy in daily life.",
+            "properties": "Enhances balance and grounding\nBoosts motivation and drive\nPromotes optimism\nNaturally durable for everyday wear\nUniversally flattering aesthetic",
+            "how_to_wear": "The monochromatic striping pairs effortlessly with silver and any outfit, casual or formal.",
+            "care": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals; this stone is durable and designed for everyday wear.",
+            "when_to_wear": "Active days, work, travel",
+            "collection": "zebra-jasper"
+          }
+        },
+        "s23": {
+          "type": "stone",
+          "settings": {
+            "name": "Petrified Wood Jasper",
+            "tagline": "Ancient forests turned to stone.",
+            "meaning": "Petrified Wood connects wearers to deep time and earth's patience. It grounds energy and fosters mindfulness through its preserved natural history.",
+            "properties": "Grounding and stabilizing energy\nEncourages patience and inner peace\nStrengthens connection to nature\nPromotes mindfulness and presence\nDurable for everyday spiritual support",
+            "how_to_wear": "Pair with natural styling for earthy elegance; its warm grain patterns suit organic fashion aesthetics.",
+            "care": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals to preserve the stone's natural finish.",
+            "when_to_wear": "Travel, everyday grounding, nature appreciation, mindful days",
+            "collection": "petrified-wood-jasper"
+          }
+        },
+        "s24": {
+          "type": "stone",
+          "settings": {
+            "name": "Lace Agate",
+            "tagline": "Delicate lace-like patterns in stone.",
+            "meaning": "Lace Agate embodies joy and gentle encouragement. It promotes calm balance and uplifting energy, making it ideal for those seeking light-hearted positivity and emotional grounding.",
+            "properties": "Intricate, unique lace-like banding patterns\nHard-wearing and durable for daily wear\nPromotes joy and gentle encouragement\nSupports calm and emotional balance\nLow-maintenance and easy to care for",
+            "how_to_wear": "Pair with silver jewelry to enhance its delicate charm; the fine patterning suits soft, detailed designs.",
+            "care": "Wipe with a soft, dry cloth regularly. Avoid harsh chemicals; agate is naturally hardy and requires minimal maintenance.",
+            "when_to_wear": "Everyday wear, gifting occasions, uplifting light-hearted days",
+            "collection": "lace-agate"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s21",
+        "s22",
+        "s23",
+        "s24"
+      ],
+      "settings": {
+        "eyebrow": "Certified & Natural",
+        "heading": "The Stone Guide",
+        "description": "Every Silver Play pendant is set with a genuine natural stone. Hover or tap any stone on the left to read its full guide here — meaning, care and character, all on this one page."
+      }
+    }
+  },
+  "order": [
+    "stones"
+  ]
+}

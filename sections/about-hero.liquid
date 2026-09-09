@@ -1,0 +1,63 @@
+{%- comment -%}Full-bleed About hero with the four credential badges beneath it.{%- endcomment -%}
+<section class="about-hero" data-page-hero>
+  <div class="about-hero__media">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.heading | escape }}" width="2400" height="1400" fetchpriority="high">
+    {%- else -%}
+      <img src="{{ 'manuscript-panels.jpg' | asset_url }}" alt="" width="1600" height="1000">
+    {%- endif -%}
+  </div>
+  <div class="wrap pagehero__body">
+    <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+    <h1 class="mt-4" style="max-width:48rem;font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.02;color:var(--sp-bone)" data-split data-reveal="none">
+      {{ section.settings.heading }}
+    </h1>
+    {%- if section.blocks.size > 0 -%}
+      <div class="about-hero__badges">
+        {%- for block in section.blocks -%}
+          <div data-reveal data-delay="{{ forloop.index0 | times: 0.1 }}" {{ block.shopify_attributes }}>
+            <div class="about-badge">
+              <p class="about-badge__glyph" aria-hidden="true">{{ block.settings.glyph }}</p>
+              <p class="about-badge__label">{{ block.settings.label }}</p>
+              <p class="about-badge__sub">{{ block.settings.sub }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About hero",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Story" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Soul of Indian Silver" }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        { "type": "text", "id": "glyph", "label": "Glyph", "default": "✿" },
+        { "type": "text", "id": "label", "label": "Label", "default": "925" },
+        { "type": "text", "id": "sub", "label": "Sub-label", "default": "Sterling Silver" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About hero",
+      "blocks": [
+        { "type": "badge", "settings": { "glyph": "✿", "label": "925", "sub": "Sterling Silver" } },
+        { "type": "badge", "settings": { "glyph": "◈", "label": "Handcrafted", "sub": "By Skilled Karigars" } },
+        { "type": "badge", "settings": { "glyph": "❖", "label": "Stone-Led", "sub": "Jewellery" } },
+        { "type": "badge", "settings": { "glyph": "✦", "label": "Gift-Ready", "sub": "Premium Packaging" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

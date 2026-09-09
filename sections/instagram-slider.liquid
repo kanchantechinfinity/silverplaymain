@@ -1,0 +1,89 @@
+{%- comment -%}
+  Instagram-styled strip. A live Instagram feed needs an app, so this is a
+  block-based section the merchant fills with real post images + permalinks.
+  With no blocks set it falls back to a collection's product photography.
+{%- endcomment -%}
+{%- liquid
+  assign handle = section.settings.handle | default: settings.instagram_handle
+  assign profile = section.settings.profile_url | default: settings.social_instagram
+  assign col = collections[section.settings.fallback_collection]
+-%}
+<section class="sec--sm" style="background: var(--sp-bone-2)">
+  <div class="wrap">
+    <div class="ig__head">
+      <div>
+        <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+        <h2 class="mt-3" style="font-size:clamp(1.8rem,4vw,2.8rem);text-transform:none" data-split data-reveal="none">@{{ handle }}</h2>
+      </div>
+      {%- if profile != blank -%}
+        <div data-reveal data-delay="0.15">
+          <a href="{{ profile }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline-gold">
+            {% render 'icon', name: 'instagram', s: 16 %} {{ section.settings.cta_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="ig__viewport">
+      <div class="ig__rail" data-drag-rail>
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <a href="{{ block.settings.link | default: profile }}" target="_blank" rel="noopener noreferrer"
+               class="ig__tile" {{ block.shopify_attributes }}>
+              <span class="ig__inner">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.alt | escape }}" loading="lazy" width="700" height="700">
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: '' }}
+                {%- endif -%}
+                <span class="ig__overlay" aria-hidden="true"></span>
+                <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle }}</span></span>
+                <span class="ig__meta">{% render 'icon', name: 'heart', size: 15, fill: 'currentColor' %}{% render 'icon', name: 'comment' %}</span>
+              </span>
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for product in col.products limit: 8 -%}
+            <a href="{{ profile }}" target="_blank" rel="noopener noreferrer" class="ig__tile">
+              <span class="ig__inner">
+                {%- if product.featured_media -%}
+                  <img src="{{ product.featured_media | image_url: width: 700 }}" alt="{{ product.title | escape }}" loading="lazy" width="700" height="700">
+                {%- endif -%}
+                <span class="ig__overlay" aria-hidden="true"></span>
+                <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle }}</span></span>
+              </span>
+            </a>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram strip",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "A live Instagram feed requires an app. Add each post as a block: image + permalink." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "As Seen & Loved" },
+    { "type": "text", "id": "handle", "label": "Handle (no @)" },
+    { "type": "url", "id": "profile_url", "label": "Profile URL" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Follow on Instagram" },
+    { "type": "collection", "id": "fallback_collection", "label": "Fallback collection",
+      "info": "Used only while no post blocks are added." }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Post",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Post permalink" },
+        { "type": "text", "id": "alt", "label": "Alt text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Instagram strip" }]
+}
+{% endschema %}

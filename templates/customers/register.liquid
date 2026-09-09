@@ -1,0 +1,15 @@
+<div class="wrap wrap--tight" style="padding-top:9rem;padding-bottom:5rem">
+  <p class="eyebrow">{{ 'customer.account.title' | t }}</p>
+  <h1 class="h-sec mt-3">{{ 'customer.register.title' | t }}</h1>
+  {% form 'create_customer' %}
+    {{ form.errors | default_errors }}
+    <div class="mt-8" style="max-width:24rem;display:grid;gap:1rem">
+      <div><label class="field-label" for="RegFirst">{{ 'customer.register.first_name' | t }}</label><input class="field" id="RegFirst" name="customer[first_name]" autocomplete="given-name"></div>
+      <div><label class="field-label" for="RegLast">{{ 'customer.register.last_name' | t }}</label><input class="field" id="RegLast" name="customer[last_name]" autocomplete="family-name"></div>
+      <div><label class="field-label" for="RegEmail">{{ 'customer.register.email' | t }}</label><input class="field" id="RegEmail" type="email" name="customer[email]" autocomplete="email" required></div>
+      <div><label class="field-label" for="RegPass">{{ 'customer.register.password' | t }}</label><input class="field" id="RegPass" type="password" name="customer[password]" autocomplete="new-password"></div>
+    </div>
+    <button type="submit" class="btn btn--ink mt-5">{{ 'customer.register.submit' | t }}</button>
+  {% endform %}
+  <p class="mt-6"><a href="{{ routes.account_login_url }}" class="link-cta">{{ 'customer.login.title' | t }} <span>&rarr;</span></a></p>
+</div>

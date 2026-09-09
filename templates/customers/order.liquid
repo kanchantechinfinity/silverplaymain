@@ -1,0 +1,27 @@
+<div class="wrap" style="padding-top:9rem;padding-bottom:5rem">
+  <p class="eyebrow">{{ 'customer.orders.title' | t }}</p>
+  <h1 class="h-sec mt-3">{{ order.name }}</h1>
+  <p class="lede mt-2">{{ order.created_at | date: '%-d %B %Y' }}</p>
+  <table class="cart-table mt-8">
+    <thead>
+      <tr>
+        <th>{{ 'cart.general.product' | t }}</th>
+        <th>{{ 'cart.general.quantity' | t }}</th>
+        <th style="text-align:right">{{ 'cart.general.total' | t }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for line in order.line_items -%}
+        <tr>
+          <td>{{ line.title }}</td>
+          <td>{{ line.quantity }}</td>
+          <td style="text-align:right">{{ line.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+  <div class="cart-totals mt-6" style="margin-left:auto;max-width:20rem">
+    <span>{{ 'cart.general.total' | t }}</span><span>{{ order.total_price | money }}</span>
+  </div>
+  <p class="mt-8"><a href="{{ routes.account_url }}" class="link-cta">{{ 'customer.account.return' | t }} <span>&rarr;</span></a></p>
+</div>

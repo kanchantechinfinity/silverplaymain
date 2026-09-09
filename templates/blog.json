@@ -1,0 +1,4 @@
+{
+  "sections": { "main": { "type": "main-blog", "settings": { "eyebrow": "Silver Stories", "description": "Guides, craft and the people behind Silver Play's handcrafted jewellery.", "per_page": 12 } } },
+  "order": ["main"]
+}

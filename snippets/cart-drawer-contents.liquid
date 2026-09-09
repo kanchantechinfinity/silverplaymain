@@ -1,0 +1,65 @@
+<header class="cart-drawer__head">
+  <p class="eyebrow">{{ 'cart.general.title' | t }} ({{ cart.item_count }})</p>
+  <button type="button" class="round-btn" data-cart-close aria-label="{{ 'accessibility.close' | t }}">
+    {% render 'icon', name: 'close', size: 18 %}
+  </button>
+</header>
+
+<div class="cart-drawer__body">
+  {%- if cart.item_count == 0 -%}
+    <div class="cart-empty">
+      <p class="h-sec--sm" style="font-size:1.25rem">{{ 'cart.general.empty' | t }}</p>
+      <p class="lede mt-2" style="font-size:.9rem">{{ 'cart.general.empty_body' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn--ink mt-6">{{ 'cart.general.continue_shopping' | t }}</a>
+    </div>
+  {%- else -%}
+    {%- for item in cart.items -%}
+      <div class="cart-line">
+        <a href="{{ item.url }}" class="cart-line__img">
+          {%- if item.image -%}
+            <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.image.alt | escape }}" width="200" height="250" loading="lazy">
+          {%- endif -%}
+        </a>
+        <div style="flex:1;min-width:0">
+          <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+          {%- unless item.product.has_only_default_variant -%}
+            <p class="cart-line__variant">{{ item.variant.title }}</p>
+          {%- endunless -%}
+          {%- if item.selling_plan_allocation -%}
+            <p class="cart-line__variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+          {%- endif -%}
+          {%- for prop in item.properties -%}
+            {%- unless prop.last == blank or prop.first[0] == '_' -%}
+              <p class="cart-line__variant">{{ prop.first }}: {{ prop.last }}</p>
+            {%- endunless -%}
+          {%- endfor -%}
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:.5rem">
+            <span class="qty">
+              <button type="button" data-cart-change="{{ item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="Decrease">−</button>
+              <input type="text" value="{{ item.quantity }}" readonly aria-label="{{ 'cart.general.quantity' | t }}">
+              <button type="button" data-cart-change="{{ item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" aria-label="Increase">+</button>
+            </span>
+            <span style="font-family:var(--font-display);font-size:.95rem">{{ item.final_line_price | money }}</span>
+          </div>
+          <button type="button" class="link-cta mt-2" data-cart-change="0" data-line="{{ forloop.index }}">{{ 'cart.general.remove' | t }}</button>
+        </div>
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+
+{%- if cart.item_count > 0 -%}
+  <footer class="cart-drawer__foot">
+    <div class="cart-totals">
+      <span>{{ 'cart.general.subtotal' | t }}</span>
+      <span>{{ cart.total_price | money }}</span>
+    </div>
+    <p class="lede mt-2" style="font-size:.8rem">{{ settings.cart_note }}</p>
+    <form action="{{ routes.cart_url }}" method="post" class="mt-4">
+      <button type="submit" name="checkout" class="btn btn--ink btn--block btn--lg">{{ 'cart.general.checkout' | t }}</button>
+    </form>
+    <a href="{{ routes.cart_url }}" class="link-cta mt-4">{{ 'cart.general.view_cart' | t }} <span>&rarr;</span></a>
+  </footer>
+{%- endif -%}
+
+<span hidden data-cart-count>{{ cart.item_count }}</span>

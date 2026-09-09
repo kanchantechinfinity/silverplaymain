@@ -1,0 +1,91 @@
+{
+  "sections": {
+    "hero": {
+      "type": "about-hero",
+      "blocks": {
+        "b1": { "type": "badge", "settings": { "glyph": "✿", "label": "925", "sub": "Sterling Silver" } },
+        "b2": { "type": "badge", "settings": { "glyph": "◈", "label": "Handcrafted", "sub": "By Skilled Karigars" } },
+        "b3": { "type": "badge", "settings": { "glyph": "❖", "label": "Stone-Led", "sub": "Jewellery" } },
+        "b4": { "type": "badge", "settings": { "glyph": "✦", "label": "Gift-Ready", "sub": "Premium Packaging" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": { "eyebrow": "Our Story", "heading": "The Soul of Indian Silver" }
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {
+        "eyebrow": "The Founder",
+        "heading": "A Timeless Curation by",
+        "bio": "Dalljiet Kaur believes jewellery should make people feel seen, valued and connected. Her vision for Silver Play is to create a brand where silver feels luxurious, meaningful and relevant for modern life.",
+        "name": "Dalljiet Kaur",
+        "role": "Founder, Silver Play"
+      }
+    },
+    "craft": {
+      "type": "text-with-image",
+      "blocks": {
+        "p1": { "type": "paragraph", "settings": { "text": "Every Silver Play piece is handcrafted in 925 sterling silver — the international standard for fine silver jewellery. We work with natural, lightly finished stones wherever possible, because we believe the earth's imperfections are part of the beauty, not a flaw to be hidden. No two stones are identical." } },
+        "p2": { "type": "paragraph", "settings": { "text": "Our collection spans a wide range of natural gemstones — each chosen for its visual character and the story it carries. Jaspers from across the world, Opals in colours that shift with the light, grounding stones like Pyrite and Tiger Eye, and rare finds like Scolecite and Purpurite." } }
+      },
+      "block_order": ["p1", "p2"],
+      "settings": {
+        "eyebrow": "The Hands Behind The Craft",
+        "heading": "The Karigars of India",
+        "image_position": "right",
+        "color_scheme": "light",
+        "bg_color": "#f2e8d0"
+      }
+    },
+    "vision": {
+      "type": "vision-cards",
+      "blocks": {
+        "v1": { "type": "card", "settings": { "glyph": "◈", "title": "Slow Making", "body": "We believe in slow making over mass production. Every piece takes the time real craft requires, shaped by hand rather than rushed off a line." } },
+        "v2": { "type": "card", "settings": { "glyph": "✿", "title": "Natural Over Synthetic", "body": "We work with natural, lightly finished stones wherever possible — the earth's imperfections are part of the beauty, not a flaw to be hidden." } },
+        "v3": { "type": "card", "settings": { "glyph": "❧", "title": "Stories Over Trends", "body": "We take pride in being transparent about what goes into each piece: the metal grade, the stone type, the craft involved, the story it carries." } }
+      },
+      "block_order": ["v1", "v2", "v3"],
+      "settings": { "eyebrow": "Our Vision", "heading": "What We Choose, Every Time" }
+    },
+    "values": {
+      "type": "text-with-image",
+      "blocks": {
+        "p1": { "type": "paragraph", "settings": { "text": "We are an independent Indian jewellery brand. We believe in slow making over mass production, in natural over synthetic, in stories over trends. We take pride in being transparent about what goes into each piece — the metal grade, the stone type, the craft involved. When you wear a Silver Play piece, you are wearing a moment of craft." } }
+      },
+      "block_order": ["p1"],
+      "settings": {
+        "eyebrow": "What We Stand For",
+        "heading": "Slow Making, Honest Materials",
+        "image_position": "left",
+        "flourish": true,
+        "color_scheme": "light",
+        "bg_color": "#e8d8b3"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "n1": { "type": "note", "settings": { "quote": "Handcrafted sterling silver jewellery, forged for the woman who wears her story.", "attribution": "Silver Play" } },
+        "n2": { "type": "note", "settings": { "quote": "Every piece is made with a belief that you deserve beautiful things around you.", "attribution": "Dalljiet Kaur, Founder" } },
+        "n3": { "type": "note", "settings": { "quote": "A single pendant can pass through five pairs of hands before it reaches yours.", "attribution": "Inside the Jaipur Atelier" } },
+        "n4": { "type": "note", "settings": { "quote": "Jewellery can be more than beautiful — it can be intentional.", "attribution": "How to Wear Meaning" } }
+      },
+      "block_order": ["n1", "n2", "n3", "n4"],
+      "settings": { "eyebrow": "In Her Own Words", "heading": "Notes We Keep" }
+    },
+    "closing": {
+      "type": "text-with-image",
+      "blocks": {
+        "p1": { "type": "paragraph", "settings": { "text": "Silver Play promises jewellery that is elegant, expressive and thoughtfully made. We create 925 silver pieces that feel premium, meaningful and easy to wear — jewellery that adds beauty to everyday moments, grace to celebrations and emotion to gifting. Because silver is not just something you wear. It is something you feel." } }
+      },
+      "block_order": ["p1"],
+      "settings": {
+        "heading": "Wear Your Story",
+        "image_position": "right",
+        "color_scheme": "light",
+        "bg_color": "#f2e8d0",
+        "cta_label": "Explore The Collection"
+      }
+    }
+  },
+  "order": ["hero", "founder", "craft", "vision", "values", "testimonials", "closing"]
+}

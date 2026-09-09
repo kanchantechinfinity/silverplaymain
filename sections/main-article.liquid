@@ -1,0 +1,84 @@
+<article>
+  <section class="article__hero">
+    <div class="article__hero-media">
+      {%- if article.image -%}
+        <img src="{{ article.image | image_url: width: 2000 }}" alt="{{ article.title | escape }}" width="2000" height="1200" fetchpriority="high">
+      {%- endif -%}
+    </div>
+    <div class="wrap wrap--tight pagehero__body" data-page-hero>
+      {%- if article.tags.size > 0 -%}
+        <p class="eyebrow" style="color:var(--sp-gold)" data-reveal>{{ article.tags.first }}</p>
+      {%- endif -%}
+      <h1 class="pagehero__title" data-split data-reveal="none">{{ article.title }}</h1>
+      <div data-reveal data-delay="0.15">
+        <p class="mt-5" style="font-family:var(--font-body);font-size:.9rem;color:rgba(242,232,208,.55)">
+          {{ article.published_at | date: '%-d %B %Y' }} &middot; {{ 'blogs.article.by' | t }} {{ article.author }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:var(--sp-bone);padding-block:4rem">
+    <div class="wrap article__body">
+      {%- if article.excerpt != blank -%}
+        <div data-reveal>
+          <p style="font-family:var(--font-display);font-size:1.15rem;line-height:1.7;color:rgba(36,26,16,.8)">
+            {{ article.excerpt | strip_html }}
+          </p>
+        </div>
+      {%- endif -%}
+
+      <div class="rte" data-reveal data-delay="0.05">{{ article.content }}</div>
+
+      <div data-reveal data-delay="0.2">
+        <a href="{{ blog.url }}" class="link-cta mt-14"><span style="display:inline-block">&larr;</span> {{ 'blogs.article.back_to_blog' | t }}</a>
+      </div>
+
+      {%- if blog.comments_enabled? -%}
+        <div class="mt-14">
+          {%- if article.comments_count > 0 -%}
+            {%- for comment in article.comments -%}
+              <div style="border-top:1px solid var(--sp-line);padding-block:1.25rem">
+                <p class="rte">{{ comment.content }}</p>
+                <p class="jcard__date">{{ comment.author }} &middot; {{ comment.created_at | date: '%-d %b %Y' }}</p>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+          {% form 'new_comment', article %}
+            <div style="display:grid;gap:1rem;max-width:34rem">
+              <div><label class="field-label" for="c-author">{{ 'contact.form.name' | t }}</label><input class="field" id="c-author" name="comment[author]" required></div>
+              <div><label class="field-label" for="c-email">{{ 'contact.form.email' | t }}</label><input class="field" id="c-email" type="email" name="comment[email]" required></div>
+              <div><label class="field-label" for="c-body">{{ 'contact.form.message' | t }}</label><textarea class="field" id="c-body" name="comment[body]" rows="4" required></textarea></div>
+              <button type="submit" class="btn btn--ink" style="justify-self:start">{{ 'contact.form.send' | t }}</button>
+            </div>
+          {% endform %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- assign related = blog.articles | where: 'id' -%}
+  <section style="border-top:1px solid var(--sp-line);background:var(--sp-bone-2);padding-block:5rem">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>{{ 'blogs.article.more_stories' | t }}</p>
+      <div class="journal__grid mt-8" data-stagger="0.08">
+        {%- assign shown = 0 -%}
+        {%- for a in blog.articles -%}
+          {%- if a.id != article.id and shown < 3 -%}
+            <a href="{{ a.url }}" class="jcard">
+              <div class="jcard__media">
+                {%- if a.image -%}<img src="{{ a.image | image_url: width: 800 }}" alt="{{ a.title | escape }}" loading="lazy" width="800" height="600">{%- endif -%}
+              </div>
+              <h3 class="jcard__title">{{ a.title }}</h3>
+            </a>
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</article>
+
+{% schema %}
+{ "name": "Article", "tag": "section", "settings": [] }
+{% endschema %}

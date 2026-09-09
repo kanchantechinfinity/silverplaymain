@@ -1,0 +1,118 @@
+{%- comment -%}
+  "Stories, Worn as Silver" — a 3D ring of story cards driven by scroll
+  (theme.js -> initArc). Cards come from a blog's articles, optionally
+  interleaved with collection tiles, exactly as the source merges journal
+  posts with heritage collections.
+{%- endcomment -%}
+{%- liquid
+  assign blog = blogs[section.settings.blog]
+  assign article_limit = section.settings.article_count
+  assign col_blocks = section.blocks
+  assign n = 0
+-%}
+{%- capture card_markup -%}
+  {%- assign posts = blog.articles | slice: 0, article_limit -%}
+  {%- for i in (0..5) -%}
+    {%- assign post = posts[i] -%}
+    {%- assign block = col_blocks[i] -%}
+    {%- if post != blank -%}
+      <div class="arc__card">
+        <a href="{{ post.url }}">
+          <div class="arc__inner">
+            {%- if post.image -%}
+              <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" width="1200" height="800">
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: '' }}
+            {%- endif -%}
+            <span class="arc__scrim" aria-hidden="true"></span>
+            <div class="arc__foot">
+              <h3>{{ post.title }}</h3>
+              <span class="arc__go" aria-hidden="true">&rarr;</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    {%- endif -%}
+    {%- if block != blank -%}
+      {%- assign col = collections[block.settings.collection] -%}
+      {%- assign cover = block.settings.image | default: col.image -%}
+      <div class="arc__card" {{ block.shopify_attributes }}>
+        <a href="{{ col.url | default: routes.collections_url }}">
+          <div class="arc__inner">
+            {%- if cover -%}
+              <img src="{{ cover | image_url: width: 1200 }}" alt="{{ col.title | escape }}" loading="lazy" width="1200" height="800">
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: '' }}
+            {%- endif -%}
+            <span class="arc__scrim" aria-hidden="true"></span>
+            <div class="arc__foot">
+              <h3>{{ block.settings.title | default: col.title }}</h3>
+              <span class="arc__go" aria-hidden="true">&rarr;</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign total = card_markup | split: 'class="arc__card"' | size | minus: 1 -%}
+{%- if total < 1 -%}{%- assign total = 1 -%}{%- endif -%}
+{%- assign track = total | plus: 1 | times: 62 -%}
+
+<section class="arc heritage-sec" data-arc style="height: {{ track }}vh">
+  <div class="arc__stage">
+    {% render 'heritage-bg',
+      image: section.settings.bg_image,
+      fallback: 'story-veena.jpg',
+      wash: 'rgba(242,232,208,0.8)' %}
+
+    <div class="arc__head">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="mt-2" style="font-size:clamp(1.5rem,3.2vw,2.3rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="arc__ring-wrap">
+      <div class="arc__ring">{{ card_markup }}</div>
+    </div>
+
+    <div class="arc__controls">
+      <button type="button" class="round-btn" data-arc-prev aria-label="{{ 'accessibility.previous' | t }}">&larr;</button>
+      <button type="button" class="round-btn round-btn--solid" data-arc-next aria-label="{{ 'accessibility.next' | t }}">&rarr;</button>
+      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta" style="margin-left:1rem">
+        {{ section.settings.cta_label }} <span>&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal arc",
+  "tag": "section",
+  "settings": [
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "range", "id": "article_count", "min": 1, "max": 6, "step": 1, "label": "Articles used", "default": 3 },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From The Journal" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stories, Worn as Silver" },
+    { "type": "text", "id": "cta_label", "label": "Link label", "default": "Read The Journal" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Collection story",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "image_picker", "id": "image", "label": "Image override" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal arc",
+      "blocks": [ { "type": "story" }, { "type": "story" }, { "type": "story" } ]
+    }
+  ]
+}
+{% endschema %}

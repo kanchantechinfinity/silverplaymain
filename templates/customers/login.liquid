@@ -1,0 +1,52 @@
+<div class="wrap wrap--tight" style="padding-top:9rem;padding-bottom:5rem">
+  <p class="eyebrow">{{ 'customer.account.title' | t }}</p>
+  <h1 class="h-sec mt-3">{{ 'customer.login.title' | t }}</h1>
+
+  <div id="RecoverPassword" style="display:none" class="mt-8">
+    {% form 'recover_customer_password' %}
+      <h2 class="h-sec--sm">{{ 'customer.recover_password.title' | t }}</h2>
+      <p class="lede mt-2">{{ 'customer.recover_password.subtext' | t }}</p>
+      {%- if form.posted_successfully? -%}
+        <p class="lede mt-4" style="color:var(--sp-gold-deep)">{{ 'customer.recover_password.success' | t }}</p>
+      {%- endif -%}
+      <div class="mt-5" style="max-width:24rem">
+        <label class="field-label" for="RecoverEmail">{{ 'customer.login.email' | t }}</label>
+        <input class="field" type="email" id="RecoverEmail" name="email" autocomplete="email" required>
+      </div>
+      <button type="submit" class="btn btn--ink mt-4">{{ 'customer.recover_password.submit' | t }}</button>
+      <button type="button" class="link-cta mt-4" onclick="document.getElementById('RecoverPassword').style.display='none';document.getElementById('CustomerLogin').style.display='block'">
+        {{ 'customer.recover_password.cancel' | t }}
+      </button>
+    {% endform %}
+  </div>
+
+  <div id="CustomerLogin" class="mt-8">
+    {% form 'customer_login' %}
+      {{ form.errors | default_errors }}
+      <div style="max-width:24rem;display:grid;gap:1rem">
+        <div>
+          <label class="field-label" for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+          <input class="field" type="email" id="CustomerEmail" name="customer[email]" autocomplete="email" required>
+        </div>
+        <div>
+          <label class="field-label" for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+          <input class="field" type="password" id="CustomerPassword" name="customer[password]" autocomplete="current-password">
+        </div>
+      </div>
+      <button type="submit" class="btn btn--ink mt-5">{{ 'customer.login.sign_in' | t }}</button>
+      <button type="button" class="link-cta mt-4" onclick="document.getElementById('CustomerLogin').style.display='none';document.getElementById('RecoverPassword').style.display='block'">
+        {{ 'customer.login.forgot_password' | t }}
+      </button>
+    {% endform %}
+    <p class="mt-6"><a href="{{ routes.account_register_url }}" class="link-cta">{{ 'customer.register.title' | t }} <span>&rarr;</span></a></p>
+  </div>
+
+  {%- if shop.checkout.guest_login -%}
+    <div class="mt-10">
+      {% form 'guest_login' %}
+        <h2 class="h-sec--sm">{{ 'customer.login.guest_title' | t }}</h2>
+        <button type="submit" class="btn btn--outline-gold mt-4">{{ 'customer.login.guest_continue' | t }}</button>
+      {% endform %}
+    </div>
+  {%- endif -%}
+</div>

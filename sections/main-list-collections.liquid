@@ -1,0 +1,51 @@
+{% render 'page-hero',
+  eyebrow: section.settings.eyebrow,
+  heading: section.settings.heading,
+  image: section.settings.banner_image,
+  description: section.settings.description %}
+
+<div class="wrap" style="padding-block:4rem">
+  <div class="grid-products" data-stagger="0.05">
+    {%- assign list = collections -%}
+    {%- if section.settings.list != blank -%}
+      {%- assign list = section.settings.list -%}
+    {%- endif -%}
+    {%- for col in list -%}
+      {%- if col.all_products_count > 0 or section.settings.show_empty -%}
+        {%- liquid
+          assign cover = col.image
+          if cover == blank
+            assign cover = col.products.first.featured_media.preview_image
+          endif
+        -%}
+        <a href="{{ col.url }}" class="coltile">
+          {%- if cover -%}
+            <img src="{{ cover | image_url: width: 700 }}" alt="{{ col.title | escape }}" loading="lazy" width="700" height="875">
+          {%- else -%}
+            {{ 'collection-1' | placeholder_svg_tag: '' }}
+          {%- endif -%}
+          <span class="coltile__scrim" aria-hidden="true"></span>
+          <span class="coltile__body">
+            <p>{{ col.title }}</p>
+            <p>{{ 'products.facets.product_count' | t: count: col.all_products_count }}</p>
+          </span>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Browse" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "All Collections" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "From everyday earrings to spiritual Kavach pendants — every Silver Play edit in one place." },
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image" },
+    { "type": "collection_list", "id": "list", "label": "Collections shown", "info": "Leave empty to list every collection." },
+    { "type": "checkbox", "id": "show_empty", "label": "Show empty collections", "default": false }
+  ]
+}
+{% endschema %}

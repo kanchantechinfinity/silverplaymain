@@ -1,0 +1,169 @@
+{%- comment -%}
+  Product page: breadcrumb, sticky gallery, buy box, info accordion.
+  Anything that isn't a natural product field is read from a metafield —
+  see the theme README for the definitions the merchant must create.
+{%- endcomment -%}
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign rating = product.metafields.reviews.rating.value.rating | default: 0
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign chip = product.metafields.custom.chip.value | default: product.type
+  assign on_sale = false
+  if v.compare_at_price > v.price
+    assign on_sale = true
+    assign discount = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
+  endif
+-%}
+
+<div class="pdp">
+  <div class="wrap wrap--narrow" style="max-width:1400px">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <span>/</span>
+      {%- if collection != blank -%}
+        <a href="{{ collection.url }}">{{ collection.title }}</a><span>/</span>
+      {%- elsif product.type != blank -%}
+        <a href="{{ routes.search_url }}?q={{ product.type | url_encode }}">{{ product.type }}</a><span>/</span>
+      {%- endif -%}
+      <span style="color:rgba(36,26,16,.75)">{{ product.title }}</span>
+    </nav>
+
+    <div class="pdp__grid">
+      <div class="pdp__media" data-reveal>
+        {% render 'product-gallery', product: product %}
+      </div>
+
+      <div data-reveal="right" data-delay="0.1">
+        <div>
+          <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+            {%- if chip != blank -%}<span class="buybox__chip">{{ chip }}</span>{%- endif -%}
+            {%- if on_sale -%}
+              {%- assign sale_lines = discount | append: '%,Off' | split: ',' -%}
+              {% render 'seal', lines: sale_lines %}
+            {%- endif -%}
+            {%- unless product.available -%}
+              {%- assign sold_lines = 'Sold,Out' | split: ',' -%}
+              {% render 'seal', lines: sold_lines %}
+            {%- endunless -%}
+          </div>
+
+          <h1 class="buybox__title">{{ product.title }}</h1>
+
+          {%- if rating > 0 -%}
+            <a href="#reviews" class="buybox__rating">
+              {% render 'stars', rating: rating, size: 13 %}
+              <span>{{ rating }} ({{ rating_count }} reviews)</span>
+            </a>
+          {%- endif -%}
+
+          <p class="buybox__price">
+            <span data-variant-price>{{ v.price | money }}</span>
+            <span class="buybox__was" data-variant-compare {% unless on_sale %}hidden{% endunless %}>{{ v.compare_at_price | money }}</span>
+          </p>
+          <p class="buybox__tax">{{ settings.pdp_tax_note }}</p>
+
+          {%- if settings.pdp_savings_note != blank -%}
+            <div class="buybox__ticket">
+              <span style="display:grid;place-items:center;height:2rem;width:2rem;flex:none;border-radius:999px;border:1px solid rgba(138,106,46,.4);color:var(--sp-gold-deep)" aria-hidden="true">
+                {% render 'icon', name: 'gift' %}
+              </span>
+              <p>{{ settings.pdp_savings_note }}</p>
+            </div>
+          {%- endif -%}
+
+          {%- unless product.has_only_default_variant -%}
+            <div class="variant-picker" data-variant-picker>
+              {%- for option in product.options_with_values -%}
+                <fieldset>
+                  <legend>{{ option.name }}</legend>
+                  <div class="variant-picker__opts">
+                    {%- for value in option.values -%}
+                      {%- assign input_id = 'opt-' | append: forloop.parentloop.index | append: '-' | append: forloop.index -%}
+                      <input type="radio" id="{{ input_id }}" name="sp-option-{{ forloop.parentloop.index0 }}"
+                             value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                      <label for="{{ input_id }}">{{ value }}</label>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+              <script type="application/json" data-variant-json>
+                [
+                  {%- for variant in product.variants -%}
+                    {"id": {{ variant.id }}, "options": {{ variant.options | json }}, "price": {{ variant.price }},
+                     "compare_at_price": {{ variant.compare_at_price | default: 0 }}, "available": {{ variant.available }}}{%- unless forloop.last -%},{%- endunless -%}
+                  {%- endfor -%}
+                ]
+              </script>
+            </div>
+          {%- endunless -%}
+
+          {%- form 'product', product, class: 'product-form' -%}
+            <input type="hidden" name="id" value="{{ v.id }}">
+
+            {%- if settings.pdp_show_gift -%}
+              <label class="buybox__box" style="display:flex;gap:.75rem;cursor:pointer;align-items:flex-start">
+                <input type="checkbox" data-gift-toggle name="properties[Gift wrap]" value="Yes" style="margin-top:.35rem">
+                <span>
+                  <span style="font-family:var(--font-display);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em">Sending this as a gift</span>
+                  <span class="lede" style="display:block;margin-top:.25rem;font-size:.8rem">We'll pack it in a velvet keepsake box with a handwritten note — no price tag inside.</span>
+                  <textarea data-gift-note hidden rows="2" name="properties[Gift note]" placeholder="Add a note for them (optional)"
+                            class="field mt-3" style="background:var(--sp-bone-2);resize:none"></textarea>
+                </span>
+              </label>
+            {%- endif -%}
+
+            <div class="buybox__actions">
+              <button type="submit" class="btn btn--ink btn--lg"
+                      data-label-add="{{ 'products.product.add_to_cart' | t }}"
+                      data-label-sold="{{ 'products.product.sold_out' | t }}"
+                      {% unless v.available %}disabled{% endunless %}>
+                {% if v.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+              </button>
+              <button type="button" class="icon-btn buybox__wish" data-wishlist="{{ product.handle }}" aria-pressed="false"
+                      aria-label="{{ 'accessibility.wishlist' | t }}">
+                {% render 'icon', name: 'heart', size: 18 %}
+              </button>
+            </div>
+
+            {%- if section.settings.show_dynamic_checkout -%}
+              <div class="mt-3">{{ form | payment_button }}</div>
+            {%- endif -%}
+          {%- endform -%}
+
+          {%- if settings.pdp_show_pincheck -%}
+            <div class="buybox__box" data-pincheck>
+              <p>Check Delivery Time</p>
+              <div style="display:flex;gap:.5rem;margin-top:.625rem">
+                <input type="text" inputmode="numeric" maxlength="6" placeholder="Enter PIN code" class="field field--pill" aria-label="PIN code">
+                <button type="button" class="btn btn--outline-gold" style="padding:.625rem 1.25rem;font-size:.62rem;white-space:nowrap">Check</button>
+              </div>
+              <p class="mt-2" style="font-family:var(--font-body);font-size:.8rem;color:var(--sp-gold-deep)" data-pin-out></p>
+            </div>
+          {%- endif -%}
+
+          {%- if product.description != blank -%}
+            <div class="buybox__desc rte">{{ product.description | strip_html | truncatewords: 90 }}</div>
+          {%- endif -%}
+
+          <div class="buybox__trust">
+            <div><span>{% render 'icon', name: 'shield' %}</span><span>BIS Certified</span></div>
+            <div><span>{% render 'icon', name: 'sparkle' %}</span><span>925 Sterling Silver</span></div>
+            <div><span>{% render 'icon', name: 'heart', size: 20 %}</span><span>Skin-Friendly</span></div>
+          </div>
+        </div>
+
+        {% render 'product-accordion', product: product %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout button", "default": true }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+{%- comment -%}Seamless CSS marquee of trust claims. Track rendered twice, translated -50%.{%- endcomment -%}
+<div class="assurance">
+  <div class="marquee" data-marquee="{{ section.settings.speed }}">
+    <div class="marquee__rail">
+      {%- for i in (1..2) -%}
+        <div class="marquee__track" aria-hidden="{% if i == 2 %}true{% else %}false{% endif %}">
+          {%- for block in section.blocks -%}
+            <span class="marquee__item" {{ block.shopify_attributes }}>
+              <span class="assurance__item">{{ block.settings.text }}</span>
+              <span class="marquee__sep">{{ section.settings.separator }}</span>
+            </span>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Assurance marquee",
+  "tag": "div",
+  "settings": [
+    { "type": "range", "id": "speed", "min": 10, "max": 120, "step": 2, "unit": "s", "label": "Loop duration", "default": 48 },
+    { "type": "text", "id": "separator", "label": "Separator", "default": "—" }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Claim", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "BIS Certified" } ] }
+  ],
+  "presets": [
+    {
+      "name": "Assurance marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "BIS Certified" } },
+        { "type": "item", "settings": { "text": "925 Sterling Silver" } },
+        { "type": "item", "settings": { "text": "Purity Guaranteed" } },
+        { "type": "item", "settings": { "text": "Artisan Crafted in India" } },
+        { "type": "item", "settings": { "text": "Savings With Every Purchase" } },
+        { "type": "item", "settings": { "text": "The Silver Play Exchange Policy" } },
+        { "type": "item", "settings": { "text": "Free Shipping on Prepaid Orders" } },
+        { "type": "item", "settings": { "text": "Skin-Friendly" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

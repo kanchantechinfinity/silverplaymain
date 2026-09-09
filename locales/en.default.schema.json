@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "header": { "name": "Header" },
+    "footer": { "name": "Footer" },
+    "assurance_bar": { "name": "Assurance marquee" },
+    "cinematic_hero": { "name": "Cinematic hero" },
+    "fresh_edit": { "name": "The Fresh Edit" },
+    "royal_simplicity": { "name": "Scroll deck edit" },
+    "best_sellers": { "name": "Best sellers" },
+    "archive_treasure": { "name": "Archive Silver Treasure" },
+    "shop_by_occasion": { "name": "Shop by occasion" },
+    "kavach_strip": { "name": "Circle picks strip" },
+    "instagram_slider": { "name": "Instagram strip" },
+    "founder": { "name": "Founder" },
+    "effortless_elegance": { "name": "Edit with video" },
+    "testimonials": { "name": "Notes we keep" },
+    "journal_showcase": { "name": "Journal arc" },
+    "faq": { "name": "FAQ" }
+  },
+  "settings": {}
+}

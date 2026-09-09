@@ -1,0 +1,38 @@
+{%- comment -%}Product gallery: main stage + thumbnail rail + optional tilt/3D viewer.{%- endcomment -%}
+<div class="gallery" data-gallery>
+  <div class="gallery__main">
+    <div class="gallery__stage">
+      {%- if product.media.size > 0 -%}
+        {%- for media in product.media -%}
+          <div class="gallery__slide{% if forloop.first %} is-active{% endif %}" data-gallery-slide>
+            <img src="{{ media.preview_image | image_url: width: 1200 }}"
+                 srcset="{{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 1200 }} 1200w"
+                 sizes="(max-width: 640px) 100vw, 44vw"
+                 alt="{{ media.alt | escape | default: product.title | escape }}"
+                 width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}"
+                 loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="gallery__slide is-active" data-gallery-slide>{{ 'product-1' | placeholder_svg_tag: '' }}</div>
+      {%- endif -%}
+
+      {%- if settings.pdp_show_3d and product.media.size > 0 -%}
+        <button type="button" class="gallery__3d" data-gallery-3d>
+          {% render 'icon', name: 'cube' %} 3D View
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if product.media.size > 1 -%}
+    <div class="gallery__thumbs">
+      {%- for media in product.media -%}
+        <button type="button" class="gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-gallery-thumb aria-label="View image {{ forloop.index }}">
+          <img src="{{ media.preview_image | image_url: width: 200 }}" alt="" loading="lazy" width="200" height="200">
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>

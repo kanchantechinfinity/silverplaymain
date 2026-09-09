@@ -1,0 +1,111 @@
+{
+  "general": {
+    "meta": { "tags": "Tagged \"{{ tags }}\"", "page": "Page {{ page }}" },
+    "password_page": { "opening_soon": "Opening soon" },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search for a piece, a stone, a collection",
+      "results_with_count": { "one": "{{ count }} result", "other": "{{ count }} results" },
+      "no_results": "No results for “{{ terms }}”.",
+      "reset": "Clear"
+    },
+    "pagination": { "previous": "Previous", "next": "Next", "label": "Pagination" },
+    "newsletter_form": { "email_placeholder": "Your email", "confirmation": "Thanks for subscribing.", "button_label": "Join" },
+    "404": { "title": "Page not found", "subtext": "The page you were looking for does not exist.", "link": "Continue shopping" },
+    "breadcrumb": { "home": "Home" },
+    "share": { "title": "Share" }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "link_messages": { "new_window": "Opens in a new window." },
+    "menu": "Menu",
+    "search": "Search",
+    "account": "Account",
+    "wishlist": "Wishlist",
+    "cart": "Bag"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Bag",
+      "buy_now": "Buy Now",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "quantity": "Quantity",
+      "quick_view": "Quick view",
+      "view_full_details": "View Full Details",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "vendor": "Vendor",
+      "sku": "SKU",
+      "share": "Share"
+    },
+    "facets": {
+      "filter_and_sort": "Filters",
+      "sort_by_label": "Sort by",
+      "clear_all": "Clear all",
+      "apply": "Apply",
+      "price_up_to": "Price up to",
+      "category": "Category",
+      "vibe": "Shop by Vibe",
+      "product_count": { "one": "{{ count }} piece", "other": "{{ count }} pieces" },
+      "empty_title": "No pieces match those filters.",
+      "empty_body": "Try widening your price range or clearing a filter."
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Bag",
+      "empty": "Your bag is empty",
+      "empty_body": "Start with the pieces everyone comes back for.",
+      "continue_shopping": "Continue shopping",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "view_cart": "View bag",
+      "remove": "Remove",
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "note": "Order note"
+    }
+  },
+  "blogs": {
+    "article": {
+      "read_more": "Read Story",
+      "back_to_blog": "Back to the Journal",
+      "by": "By",
+      "more_stories": "More Stories",
+      "all": "All"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "post_success": "Thanks for reaching out. We reply to every message within 24 hours.",
+      "error_heading": "Please adjust the following:"
+    }
+  },
+  "customer": {
+    "account": { "title": "Account", "details": "Account details", "view_addresses": "View addresses", "return": "Return to account details" },
+    "login": { "title": "Login", "email": "Email", "password": "Password", "forgot_password": "Forgot your password?", "sign_in": "Sign in", "guest_title": "Continue as a guest", "guest_continue": "Continue" },
+    "register": { "title": "Create account", "first_name": "First name", "last_name": "Last name", "email": "Email", "password": "Password", "submit": "Create" },
+    "recover_password": { "title": "Reset your password", "subtext": "We will send you an email to reset your password.", "submit": "Submit", "cancel": "Cancel", "success": "We've sent you an email with a link to update your password." },
+    "orders": { "title": "Order history", "order_number": "Order", "date": "Date", "payment_status": "Payment status", "fulfillment_status": "Fulfillment status", "total": "Total", "none": "You haven't placed any orders yet." },
+    "addresses": { "title": "Addresses", "add_new": "Add a new address", "edit": "Edit", "delete": "Delete", "default": "Default address" },
+    "activate_account": { "title": "Activate account", "subtext": "Create your password to activate your account.", "submit": "Activate account", "cancel": "Decline invitation" },
+    "reset_password": { "title": "Reset account password", "subtext": "Enter a new password.", "submit": "Reset password" }
+  },
+  "onboarding": {
+    "product_title": "Example piece",
+    "collection_title": "Example collection"
+  }
+}

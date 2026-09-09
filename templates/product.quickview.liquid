@@ -1,0 +1,49 @@
+{%- comment -%}
+  Alternate product template used by the quick-view fetch
+  (`/products/<handle>?view=quickview`). Emits the modal's inner grid only.
+{%- endcomment -%}
+{% layout none %}
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign rating = product.metafields.reviews.rating.value.rating | default: 0
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign on_sale = false
+  if v.compare_at_price > v.price
+    assign on_sale = true
+    assign discount = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
+  endif
+-%}
+<div data-quickview-content>
+  <div class="modal__img">
+    {%- if product.featured_media -%}
+      <img src="{{ product.featured_media | image_url: width: 900 }}" alt="{{ product.title | escape }}" width="900" height="900">
+    {%- endif -%}
+    {%- if on_sale -%}
+      {%- assign sale_lines = discount | append: '%,Off' | split: ',' -%}
+      <div style="position:absolute;left:1rem;top:1rem;transform:rotate(-6deg)">{% render 'seal', lines: sale_lines %}</div>
+    {%- endif -%}
+  </div>
+  <div class="modal__body">
+    <h3 style="font-family:var(--font-display);font-size:1.25rem;font-weight:600;line-height:1.35;padding-right:2.5rem;color:var(--sp-ink-3)">{{ product.title }}</h3>
+    {%- if rating > 0 -%}
+      <div class="mt-2" style="display:flex;align-items:center;gap:.375rem">
+        {% render 'stars', rating: rating %}
+        <span style="font-family:var(--font-body);font-size:.78rem;color:var(--sp-gold-deep)">({{ rating_count }})</span>
+      </div>
+    {%- endif -%}
+    <p class="mt-4" style="display:flex;align-items:baseline;gap:.75rem;font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--sp-ink-3)">
+      {{ v.price | money }}
+      {%- if on_sale -%}<span style="font-size:.85rem;font-weight:400;color:var(--sp-gold-deep);text-decoration:line-through">{{ v.compare_at_price | money }}</span>{%- endif -%}
+    </p>
+    <p class="mt-4" style="font-family:var(--font-body);font-size:.88rem;line-height:1.7;color:#5c4a2e">
+      {{ product.description | strip_html | truncatewords: 45 }}
+    </p>
+    <form method="post" action="{{ routes.cart_add_url }}" class="product-form mt-6">
+      <input type="hidden" name="id" value="{{ v.id }}">
+      <button type="submit" class="btn btn--ink btn--block" {% unless v.available %}disabled{% endunless %}>
+        {% if v.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+      </button>
+    </form>
+    <a href="{{ product.url }}" class="link-cta mt-4">{{ 'products.product.view_full_details' | t }} <span>&rarr;</span></a>
+  </div>
+</div>

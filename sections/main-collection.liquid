@@ -1,0 +1,120 @@
+{%- comment -%}
+  Collection page: banner hero + filter sidebar + sorted, paginated grid.
+  Filtering and sorting use Shopify's native storefront filters rather than the
+  source's client-side arrays, so results stay correct across pagination.
+{%- endcomment -%}
+{%- liquid
+  assign banner = section.settings.banner_image
+  if banner == blank
+    assign banner = collection.image
+  endif
+  if banner == blank
+    assign banner = collection.products.first.featured_media.preview_image
+  endif
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+-%}
+
+{% render 'page-hero',
+  eyebrow: section.settings.eyebrow,
+  heading: collection.title,
+  image: banner,
+  description: collection.description | strip_html | truncatewords: 40 %}
+
+<div class="wrap" style="padding-block:4rem">
+  <div class="shop">
+    <div class="shop__backdrop" style="background-image:url({{ 'archive-balcony.jpg' | asset_url }})" aria-hidden="true"></div>
+
+    <div class="shop__layout">
+      <button type="button" class="shop__mobile-toggle" data-filter-open>
+        {{ 'products.facets.filter_and_sort' | t }} <span aria-hidden="true" style="color:var(--sp-gold-mid)">&#8862;</span>
+      </button>
+
+      <aside class="shop__aside">
+        <div class="gilt gilt--lg">
+          {% render 'facets', results: collection, results_url: collection.url, sort_by: sort_by %}
+        </div>
+      </aside>
+
+      <div class="shop__drawer" data-filter-drawer>
+        <div class="shop__drawer-panel">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(138,106,46,.25);padding-bottom:1.25rem">
+            <p style="font-family:var(--font-display);font-size:.9rem;text-transform:uppercase;letter-spacing:.2em;color:var(--sp-bone)">
+              {{ 'products.facets.filter_and_sort' | t }}
+            </p>
+            <button type="button" class="round-btn" data-filter-close aria-label="{{ 'accessibility.close' | t }}" style="color:var(--sp-bone);border-color:rgba(138,106,46,.4);height:2rem;width:2rem">&times;</button>
+          </div>
+          <div class="mt-6">
+            {% render 'facets', results: collection, results_url: collection.url, sort_by: sort_by %}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="shop__toolbar">
+          <p class="shop__count">{{ 'products.facets.product_count' | t: count: collection.products_count }}</p>
+
+          <div class="sortmenu" data-sortmenu>
+            <button type="button" class="sortmenu__btn" data-sortmenu-btn aria-expanded="false">
+              {%- assign current_sort = collection.sort_options | where: 'value', sort_by | first -%}
+              {{ current_sort.name | default: 'products.facets.sort_by_label' | t }}
+              <span aria-hidden="true" style="font-size:.6rem;color:var(--sp-gold-deep)">&#9662;</span>
+            </button>
+            <div class="sortmenu__list">
+              <div class="sortmenu__inner">
+                {%- for option in collection.sort_options -%}
+                  <a href="{{ collection.url }}?sort_by={{ option.value }}" aria-current="{% if option.value == sort_by %}true{% else %}false{% endif %}">
+                    <span style="width:.75rem" aria-hidden="true">{% if option.value == sort_by %}&#10003;{% endif %}</span>
+                    {{ option.name }}
+                  </a>
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shop__results">
+          {%- paginate collection.products by section.settings.per_page -%}
+            {%- if collection.products.size == 0 -%}
+              <div class="shop__empty">
+                <p style="font-family:var(--font-display);font-size:1.1rem;color:rgba(36,26,16,.7)">{{ 'products.facets.empty_title' | t }}</p>
+                <p class="lede mt-2" style="font-size:.9rem">{{ 'products.facets.empty_body' | t }}</p>
+              </div>
+            {%- else -%}
+              <div class="grid-products grid-products--3" data-stagger="0.05">
+                {%- for product in collection.products -%}
+                  {% render 'product-card', product: product, lazy: forloop.first %}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            {%- if paginate.pages > 1 -%}
+              <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+                {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr;</a>{%- endif -%}
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}">{{ part.title }}</a>
+                  {%- else -%}
+                    <span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if paginate.next -%}<a href="{{ paginate.next.url }}">&rarr;</a>{%- endif -%}
+              </nav>
+            {%- endif -%}
+          {%- endpaginate -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Banner eyebrow", "default": "Collection" },
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image override" },
+    { "type": "range", "id": "per_page", "min": 8, "max": 48, "step": 4, "label": "Products per page", "default": 24 }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,132 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign mega_handle = section.settings.mega_menu_trigger | downcase
+-%}
+
+<header class="header" data-header role="banner">
+  <div class="header__bar">
+    <button type="button" class="header__burger" data-mobile-nav-open aria-label="{{ 'accessibility.menu' | t }}">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="header__logo">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}"
+             width="{{ settings.logo.width }}" height="{{ settings.logo.height }}"
+             style="height:{{ settings.logo_height }}px">
+      {%- else -%}
+        <span class="header__logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="header__nav" role="navigation" aria-label="Primary">
+      {%- for link in menu.links -%}
+        <div class="header__navitem">
+          <a href="{{ link.url }}" class="header__link">{{ link.title }}</a>
+
+          {%- if link.title | downcase == mega_handle and section.blocks.size > 0 -%}
+            {% render 'mega-nav', section: section, link: link %}
+          {%- elsif link.links.size > 0 -%}
+            <div class="header__dropdown">
+              {%- for child in link.links -%}
+                <a href="{{ child.url }}">{{ child.title }}</a>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </nav>
+
+    <div class="header__actions">
+      <a href="{{ routes.search_url }}" class="header__icon" aria-label="{{ 'accessibility.search' | t }}">
+        {% render 'icon', name: 'search' %}
+      </a>
+      {%- if section.settings.show_wishlist -%}
+        <a href="{{ section.settings.wishlist_url | default: routes.root_url }}" class="header__icon header__icon--sm" aria-label="{{ 'accessibility.wishlist' | t }}">
+          {% render 'icon', name: 'heart' %}
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.account_url }}" class="header__icon header__icon--sm" aria-label="{{ 'accessibility.account' | t }}">
+        {% render 'icon', name: 'account' %}
+      </a>
+      <a href="{{ routes.cart_url }}" class="header__icon" data-cart-open aria-label="{{ 'accessibility.cart' | t }}">
+        {% render 'icon', name: 'bag' %}
+        <span class="header__badge" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" data-mobile-nav>
+  <button type="button" class="mobile-nav__close" data-mobile-nav-close>{{ 'accessibility.close' | t }}</button>
+  <nav class="mobile-nav__list" role="navigation" aria-label="Mobile">
+    <ul>
+      {%- for link in menu.links -%}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- if link.links.size > 0 -%}
+            <ul class="mobile-nav__sub">
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "mega_menu_trigger", "label": "Menu item that opens the mega nav", "default": "Collections",
+      "info": "Must match a top-level menu item title exactly (case-insensitive)." },
+    { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist icon", "default": true },
+    { "type": "url", "id": "wishlist_url", "label": "Wishlist link" },
+    { "type": "header", "content": "Mega nav — panel copy" },
+    { "type": "text", "id": "mega_eyebrow", "label": "Eyebrow", "default": "Our Jewellery" },
+    { "type": "url", "id": "mega_view_all", "label": "\"View all\" link" },
+    { "type": "text", "id": "mega_view_all_label", "label": "\"View all\" label", "default": "View All Products" },
+    { "type": "header", "content": "Mega nav — featured tiles" },
+    { "type": "collection_list", "id": "mega_featured", "label": "Featured collections", "limit": 4,
+      "info": "Each tile uses the collection's own image, falling back to its first product." },
+    { "type": "header", "content": "Mega nav — promo panel" },
+    { "type": "text", "id": "promo_eyebrow", "label": "Promo eyebrow", "default": "Handcrafted in Jaipur" },
+    { "type": "text", "id": "promo_heading", "label": "Promo heading", "default": "Discover The Bestsellers" },
+    { "type": "video", "id": "promo_video", "label": "Promo video" },
+    { "type": "image_picker", "id": "promo_poster", "label": "Promo poster image" },
+    { "type": "url", "id": "promo_cta_url", "label": "Promo CTA link" },
+    { "type": "text", "id": "promo_cta_label", "label": "Promo CTA label", "default": "Discover Now" }
+  ],
+  "blocks": [
+    {
+      "type": "link_group",
+      "name": "Mega nav link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Earrings" },
+        { "type": "link_list", "id": "menu", "label": "Links" }
+      ]
+    }
+  ],
+  "default": {
+    "settings": {
+      "menu": "main-menu",
+      "mega_menu_trigger": "Collections",
+      "show_wishlist": true,
+      "mega_eyebrow": "Our Jewellery",
+      "mega_view_all_label": "View All Products",
+      "promo_eyebrow": "Handcrafted in Jaipur",
+      "promo_heading": "Discover The Bestsellers",
+      "promo_cta_label": "Discover Now"
+    },
+    "blocks": [
+      { "type": "link_group", "settings": { "heading": "Earrings" } },
+      { "type": "link_group", "settings": { "heading": "Pendants" } },
+      { "type": "link_group", "settings": { "heading": "Rakhi" } }
+    ]
+  }
+}
+{% endschema %}

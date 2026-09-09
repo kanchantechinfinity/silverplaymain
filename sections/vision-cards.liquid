@@ -1,0 +1,51 @@
+<section class="sec--sm on-dark" style="background:var(--sp-ink)">
+  <div class="wrap">
+    <div class="text-center">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="mt-4" style="font-size:clamp(1.9rem,4vw,3rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="vision" data-stagger="0.09">
+      {%- for block in section.blocks -%}
+        <div class="vision__card" {{ block.shopify_attributes }}>
+          <div class="vision__inner">
+            <span class="vision__glyph" aria-hidden="true">{{ block.settings.glyph }}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.body }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vision cards",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Vision" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What We Choose, Every Time" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "text", "id": "glyph", "label": "Glyph", "default": "◈" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Slow Making" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vision cards",
+      "blocks": [
+        { "type": "card", "settings": { "glyph": "◈", "title": "Slow Making", "body": "We believe in slow making over mass production. Every piece takes the time real craft requires, shaped by hand rather than rushed off a line." } },
+        { "type": "card", "settings": { "glyph": "✿", "title": "Natural Over Synthetic", "body": "We work with natural, lightly finished stones wherever possible — the earth's imperfections are part of the beauty, not a flaw to be hidden." } },
+        { "type": "card", "settings": { "glyph": "❧", "title": "Stories Over Trends", "body": "We take pride in being transparent about what goes into each piece: the metal grade, the stone type, the craft involved, the story it carries." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

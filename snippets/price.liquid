@@ -1,0 +1,17 @@
+{%- comment -%}
+  Renders price + compare-at. Params: product (or variant), class
+{%- endcomment -%}
+{%- liquid
+  assign target = product
+  if variant != blank
+    assign target = variant
+  endif
+  assign price = target.price
+  assign compare = target.compare_at_price
+-%}
+<span data-variant-price>{{ price | money }}</span>
+{%- if compare > price -%}
+  <span class="card__was" data-variant-compare>{{ compare | money }}</span>
+{%- else -%}
+  <span class="card__was" data-variant-compare hidden></span>
+{%- endif -%}

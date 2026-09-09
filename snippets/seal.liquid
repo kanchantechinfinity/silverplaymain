@@ -1,0 +1,8 @@
+{%- comment -%}Wax-seal medallion badge. Params: lines (array of strings), class{%- endcomment -%}
+<div class="seal {{ class }}">
+  <div class="seal__inner">
+    <span>
+      {%- for line in lines -%}<span>{{ line }}</span>{%- endfor -%}
+    </span>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{%- comment -%}
+  Star row. Params: rating (0-5, number), size.
+  Rating source is the product's reviews.rating metafield when an app
+  supplies one; callers pass 0 to render an empty row.
+{%- endcomment -%}
+{%- liquid
+  assign s = size | default: 11
+  assign filled = rating | round
+-%}
+<span class="stars" aria-label="{{ rating }} out of 5 stars">
+  {%- for i in (1..5) -%}
+    {%- if i <= filled -%}
+      <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 20 20" fill="#a4802f" stroke="#a4802f" stroke-width="1.2" aria-hidden="true"><path d="M10 1.5l2.5 5.6 6 .6-4.5 4 1.3 6-5.3-3-5.3 3 1.3-6-4.5-4 6-.6L10 1.5Z"/></svg>
+    {%- else -%}
+      <svg width="{{ s }}" height="{{ s }}" viewBox="0 0 20 20" fill="none" stroke="#a4802f" stroke-width="1.2" aria-hidden="true"><path d="M10 1.5l2.5 5.6 6 .6-4.5 4 1.3 6-5.3-3-5.3 3 1.3-6-4.5-4 6-.6L10 1.5Z"/></svg>
+    {%- endif -%}
+  {%- endfor -%}
+</span>

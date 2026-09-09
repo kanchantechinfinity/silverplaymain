@@ -1,0 +1,59 @@
+<div class="wrap" style="padding-top:9rem;padding-bottom:5rem">
+  <p class="eyebrow">{{ 'general.search.search' | t }}</p>
+  <h1 class="h-sec mt-3" data-split data-reveal="none">{{ section.settings.heading }}</h1>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" class="mt-8" style="display:flex;gap:.75rem;max-width:38rem">
+    <input type="search" name="q" value="{{ search.terms | escape }}" class="field field--pill"
+           placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.search' | t }}">
+    <input type="hidden" name="options[prefix]" value="last">
+    <button type="submit" class="btn btn--ink">{{ 'general.search.search' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    <p class="shop__count mt-8">{{ 'general.search.results_with_count' | t: count: search.results_count }}</p>
+
+    {%- if search.results_count == 0 -%}
+      <div class="shop__empty">
+        <p style="font-family:var(--font-display);font-size:1.1rem">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+      </div>
+    {%- else -%}
+      {%- paginate search.results by 24 -%}
+        <div class="grid-products grid-products--3 mt-4" data-stagger="0.05">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- elsif item.object_type == 'article' -%}
+              <a href="{{ item.url }}" class="jcard">
+                <div class="jcard__media">
+                  {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" width="700" height="525">{%- endif -%}
+                </div>
+                <h3 class="jcard__title">{{ item.title }}</h3>
+              </a>
+            {%- else -%}
+              <a href="{{ item.url }}" class="jcard"><h3 class="jcard__title">{{ item.title }}</h3></a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr;</a>{%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}<span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>{%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">&rarr;</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search",
+  "tag": "section",
+  "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Search Silver Play" }]
+}
+{% endschema %}

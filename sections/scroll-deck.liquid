@@ -1,0 +1,82 @@
+{%- comment -%}
+  "Her Royal Simplicity" — scroll-driven horizontal deck.
+  The section is taller than the viewport; a sticky stage maps scroll progress
+  onto the track's translateX (theme.js -> initDeck). Arrows scroll the page to
+  the offset that centres a card, so scroll stays the single source of truth.
+{%- endcomment -%}
+{%- liquid
+  assign col = collections[section.settings.collection]
+  assign items = col.products
+  assign count = items.size
+  if count == 0
+    assign count = 4
+  endif
+  assign height = count | times: 65
+-%}
+
+<section class="deck" data-deck style="height: {{ height }}vh"
+         aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
+  <div class="deck__stage on-dark">
+    <div class="deck__head">
+      {% render 'heading',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        lede: section.settings.lede,
+        class: 'h-sec' %}
+    </div>
+
+    <div class="deck__viewport">
+      <div class="deck__rail">
+        {%- for product in items -%}
+          <div class="deck__card{% if forloop.first %} is-active{% endif %}" data-deck-card>
+            {%- if product.featured_media -%}
+              <img src="{{ product.featured_media | image_url: width: 900 }}"
+                   alt="{{ product.title | escape }}" loading="{% if forloop.index <= 2 %}eager{% else %}lazy{% endif %}"
+                   width="900" height="1100">
+            {%- endif -%}
+            <span class="deck__wash" aria-hidden="true"></span>
+            <div class="deck__chip"><span>{{ product.price | money }}</span></div>
+            <div class="deck__label">
+              <p>{{ product.metafields.custom.tagline.value | default: product.title }}</p>
+            </div>
+            <a href="{{ product.url }}" class="visually-hidden">{{ product.title }}</a>
+          </div>
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="deck__card{% if forloop.first %} is-active{% endif %}">
+              {{ 'product-1' | placeholder_svg_tag: '' }}
+              <span class="deck__wash" aria-hidden="true"></span>
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <span class="deck__fade" aria-hidden="true"></span>
+
+    <div class="deck__controls">
+      <button type="button" class="round-btn" data-deck-prev aria-label="{{ 'accessibility.previous' | t }}">&larr;</button>
+      <button type="button" class="round-btn round-btn--solid" data-deck-next aria-label="{{ 'accessibility.next' | t }}">&rarr;</button>
+      {%- if col != blank -%}
+        <a href="{{ col.url }}" class="link-cta link-cta--bone" style="margin-left:1rem">
+          {{ section.settings.cta_label }} <span>&rarr;</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Scroll deck edit",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Edit" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Her Royal Simplicity" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful." },
+    { "type": "text", "id": "cta_label", "label": "Link label", "default": "Shop The Edit" }
+  ],
+  "presets": [{ "name": "Scroll deck edit" }]
+}
+{% endschema %}

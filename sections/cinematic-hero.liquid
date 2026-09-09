@@ -1,0 +1,134 @@
+{%- comment -%}
+  Scroll-scrubbed cinematic hero.
+  The section is a tall scroll track; a sticky stage inside it maps scroll
+  position onto the video's currentTime (theme.js -> initCineHero). Chapter
+  blocks crossfade over their own percentage window of that track.
+  Falls back to a static poster + first/last chapter when the visitor has
+  asked for reduced motion or no video is set.
+{%- endcomment -%}
+{%- liquid
+  assign track = section.settings.track_vh | default: 450
+  assign poster = section.settings.poster
+-%}
+
+<div
+  class="cinehero"
+  data-page-hero
+  data-cinehero
+  data-trim-end="{{ section.settings.trim_end }}"
+  style="height: {{ track }}vh"
+>
+  <div class="cinehero__stage">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video
+        | video_tag:
+          class: 'cinehero__video',
+          muted: true,
+          playsinline: true,
+          controls: false,
+          preload: 'metadata',
+          image_size: '1600x'
+      }}
+    {%- elsif section.settings.video_url != blank -%}
+      <video class="cinehero__video" muted playsinline preload="metadata"
+             {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}>
+        <source src="{{ section.settings.video_url }}" type="video/mp4">
+      </video>
+    {%- elsif poster != blank -%}
+      <img class="cinehero__poster" src="{{ poster | image_url: width: 2000 }}" alt="" width="2000" height="1200">
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'cinehero__poster' }}
+    {%- endif -%}
+
+    <span class="cinehero__scrim-a" aria-hidden="true"></span>
+    <span class="cinehero__scrim-b" aria-hidden="true"></span>
+    {%- if section.settings.corner_vignette -%}
+      <span class="cinehero__corner" aria-hidden="true"></span>
+    {%- endif -%}
+
+    <div class="cinehero__chapters">
+      {%- for block in section.blocks -%}
+        <div
+          class="cinehero__chapter"
+          data-chapter
+          data-start="{{ block.settings.range_start }}"
+          data-end="{{ block.settings.range_end }}"
+          data-dock="{{ block.settings.dock }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="cinehero__inner">
+            {%- if block.settings.devanagari != blank -%}
+              <p class="cinehero__deva">{{ block.settings.devanagari }}</p>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h2 class="cinehero__title">{{ block.settings.title }}</h2>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <p class="cinehero__sub">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+            {%- if block.settings.cta_label != blank -%}
+              <a href="{{ block.settings.cta_url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg cinehero__cta">
+                {{ block.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.scroll_cue != blank -%}
+      <div class="cinehero__cue" aria-hidden="true">
+        <span>{{ section.settings.scroll_cue }}</span>
+        <span class="cinehero__cue-line"></span>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cinematic hero",
+  "tag": "section",
+  "settings": [
+    { "type": "video", "id": "video", "label": "Hero video (Shopify-hosted)" },
+    { "type": "url", "id": "video_url", "label": "Hero video URL (MP4 fallback)",
+      "info": "Use this if the file is uploaded to Files rather than as a Shopify video. Upload the brand film under Content > Files and paste its URL." },
+    { "type": "image_picker", "id": "poster", "label": "Poster image" },
+       { "type": "range", "id": "trim_end", "min": 0, "max": 30, "step": 0.5, "unit": "s", "label": "Stop scrubbing at", "default": 6.5,
+      "info": "Scroll never scrubs past this timestamp — use it to avoid a baked-in end card. 0 disables the trim." },
+    { "type": "checkbox", "id": "corner_vignette", "label": "Bottom-right corner vignette", "default": true,
+      "info": "Masks a watermark baked into the source footage." },
+    { "type": "text", "id": "scroll_cue", "label": "Scroll cue label", "default": "Scroll to discover" }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter",
+      "settings": [
+        { "type": "range", "id": "range_start", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Appears at", "default": 0 },
+        { "type": "range", "id": "range_end", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Fades out at", "default": 15 },
+        { "type": "text", "id": "devanagari", "label": "Devanagari line" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "select", "id": "dock", "label": "Vertical position", "default": "center",
+          "options": [ { "value": "center", "label": "Center" }, { "value": "bottom", "label": "Bottom" } ] },
+        { "type": "text", "id": "cta_label", "label": "Button label" },
+        { "type": "url", "id": "cta_url", "label": "Button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic hero",
+      "blocks": [
+        { "type": "chapter", "settings": { "range_start": 0, "range_end": 8, "title": "Silverplay" } },
+        { "type": "chapter", "settings": { "range_start": 8, "range_end": 15, "title": "Timeless Silver.", "subtitle": "Crafted as Heritage." } },
+        { "type": "chapter", "settings": { "range_start": 17, "range_end": 33, "title": "925 Sterling Silver", "subtitle": "Artisan crafted in India" } },
+        { "type": "chapter", "settings": { "range_start": 36, "range_end": 54, "devanagari": "कारीगरी", "subtitle": "Crafted by hand. Made to be treasured." } },
+        { "type": "chapter", "settings": { "range_start": 56, "range_end": 74, "devanagari": "विरासत", "subtitle": "Stories of silver, carried forward." } },
+        { "type": "chapter", "settings": { "range_start": 93, "range_end": 100, "title": "Discover Silverplay", "dock": "bottom", "cta_label": "Explore Collection" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

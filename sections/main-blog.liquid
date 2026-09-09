@@ -1,0 +1,74 @@
+{%- comment -%}
+  Journal archive. Category chips are real article tags, so filtering happens
+  server-side via /blogs/<handle>/<tag> rather than in client state.
+{%- endcomment -%}
+{%- liquid
+  assign banner = section.settings.banner_image
+  if banner == blank
+    assign banner = blog.articles.first.image
+  endif
+-%}
+
+{% render 'page-hero',
+  eyebrow: section.settings.eyebrow,
+  heading: blog.title,
+  image: banner,
+  description: section.settings.description %}
+
+<div class="wrap" style="padding-block:4rem">
+  {%- if blog.all_tags.size > 0 -%}
+    <div class="chips">
+      <a href="{{ blog.url }}" class="chip" {% if current_tags == empty %}aria-current="true"{% endif %}>{{ 'blogs.article.all' | t }}</a>
+      {%- for tag in blog.all_tags -%}
+        <a href="{{ blog.url }}/{{ tag | handleize }}" class="chip" {% if current_tags contains tag %}aria-current="true"{% endif %}>{{ tag }}</a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- paginate blog.articles by section.settings.per_page -%}
+    <div class="journal__grid" data-stagger="0.06">
+      {%- for article in blog.articles -%}
+        <a href="{{ article.url }}" class="jcard">
+          <div class="jcard__media">
+            {%- if article.image -%}
+              <img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.title | escape }}" loading="lazy" width="900" height="675">
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: '' }}
+            {%- endif -%}
+            {%- if article.tags.size > 0 -%}
+              <span class="jcard__tag">{{ article.tags.first }}</span>
+            {%- endif -%}
+          </div>
+          <p class="jcard__date">{{ article.published_at | date: '%-d %b %Y' }}</p>
+          <h3 class="jcard__title">{{ article.title }}</h3>
+          <p class="jcard__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 26 }}</p>
+          <span class="jcard__more">{{ 'blogs.article.read_more' | t }} <span>&rarr;</span></span>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr;</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+          {%- else -%}<span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>{%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}">&rarr;</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Blog",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Silver Stories" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Guides, craft and the people behind Silver Play's handcrafted jewellery." },
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image" },
+    { "type": "range", "id": "per_page", "min": 6, "max": 24, "step": 3, "label": "Articles per page", "default": 12 }
+  ]
+}
+{% endschema %}

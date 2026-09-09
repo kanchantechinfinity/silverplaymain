@@ -1,0 +1,10 @@
+{%- comment -%}
+  Photo-backed section background + tone wash.
+  Params: image (image_picker object), fallback (asset filename), wash (css color/gradient), alt_text
+{%- endcomment -%}
+{%- if image != blank -%}
+  <img class="heritage-sec__bg" src="{{ image | image_url: width: 2000 }}" alt="" loading="lazy" width="2000" height="1200">
+{%- elsif fallback != blank -%}
+  <img class="heritage-sec__bg" src="{{ fallback | asset_url }}" alt="" loading="lazy" width="1600" height="1000">
+{%- endif -%}
+<div class="heritage-sec__wash" style="background: {{ wash | default: 'rgba(242,232,208,0.75)' }};"></div>
