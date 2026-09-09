@@ -1,13 +1,25 @@
 {%- comment -%}
   The "Collections" mega panel: featured collection tiles, link-group columns
   driven by real linklists, and a looping video promo. Params: section, link
+
+  Every dynamic slot (featured tiles, link columns, promo video/poster) falls
+  back to the real Silver Play data (ported from src/data/site.ts megaNav) so
+  the panel matches the live site exactly before a merchant configures a
+  single collection/menu/video in the theme editor. Replace a fallback by
+  setting its real counterpart (collection_list block / linklist / video
+  picker) in Customize — the moment real data exists, it takes over.
 {%- endcomment -%}
+{%- liquid
+  assign fb_labels = 'Earrings,Pendants,Gemstone,Rakhi' | split: ','
+  assign fb_hrefs = '/collections/earrings,/collections/pendants,/collections/gemstone-jewellery,/collections/rakhi' | split: ','
+  assign fb_images = 'meganav-earrings.png,meganav-pendants.png,meganav-gemstone.jpg,meganav-rakhi.png' | split: ','
+-%}
 <div class="meganav">
   <div class="meganav__grid">
     <div class="meganav__main">
       <div class="meganav__top">
         <p class="eyebrow">{{ section.settings.mega_eyebrow }}</p>
-        <a href="{{ section.settings.mega_view_all | default: link.url }}" class="link-cta">
+        <a href="{{ section.settings.mega_view_all | default: '/collections/gift-collection' }}" class="link-cta">
           {{ section.settings.mega_view_all_label }} <span>&rarr;</span>
         </a>
       </div>
@@ -31,18 +43,55 @@
             </a>
           {%- endfor -%}
         </div>
+      {%- else -%}
+        <div class="meganav__featured">
+          {%- for label in fb_labels -%}
+            {%- assign fi = forloop.index0 -%}
+            <a href="{{ fb_hrefs[fi] }}">
+              <span class="meganav__thumb">
+                <img src="{{ fb_images[fi] | asset_url }}" alt="{{ label }}" width="300" height="300" loading="lazy">
+              </span>
+              <span class="meganav__flabel">{{ label }}</span>
+            </a>
+          {%- endfor -%}
+        </div>
       {%- endif -%}
 
       {%- if section.blocks.size > 0 -%}
         <div class="meganav__groups">
           {%- for block in section.blocks -%}
             {%- if block.type == 'link_group' -%}
+              {%- liquid
+                assign group_links = linklists[block.settings.menu].links
+                assign heading_key = block.settings.heading | strip | downcase
+              -%}
               <div {{ block.shopify_attributes }}>
                 <p class="eyebrow" style="margin-bottom:.625rem">{{ block.settings.heading }}</p>
                 <ul>
-                  {%- for l in linklists[block.settings.menu].links -%}
-                    <li><a href="{{ l.url }}">{{ l.title }}</a></li>
-                  {%- endfor -%}
+                  {%- if group_links.size > 0 -%}
+                    {%- for l in group_links -%}
+                      <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+                    {%- endfor -%}
+                  {%- else -%}
+                    {%- case heading_key -%}
+                      {%- when 'earrings' -%}
+                        <li><a href="/collections/earrings">All Earrings</a></li>
+                        <li><a href="/collections/baali-collection">Bali Collection</a></li>
+                        <li><a href="/collections/jhumka-earrings">Jhumka Earrings</a></li>
+                        <li><a href="/collections/hoop-earrings">Hoop Earrings</a></li>
+                        <li><a href="/collections/gen-z-edit-everyday-silver">Gen-Z Edit</a></li>
+                      {%- when 'pendants' -%}
+                        <li><a href="/collections/pendants">All Pendants</a></li>
+                        <li><a href="/collections/kavach">Kavach</a></li>
+                        <li><a href="/collections/moonlit-sparkle">Moonlight Sparkle</a></li>
+                        <li><a href="/collections/lakshmi-ratna-wealth-prosperity-abundance">Lakshmi Ratna</a></li>
+                        <li><a href="/collections/shakti-kavach-protection-strength-grounding">Shakti Kavach</a></li>
+                      {%- when 'rakhi' -%}
+                        <li><a href="/collections/rakhi">All Rakhi</a></li>
+                        <li><a href="/collections/for-the-special-bond">For the Special Bond</a></li>
+                        <li><a href="/collections/gift-for-her">Gift for Her</a></li>
+                    {%- endcase -%}
+                  {%- endif -%}
                 </ul>
               </div>
             {%- endif -%}
@@ -56,6 +105,8 @@
         {{ section.settings.promo_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '600x' }}
       {%- elsif section.settings.promo_poster != blank -%}
         <img src="{{ section.settings.promo_poster | image_url: width: 600 }}" alt="" loading="lazy" width="600" height="800">
+      {%- else -%}
+        <img src="{{ 'meganav-promo-poster.png' | asset_url }}" alt="" loading="lazy" width="900" height="563">
       {%- endif -%}
       <span class="meganav__promo-scrim" aria-hidden="true"></span>
       <div class="meganav__promo-body">
@@ -63,11 +114,9 @@
           {{ section.settings.promo_eyebrow }}
         </p>
         <h3 style="margin-top:.375rem;font-size:1.15rem;line-height:1.35;color:var(--sp-bone)">{{ section.settings.promo_heading }}</h3>
-        {%- if section.settings.promo_cta_url != blank -%}
-          <a href="{{ section.settings.promo_cta_url }}" class="btn btn--bone mt-4" style="padding:.625rem 1.25rem;font-size:.62rem;letter-spacing:.18em">
-            {{ section.settings.promo_cta_label }}
-          </a>
-        {%- endif -%}
+        <a href="{{ section.settings.promo_cta_url | default: '/collections/earrings' }}" class="btn btn--bone mt-4" style="padding:.625rem 1.25rem;font-size:.62rem;letter-spacing:.18em">
+          {{ section.settings.promo_cta_label }}
+        </a>
       </div>
     </div>
   </div>
