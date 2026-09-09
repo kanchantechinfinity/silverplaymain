@@ -41,7 +41,7 @@
         {%- else -%}
           {%- for i in (1..4) -%}
             <div class="card card--heritage"><div class="card__frame"><div class="card__paper">
-              <div class="card__media">{{ 'product-1' | placeholder_svg_tag: 'card__img' }}</div>
+              <div class="card__media"><img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" class="card__img" loading="lazy" width="1600" height="1067"></div>
               <div class="card__body"><h3 class="card__title">{{ 'onboarding.product_title' | t }}</h3></div>
             </div></div></div>
           {%- endfor -%}

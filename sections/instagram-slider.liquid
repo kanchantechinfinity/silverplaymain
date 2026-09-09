@@ -34,7 +34,7 @@
                 {%- if block.settings.image != blank -%}
                   <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.alt | escape }}" loading="lazy" width="700" height="700">
                 {%- else -%}
-                  {{ 'lifestyle-2' | placeholder_svg_tag: '' }}
+                  <img src="{{ 'stock-lifestyle-2.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="2404">
                 {%- endif -%}
                 <span class="ig__overlay" aria-hidden="true"></span>
                 <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle }}</span></span>

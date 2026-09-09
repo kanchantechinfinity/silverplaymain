@@ -51,7 +51,7 @@
                 {%- if front -%}
                   <img src="{{ front | image_url: width: 800 }}" alt="{{ col.title | escape }}" loading="lazy" width="800" height="1000">
                 {%- else -%}
-                  {{ 'collection-1' | placeholder_svg_tag: '' }}
+                  <img src="{{ 'stock-collection-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
                 {%- endif -%}
                 <span class="flipcard__scrim" aria-hidden="true"></span>
                 <div class="flipcard__body">

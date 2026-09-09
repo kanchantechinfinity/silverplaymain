@@ -44,7 +44,7 @@
         {%- else -%}
           {%- for i in (1..4) -%}
             <div class="deck__card{% if forloop.first %} is-active{% endif %}">
-              {{ 'product-1' | placeholder_svg_tag: '' }}
+              <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
               <span class="deck__wash" aria-hidden="true"></span>
             </div>
           {%- endfor -%}

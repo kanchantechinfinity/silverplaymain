@@ -31,7 +31,7 @@
             {%- if img -%}
               <img src="{{ img | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="400" height="400">
             {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: '' }}
+              <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
             {%- endif -%}
             <p>{{ block.settings.name }}</p>
           </button>

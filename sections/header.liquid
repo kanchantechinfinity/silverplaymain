@@ -24,7 +24,8 @@
         <div class="header__navitem">
           <a href="{{ link.url }}" class="header__link">{{ link.title }}</a>
 
-          {%- if link.title | downcase == mega_handle and section.blocks.size > 0 -%}
+          {%- assign link_title_lower = link.title | downcase -%}
+          {%- if link_title_lower == mega_handle and section.blocks.size > 0 -%}
             {% render 'mega-nav', section: section, link: link %}
           {%- elsif link.links.size > 0 -%}
             <div class="header__dropdown">
