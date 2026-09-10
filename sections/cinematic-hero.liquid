@@ -34,10 +34,12 @@
              {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}>
         <source src="{{ section.settings.video_url }}" type="video/mp4">
       </video>
-    {%- elsif poster != blank -%}
-      <img class="cinehero__poster" src="{{ poster | image_url: width: 2000 }}" alt="" width="2000" height="1200">
     {%- else -%}
-      <img src="{{ 'stock-lifestyle-1.jpg' | asset_url }}" alt="" class="cinehero__poster" loading="lazy" width="1600" height="2000">
+      {%- comment -%} Bundled brand footage — real cinematic hero video, ported from the Next.js source. Used until a merchant sets their own Shopify-hosted video or Files URL above. {%- endcomment -%}
+      <video class="cinehero__video" muted playsinline preload="metadata"
+             {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}>
+        <source src="{{ 'silverplay-cinematic.mp4' | asset_url }}" type="video/mp4">
+      </video>
     {%- endif -%}
 
     <span class="cinehero__scrim-a" aria-hidden="true"></span>
@@ -94,7 +96,8 @@
     { "type": "url", "id": "video_url", "label": "Hero video URL (MP4 fallback)",
       "info": "Use this if the file is uploaded to Files rather than as a Shopify video. Upload the brand film under Content > Files and paste its URL." },
     { "type": "image_picker", "id": "poster", "label": "Poster image" },
-       { "type": "range", "id": "trim_end", "min": 0, "max": 30, "step": 0.5, "unit": "s", "label": "Stop scrubbing at", "default": 6.5,
+    { "type": "range", "id": "track_vh", "min": 200, "max": 600, "step": 25, "unit": "vh", "label": "Scroll track length", "default": 450 },
+    { "type": "range", "id": "trim_end", "min": 0, "max": 30, "step": 0.5, "unit": "s", "label": "Stop scrubbing at", "default": 6.5,
       "info": "Scroll never scrubs past this timestamp — use it to avoid a baked-in end card. 0 disables the trim." },
     { "type": "checkbox", "id": "corner_vignette", "label": "Bottom-right corner vignette", "default": true,
       "info": "Masks a watermark baked into the source footage." },
