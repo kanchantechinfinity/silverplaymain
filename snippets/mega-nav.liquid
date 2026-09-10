@@ -106,7 +106,12 @@
       {%- elsif section.settings.promo_poster != blank -%}
         <img src="{{ section.settings.promo_poster | image_url: width: 600 }}" alt="" loading="lazy" width="600" height="800">
       {%- else -%}
-        <img src="{{ 'meganav-promo-poster.png' | asset_url }}" alt="" loading="lazy" width="900" height="563">
+        {%- comment -%} Bundled brand footage — the real promo panel video from the live site, until a merchant sets their own Shopify-hosted video above. {%- endcomment -%}
+        <video autoplay muted loop playsinline
+               poster="{{ 'meganav-promo-poster.png' | asset_url }}"
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <source src="https://silverplay.in/cdn/shop/videos/c/vp/795bd6985e5643f08a2165c41724b695/795bd6985e5643f08a2165c41724b695.HD-720p-2.1Mbps-88732573.mp4" type="video/mp4">
+        </video>
       {%- endif -%}
       <span class="meganav__promo-scrim" aria-hidden="true"></span>
       <div class="meganav__promo-body">
