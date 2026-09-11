@@ -1257,7 +1257,13 @@ input, textarea, select { font: inherit; color: inherit; }
 .modal__close { position: absolute; right: 1rem; top: 1rem; z-index: 20; display: grid; place-items: center; height: 2.25rem; width: 2.25rem; border-radius: 999px; background: rgba(36,26,16,.85); color: var(--sp-bone); }
 .modal__grid { display: grid; grid-template-columns: 1fr; max-height: 85vh; overflow-y: auto; border-radius: calc(var(--radius-lg) - 3px); background: var(--parchment); }
 @media (min-width: 768px) { .modal__grid { grid-template-columns: repeat(2, minmax(0,1fr)); overflow: visible; } }
-.modal__img { position: relative; aspect-ratio: 1; }
+.modal__img {
+  position: relative; aspect-ratio: 1; overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 3px) calc(var(--radius-lg) - 3px) 0 0;
+}
+@media (min-width: 768px) {
+  .modal__img { border-radius: calc(var(--radius-lg) - 3px) 0 0 calc(var(--radius-lg) - 3px); }
+}
 .modal__img img { height: 100%; width: 100%; object-fit: cover; }
 .modal__body { display: flex; flex-direction: column; padding: 1.5rem; }
 @media (min-width: 640px) { .modal__body { padding: 2rem; } }
