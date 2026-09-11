@@ -37,7 +37,7 @@
               if cover == blank
                 assign cover_asset = fb_images[fi]
               endif
-              assign tile_label = col.title | default: fb_labels[fi]
+              assign tile_label = fb_labels[fi] | default: col.title
               assign tile_href = col.url | default: fb_hrefs[fi]
             -%}
             <a href="{{ tile_href }}">
@@ -95,6 +95,11 @@
                         <li><a href="/collections/moonlight-sparkle">Moonlight Sparkle</a></li>
                         <li><a href="/collections/lakshmi-ratna-wealth-prosperity-abundance">Lakshmi Ratna</a></li>
                         <li><a href="/collections/shakti-kavach-protection-strength-grounding">Shakti Kavach</a></li>
+                      {%- when 'festive' -%}
+                        <li><a href="/collections/festive-wedding-collection">Festive / Wedding</a></li>
+                        <li><a href="/collections/ganpati-collection">Ganpati Collection</a></li>
+                        <li><a href="/collections/rakhi">Rakhi</a></li>
+                        <li><a href="/collections/gift-for-her">Gift for Her</a></li>
                       {%- when 'rakhi' -%}
                         <li><a href="/collections/rakhi">All Rakhi</a></li>
                         <li><a href="/collections/for-the-special-bond">For the Special Bond</a></li>
