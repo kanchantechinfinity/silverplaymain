@@ -635,19 +635,30 @@
       var form = e.target.closest("form.product-form, [data-add-to-cart]");
       if (!form) return;
       e.preventDefault();
-      var btn = $('[type="submit"]', form);
+      // e.submitter is which of the form's (possibly several) submit buttons
+      // was actually clicked -- Add to Cart vs. Buy Now both submit the same
+      // form, so this is how we tell them apart.
+      var submitter = e.submitter || null;
+      var buyNow = !!(submitter && submitter.hasAttribute("data-buy-now"));
+      var btn = submitter && submitter.type === "submit" ? submitter : $('[type="submit"]', form);
       var label = btn ? btn.textContent : "";
-      if (btn) { btn.disabled = true; btn.textContent = "Adding…"; }
+      if (btn) { btn.disabled = true; btn.textContent = buyNow ? "Redirecting…" : "Adding…"; }
       fetch("/cart/add.js", { method: "POST", body: new FormData(form) })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, json: j }; }); })
         .then(function (res) {
+          if (!res.ok) {
+            if (btn) { btn.disabled = false; btn.textContent = label; }
+            alert(res.json.description || res.json.message || "Could not add to bag.");
+            return;
+          }
+          if (buyNow) { window.location.href = "/checkout"; return; }
           if (btn) { btn.disabled = false; btn.textContent = label; }
-          if (!res.ok) { alert(res.json.description || res.json.message || "Could not add to bag."); return; }
           if (drawer) { drawer.classList.add("is-open"); document.body.style.overflow = "hidden"; }
           return refreshDrawer();
         })
         .catch(function () {
           if (btn) { btn.disabled = false; btn.textContent = label; }
+          if (buyNow) { form.submit(); return; }
           form.submit();
         });
     });

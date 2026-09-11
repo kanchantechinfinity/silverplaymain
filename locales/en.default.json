@@ -29,7 +29,7 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Buy Now",
+      "add_to_cart": "Add to Cart",
       "buy_now": "Buy Now",
       "sold_out": "Sold Out",
       "unavailable": "Unavailable",
