@@ -7,6 +7,8 @@
 
 /* --- Tokens ------------------------------------------------------------- */
 :root {
+  --spacing: 0.25rem;
+
   --sp-ink: #241a10;
   --sp-ink-2: #2e2115;
   --sp-ink-3: #3a2b1c;
@@ -296,7 +298,10 @@ input, textarea, select { font: inherit; color: inherit; }
 .header__logo {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
 }
-.header__logo img, .header__logo svg { width: auto; height: 3.5rem; transition: height .5s, filter .5s; filter: drop-shadow(0 1px 8px rgba(0,0,0,.5)); }
+.header__logo img, .header__logo svg { width: auto; height: var(--logo-h, 3.5rem); transition: height .5s, filter .5s; filter: drop-shadow(0 1px 8px rgba(0,0,0,.5)); }
+@media (min-width: 48rem) {
+  .header__logo img, .header__logo svg { height: calc(var(--spacing) * 20); }
+}
 .header.is-pinned .header__logo img { height: 3rem; filter: invert(1); }
 .header__logo-text {
   font-family: var(--font-flourish); font-size: 1.25rem; letter-spacing: .14em;

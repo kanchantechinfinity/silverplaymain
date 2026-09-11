@@ -13,11 +13,11 @@
       {%- if settings.logo != blank -%}
         <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}"
              width="{{ settings.logo.width }}" height="{{ settings.logo.height }}"
-             style="height:{{ settings.logo_height }}px">
+             style="--logo-h:{{ settings.logo_height }}px">
       {%- else -%}
         {%- comment -%} Bundled brand mark — the real Silver Play monogram, ported from the Next.js source. Used until a merchant uploads their own logo under Theme settings > Logo. {%- endcomment -%}
         <img src="{{ 'logo-mark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="567" height="567"
-             style="height:{{ settings.logo_height }}px;width:auto">
+             style="--logo-h:{{ settings.logo_height }}px">
       {%- endif -%}
     </a>
 
