@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Silver Play",
+    "theme_version": "1.0.0",
+    "theme_author": "Silver Play",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Falls back to the Silver Play monogram until you upload your own." },
+      { "type": "range", "id": "logo_height", "min": 30, "max": 160, "step": 2, "unit": "px", "label": "Logo height (header)", "default": 56 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "Displayed as the browser-tab icon. Square image recommended." }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "brand_curator", "label": "Curator credit", "default": "Curated By Dalljiet Kaur" },
+      { "type": "text", "id": "brand_statement", "label": "Brand statement", "default": "Handcrafted sterling silver jewellery, forged in the ancient tradition" },
+      { "type": "text", "id": "brand_hours", "label": "Support hours", "default": "Mon–Sat: 10am – 7pm IST" },
+      { "type": "text", "id": "brand_email", "label": "Support email", "default": "care@silverplay.in" }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram URL" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook URL" },
+      { "type": "text", "id": "instagram_handle", "label": "Instagram handle (without @)", "default": "thesilverplay" }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      { "type": "checkbox", "id": "card_show_second_image", "label": "Show second image on hover", "default": true },
+      { "type": "checkbox", "id": "card_show_quick_view", "label": "Show quick-view button", "default": true },
+      { "type": "checkbox", "id": "card_show_wishlist", "label": "Show wishlist icon", "default": true },
+      { "type": "checkbox", "id": "card_show_rating", "label": "Show star rating", "default": true },
+      { "type": "text", "id": "card_cta_label", "label": "Add-to-cart button label", "default": "Buy Now" }
+    ]
+  },
+  {
+    "name": "Product page",
+    "settings": [
+      { "type": "text", "id": "pdp_tax_note", "label": "Tax / purity note", "default": "Inclusive of all taxes · BIS hallmarked 925 sterling silver" },
+      { "type": "text", "id": "pdp_savings_note", "label": "Prepaid savings note", "default": "Prepaid orders ship free — pay online and skip the delivery charge." },
+      { "type": "checkbox", "id": "pdp_show_gift", "label": "Show gift-wrap option", "default": true },
+      { "type": "checkbox", "id": "pdp_show_pincheck", "label": "Show pincode delivery checker", "default": true },
+      { "type": "checkbox", "id": "pdp_show_3d", "label": "Show 3D/AR viewer if available", "default": true },
+      { "type": "textarea", "id": "pdp_shipping", "label": "Shipping info", "default": "Dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free, with a tracking link sent via WhatsApp/email." },
+      { "type": "textarea", "id": "pdp_returns", "label": "Returns policy", "default": "We replace or refund an item only if it arrives damaged, defective, or doesn't match your order — reported within 24 hours of delivery with photos or an unboxing video." },
+      { "type": "textarea", "id": "pdp_care", "label": "Care instructions", "default": "Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions and water. Wipe gently with a soft cloth after wearing, and use a mild silver polishing cloth for deeper cleaning." },
+      { "type": "textarea", "id": "pdp_material", "label": "Material note", "default": "Handcrafted in 92.5% BIS-hallmarked sterling silver by karigars in Jaipur." }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      { "type": "checkbox", "id": "cart_drawer_enabled", "label": "Use slide-out cart drawer", "default": true },
+      { "type": "text", "id": "cart_note", "label": "Cart footer note", "default": "Taxes included. Shipping calculated at checkout." }
+    ]
+  }
+]

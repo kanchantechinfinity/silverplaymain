@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "logo_height": 56,
+    "logo_height": 88,
     "brand_curator": "Curated By Dalljiet Kaur",
     "brand_email": "care@silverplay.in",
     "brand_hours": "Mon–Sat: 10am – 7pm IST",
@@ -120,7 +120,7 @@
   },
   "presets": {
     "Default": {
-      "logo_height": 56,
+      "logo_height": 88,
       "brand_curator": "Curated By Dalljiet Kaur",
       "brand_email": "care@silverplay.in",
       "brand_hours": "Mon–Sat: 10am – 7pm IST",

@@ -6,7 +6,7 @@
           {%- if settings.logo != blank -%}
             <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}" width="400" height="400" loading="lazy">
           {%- else -%}
-            <img src="{{ 'logo-mark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="120" height="120" loading="lazy" style="width:auto;height:4rem">
+            <img src="{{ 'logo-mark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="120" height="120" loading="lazy" style="width:auto;height:8rem">
           {%- endif -%}
         </div>
         {%- if settings.brand_statement != blank -%}
