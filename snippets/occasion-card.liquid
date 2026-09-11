@@ -1,17 +1,32 @@
 {%- liquid
   assign col = collections[block.settings.collection]
   assign img = block.settings.image
+  assign img_asset = blank
   if img == blank
+    case block.settings.collection
+      when 'bali-collection'
+        assign img_asset = 'occasion-bali.png'
+      when 'party-wear'
+        assign img_asset = 'occasion-party-wear.png'
+      when 'office-muse'
+        assign img_asset = 'occasion-office-muse.png'
+      when 'everyday-elegance'
+        assign img_asset = 'occasion-everyday-elegance.png'
+    endcase
+  endif
+  if img == blank and img_asset == blank
     assign img = col.image
   endif
-  if img == blank
+  if img == blank and img_asset == blank
     assign img = col.products.first.featured_media.preview_image
   endif
   assign title = block.settings.title | default: col.title
 -%}
 <div class="occasion__cell" style="flex: {{ flex }}" {{ block.shopify_attributes }}>
   <a href="{{ col.url | default: routes.collections_url }}" class="occ-card{% if wide %} occ-card--wide{% endif %}">
-    {%- if img -%}
+    {%- if img_asset != blank -%}
+      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" width="900" height="900">
+    {%- elsif img -%}
       <img src="{{ img | image_url: width: 900 }}" alt="{{ title | escape }}" loading="lazy" width="900" height="1100">
     {%- else -%}
       <img src="{{ 'stock-collection-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">

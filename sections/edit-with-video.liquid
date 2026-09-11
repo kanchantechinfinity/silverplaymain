@@ -58,7 +58,10 @@
         {%- elsif section.settings.video_image != blank -%}
           <img src="{{ section.settings.video_image | image_url: width: 900 }}" alt="" loading="lazy" width="900" height="1200">
         {%- else -%}
-          <img src="{{ 'elegance-lotus.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="2404">
+          {%- comment -%} Bundled brand footage — the real video from the Next.js source's Effortless Elegance section, until a merchant sets their own above. {%- endcomment -%}
+          <video autoplay muted loop playsinline>
+            <source src="{{ 'effortless-elegance.mp4' | asset_url }}" type="video/mp4">
+          </video>
         {%- endif -%}
       </div>
     </div>
