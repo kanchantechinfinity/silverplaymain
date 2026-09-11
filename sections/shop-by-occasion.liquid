@@ -29,7 +29,8 @@
       </div>
       <div class="occasion__col">
         {%- for block in section.blocks offset: 2 limit: 2 -%}
-          {% render 'occasion-card', block: block, flex: flexes[forloop.index0 | plus: 2], wide: forloop.first %}
+          {%- assign flex_idx = forloop.index0 | plus: 2 -%}
+          {% render 'occasion-card', block: block, flex: flexes[flex_idx], wide: forloop.first %}
         {%- endfor -%}
       </div>
     </div>
