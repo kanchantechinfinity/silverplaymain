@@ -106,6 +106,7 @@
   },
   "onboarding": {
     "product_title": "Example piece",
-    "collection_title": "Example collection"
+    "collection_title": "Example collection",
+    "blog_title": "Example story"
   }
 }

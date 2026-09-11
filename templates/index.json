@@ -417,31 +417,6 @@
     },
     "journal_arc": {
       "type": "journal-arc",
-      "blocks": {
-        "s1": {
-          "type": "story",
-          "settings": {
-            "title": "Heritage"
-          }
-        },
-        "s2": {
-          "type": "story",
-          "settings": {
-            "title": "Craftsmanship"
-          }
-        },
-        "s3": {
-          "type": "story",
-          "settings": {
-            "title": "Gemstone Heritage"
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2",
-        "s3"
-      ],
       "settings": {
         "blog": "news",
         "article_count": 3,
