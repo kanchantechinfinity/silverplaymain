@@ -8,7 +8,11 @@
   assign profile = section.settings.profile_url | default: settings.social_instagram
   assign col = collections[section.settings.fallback_collection]
 -%}
-<section class="sec--sm" style="background: var(--sp-bone-2)">
+<section class="heritage-sec sec--sm" style="background: var(--sp-bone-2)">
+  {% render 'heritage-bg',
+    image: section.settings.bg_image,
+    fallback: 'heritage-mandala-corner.png',
+    wash: 'rgba(232,216,179,0.82)' %}
   <div class="wrap">
     <div class="ig__head">
       <div>
@@ -71,7 +75,8 @@
     { "type": "url", "id": "profile_url", "label": "Profile URL" },
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "Follow on Instagram" },
     { "type": "collection", "id": "fallback_collection", "label": "Fallback collection",
-      "info": "Used only while no post blocks are added." }
+      "info": "Used only while no post blocks are added." },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
   ],
   "blocks": [
     {
