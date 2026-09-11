@@ -418,8 +418,8 @@
     "journal_arc": {
       "type": "journal-arc",
       "settings": {
-        "blog": "news",
-        "article_count": 3,
+        "blog": "journal",
+        "article_count": 20,
         "eyebrow": "From The Journal",
         "heading": "Stories, Worn as Silver",
         "cta_label": "Read The Journal"
