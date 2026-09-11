@@ -175,7 +175,7 @@
         "lede": "The newest additions to the Silver Play line — fresh cuts, fresh stones, straight from the workshop.",
         "count": 8,
         "bg_color": "#dbc596",
-        "wash": "rgba(219,197,150,0.72)",
+        "wash": "rgba(219,197,150,0.35)",
         "cta_label": "Shop New Arrivals"
       }
     },
@@ -269,7 +269,7 @@
         "heading": "The Archive Silver Treasure",
         "cta_label": "Shop The Collection",
         "card_cta": "Shop The Collection",
-        "wash": "rgba(242,232,208,0.75)"
+        "wash": "rgba(242,232,208,0.35)"
       }
     },
     "circle_picks": {
