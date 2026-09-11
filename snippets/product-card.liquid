@@ -98,8 +98,7 @@
         {%- endif -%}
       </div></div>
 
-      {%- if card_style == 'heritage' -%}{{ body_html }}{%- endif -%}
+      {{ body_html }}
     {%- if card_style == 'heritage' -%}</div>{%- endif -%}
   </div>
-  {%- unless card_style == 'heritage' -%}{{ body_html }}{%- endunless -%}
 </a>
