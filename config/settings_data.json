@@ -73,13 +73,6 @@
       "header": {
         "type": "header",
         "blocks": {
-          "link_group_Gb3H3Q": {
-            "type": "link_group",
-            "settings": {
-              "heading": "Earrings",
-              "menu": ""
-            }
-          },
           "header-0": {
             "type": "link_group",
             "settings": {
@@ -103,7 +96,6 @@
           }
         },
         "block_order": [
-          "link_group_Gb3H3Q",
           "header-0",
           "header-1",
           "header-2"
