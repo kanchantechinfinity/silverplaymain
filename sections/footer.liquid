@@ -2,13 +2,13 @@
   <div class="wrap" style="padding-block:5rem">
     <div class="footer__grid">
       <div data-reveal>
-        <div class="footer__logo">
+        <a href="{{ routes.root_url }}" class="footer__logo" aria-label="{{ shop.name | escape }} — {{ 'general.breadcrumb.home' | t }}">
           {%- if settings.logo != blank -%}
             <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}" width="400" height="400" loading="lazy">
           {%- else -%}
             <img src="{{ 'logo-mark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="120" height="120" loading="lazy" style="width:auto;height:8rem">
           {%- endif -%}
-        </div>
+        </a>
         {%- if settings.brand_statement != blank -%}
           <p class="footer__statement">{{ settings.brand_statement }}</p>
         {%- endif -%}

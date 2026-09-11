@@ -1180,6 +1180,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .footer { position: relative; overflow: hidden; background: var(--sp-ink); color: var(--sp-bone); }
 .footer__grid { display: grid; gap: 3.5rem; }
 @media (min-width: 1024px) { .footer__grid { grid-template-columns: 1.4fr repeat(3, 1fr); } }
+.footer__logo { display: inline-block; }
 .footer__logo img { height: 10rem; width: auto; }
 .footer__logo-text { font-family: var(--font-flourish); font-size: 2rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sp-bone); }
 .footer__statement { margin-top: 1.5rem; max-width: 24rem; font-family: var(--font-body); font-size: 1.05rem; font-style: italic; line-height: 1.7; color: rgba(242,232,208,.65); }
