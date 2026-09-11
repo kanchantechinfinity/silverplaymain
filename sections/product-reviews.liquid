@@ -52,10 +52,12 @@
       </div>
     {%- endif -%}
 
-    <div class="reviews__empty">
-      <p style="font-family:var(--font-display);font-size:.95rem;color:rgba(36,26,16,.7)">{{ section.settings.empty_title }}</p>
-      <p class="lede mt-2" style="font-size:.85rem">{{ section.settings.empty_body }}</p>
-    </div>
+    {%- if rating == 0 -%}
+      <div class="reviews__empty">
+        <p style="font-family:var(--font-display);font-size:.95rem;color:rgba(36,26,16,.7)">{{ section.settings.empty_title }}</p>
+        <p class="lede mt-2" style="font-size:.85rem">{{ section.settings.empty_body }}</p>
+      </div>
+    {%- endif -%}
 
     {%- comment -%}App blocks let a review app inject its own review list here.{%- endcomment -%}
     {%- for block in section.blocks -%}

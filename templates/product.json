@@ -1,6 +1,6 @@
 {
   "sections": {
-    "main": { "type": "main-product", "settings": { "show_dynamic_checkout": true } },
+    "main": { "type": "main-product", "settings": { "show_dynamic_checkout": false } },
     "box_contents": {
       "type": "product-box-contents",
       "blocks": {
