@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="occasion__bento" data-stagger="0.09">
+    <div class="occasion__bento">
       <div class="occasion__col">
         {%- for block in section.blocks limit: 2 -%}
           {% render 'occasion-card', block: block, flex: flexes[forloop.index0], wide: forloop.last %}

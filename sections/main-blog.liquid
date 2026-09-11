@@ -26,7 +26,7 @@
   {%- endif -%}
 
   {%- paginate blog.articles by section.settings.per_page -%}
-    <div class="journal__grid" data-stagger="0.06">
+    <div class="journal__grid">
       {%- for article in blog.articles -%}
         <a href="{{ article.url }}" class="jcard">
           <div class="jcard__media">

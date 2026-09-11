@@ -61,7 +61,7 @@
   <section style="border-top:1px solid var(--sp-line);background:var(--sp-bone-2);padding-block:5rem">
     <div class="wrap">
       <p class="eyebrow" data-reveal>{{ 'blogs.article.more_stories' | t }}</p>
-      <div class="journal__grid mt-8" data-stagger="0.08">
+      <div class="journal__grid mt-8">
         {%- assign shown = 0 -%}
         {%- for a in blog.articles -%}
           {%- if a.id != article.id and shown < 3 -%}

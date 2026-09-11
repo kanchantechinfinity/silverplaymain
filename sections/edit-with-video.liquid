@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="elegance__thumbs" data-stagger="0.09">
+      <div class="elegance__thumbs">
         {%- for product in col.products limit: section.settings.count -%}
           <a href="{{ product.url }}" class="elegance__thumb{% if forloop.first %} is-active{% endif %}"
              data-eleg-thumb aria-label="View {{ product.title | escape }}">
