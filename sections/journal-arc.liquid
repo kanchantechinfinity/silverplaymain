@@ -1,9 +1,8 @@
 {%- comment -%}
-  "Stories, Worn as Silver" — a plain horizontal rail of real blog articles
-  (title + featured image), pulled directly from the blog. No theme-editor
-  blocks, no manual images, no scroll-hijacking stage -- whatever gets
-  published to the blog shows up here automatically, and the section's
-  height is just its natural content height (no leftover blank space).
+  "Stories, Worn as Silver" — a centered single-card carousel with faded
+  peeking neighbors (matches the Vercel reference), driven by click-only
+  prev/next controls -- no scroll-hijacking track, so no leftover blank
+  space below the section. Cards are real blog articles only.
 {%- endcomment -%}
 {%- liquid
   assign blog = blogs[section.settings.blog]
@@ -18,7 +17,7 @@
   assign article_limit = section.settings.article_count
 -%}
 
-<section class="arc heritage-sec">
+<section class="arc heritage-sec" data-arc>
   <div class="arc__stage">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
@@ -30,39 +29,45 @@
       <h2 class="mt-2" style="font-size:clamp(1.5rem,3.2vw,2.3rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
     </div>
 
-    <div class="arc__rail">
-      {%- if blog != blank and blog.articles.size > 0 -%}
-        {%- for post in blog.articles limit: article_limit -%}
-          <a href="{{ post.url }}" class="arc__card">
+    <div class="arc__ring-wrap">
+      <div class="arc__rail" data-arc-rail>
+        {%- if blog != blank and blog.articles.size > 0 -%}
+          {%- for post in blog.articles limit: article_limit -%}
+            <div class="arc__card">
+              <a href="{{ post.url }}">
+                <div class="arc__inner">
+                  {%- if post.image -%}
+                    <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" width="1200" height="800">
+                  {%- else -%}
+                    <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+                  {%- endif -%}
+                  <span class="arc__scrim" aria-hidden="true"></span>
+                  <div class="arc__foot">
+                    <h3>{{ post.title }}</h3>
+                    <span class="arc__go" aria-hidden="true">&rarr;</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="arc__card">
             <div class="arc__inner">
-              {%- if post.image -%}
-                <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" width="1200" height="800">
-              {%- else -%}
-                <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
-              {%- endif -%}
+              <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
               <span class="arc__scrim" aria-hidden="true"></span>
               <div class="arc__foot">
-                <h3>{{ post.title }}</h3>
-                <span class="arc__go" aria-hidden="true">&rarr;</span>
+                <h3>{{ 'onboarding.blog_title' | t }}</h3>
               </div>
             </div>
-          </a>
-        {%- endfor -%}
-      {%- else -%}
-        <div class="arc__card">
-          <div class="arc__inner">
-            <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
-            <span class="arc__scrim" aria-hidden="true"></span>
-            <div class="arc__foot">
-              <h3>{{ 'onboarding.blog_title' | t }}</h3>
-            </div>
           </div>
-        </div>
-      {%- endif -%}
+        {%- endif -%}
+      </div>
     </div>
 
     <div class="arc__controls">
-      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta">
+      <button type="button" class="round-btn" data-arc-prev aria-label="{{ 'accessibility.previous' | t }}">&larr;</button>
+      <button type="button" class="round-btn round-btn--solid" data-arc-next aria-label="{{ 'accessibility.next' | t }}">&rarr;</button>
+      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta" style="margin-left:1rem">
         {{ section.settings.cta_label }} <span>&rarr;</span>
       </a>
     </div>

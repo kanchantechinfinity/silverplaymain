@@ -247,6 +247,37 @@
     });
   }
 
+  /* --------------------------------------- Journal showcase carousel */
+  function initArc() {
+    $$("[data-arc]").forEach(function (root) {
+      var wrap = $(".arc__ring-wrap", root);
+      var rail = $("[data-arc-rail]", root);
+      var cards = $$(".arc__card", rail);
+      var n = cards.length;
+      if (!n || !wrap || !rail) return;
+      var index = 0;
+
+      function layout() {
+        var cardWidth = cards[0].getBoundingClientRect().width;
+        var gap = parseFloat(getComputedStyle(rail).gap) || 0;
+        var step = cardWidth + gap;
+        var offset = (wrap.clientWidth - cardWidth) / 2 - index * step;
+        rail.style.transform = "translateX(" + offset + "px)";
+        cards.forEach(function (card, i) {
+          card.classList.toggle("is-active", i === index);
+          var link = $("a", card);
+          if (link) link.tabIndex = i === index ? 0 : -1;
+        });
+      }
+      layout();
+      window.addEventListener("resize", layout, { passive: true });
+
+      var prev = $("[data-arc-prev]", root), next = $("[data-arc-next]", root);
+      if (prev) prev.addEventListener("click", function () { index = (index - 1 + n) % n; layout(); });
+      if (next) next.addEventListener("click", function () { index = (index + 1) % n; layout(); });
+    });
+  }
+
   /* ------------------------------------------------------- flip cards */
   function initFlip() {
     $$(".flipcard").forEach(function (card) {
@@ -762,6 +793,7 @@
     initCineHero();
     initDeck();
     initFlip();
+    initArc();
     initDisclosures();
     initDragRails();
     initElegance();

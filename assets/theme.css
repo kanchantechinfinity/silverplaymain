@@ -824,20 +824,22 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* --- Journal showcase (3D arc) ------------------------------------------ */
 .arc { position: relative; isolation: isolate; background: var(--sp-bone); }
-.arc__stage { position: relative; display: flex; flex-direction: column; padding-bottom: 3rem; overflow: hidden; }
-.arc__head { margin-inline: auto; width: 100%; max-width: 42rem; padding: 3rem 1.25rem .5rem; text-align: center; }
-.arc__rail { position: relative; z-index: 1; display: flex; gap: 1.25rem; overflow-x: auto; padding: 1rem 1.25rem 1.5rem; scroll-snap-type: x proximity; }
-.arc__rail::-webkit-scrollbar { display: none; }
-.arc__card { position: relative; flex: 0 0 auto; display: block; width: min(78vw, 340px); scroll-snap-align: start; }
-@media (min-width: 768px) { .arc__card { width: min(32vw, 380px); } }
+.arc__stage { position: relative; display: flex; flex-direction: column; padding-block: 2rem 3rem; overflow: hidden; }
+.arc__head { margin-inline: auto; width: 100%; max-width: 42rem; padding: 1rem 1.25rem 1rem; text-align: center; }
+.arc__ring-wrap { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; padding-block: 1.5rem; }
+.arc__rail { position: relative; z-index: 1; display: flex; align-items: center; gap: 1.5rem; will-change: transform; transition: transform .6s var(--ease-silk); }
+.arc__card { position: relative; flex: 0 0 auto; width: min(60vw, 560px); opacity: .35; transform: scale(.88); transition: opacity .6s var(--ease-silk), transform .6s var(--ease-silk); }
+@media (max-width: 767px) { .arc__card { width: min(80vw, 360px); } }
+.arc__card.is-active { opacity: 1; transform: scale(1); }
+.arc__card > a { display: block; }
 .arc__inner { position: relative; aspect-ratio: 4 / 5; width: 100%; overflow: hidden; border-radius: var(--radius-lg); box-shadow: 0 30px 70px -30px rgba(26,22,20,.35); }
 .arc__inner img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transition: transform .7s; }
-.arc__card:hover .arc__inner img { transform: scale(1.04); }
+.arc__card.is-active:hover .arc__inner img { transform: scale(1.04); }
 .arc__scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(36,26,16,.75), transparent 55%); }
 .arc__foot { position: absolute; inset-inline: 0; bottom: 0; display: flex; align-items: flex-end; justify-content: space-between; padding: 1rem; }
 .arc__foot h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; line-height: 1.35; color: var(--sp-bone); }
 .arc__go { display: grid; place-items: center; height: 2.25rem; width: 2.25rem; flex: none; border-radius: 999px; background: var(--sp-bone); color: var(--sp-ink); }
-.arc__controls { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: .75rem; padding-inline: 1.25rem; }
+.arc__controls { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: .75rem; padding-inline: 1.25rem; padding-top: 1rem; }
 
 /* --- FAQ ---------------------------------------------------------------- */
 .faq__list { position: relative; margin-top: 3.5rem; border-top: 1px solid rgba(242,232,208,.12); }
