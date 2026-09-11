@@ -57,7 +57,14 @@
 {%- endcapture -%}
 {%- assign total = card_markup | split: 'class="arc__card"' | size | minus: 1 -%}
 {%- if total < 1 -%}{%- assign total = 1 -%}{%- endif -%}
-{%- assign track = total | plus: 1 | times: 45 -%}
+{%- comment -%}
+  Minimum ~100vh so the sticky stage has room to actually be sticky (a
+  section exactly 100vh tall never scrolls while pinned), plus a modest
+  per-card allowance for the scroll-linked ring rotation -- kept small
+  deliberately so a low card count doesn't leave a long "dead" scroll
+  stretch after the ring settles on its last card.
+{%- endcomment -%}
+{%- assign track = total | times: 18 | plus: 100 -%}
 
 <section class="arc heritage-sec" data-arc style="height: {{ track }}vh">
   <div class="arc__stage">
