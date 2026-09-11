@@ -1,0 +1,39 @@
+{%- comment -%}
+  Wishlist page: renders the visitor's saved products from theme.js's
+  localStorage-based wishlist (WISH_KEY "sp_wishlist", set by [data-wishlist]
+  buttons on product cards throughout the theme). Client-rendered — each
+  saved handle is fetched via /products/<handle>?view=card (templates/
+  product.card.liquid), the same pattern already used for Recently Viewed.
+  No server-side product data here, since Shopify carries no visitor-level
+  wishlist state of its own.
+{%- endcomment -%}
+{% render 'page-hero',
+  eyebrow: section.settings.eyebrow,
+  heading: section.settings.heading,
+  description: section.settings.lede %}
+
+<div class="wrap" style="padding-block:4rem" data-wishlist-page>
+  <div class="grid-products grid-products--3" data-wishlist-grid data-stagger="0.05"></div>
+
+  <div class="text-center" data-wishlist-empty hidden style="padding-block:4rem 2rem">
+    <p class="lede">{{ section.settings.empty_text }}</p>
+    <a href="{{ section.settings.empty_cta_url | default: routes.all_products_collection_url }}" class="btn btn--bone mt-6">
+      {{ section.settings.empty_cta_label }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Saved For Later" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Wishlist" },
+    { "type": "text", "id": "lede", "label": "Description", "default": "The pieces you've saved to come back to." },
+    { "type": "text", "id": "empty_text", "label": "Empty-state text", "default": "You haven't saved anything yet." },
+    { "type": "text", "id": "empty_cta_label", "label": "Empty-state button label", "default": "Discover The Collection" },
+    { "type": "url", "id": "empty_cta_url", "label": "Empty-state button link" }
+  ],
+  "presets": [{ "name": "Wishlist" }]
+}
+{% endschema %}

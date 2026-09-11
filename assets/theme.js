@@ -489,6 +489,8 @@
   function initWishlist() {
     var list = readStore(WISH_KEY);
     $$("[data-wishlist]").forEach(function (btn) {
+      if (btn.dataset.wishBound) return; // avoid stacking duplicate listeners on repeat init calls
+      btn.dataset.wishBound = "1";
       var h = btn.getAttribute("data-wishlist");
       btn.setAttribute("aria-pressed", String(list.indexOf(h) > -1));
       btn.addEventListener("click", function (e) {
@@ -500,6 +502,50 @@
         btn.setAttribute("aria-pressed", String(i === -1));
       });
     });
+  }
+
+  /* ------------------------------------------------------ wishlist page */
+  function initWishlistPage() {
+    var grid = $("[data-wishlist-grid]");
+    if (!grid) return;
+    var empty = $("[data-wishlist-empty]");
+    var handles = readStore(WISH_KEY);
+    if (!handles.length) { if (empty) empty.hidden = false; return; }
+    var done = 0;
+    function settle() {
+      done++;
+      if (done === handles.length && !grid.children.length && empty) empty.hidden = false;
+    }
+    handles.forEach(function (h) {
+      fetch("/products/" + h + "?view=card")
+        .then(function (r) { return r.ok ? r.text() : null; })
+        .then(function (html) {
+          if (html) {
+            var wrap = document.createElement("div");
+            wrap.innerHTML = html.trim();
+            var card = wrap.firstElementChild;
+            if (card) grid.appendChild(card);
+          }
+          settle();
+        })
+        .catch(settle);
+    });
+    // Unwishing a card while on this page should drop it from view immediately,
+    // rather than requiring a reload — delegate so it also covers cards
+    // appended above after the initial fetches resolve.
+    grid.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-wishlist]");
+      if (!btn) return;
+      requestAnimationFrame(function () {
+        if (btn.getAttribute("aria-pressed") === "false") {
+          var card = btn.closest("[data-product-card]");
+          if (card) card.remove();
+          if (!grid.children.length && empty) empty.hidden = false;
+        }
+      });
+    });
+    initReveal(grid);
+    initWishlist();
   }
 
   /* -------------------------------------------------- recently viewed */
@@ -760,6 +806,7 @@
     initModals();
     initQuickView();
     initWishlist();
+    initWishlistPage();
     initRecentlyViewed();
     initCart();
     initVariants();

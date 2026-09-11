@@ -45,7 +45,7 @@
         {% render 'icon', name: 'search' %}
       </a>
       {%- if section.settings.show_wishlist -%}
-        <a href="{{ section.settings.wishlist_url | default: routes.root_url }}" class="header__icon header__icon--sm" aria-label="{{ 'accessibility.wishlist' | t }}">
+        <a href="{{ section.settings.wishlist_url | default: '/pages/wishlist' }}" class="header__icon header__icon--sm" aria-label="{{ 'accessibility.wishlist' | t }}">
           {% render 'icon', name: 'heart' %}
         </a>
       {%- endif -%}

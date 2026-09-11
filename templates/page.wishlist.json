@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "wishlist": {
+      "type": "wishlist-page",
+      "settings": {
+        "eyebrow": "Saved For Later",
+        "heading": "Your Wishlist",
+        "lede": "The pieces you've saved to come back to.",
+        "empty_text": "You haven't saved anything yet.",
+        "empty_cta_label": "Discover The Collection"
+      }
+    }
+  },
+  "order": ["wishlist"]
+}
