@@ -1,8 +1,8 @@
 {%- comment -%}
-  "Stories, Worn as Silver" — a centered single-card carousel with faded
-  peeking neighbors (matches the Vercel reference), driven by click-only
-  prev/next controls -- no scroll-hijacking track, so no leftover blank
-  space below the section. Cards are real blog articles only.
+  "Stories, Worn as Silver" — exact port of the Vercel reference's
+  JournalShowcase: a pinned 3D ring of cards driven by scroll progress
+  (theme.js -> initArc), track height = (n + 0.6) * 62vh. Cards are real
+  blog articles only -- no theme-editor blocks or manual images.
 {%- endcomment -%}
 {%- liquid
   assign blog = blogs[section.settings.blog]
@@ -15,14 +15,19 @@
     endfor
   endif
   assign article_limit = section.settings.article_count
+  assign real_count = blog.articles.size | at_most: article_limit
+  if real_count < 1
+    assign real_count = 1
+  endif
+  assign track = real_count | plus: 0.6 | times: 62
 -%}
 
-<section class="arc heritage-sec" data-arc>
+<section class="arc heritage-sec" data-arc style="height: {{ track }}vh">
   <div class="arc__stage">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
       fallback: 'heritage-mandala-corner.png',
-      wash: 'rgba(242,232,208,0.35)' %}
+      wash: 'rgba(242,232,208,0.8)' %}
 
     <div class="arc__head">
       <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
@@ -30,9 +35,9 @@
     </div>
 
     <div class="arc__ring-wrap">
-      <div class="arc__rail" data-arc-rail>
+      <div class="arc__ring">
         {%- if blog != blank and blog.articles.size > 0 -%}
-          {%- for post in blog.articles limit: article_limit -%}
+          {%- for post in blog.articles limit: real_count -%}
             <div class="arc__card">
               <a href="{{ post.url }}">
                 <div class="arc__inner">
@@ -52,13 +57,15 @@
           {%- endfor -%}
         {%- else -%}
           <div class="arc__card">
-            <div class="arc__inner">
-              <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
-              <span class="arc__scrim" aria-hidden="true"></span>
-              <div class="arc__foot">
-                <h3>{{ 'onboarding.blog_title' | t }}</h3>
+            <a href="{{ routes.root_url }}">
+              <div class="arc__inner">
+                <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+                <span class="arc__scrim" aria-hidden="true"></span>
+                <div class="arc__foot">
+                  <h3>{{ 'onboarding.blog_title' | t }}</h3>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         {%- endif -%}
       </div>
@@ -80,7 +87,7 @@
   "tag": "section",
   "settings": [
     { "type": "blog", "id": "blog", "label": "Blog" },
-    { "type": "range", "id": "article_count", "min": 1, "max": 20, "step": 1, "label": "Articles shown", "default": 20 },
+    { "type": "range", "id": "article_count", "min": 1, "max": 6, "step": 1, "label": "Articles shown", "default": 6 },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From The Journal" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Stories, Worn as Silver" },
     { "type": "text", "id": "cta_label", "label": "Link label", "default": "Read The Journal" },
