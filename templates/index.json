@@ -1,1 +1,512 @@
-{"sections":{"hero":{"type":"cinematic-hero","blocks":{"c1":{"type":"chapter","settings":{"range_start":0,"range_end":8,"title":"Silverplay"}},"c2":{"type":"chapter","settings":{"range_start":8,"range_end":15,"title":"Timeless Silver.","subtitle":"Crafted as Heritage."}},"c3":{"type":"chapter","settings":{"range_start":17,"range_end":33,"title":"925 Sterling Silver","subtitle":"Artisan crafted in India"}},"c4":{"type":"chapter","settings":{"range_start":36,"range_end":54,"devanagari":"कारीगरी","subtitle":"Crafted by hand. Made to be treasured."}},"c5":{"type":"chapter","settings":{"range_start":56,"range_end":74,"devanagari":"विरासत","subtitle":"Stories of silver, carried forward."}},"c6":{"type":"chapter","settings":{"range_start":93,"range_end":100,"title":"Discover Silverplay","dock":"bottom","cta_label":"Explore Collection"}}},"block_order":["c1","c2","c3","c4","c5","c6"],"settings":{"trim_end":6.5,"corner_vignette":true,"scroll_cue":"Scroll to discover"}},"assurance":{"type":"assurance-bar","blocks":{"a1":{"type":"item","settings":{"text":"BIS Certified"}},"a2":{"type":"item","settings":{"text":"925 Sterling Silver"}},"a3":{"type":"item","settings":{"text":"Purity Guaranteed"}},"a4":{"type":"item","settings":{"text":"Artisan Crafted in India"}},"a5":{"type":"item","settings":{"text":"Savings With Every Purchase"}},"a6":{"type":"item","settings":{"text":"The Silver Play Exchange Policy"}},"a7":{"type":"item","settings":{"text":"Free Shipping on Prepaid Orders"}},"a8":{"type":"item","settings":{"text":"Skin-Friendly"}}},"block_order":["a1","a2","a3","a4","a5","a6","a7","a8"],"settings":{"speed":48,"separator":"—"}},"fresh_edit":{"type":"fresh-edit","blocks":{"t1":{"type":"tab","settings":{"label":"New Arrivals"}},"t2":{"type":"tab","settings":{"label":"Earrings"}},"t3":{"type":"tab","settings":{"label":"Pendants"}}},"block_order":["t1","t2","t3"],"settings":{"eyebrow":"Just Landed","heading":"The Fresh Edit","lede":"The newest additions to the Silver Play line — fresh cuts, fresh stones, straight from the workshop.","count":8,"bg_color":"#dbc596","wash":"rgba(219,197,150,0.72)","cta_label":"Shop New Arrivals"}},"royal_simplicity":{"type":"scroll-deck","settings":{"eyebrow":"The Edit","heading":"Her Royal Simplicity","lede":"For the woman who loves jewellery that feels effortless, personal and quietly beautiful.","cta_label":"Shop The Edit"}},"best_sellers":{"type":"featured-collection","settings":{"eyebrow":"As Seen & Loved","heading":"Best Sellers","lede":"The pieces Silver Play wearers keep coming back for — proven favourites, worn on repeat.","count":8,"card_style":"heritage","color_scheme":"dark","bg_color":"#3a2b1c","wash":"rgba(58,43,28,0.62)","cta_label":"Shop Best Sellers"}},"archive_treasure":{"type":"archive-treasure","blocks":{"h1":{"type":"tile","settings":{"title":"Heritage","devanagari":"विरासत"}},"h2":{"type":"tile","settings":{"title":"Craftsmanship","devanagari":"कारीगरी"}},"h3":{"type":"tile","settings":{"title":"Gemstone Heritage","devanagari":"रत्न विरासत"}},"h4":{"type":"tile","settings":{"title":"Elegance","devanagari":"नज़ाकत"}},"h5":{"type":"tile","settings":{"title":"Regal","devanagari":"शाही"}},"h6":{"type":"tile","settings":{"title":"Lunar Glow","devanagari":"चांदनी"}}},"block_order":["h1","h2","h3","h4","h5","h6"],"settings":{"eyebrow":"Heritage","heading":"The Archive Silver Treasure","cta_label":"Shop The Collection","card_cta":"Shop The Collection","wash":"rgba(242,232,208,0.75)"}},"circle_picks":{"type":"circle-picks","settings":{"eyebrow":"The Edit","heading":"Kavach","lede":"Earthy stones for strength, grounding, courage and quiet power — Tiger Eye, Blood Stone, Black Banded Agate and more, set in 925 sterling silver as a protective piece worn close.","cta_label":"Shop The Edit","count":10}},"shop_by_occasion":{"type":"shop-by-occasion","blocks":{"o1":{"type":"tile","settings":{"title":"Bali Collection"}},"o2":{"type":"tile","settings":{"title":"Party Wear"}},"o3":{"type":"tile","settings":{"title":"Office Muse"}},"o4":{"type":"tile","settings":{"title":"Everyday Elegance"}}},"block_order":["o1","o2","o3","o4"],"settings":{"eyebrow":"Dressed For The Moment","heading":"Shop By Occasion","cta_label":"Shop Now"}},"instagram":{"type":"instagram-slider","settings":{"eyebrow":"As Seen & Loved","cta_label":"Follow on Instagram"}},"founder":{"type":"founder","settings":{"eyebrow":"The Founder","heading":"A Timeless Curation by","bio":"Dalljiet Kaur believes jewellery should make people feel seen, valued and connected. Her vision for Silver Play is to create a brand where silver feels luxurious, meaningful and relevant for modern life. A brand where people can find jewellery for themselves, for someone special and for moments that deserve to be remembered.","name":"Dalljiet Kaur","role":"Founder, Silver Play"}},"effortless_elegance":{"type":"edit-with-video","settings":{"eyebrow":"The Edit","heading":"Effortless Elegance","lede":"Perfect for women who love Indian silhouettes, celebrity inspired ethnic styling, statement silver and looks that feel graceful but not predictable.","cta_label":"Shop The Edit","count":4}},"testimonials":{"type":"testimonials","blocks":{"n1":{"type":"note","settings":{"quote":"Handcrafted sterling silver jewellery, forged for the woman who wears her story.","attribution":"Silver Play"}},"n2":{"type":"note","settings":{"quote":"Every piece is made with a belief that you deserve beautiful things around you.","attribution":"Dalljiet Kaur, Founder"}},"n3":{"type":"note","settings":{"quote":"A single pendant can pass through five pairs of hands before it reaches yours.","attribution":"Inside the Jaipur Atelier"}},"n4":{"type":"note","settings":{"quote":"Jewellery can be more than beautiful — it can be intentional.","attribution":"How to Wear Meaning"}},"n5":{"type":"note","settings":{"quote":"With proper care, your Silver Play pieces will last a lifetime.","attribution":"Jewellery Care"}},"n6":{"type":"note","settings":{"quote":"Handcrafted sterling silver jewellery, forged in the ancient tradition.","attribution":"Silver Play"}}},"block_order":["n1","n2","n3","n4","n5","n6"],"settings":{"eyebrow":"In Her Own Words","heading":"Notes We Keep"}},"journal_arc":{"type":"journal-arc","blocks":{"s1":{"type":"story","settings":{"title":"Heritage"}},"s2":{"type":"story","settings":{"title":"Craftsmanship"}},"s3":{"type":"story","settings":{"title":"Gemstone Heritage"}}},"block_order":["s1","s2","s3"],"settings":{"blog":"news","article_count":3,"eyebrow":"From The Journal","heading":"Stories, Worn as Silver","cta_label":"Read The Journal"}},"faq":{"type":"faq","blocks":{"q1":{"type":"faq","settings":{"question":"How long does delivery take?","answer":"Orders are dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free. You'll receive a tracking link via WhatsApp\/email once your order is shipped."}},"q2":{"type":"faq","settings":{"question":"What is the return policy?","answer":"Silver Play does not accept returns or exchanges for change of mind. We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered — reported within 24 hours of delivery with photos or an unboxing video."}},"q3":{"type":"faq","settings":{"question":"How do I care for my silver jewellery?","answer":"Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions, and water. Wipe gently with a soft cloth after wearing. For deep cleaning, use a mild silver polishing cloth."}},"q4":{"type":"faq","settings":{"question":"Why is silver called sterling silver?","answer":"Pure silver is too soft to wear every day, so it is blended with a small amount of another metal — usually copper — for strength. 'Sterling' silver is the standard that is 92.5% pure silver and 7.5% other metals, which is why every piece is stamped '925'."}}},"block_order":["q1","q2","q3","q4"],"settings":{"eyebrow":"Good To Know","heading":"Frequently Asked"}}},"order":["hero","assurance","fresh_edit","royal_simplicity","best_sellers","archive_treasure","circle_picks","shop_by_occasion","instagram","founder","effortless_elegance","testimonials","journal_arc","faq"]}
+{
+  "sections": {
+    "hero": {
+      "type": "cinematic-hero",
+      "blocks": {
+        "c1": {
+          "type": "chapter",
+          "settings": {
+            "range_start": 0,
+            "range_end": 8,
+            "title": "Silverplay"
+          }
+        },
+        "c2": {
+          "type": "chapter",
+          "settings": {
+            "range_start": 8,
+            "range_end": 15,
+            "title": "Timeless Silver.",
+            "subtitle": "Crafted as Heritage."
+          }
+        },
+        "c3": {
+          "type": "chapter",
+          "settings": {
+            "range_start": 17,
+            "range_end": 33,
+            "title": "925 Sterling Silver",
+            "subtitle": "Artisan crafted in India"
+          }
+        },
+        "c4": {
+          "type": "chapter",
+          "settings": {
+            "range_start": 36,
+            "range_end": 54,
+            "devanagari": "कारीगरी",
+            "subtitle": "Crafted by hand. Made to be treasured."
+          }
+        },
+        "c5": {
+          "type": "chapter",
+          "settings": {
+            "range_start": 56,
+            "range_end": 74,
+            "devanagari": "विरासत",
+            "subtitle": "Stories of silver, carried forward."
+          }
+        },
+        "c6": {
+          "type": "chapter",
+          "settings": {
+            "range_start": 93,
+            "range_end": 100,
+            "title": "Discover Silverplay",
+            "dock": "bottom",
+            "cta_label": "Explore Collection"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "trim_end": 6.5,
+        "corner_vignette": true,
+        "scroll_cue": "Scroll to discover"
+      }
+    },
+    "assurance": {
+      "type": "assurance-bar",
+      "blocks": {
+        "a1": {
+          "type": "item",
+          "settings": {
+            "text": "BIS Certified"
+          }
+        },
+        "a2": {
+          "type": "item",
+          "settings": {
+            "text": "925 Sterling Silver"
+          }
+        },
+        "a3": {
+          "type": "item",
+          "settings": {
+            "text": "Purity Guaranteed"
+          }
+        },
+        "a4": {
+          "type": "item",
+          "settings": {
+            "text": "Artisan Crafted in India"
+          }
+        },
+        "a5": {
+          "type": "item",
+          "settings": {
+            "text": "Savings With Every Purchase"
+          }
+        },
+        "a6": {
+          "type": "item",
+          "settings": {
+            "text": "The Silver Play Exchange Policy"
+          }
+        },
+        "a7": {
+          "type": "item",
+          "settings": {
+            "text": "Free Shipping on Prepaid Orders"
+          }
+        },
+        "a8": {
+          "type": "item",
+          "settings": {
+            "text": "Skin-Friendly"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7",
+        "a8"
+      ],
+      "settings": {
+        "speed": 48,
+        "separator": "—"
+      }
+    },
+    "fresh_edit": {
+      "type": "fresh-edit",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "label": "New Arrivals",
+            "collection": "nayi-shuruaat-new-beginnings-transformation"
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "label": "Earrings",
+            "collection": "earrings"
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "label": "Pendants",
+            "collection": "pendants"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "eyebrow": "Just Landed",
+        "heading": "The Fresh Edit",
+        "lede": "The newest additions to the Silver Play line — fresh cuts, fresh stones, straight from the workshop.",
+        "count": 8,
+        "bg_color": "#dbc596",
+        "wash": "rgba(219,197,150,0.72)",
+        "cta_label": "Shop New Arrivals"
+      }
+    },
+    "royal_simplicity": {
+      "type": "scroll-deck",
+      "settings": {
+        "eyebrow": "The Edit",
+        "heading": "Her Royal Simplicity",
+        "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
+        "cta_label": "Shop The Edit",
+        "collection": "quiet-luxury"
+      }
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "As Seen & Loved",
+        "heading": "Best Sellers",
+        "lede": "The pieces Silver Play wearers keep coming back for — proven favourites, worn on repeat.",
+        "count": 8,
+        "card_style": "heritage",
+        "color_scheme": "dark",
+        "bg_color": "#3a2b1c",
+        "wash": "rgba(58,43,28,0.62)",
+        "cta_label": "Shop Best Sellers",
+        "collection": "premium-collection"
+      }
+    },
+    "archive_treasure": {
+      "type": "archive-treasure",
+      "blocks": {
+        "h1": {
+          "type": "tile",
+          "settings": {
+            "title": "Heritage",
+            "devanagari": "विरासत",
+            "collection": "virasat"
+          }
+        },
+        "h2": {
+          "type": "tile",
+          "settings": {
+            "title": "Craftsmanship",
+            "devanagari": "कारीगरी",
+            "collection": "karigari"
+          }
+        },
+        "h3": {
+          "type": "tile",
+          "settings": {
+            "title": "Gemstone Heritage",
+            "devanagari": "रत्न विरासत",
+            "collection": "ratna-virasat"
+          }
+        },
+        "h4": {
+          "type": "tile",
+          "settings": {
+            "title": "Elegance",
+            "devanagari": "नज़ाकत",
+            "collection": "nazakat"
+          }
+        },
+        "h5": {
+          "type": "tile",
+          "settings": {
+            "title": "Regal",
+            "devanagari": "शाही",
+            "collection": "shahi"
+          }
+        },
+        "h6": {
+          "type": "tile",
+          "settings": {
+            "title": "Lunar Glow",
+            "devanagari": "चांदनी",
+            "collection": "chandini"
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6"
+      ],
+      "settings": {
+        "eyebrow": "Heritage",
+        "heading": "The Archive Silver Treasure",
+        "cta_label": "Shop The Collection",
+        "card_cta": "Shop The Collection",
+        "wash": "rgba(242,232,208,0.75)"
+      }
+    },
+    "circle_picks": {
+      "type": "circle-picks",
+      "settings": {
+        "eyebrow": "The Edit",
+        "heading": "Kavach",
+        "lede": "Earthy stones for strength, grounding, courage and quiet power — Tiger Eye, Blood Stone, Black Banded Agate and more, set in 925 sterling silver as a protective piece worn close.",
+        "cta_label": "Shop The Edit",
+        "count": 10,
+        "collection": "kavach"
+      }
+    },
+    "shop_by_occasion": {
+      "type": "shop-by-occasion",
+      "blocks": {
+        "o1": {
+          "type": "tile",
+          "settings": {
+            "title": "Bali Collection",
+            "collection": "bali-collection"
+          }
+        },
+        "o2": {
+          "type": "tile",
+          "settings": {
+            "title": "Party Wear",
+            "collection": "party-wear"
+          }
+        },
+        "o3": {
+          "type": "tile",
+          "settings": {
+            "title": "Office Muse",
+            "collection": "office-muse"
+          }
+        },
+        "o4": {
+          "type": "tile",
+          "settings": {
+            "title": "Everyday Elegance",
+            "collection": "everyday-elegance"
+          }
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2",
+        "o3",
+        "o4"
+      ],
+      "settings": {
+        "eyebrow": "Dressed For The Moment",
+        "heading": "Shop By Occasion",
+        "cta_label": "Shop Now"
+      }
+    },
+    "instagram": {
+      "type": "instagram-slider",
+      "settings": {
+        "eyebrow": "As Seen & Loved",
+        "cta_label": "Follow on Instagram"
+      }
+    },
+    "founder": {
+      "type": "founder",
+      "settings": {
+        "eyebrow": "The Founder",
+        "heading": "A Timeless Curation by",
+        "bio": "Dalljiet Kaur believes jewellery should make people feel seen, valued and connected. Her vision for Silver Play is to create a brand where silver feels luxurious, meaningful and relevant for modern life. A brand where people can find jewellery for themselves, for someone special and for moments that deserve to be remembered.",
+        "name": "Dalljiet Kaur",
+        "role": "Founder, Silver Play"
+      }
+    },
+    "effortless_elegance": {
+      "type": "edit-with-video",
+      "settings": {
+        "eyebrow": "The Edit",
+        "heading": "Effortless Elegance",
+        "lede": "Perfect for women who love Indian silhouettes, celebrity inspired ethnic styling, statement silver and looks that feel graceful but not predictable.",
+        "cta_label": "Shop The Edit",
+        "count": 4,
+        "collection": "everyday-elegance"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "n1": {
+          "type": "note",
+          "settings": {
+            "quote": "Handcrafted sterling silver jewellery, forged for the woman who wears her story.",
+            "attribution": "Silver Play"
+          }
+        },
+        "n2": {
+          "type": "note",
+          "settings": {
+            "quote": "Every piece is made with a belief that you deserve beautiful things around you.",
+            "attribution": "Dalljiet Kaur, Founder"
+          }
+        },
+        "n3": {
+          "type": "note",
+          "settings": {
+            "quote": "A single pendant can pass through five pairs of hands before it reaches yours.",
+            "attribution": "Inside the Jaipur Atelier"
+          }
+        },
+        "n4": {
+          "type": "note",
+          "settings": {
+            "quote": "Jewellery can be more than beautiful — it can be intentional.",
+            "attribution": "How to Wear Meaning"
+          }
+        },
+        "n5": {
+          "type": "note",
+          "settings": {
+            "quote": "With proper care, your Silver Play pieces will last a lifetime.",
+            "attribution": "Jewellery Care"
+          }
+        },
+        "n6": {
+          "type": "note",
+          "settings": {
+            "quote": "Handcrafted sterling silver jewellery, forged in the ancient tradition.",
+            "attribution": "Silver Play"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4",
+        "n5",
+        "n6"
+      ],
+      "settings": {
+        "eyebrow": "In Her Own Words",
+        "heading": "Notes We Keep"
+      }
+    },
+    "journal_arc": {
+      "type": "journal-arc",
+      "blocks": {
+        "s1": {
+          "type": "story",
+          "settings": {
+            "title": "Heritage"
+          }
+        },
+        "s2": {
+          "type": "story",
+          "settings": {
+            "title": "Craftsmanship"
+          }
+        },
+        "s3": {
+          "type": "story",
+          "settings": {
+            "title": "Gemstone Heritage"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "blog": "news",
+        "article_count": 3,
+        "eyebrow": "From The Journal",
+        "heading": "Stories, Worn as Silver",
+        "cta_label": "Read The Journal"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "Orders are dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free. You'll receive a tracking link via WhatsApp/email once your order is shipped."
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the return policy?",
+            "answer": "Silver Play does not accept returns or exchanges for change of mind. We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered — reported within 24 hours of delivery with photos or an unboxing video."
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I care for my silver jewellery?",
+            "answer": "Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions, and water. Wipe gently with a soft cloth after wearing. For deep cleaning, use a mild silver polishing cloth."
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Why is silver called sterling silver?",
+            "answer": "Pure silver is too soft to wear every day, so it is blended with a small amount of another metal — usually copper — for strength. 'Sterling' silver is the standard that is 92.5% pure silver and 7.5% other metals, which is why every piece is stamped '925'."
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "eyebrow": "Good To Know",
+        "heading": "Frequently Asked"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "assurance",
+    "fresh_edit",
+    "royal_simplicity",
+    "best_sellers",
+    "archive_treasure",
+    "circle_picks",
+    "shop_by_occasion",
+    "instagram",
+    "founder",
+    "effortless_elegance",
+    "testimonials",
+    "journal_arc",
+    "faq"
+  ]
+}

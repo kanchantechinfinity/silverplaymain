@@ -11,7 +11,7 @@
       {%- assign list = section.settings.list -%}
     {%- endif -%}
     {%- for col in list -%}
-      {%- if col.all_products_count > 0 or section.settings.show_empty -%}
+      {%- if col.products_count > 0 or section.settings.show_empty -%}
         {%- liquid
           assign cover = col.image
           if cover == blank
@@ -27,7 +27,7 @@
           <span class="coltile__scrim" aria-hidden="true"></span>
           <span class="coltile__body">
             <p>{{ col.title }}</p>
-            <p>{{ 'products.facets.product_count' | t: count: col.all_products_count }}</p>
+            <p>{{ 'products.facets.product_count' | t: count: col.products_count }}</p>
           </span>
         </a>
       {%- endif -%}
