@@ -746,10 +746,14 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* --- Founder ------------------------------------------------------------ */
 .founder__grid { display: grid; gap: 2.5rem; }
-@media (min-width: 768px) { .founder__grid { grid-template-columns: repeat(2, minmax(0,1fr)); align-items: stretch; gap: 4rem; } }
+@media (min-width: 768px) { .founder__grid { display: flex; align-items: stretch; gap: 4rem; } }
 @media (min-width: 1024px) { .founder__grid { gap: 5rem; } }
 .founder__photo { position: relative; aspect-ratio: 4/5; width: 100%; overflow: hidden; border-radius: var(--radius-lg); box-shadow: 0 30px 70px -30px rgba(0,0,0,.6); }
-@media (min-width: 768px) { .founder__photo { aspect-ratio: auto; height: 100%; } }
+@media (min-width: 768px) {
+  .founder__grid > [data-reveal] { flex: 0 0 42%; align-self: stretch; display: flex; }
+  .founder__photo { aspect-ratio: auto; height: auto; width: 100%; }
+  .founder__text { flex: 1; }
+}
 .founder__photo img { height: 100%; width: 100%; object-fit: cover; object-position: 50% 18%; }
 .founder__text { border-top: 1px solid rgba(242,232,208,.15); padding-top: 2rem; }
 @media (min-width: 768px) { .founder__text { border-top: 0; border-left: 1px solid rgba(242,232,208,.15); padding: 0 0 0 4rem; } }

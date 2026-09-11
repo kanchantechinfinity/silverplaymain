@@ -34,10 +34,27 @@
         {%- liquid
           assign col = collections[block.settings.collection]
           assign front = block.settings.image
+          assign front_asset = blank
           if front == blank
+            case forloop.index
+              when 1
+                assign front_asset = 'archive-tile-1-heritage.png'
+              when 2
+                assign front_asset = 'archive-tile-2-craftsmanship.png'
+              when 3
+                assign front_asset = 'archive-tile-3-gemstone.png'
+              when 4
+                assign front_asset = 'archive-tile-4-elegance.png'
+              when 5
+                assign front_asset = 'archive-tile-5-regal.png'
+              when 6
+                assign front_asset = 'archive-tile-6-lunarglow.png'
+            endcase
+          endif
+          if front == blank and front_asset == blank
             assign front = col.image
           endif
-          if front == blank
+          if front == blank and front_asset == blank
             assign front = col.products.first.featured_media.preview_image
           endif
           assign back = col.products.first.featured_media.preview_image
@@ -48,7 +65,9 @@
                aria-label="{{ col.title | default: block.settings.title | escape }} — flip to see a piece from this collection">
             <div class="flipcard__inner">
               <div class="flipcard__face flipcard__face--front">
-                {%- if front -%}
+                {%- if front_asset != blank -%}
+                  <img src="{{ front_asset | asset_url }}" alt="{{ col.title | escape }}" loading="lazy" width="800" height="1200">
+                {%- elsif front -%}
                   <img src="{{ front | image_url: width: 800 }}" alt="{{ col.title | escape }}" loading="lazy" width="800" height="1000">
                 {%- else -%}
                   <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
