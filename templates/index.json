@@ -331,7 +331,8 @@
       "type": "instagram-slider",
       "settings": {
         "eyebrow": "As Seen & Loved",
-        "cta_label": "Follow on Instagram"
+        "cta_label": "Follow on Instagram",
+        "fallback_collection": "premium-collection"
       }
     },
     "founder": {
