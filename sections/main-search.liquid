@@ -18,7 +18,7 @@
       </div>
     {%- else -%}
       {%- paginate search.results by 24 -%}
-        <div class="grid-products grid-products--3 mt-4" data-stagger="0.05">
+        <div class="grid-products grid-products--3 mt-4">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
               {% render 'product-card', product: item %}

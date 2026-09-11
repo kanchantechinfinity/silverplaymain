@@ -80,7 +80,7 @@
                 <p class="lede mt-2" style="font-size:.9rem">{{ 'products.facets.empty_body' | t }}</p>
               </div>
             {%- else -%}
-              <div class="grid-products grid-products--3" data-stagger="0.05">
+              <div class="grid-products grid-products--3">
                 {%- for product in collection.products -%}
                   {% render 'product-card', product: product, lazy: forloop.first %}
                 {%- endfor -%}

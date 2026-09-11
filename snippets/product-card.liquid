@@ -27,6 +27,23 @@
   assign rating_count = product.metafields.reviews.rating_count.value | default: 0
   assign chip = product.metafields.custom.chip.value | default: product.type
 -%}
+{%- capture body_html -%}
+  <div class="card__body">
+    <h3 class="card__title">{{ product.title }}</h3>
+    <p class="card__price">
+      <span>{{ product.price | money }}</span>
+      {%- if on_sale -%}<span class="card__was">{{ product.compare_at_price | money }}</span>{%- endif -%}
+      {%- if settings.card_show_rating and rating_value > 0 -%}
+        <span class="card__dot" aria-hidden="true"></span>
+        <span style="display:flex;align-items:center;gap:.25rem">
+          {% render 'stars', rating: rating_value, size: 9 %}
+          <span style="font-family:var(--font-body);font-size:.62rem;font-weight:400;color:var(--sp-gold-deep)">({{ rating_count }})</span>
+        </span>
+      {%- endif -%}
+    </p>
+    <span class="card__buy">{{ settings.card_cta_label | default: 'Buy Now' }}</span>
+  </div>
+{%- endcapture -%}
 
 <a href="{{ product.url }}" class="card {% if card_style == 'heritage' %}card--heritage{% endif %}" data-product-card>
   <div class="card__frame">
@@ -81,21 +98,8 @@
         {%- endif -%}
       </div>
 
-      <div class="card__body">
-        <h3 class="card__title">{{ product.title }}</h3>
-        <p class="card__price">
-          <span>{{ product.price | money }}</span>
-          {%- if on_sale -%}<span class="card__was">{{ product.compare_at_price | money }}</span>{%- endif -%}
-          {%- if settings.card_show_rating and rating_value > 0 -%}
-            <span class="card__dot" aria-hidden="true"></span>
-            <span style="display:flex;align-items:center;gap:.25rem">
-              {% render 'stars', rating: rating_value, size: 9 %}
-              <span style="font-family:var(--font-body);font-size:.62rem;font-weight:400;color:var(--sp-gold-deep)">({{ rating_count }})</span>
-            </span>
-          {%- endif -%}
-        </p>
-        <span class="card__buy">{{ settings.card_cta_label | default: 'Buy Now' }}</span>
-      </div>
+      {%- if card_style == 'heritage' -%}{{ body_html }}{%- endif -%}
     {%- if card_style == 'heritage' -%}</div>{%- endif -%}
   </div>
+  {%- unless card_style == 'heritage' -%}{{ body_html }}{%- endunless -%}
 </a>

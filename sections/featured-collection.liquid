@@ -20,7 +20,7 @@
         lede: section.settings.lede %}
     </div>
 
-    <div class="grid-products mt-14" data-stagger="0.08">
+    <div class="grid-products mt-14">
       {%- for product in col.products limit: section.settings.count -%}
         {% render 'product-card', product: product, style: section.settings.card_style %}
       {%- else -%}

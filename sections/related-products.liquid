@@ -7,7 +7,7 @@
 <section style="border-top:1px solid var(--sp-line);background:var(--sp-bone-2);padding-block:5rem">
   <div class="wrap">
     <p class="eyebrow" data-reveal>{{ section.settings.heading }}</p>
-    <div class="grid-products grid-products--5 mt-8" data-stagger="0.08">
+    <div class="grid-products grid-products--5 mt-8">
       {%- if recommendations.performed and recommendations.products_count > 0 -%}
         {%- for p in recommendations.products -%}
           {% render 'product-card', product: p %}
