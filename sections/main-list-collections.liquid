@@ -6,32 +6,23 @@
 
 <div class="wrap" style="padding-block:4rem">
   <div class="grid-products" data-stagger="0.05">
-    {%- assign list = collections -%}
     {%- if section.settings.list != blank -%}
-      {%- assign list = section.settings.list -%}
+      {%- for col in section.settings.list -%}
+        {%- render 'collection-tile', col: col, show_empty: section.settings.show_empty -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- comment -%}
+        collections is Shopify's paginate-able global drop of every collection
+        in the shop — Dawn's own list-collections.liquid wraps it in
+        {% paginate %} the same way; iterating it unwrapped can silently cap
+        or misbehave once the shop has more than a page's worth of collections.
+      {%- endcomment -%}
+      {%- paginate collections by 250 -%}
+        {%- for col in collections -%}
+          {%- render 'collection-tile', col: col, show_empty: section.settings.show_empty -%}
+        {%- endfor -%}
+      {%- endpaginate -%}
     {%- endif -%}
-    {%- for col in list -%}
-      {%- if col.products_count > 0 or section.settings.show_empty -%}
-        {%- liquid
-          assign cover = col.image
-          if cover == blank
-            assign cover = col.products.first.featured_media.preview_image
-          endif
-        -%}
-        <a href="{{ col.url }}" class="coltile">
-          {%- if cover -%}
-            <img src="{{ cover | image_url: width: 700 }}" alt="{{ col.title | escape }}" loading="lazy" width="700" height="875">
-          {%- else -%}
-            <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
-          {%- endif -%}
-          <span class="coltile__scrim" aria-hidden="true"></span>
-          <span class="coltile__body">
-            <p>{{ col.title }}</p>
-            <p>{{ 'products.facets.product_count' | t: count: col.products_count }}</p>
-          </span>
-        </a>
-      {%- endif -%}
-    {%- endfor -%}
   </div>
 </div>
 

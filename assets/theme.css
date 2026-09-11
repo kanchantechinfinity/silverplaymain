@@ -5,6 +5,12 @@
    is hand-authored semantic CSS so the theme has no build step.
    ========================================================================== */
 
+/* Guarantee the native [hidden] attribute always wins, even against classes
+   like .grid-products (display: grid) that share its specificity — without
+   this, toggling `hidden` via JS (tabs, drawers, etc.) silently does nothing
+   on any element whose own class also sets `display`. */
+[hidden] { display: none !important; }
+
 /* --- Tokens ------------------------------------------------------------- */
 :root {
   --spacing: 0.25rem;

@@ -37,13 +37,13 @@
       <div class="grid-products mt-14" role="tabpanel" data-tab-panel="{{ block.id }}"
            data-stagger="0.11" {% unless forloop.first %}hidden{% endunless %}>
         {%- for product in col.products limit: section.settings.count -%}
-          {% render 'product-card', product: product, style: 'heritage', lazy: forloop.first %}
+          {% render 'product-card', product: product, lazy: forloop.first %}
         {%- else -%}
           {%- for i in (1..4) -%}
-            <div class="card card--heritage"><div class="card__frame"><div class="card__paper">
+            <div class="card"><div class="card__frame">
               <div class="card__media"><img src="{{ 'fresh-edit-courtyard.jpg' | asset_url }}" alt="" class="card__img" loading="lazy" width="1600" height="1067"></div>
               <div class="card__body"><h3 class="card__title">{{ 'onboarding.product_title' | t }}</h3></div>
-            </div></div></div>
+            </div></div>
           {%- endfor -%}
         {%- endfor -%}
       </div>

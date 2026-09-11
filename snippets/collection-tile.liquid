@@ -1,0 +1,23 @@
+{%- comment -%}
+  Single collection tile for main-list-collections.liquid. Params: col
+{%- endcomment -%}
+{%- if col.products_count > 0 or show_empty -%}
+  {%- liquid
+    assign cover = col.image
+    if cover == blank
+      assign cover = col.products.first.featured_media.preview_image
+    endif
+  -%}
+  <a href="{{ col.url }}" class="coltile">
+    {%- if cover -%}
+      <img src="{{ cover | image_url: width: 700 }}" alt="{{ col.title | escape }}" loading="lazy" width="700" height="875">
+    {%- else -%}
+      <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+    {%- endif -%}
+    <span class="coltile__scrim" aria-hidden="true"></span>
+    <span class="coltile__body">
+      <p>{{ col.title }}</p>
+      <p>{{ 'products.facets.product_count' | t: count: col.products_count }}</p>
+    </span>
+  </a>
+{%- endif -%}
