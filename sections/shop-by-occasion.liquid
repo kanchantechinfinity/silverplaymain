@@ -4,10 +4,7 @@
 {%- endcomment -%}
 {%- assign flexes = '1.5,1,1,1.3' | split: ',' -%}
 <section class="heritage-sec on-dark" style="background: var(--sp-ink); padding: 4rem 0;">
-  {% render 'heritage-bg',
-    image: section.settings.bg_image,
-    fallback: 'heritage-peacock-garden.png',
-    wash: 'rgba(36,26,16,0.72)' %}
+  <div class="heritage-wallpaper" style="color: var(--sp-bone-3); opacity: .04" aria-hidden="true"></div>
   {% render 'icon', name: 'monument', class: 'occasion__monument' %}
 
   <div class="wrap occasion__grid">
