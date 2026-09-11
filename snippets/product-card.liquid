@@ -52,7 +52,7 @@
         {% render 'icon', name: 'corner-mark', class: 'card__cornermark' %}
       {%- endif -%}
 
-      <div class="card__media">
+      <div class="card__mat"><div class="card__media">
         {%- if main_image -%}
           <img
             class="card__img card__img--main{% if alt_image != blank %} has-alt{% endif %}"
@@ -96,7 +96,7 @@
             {% render 'icon', name: 'eye', size: 16 %}
           </button>
         {%- endif -%}
-      </div>
+      </div></div>
 
       {%- if card_style == 'heritage' -%}{{ body_html }}{%- endif -%}
     {%- if card_style == 'heritage' -%}</div>{%- endif -%}
