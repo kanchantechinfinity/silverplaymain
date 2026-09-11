@@ -5,7 +5,7 @@
   description: section.settings.description %}
 
 <div class="wrap" style="padding-block:4rem">
-  <div class="grid-products" data-stagger="0.05">
+  <div class="grid-products">
     {%- if section.settings.list != blank -%}
       {%- for col in section.settings.list -%}
         {%- render 'collection-tile', col: col, show_empty: section.settings.show_empty -%}
