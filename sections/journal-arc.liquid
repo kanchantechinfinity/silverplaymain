@@ -1,9 +1,9 @@
 {%- comment -%}
-  "Stories, Worn as Silver" — a 3D ring of story cards driven by scroll
-  (theme.js -> initArc). Cards are real blog articles only, pulled directly
-  from the blog's own content (title + featured image) -- no theme-editor
-  blocks or manual images needed. Whatever gets published to the blog shows
-  up here automatically.
+  "Stories, Worn as Silver" — a plain horizontal rail of real blog articles
+  (title + featured image), pulled directly from the blog. No theme-editor
+  blocks, no manual images, no scroll-hijacking stage -- whatever gets
+  published to the blog shows up here automatically, and the section's
+  height is just its natural content height (no leftover blank space).
 {%- endcomment -%}
 {%- liquid
   assign blog = blogs[section.settings.blog]
@@ -17,38 +17,8 @@
   endif
   assign article_limit = section.settings.article_count
 -%}
-{%- capture card_markup -%}
-  {%- for post in blog.articles limit: article_limit -%}
-    <div class="arc__card">
-      <a href="{{ post.url }}">
-        <div class="arc__inner">
-          {%- if post.image -%}
-            <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" width="1200" height="800">
-          {%- else -%}
-            <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
-          {%- endif -%}
-          <span class="arc__scrim" aria-hidden="true"></span>
-          <div class="arc__foot">
-            <h3>{{ post.title }}</h3>
-            <span class="arc__go" aria-hidden="true">&rarr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
-  {%- endfor -%}
-{%- endcapture -%}
-{%- assign total = card_markup | split: 'class="arc__card"' | size | minus: 1 -%}
-{%- if total < 1 -%}{%- assign total = 1 -%}{%- endif -%}
-{%- comment -%}
-  Minimum ~100vh so the sticky stage has room to actually be sticky (a
-  section exactly 100vh tall never scrolls while pinned), plus a modest
-  per-card allowance for the scroll-linked ring rotation -- kept small
-  deliberately so a low card count doesn't leave a long "dead" scroll
-  stretch after the ring settles on its last card.
-{%- endcomment -%}
-{%- assign track = total | times: 18 | plus: 100 -%}
 
-<section class="arc heritage-sec" data-arc style="height: {{ track }}vh">
+<section class="arc heritage-sec">
   <div class="arc__stage">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
@@ -60,28 +30,39 @@
       <h2 class="mt-2" style="font-size:clamp(1.5rem,3.2vw,2.3rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
     </div>
 
-    <div class="arc__ring-wrap">
-      <div class="arc__ring">
-        {%- if total > 0 and card_markup != blank -%}
-          {{ card_markup }}
-        {%- else -%}
-          <div class="arc__card">
+    <div class="arc__rail">
+      {%- if blog != blank and blog.articles.size > 0 -%}
+        {%- for post in blog.articles limit: article_limit -%}
+          <a href="{{ post.url }}" class="arc__card">
             <div class="arc__inner">
-              <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+              {%- if post.image -%}
+                <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" width="1200" height="800">
+              {%- else -%}
+                <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+              {%- endif -%}
               <span class="arc__scrim" aria-hidden="true"></span>
               <div class="arc__foot">
-                <h3>{{ 'onboarding.blog_title' | t }}</h3>
+                <h3>{{ post.title }}</h3>
+                <span class="arc__go" aria-hidden="true">&rarr;</span>
               </div>
             </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="arc__card">
+          <div class="arc__inner">
+            <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+            <span class="arc__scrim" aria-hidden="true"></span>
+            <div class="arc__foot">
+              <h3>{{ 'onboarding.blog_title' | t }}</h3>
+            </div>
           </div>
-        {%- endif -%}
-      </div>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="arc__controls">
-      <button type="button" class="round-btn" data-arc-prev aria-label="{{ 'accessibility.previous' | t }}">&larr;</button>
-      <button type="button" class="round-btn round-btn--solid" data-arc-next aria-label="{{ 'accessibility.next' | t }}">&rarr;</button>
-      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta" style="margin-left:1rem">
+      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta">
         {{ section.settings.cta_label }} <span>&rarr;</span>
       </a>
     </div>
@@ -94,7 +75,7 @@
   "tag": "section",
   "settings": [
     { "type": "blog", "id": "blog", "label": "Blog" },
-    { "type": "range", "id": "article_count", "min": 1, "max": 20, "step": 1, "label": "Articles used", "default": 20 },
+    { "type": "range", "id": "article_count", "min": 1, "max": 20, "step": 1, "label": "Articles shown", "default": 20 },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From The Journal" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Stories, Worn as Silver" },
     { "type": "text", "id": "cta_label", "label": "Link label", "default": "Read The Journal" },

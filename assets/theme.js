@@ -247,52 +247,6 @@
     });
   }
 
-  /* ------------------------------------------- Journal showcase 3D arc */
-  function initArc() {
-    $$("[data-arc]").forEach(function (root) {
-      var cards = $$(".arc__card", root);
-      var n = cards.length;
-      if (!n) return;
-      var DEPTH = 160, ANGLE = 8, STEP_VW = 40, STEP_MAX = 480;
-      var stepPx = Math.min(window.innerWidth * (STEP_VW / 100), STEP_MAX);
-      window.addEventListener("resize", function () {
-        stepPx = Math.min(window.innerWidth * (STEP_VW / 100), STEP_MAX);
-      }, { passive: true });
-
-      function ringOffset(i, p) { var raw = i - p; return raw - n * Math.round(raw / n); }
-      function update() {
-        var rect = root.getBoundingClientRect();
-        var travel = root.offsetHeight - window.innerHeight;
-        var prog = travel > 0 ? clamp(-rect.top / travel, 0, 1) : 0;
-        var pos = prog * n;
-        var active = ((Math.round(pos) % n) + n) % n;
-        root.dataset.active = active;
-        cards.forEach(function (card, i) {
-          var o = ringOffset(i, pos);
-          var scale = 1 - Math.min(Math.abs(o), 2) * 0.16;
-          var opacity = Math.max(0, 1 - Math.min(Math.abs(o), 2.4) * 0.42);
-          card.style.transform = "translateX(" + (o * stepPx) + "px) translateZ(" + (-Math.abs(o) * DEPTH) + "px) rotateY(" + (o * -ANGLE) + "deg) scale(" + scale + ")";
-          card.style.opacity = opacity;
-          card.style.zIndex = String(100 - Math.round(Math.abs(o) * 10));
-          var link = $("a", card);
-          if (link) { link.tabIndex = i === active ? 0 : -1; }
-        });
-      }
-      update();
-      window.addEventListener("scroll", update, { passive: true });
-      window.addEventListener("resize", update, { passive: true });
-
-      function goTo(i) {
-        var wrapped = ((i % n) + n) % n;
-        var travel = root.offsetHeight - window.innerHeight;
-        window.scrollTo({ top: root.offsetTop + (wrapped / n) * travel, behavior: reduced ? "auto" : "smooth" });
-      }
-      var prev = $("[data-arc-prev]", root), next = $("[data-arc-next]", root);
-      if (prev) prev.addEventListener("click", function () { goTo(parseInt(root.dataset.active || 0, 10) - 1); });
-      if (next) next.addEventListener("click", function () { goTo(parseInt(root.dataset.active || 0, 10) + 1); });
-    });
-  }
-
   /* ------------------------------------------------------- flip cards */
   function initFlip() {
     $$(".flipcard").forEach(function (card) {
@@ -807,7 +761,6 @@
     initTabs();
     initCineHero();
     initDeck();
-    initArc();
     initFlip();
     initDisclosures();
     initDragRails();
