@@ -1,42 +1,34 @@
 {%- comment -%}
-  Scroll-scrubbed cinematic hero.
-  The section is a tall scroll track; a sticky stage inside it maps scroll
-  position onto the video's currentTime (theme.js -> initCineHero). Chapter
-  blocks crossfade over their own percentage window of that track.
-  Falls back to a static poster + first/last chapter when the visitor has
-  asked for reduced motion or no video is set.
+  Cinematic hero — full-viewport brand video, playing normally (autoplay,
+  loop, muted), not driven by scroll. One heading overlay, not a sequence
+  of scroll-triggered chapters.
 {%- endcomment -%}
 {%- liquid
-  assign track = section.settings.track_vh | default: 450
   assign poster = section.settings.poster
 -%}
 
-<div
-  class="cinehero"
-  data-page-hero
-  data-cinehero
-  data-trim-end="{{ section.settings.trim_end }}"
-  style="height: {{ track }}vh"
->
+<div class="cinehero" data-page-hero data-cinehero>
   <div class="cinehero__stage">
     {%- if section.settings.video != blank -%}
       {{ section.settings.video
         | video_tag:
           class: 'cinehero__video',
           muted: true,
+          loop: true,
+          autoplay: true,
           playsinline: true,
           controls: false,
-          preload: 'metadata',
+          preload: 'auto',
           image_size: '1600x'
       }}
     {%- elsif section.settings.video_url != blank -%}
-      <video class="cinehero__video" muted playsinline preload="metadata"
+      <video class="cinehero__video" muted playsinline autoplay loop preload="auto"
              {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}>
         <source src="{{ section.settings.video_url }}" type="video/mp4">
       </video>
     {%- else -%}
-      {%- comment -%} Bundled brand footage — real cinematic hero video, ported from the Next.js source. Used until a merchant sets their own Shopify-hosted video or Files URL above. {%- endcomment -%}
-      <video class="cinehero__video" muted playsinline preload="metadata"
+      {%- comment -%} Bundled brand footage — used until a merchant sets their own Shopify-hosted video or Files URL above. {%- endcomment -%}
+      <video class="cinehero__video" muted playsinline autoplay loop preload="auto"
              {% if poster != blank %}poster="{{ poster | image_url: width: 1600 }}"{% endif %}>
         <source src="{{ 'silverplay-cinematic.mp4' | asset_url }}" type="video/mp4">
       </video>
@@ -48,38 +40,27 @@
       <span class="cinehero__corner" aria-hidden="true"></span>
     {%- endif -%}
 
-    <div class="cinehero__chapters">
-      {%- for block in section.blocks -%}
-        <div
-          class="cinehero__chapter"
-          data-chapter
-          data-start="{{ block.settings.range_start }}"
-          data-end="{{ block.settings.range_end }}"
-          data-dock="{{ block.settings.dock }}"
-          {{ block.shopify_attributes }}
-        >
-          <div class="cinehero__inner">
-            {%- if block.settings.devanagari != blank -%}
-              <p class="cinehero__deva">{{ block.settings.devanagari }}</p>
-            {%- endif -%}
-            {%- if block.settings.title != blank -%}
-              <h2 class="cinehero__title">{{ block.settings.title }}</h2>
-            {%- endif -%}
-            {%- if block.settings.subtitle != blank -%}
-              <p class="cinehero__sub">{{ block.settings.subtitle }}</p>
-            {%- endif -%}
-            {%- if block.settings.cta_label != blank -%}
-              <a href="{{ block.settings.cta_url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg cinehero__cta">
-                {{ block.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
-              </a>
-            {%- endif -%}
-          </div>
-        </div>
-      {%- endfor -%}
+    <div class="cinehero__content">
+      <div class="cinehero__inner">
+        {%- if section.settings.devanagari != blank -%}
+          <p class="cinehero__deva">{{ section.settings.devanagari }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="cinehero__title">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="cinehero__sub">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg cinehero__cta">
+            {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
+          </a>
+        {%- endif -%}
+      </div>
     </div>
 
     {%- if section.settings.scroll_cue != blank -%}
-      <div class="cinehero__cue" aria-hidden="true">
+      <div class="cinehero__cue" data-cinehero-cue aria-hidden="true">
         <span>{{ section.settings.scroll_cue }}</span>
         <span class="cinehero__cue-line"></span>
       </div>
@@ -96,42 +77,17 @@
     { "type": "url", "id": "video_url", "label": "Hero video URL (MP4 fallback)",
       "info": "Use this if the file is uploaded to Files rather than as a Shopify video. Upload the brand film under Content > Files and paste its URL." },
     { "type": "image_picker", "id": "poster", "label": "Poster image" },
-    { "type": "range", "id": "track_vh", "min": 200, "max": 600, "step": 25, "unit": "vh", "label": "Scroll track length", "default": 450 },
-    { "type": "range", "id": "trim_end", "min": 0, "max": 30, "step": 0.5, "unit": "s", "label": "Stop scrubbing at", "default": 6.5,
-      "info": "Scroll never scrubs past this timestamp — use it to avoid a baked-in end card. 0 disables the trim." },
     { "type": "checkbox", "id": "corner_vignette", "label": "Bottom-right corner vignette", "default": true,
       "info": "Masks a watermark baked into the source footage." },
+    { "type": "text", "id": "devanagari", "label": "Devanagari line" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Timeless Silver." },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Crafted as Heritage." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Explore Collection" },
+    { "type": "url", "id": "cta_url", "label": "Button link" },
     { "type": "text", "id": "scroll_cue", "label": "Scroll cue label", "default": "Scroll to discover" }
   ],
-  "blocks": [
-    {
-      "type": "chapter",
-      "name": "Chapter",
-      "settings": [
-        { "type": "range", "id": "range_start", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Appears at", "default": 0 },
-        { "type": "range", "id": "range_end", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Fades out at", "default": 15 },
-        { "type": "text", "id": "devanagari", "label": "Devanagari line" },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "text", "id": "subtitle", "label": "Subtitle" },
-        { "type": "select", "id": "dock", "label": "Vertical position", "default": "center",
-          "options": [ { "value": "center", "label": "Center" }, { "value": "bottom", "label": "Bottom" } ] },
-        { "type": "text", "id": "cta_label", "label": "Button label" },
-        { "type": "url", "id": "cta_url", "label": "Button link" }
-      ]
-    }
-  ],
   "presets": [
-    {
-      "name": "Cinematic hero",
-      "blocks": [
-        { "type": "chapter", "settings": { "range_start": 0, "range_end": 8, "title": "Silverplay" } },
-        { "type": "chapter", "settings": { "range_start": 8, "range_end": 15, "title": "Timeless Silver.", "subtitle": "Crafted as Heritage." } },
-        { "type": "chapter", "settings": { "range_start": 17, "range_end": 33, "title": "925 Sterling Silver", "subtitle": "Artisan crafted in India" } },
-        { "type": "chapter", "settings": { "range_start": 36, "range_end": 54, "devanagari": "कारीगरी", "subtitle": "Crafted by hand. Made to be treasured." } },
-        { "type": "chapter", "settings": { "range_start": 56, "range_end": 74, "devanagari": "विरासत", "subtitle": "Stories of silver, carried forward." } },
-        { "type": "chapter", "settings": { "range_start": 93, "range_end": 100, "title": "Discover Silverplay", "dock": "bottom", "cta_label": "Explore Collection" } }
-      ]
-    }
+    { "name": "Cinematic hero" }
   ]
 }
 {% endschema %}
