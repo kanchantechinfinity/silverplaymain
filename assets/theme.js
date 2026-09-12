@@ -152,60 +152,16 @@
   function initCineHero() {
     var root = $("[data-cinehero]");
     if (!root) return;
-    var stage = $(".cinehero__stage", root);
     var video = $("video", root);
-    var chapters = $$("[data-chapter]", root);
-    var cue = $(".cinehero__cue", root);
-    var trimEnd = parseFloat(root.getAttribute("data-trim-end")) || 0;
+    if (!video) return;
 
-    if (reduced || !video) {
-      chapters.forEach(function (c) { c.style.opacity = 0; });
-      var first = chapters[0], last = chapters[chapters.length - 1];
-      if (first) first.style.opacity = 1;
-      if (last && last !== first) last.style.opacity = 1;
+    if (reduced) {
+      video.pause();
       return;
     }
 
-    // Unlock frame decoding on iOS without ever showing motion.
     var p = video.play();
-    if (p && p.then) p.then(function () { video.pause(); }).catch(function () {});
-
-    var duration = 0, target = 0, applied = -1, lastApplied = -1, cueHidden = false;
-    var MIN_DELTA = 1 / 30;
-    video.addEventListener("loadedmetadata", function () { duration = video.duration || 0; });
-
-    function progress() {
-      var rect = root.getBoundingClientRect();
-      var travel = root.offsetHeight - window.innerHeight;
-      if (travel <= 0) return 0;
-      return clamp(-rect.top / travel, 0, 1);
-    }
-    function applyChapters(pct) {
-      chapters.forEach(function (el) {
-        var s = parseFloat(el.getAttribute("data-start"));
-        var e = parseFloat(el.getAttribute("data-end"));
-        var fade = Math.min(2.5, (e - s) / 3);
-        var o = 0;
-        if (pct >= s && pct <= e) o = clamp(Math.min((pct - s) / fade, (e - pct) / fade), 0, 1);
-        el.style.opacity = o;
-        el.style.transform = "translateY(" + (14 * (1 - o)) + "px) scale(" + (0.985 + 0.015 * o) + ")";
-        el.style.filter = "blur(" + (6 * (1 - o)) + "px)";
-        el.style.pointerEvents = o > 0.6 ? "auto" : "none";
-      });
-    }
-    function tick() {
-      requestAnimationFrame(tick);
-      target = progress();
-      applyChapters(target * 100);
-      if (!cueHidden && target > 0.01 && cue) { cueHidden = true; cue.style.opacity = 0; }
-      if (!duration || video.readyState < 2) return;
-      var eff = trimEnd ? Math.min(duration, trimEnd) : duration;
-      var tt = target * eff;
-      applied = applied < 0 ? tt : applied + (tt - applied) * 0.3;
-      if (Math.abs(applied - lastApplied) < MIN_DELTA) return;
-      try { video.currentTime = applied; lastApplied = applied; } catch (err) {}
-    }
-    if (stage) requestAnimationFrame(tick);
+    if (p && p.then) p.catch(function () {});
   }
 
   /* ------------------------------------- Royal Simplicity card rail */

@@ -58,13 +58,6 @@
         {%- endif -%}
       </div>
     </div>
-
-    {%- if section.settings.scroll_cue != blank -%}
-      <div class="cinehero__cue" data-cinehero-cue aria-hidden="true">
-        <span>{{ section.settings.scroll_cue }}</span>
-        <span class="cinehero__cue-line"></span>
-      </div>
-    {%- endif -%}
   </div>
 </div>
 
@@ -83,8 +76,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Timeless Silver." },
     { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Crafted as Heritage." },
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "Explore Collection" },
-    { "type": "url", "id": "cta_url", "label": "Button link" },
-    { "type": "text", "id": "scroll_cue", "label": "Scroll cue label", "default": "Scroll to discover" }
+    { "type": "url", "id": "cta_url", "label": "Button link" }
   ],
   "presets": [
     { "name": "Cinematic hero" }
