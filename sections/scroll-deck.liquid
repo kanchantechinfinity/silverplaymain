@@ -1,20 +1,14 @@
 {%- comment -%}
-  "Her Royal Simplicity" — scroll-driven horizontal deck.
-  The section is taller than the viewport; a sticky stage maps scroll progress
-  onto the track's translateX (theme.js -> initDeck). Arrows scroll the page to
-  the offset that centres a card, so scroll stays the single source of truth.
+  "Her Royal Simplicity" — horizontal card rail.
+  The page scrolls normally past this section; the card rail is its own
+  horizontally-swipeable strip (native overflow-x), not driven by page scroll.
 {%- endcomment -%}
 {%- liquid
   assign col = collections[section.settings.collection]
   assign items = col.products
-  assign count = items.size
-  if count == 0
-    assign count = 4
-  endif
-  assign height = count | times: 65
 -%}
 
-<section class="deck" data-deck style="height: {{ height }}vh"
+<section class="deck" data-deck
          aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
   <div class="deck__stage on-dark">
     {%- if section.settings.bg_image != blank -%}

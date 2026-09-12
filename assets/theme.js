@@ -208,39 +208,40 @@
     if (stage) requestAnimationFrame(tick);
   }
 
-  /* ------------------------------------- Royal Simplicity scroll deck */
+  /* ------------------------------------- Royal Simplicity card rail */
   function initDeck() {
     $$("[data-deck]").forEach(function (root) {
+      var viewport = $(".deck__viewport", root);
       var rail = $(".deck__rail", root);
       var cards = $$(".deck__card", rail);
       if (!cards.length) return;
-      var last = Math.max(cards.length - 1, 1);
-      var step = 0, cardW = 0;
+      var last = cards.length - 1;
 
-      function measure() {
+      function pad() {
         var r = cards[0].getBoundingClientRect();
-        cardW = r.width;
-        var gap = parseFloat(getComputedStyle(rail).columnGap || getComputedStyle(rail).gap) || 24;
-        step = cardW + gap;
-        rail.style.paddingLeft = "calc(50vw - " + (cardW / 2) + "px)";
+        viewport.style.paddingInline = "calc(50% - " + (r.width / 2) + "px)";
       }
-      function update() {
-        var rect = root.getBoundingClientRect();
-        var travel = root.offsetHeight - window.innerHeight;
-        var p = travel > 0 ? clamp(-rect.top / travel, 0, 1) : 0;
-        rail.style.transform = "translate3d(" + (-p * last * step) + "px,0,0)";
-        var active = Math.round(p * last);
-        cards.forEach(function (c, i) { c.classList.toggle("is-active", i === active); });
-        root.dataset.active = active;
+      function setActive(i) {
+        cards.forEach(function (c, idx) { c.classList.toggle("is-active", idx === i); });
+        root.dataset.active = i;
       }
-      measure(); update();
-      window.addEventListener("resize", function () { measure(); update(); }, { passive: true });
-      window.addEventListener("scroll", update, { passive: true });
+      pad();
+      window.addEventListener("resize", pad, { passive: true });
+
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting && e.intersectionRatio > 0.6) setActive(cards.indexOf(e.target));
+          });
+        }, { root: viewport, threshold: [0, 0.6, 1] });
+        cards.forEach(function (c) { io.observe(c); });
+      } else {
+        setActive(0);
+      }
 
       function goTo(i) {
         var idx = clamp(i, 0, last);
-        var travel = root.offsetHeight - window.innerHeight;
-        window.scrollTo({ top: root.offsetTop + (idx / last) * travel, behavior: reduced ? "auto" : "smooth" });
+        cards[idx].scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
       }
       cards.forEach(function (c, i) { c.addEventListener("click", function () { goTo(i); }); });
       var prev = $("[data-deck-prev]", root), next = $("[data-deck-next]", root);
