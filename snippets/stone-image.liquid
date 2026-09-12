@@ -1,0 +1,34 @@
+{%- comment -%}
+  Renders the raw stone photo URL for a given stone name. Matches the
+  reference gallery at silverplayproject.vercel.app/stone-guide, whose
+  images already live on this shop's CDN (Content > Files) — used as the
+  fallback when a stone block has no image override or linked collection
+  image set in the theme editor.
+  Usage: {% render 'stone-image', name: block.settings.name %}
+{%- endcomment -%}
+{%- case name -%}
+  {%- when 'Rose Quartz' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/SterlingSilverEmbraceHealingwithRoseQuartzBlushingAuraPendant_1080x.png?v=1782277582
+  {%- when 'Ocean Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/download_23111d0f-8cd3-46ff-b955-a6bd1bd70a2d_3840x.png?v=1782187983
+  {%- when 'Tiger Eye' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/SterlingSilverEternalBrillianceIronTigerEyeStunningDesignerPendant_3840x.png?v=1782187984
+  {%- when 'Scolecite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_44_AM_8_3840x.png?v=1782283499
+  {%- when 'Blue Opal' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_45_AM_9_3840x.png?v=1782283521
+  {%- when 'Dragon Blood' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_45_AM_10_3840x.png?v=1782283549
+  {%- when 'Maligano Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_43_AM_6_3840x.png?v=1782283473
+  {%- when 'Red Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_42_AM_5_3840x.png?v=1782283445
+  {%- when 'Chevron Amethyst' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_53_AM_7_3840x.png?v=1782282022
+  {%- when 'Shattuckite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_41_AM_4_23e71af9-a4ac-49dc-8233-8106a780f46c_3840x.png?v=1782283421
+  {%- when 'Black Banded Agate' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_40_AM_3_2d0e52e0-6ba9-4158-8f94-15fbd1700227_3840x.png?v=1782283393
+  {%- when 'Wild Horse Magnesite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_41_AM_4_3840x.png?v=1782283599
+  {%- when 'Amazonite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_39_AM_2_3840x.png?v=1782284741
+  {%- when 'Noreena Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_40_AM_3_3840x.png?v=1782283629
+  {%- when 'Mother of Pearl' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_53_AM_6_3840x.png?v=1782281995
+  {%- when 'Pyrite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_54_AM_9_3840x.png?v=1782282112
+  {%- when 'Nellite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_54_AM_8_3840x.png?v=1782282074
+  {%- when 'Pinolith Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_43_36_AM_1_3840x.png?v=1782284812
+  {%- when 'Purpurite' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_54_AM_10_3840x.png?v=1782282149
+  {%- when 'Blue Opal Eye' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_52_AM_5_3840x.png?v=1782281925
+  {%- when 'Black Moonstone' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_52_AM_4_3840x.png?v=1782281869
+  {%- when 'Zebra Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/Zebra_Jasper_3840x.png?v=1782281352
+  {%- when 'Petrified Wood Jasper' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_52_AM_3_3840x.png?v=1782281823
+  {%- when 'Lace Agate' -%}https://cdn.shopify.com/s/files/1/0702/4456/5101/collections/ChatGPT_Image_Jun_24_2026_11_36_51_AM_2_3840x.png?v=1782281710
+{%- endcase -%}

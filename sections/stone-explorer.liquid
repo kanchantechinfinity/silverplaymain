@@ -25,11 +25,15 @@
               assign img = col.products.first.featured_media.preview_image
             endif
           -%}
+          {%- capture fallback_img -%}{% render 'stone-image', name: block.settings.name %}{%- endcapture -%}
+          {%- assign fallback_img = fallback_img | strip -%}
           <button type="button" class="stones__thumb{% if forloop.first %} is-active{% endif %}"
                   data-stone-thumb="{{ block.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
                   {{ block.shopify_attributes }}>
             {%- if img -%}
               <img src="{{ img | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="400" height="400">
+            {%- elsif fallback_img != blank -%}
+              <img src="{{ fallback_img }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="400" height="400">
             {%- else -%}
               <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
             {%- endif -%}
@@ -52,10 +56,14 @@
                   assign img = col.products.first.featured_media.preview_image
                 endif
               -%}
+              {%- capture fallback_img -%}{% render 'stone-image', name: block.settings.name %}{%- endcapture -%}
+              {%- assign fallback_img = fallback_img | strip -%}
               <div class="stones__panel{% if forloop.first %} is-active{% endif %}" data-stone-panel="{{ block.id }}">
                 <div class="stones__panel-img">
                   {%- if img -%}
                     <img src="{{ img | image_url: width: 920 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="920" height="632">
+                  {%- elsif fallback_img != blank -%}
+                    <img src="{{ fallback_img }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="920" height="632">
                   {%- endif -%}
                 </div>
                 <div class="stones__panel-body">
