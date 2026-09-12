@@ -27,27 +27,37 @@
     </div>
 
     <div class="deck__viewport">
-      <div class="deck__rail">
-        {%- for product in items -%}
-          <div class="deck__card{% if forloop.first %} is-active{% endif %}" data-deck-card>
-            {%- if product.featured_media -%}
-              <img src="{{ product.featured_media | image_url: width: 900 }}"
-                   alt="{{ product.title | escape }}" loading="{% if forloop.index <= 2 %}eager{% else %}lazy{% endif %}"
-                   width="900" height="1100">
-            {%- endif -%}
-            <span class="deck__wash" aria-hidden="true"></span>
-            <div class="deck__chip"><span>{{ product.price | money }}</span></div>
-            <div class="deck__label">
-              <p>{{ product.metafields.custom.tagline.value | default: product.title }}</p>
-            </div>
-            <a href="{{ product.url }}" class="visually-hidden">{{ product.title }}</a>
-          </div>
-        {%- else -%}
-          {%- for i in (1..4) -%}
-            <div class="deck__card{% if forloop.first %} is-active{% endif %}">
-              <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+      {%- comment -%}
+        Three copies of the rail: a real (accessible) middle set flanked by two
+        buffer sets (aria-hidden). theme.js starts centred in the middle set and
+        silently wraps back into it as the buffers scroll by, so the strip feels
+        like it repeats forever with no dead end.
+      {%- endcomment -%}
+      <div class="deck__rail" data-set-size="{{ items.size | default: 4 }}">
+        {%- for rep in (1..3) -%}
+          {%- assign is_buffer = true -%}
+          {%- if rep == 2 -%}{%- assign is_buffer = false -%}{%- endif -%}
+          {%- for product in items -%}
+            <div class="deck__card{% if rep == 2 and forloop.first %} is-active{% endif %}" data-deck-card{% if is_buffer %} aria-hidden="true"{% endif %}>
+              {%- if product.featured_media -%}
+                <img src="{{ product.featured_media | image_url: width: 900 }}"
+                     alt="{{ product.title | escape }}" loading="{% if rep == 2 and forloop.index <= 2 %}eager{% else %}lazy{% endif %}"
+                     width="900" height="1100">
+              {%- endif -%}
               <span class="deck__wash" aria-hidden="true"></span>
+              <div class="deck__chip"><span>{{ product.price | money }}</span></div>
+              <div class="deck__label">
+                <p>{{ product.metafields.custom.tagline.value | default: product.title }}</p>
+              </div>
+              <a href="{{ product.url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ product.title }}</a>
             </div>
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="deck__card{% if rep == 2 and forloop.first %} is-active{% endif %}"{% if is_buffer %} aria-hidden="true"{% endif %}>
+                <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+                <span class="deck__wash" aria-hidden="true"></span>
+              </div>
+            {%- endfor -%}
           {%- endfor -%}
         {%- endfor -%}
       </div>

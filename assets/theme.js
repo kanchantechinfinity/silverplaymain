@@ -216,17 +216,44 @@
       var cards = $$(".deck__card", rail);
       if (!cards.length) return;
       var last = cards.length - 1;
+      var setSize = parseInt(rail.dataset.setSize, 10) || cards.length;
+      var sets = Math.round(cards.length / setSize);
+      var loopable = sets >= 3 && setSize > 0;
 
-      function pad() {
-        var r = cards[0].getBoundingClientRect();
-        viewport.style.paddingInline = "calc(50% - " + (r.width / 2) + "px)";
+      function step() {
+        if (cards.length < 2) return cards[0].getBoundingClientRect().width;
+        return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
       }
       function setActive(i) {
         cards.forEach(function (c, idx) { c.classList.toggle("is-active", idx === i); });
         root.dataset.active = i;
       }
-      pad();
-      window.addEventListener("resize", pad, { passive: true });
+
+      if (loopable) {
+        var startIdx = setSize + Math.floor(setSize / 2);
+        cards[startIdx].scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
+        setActive(startIdx);
+      } else {
+        setActive(0);
+      }
+
+      var jumping = false;
+      function loopCheck() {
+        if (!loopable || jumping) return;
+        var a = parseInt(root.dataset.active || 0, 10);
+        if (a < setSize || a >= setSize * 2) {
+          jumping = true;
+          var delta = a < setSize ? setSize : -setSize;
+          viewport.scrollLeft += delta * step();
+          setActive(a + delta);
+          requestAnimationFrame(function () { jumping = false; });
+        }
+      }
+      var scrollTimer;
+      viewport.addEventListener("scroll", function () {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(loopCheck, 120);
+      }, { passive: true });
 
       if ("IntersectionObserver" in window) {
         var io = new IntersectionObserver(function (entries) {
@@ -235,21 +262,22 @@
           });
         }, { root: viewport, threshold: [0, 0.6, 1] });
         cards.forEach(function (c) { io.observe(c); });
-      } else {
-        setActive(0);
       }
 
       function goTo(i) {
         var idx = clamp(i, 0, last);
         cards[idx].scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
       }
-      cards.forEach(function (c, i) { c.addEventListener("click", function () { goTo(i); }); });
+      cards.forEach(function (c, i) {
+        if (c.hasAttribute("aria-hidden")) return;
+        c.addEventListener("click", function () { goTo(i); });
+      });
       var prev = $("[data-deck-prev]", root), next = $("[data-deck-next]", root);
       if (prev) prev.addEventListener("click", function () {
-        var a = parseInt(root.dataset.active || 0, 10); goTo(a === 0 ? last : a - 1);
+        var a = parseInt(root.dataset.active || 0, 10); goTo(a - 1);
       });
       if (next) next.addEventListener("click", function () {
-        var a = parseInt(root.dataset.active || 0, 10); goTo(a === last ? 0 : a + 1);
+        var a = parseInt(root.dataset.active || 0, 10); goTo(a + 1);
       });
     });
   }
