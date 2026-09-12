@@ -599,7 +599,9 @@ input, textarea, select { font: inherit; color: inherit; }
   cursor: pointer;
 }
 .deck__card.is-active { transform: scale(1); opacity: 1; box-shadow: 0 0 0 2px rgba(216,180,102,.7); }
-.deck__card:hover { box-shadow: 0 0 0 2px rgba(216,180,102,.45); }
+.deck__card:not(.is-active):hover,
+.deck__card:not(.is-active):focus-visible { transform: scale(.92); opacity: .75; box-shadow: 0 0 0 2px rgba(216,180,102,.7); }
+.deck__card:focus-visible { outline: none; }
 .deck__card img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
 .deck__wash { position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.25) 55%, transparent); }
 .deck__chip {
