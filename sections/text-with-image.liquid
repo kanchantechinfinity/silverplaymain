@@ -31,8 +31,17 @@
 
       <div data-reveal="{% if section.settings.image_position == 'left' %}left{% else %}right{% endif %}" style="height:100%">
         <div class="split-row__media">
-          {%- if section.settings.image != blank -%}
-            <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="1200" height="1500">
+          {%- liquid
+            assign img_asset = section.settings.image_asset
+            if section.settings.image != blank
+              assign img_asset = blank
+            endif
+            assign focus = section.settings.image_focus | default: '50% 50%'
+          -%}
+          {%- if img_asset != blank -%}
+            <img src="{{ img_asset | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="1200" height="1500" style="object-position:{{ focus }}">
+          {%- elsif section.settings.image != blank -%}
+            <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="1200" height="1500" style="object-position:{{ focus }}">
           {%- else -%}
             <img src="{{ 'stock-lifestyle-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="2000">
           {%- endif -%}
@@ -48,6 +57,8 @@
   "tag": "section",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_asset", "label": "Theme asset filename (used when no image is picked)" },
+    { "type": "text", "id": "image_focus", "label": "Image focal point (CSS object-position, e.g. 50% 30%)", "default": "50% 50%" },
     { "type": "select", "id": "image_position", "label": "Image position", "default": "right",
       "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
