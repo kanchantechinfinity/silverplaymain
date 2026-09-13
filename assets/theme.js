@@ -23,6 +23,7 @@
 
   /* ------------------------------------------------- scroll reveal engine */
   function initReveal(root) {
+    window.__spRevealReady = true;
     var targets = $$("[data-reveal],[data-stagger],[data-split]", root || document);
     if (!targets.length) return;
     if (reduced || !("IntersectionObserver" in window)) {
@@ -32,6 +33,11 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
+        // intersectionRatio is visible area / the ELEMENT's area, so anything
+        // taller than the viewport can never reach 0.15. Reveal those as soon
+        // as they enter; keep the 15% trigger for normal-sized elements.
+        var tall = e.boundingClientRect.height > window.innerHeight * 0.9;
+        if (!tall && e.intersectionRatio < 0.15) return;
         var el = e.target;
         if (el.hasAttribute("data-stagger")) {
           var step = parseFloat(el.getAttribute("data-stagger")) || 0.09;
@@ -42,7 +48,7 @@
         el.classList.add("is-in");
         io.unobserve(el);
       });
-    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: [0, 0.15], rootMargin: "0px 0px -8% 0px" });
     targets.forEach(function (el) {
       var d = el.getAttribute("data-delay");
       if (d) el.style.setProperty("--reveal-delay", d + "s");

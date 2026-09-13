@@ -120,6 +120,20 @@ viewports the full image is shown and they reappear. Proper fix is to crop the a
 - Assets folder is ~37 MB. Shopify's theme-zip limit is 50 MB — watch this when adding
   more full-res PNGs.
 
+## Scroll-reveal engine — read before debugging "blank" pages
+`theme.css:221` hides `[data-reveal]` / `[data-stagger]` / `[data-split]` at `opacity:0`
+until `theme.js` adds `.is-in`. **A page that scrolls to full height but shows nothing is
+almost always this, not missing data.** Check `getComputedStyle(el).opacity` first.
+- `IntersectionObserver.intersectionRatio` is visible area ÷ **the element's own area**,
+  so an element taller than ~6.7 viewports can never reach a 0.15 threshold. The engine
+  now observes at `threshold: [0, 0.15]` and reveals anything taller than ~90vh as soon
+  as it enters. Do not put the bare 0.15 threshold back.
+- `layout/theme.liquid`'s inline script has a watchdog: 1.2s after `load`, if
+  `window.__spRevealReady` is unset, it reveals everything. `initReveal()` sets that flag.
+  This is the only thing standing between a `theme.js` failure and a blank storefront.
+- The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
+  in `/blogs/journal`. Menu fix, not code.
+
 ## Journal / blog
 - **The theme side is complete** — `main-blog.liquid` (grid + tag chips + pagination),
   `main-article.liquid`, `.journal__grid` / `.jcard` CSS all already match the reference.

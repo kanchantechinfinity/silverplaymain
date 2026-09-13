@@ -32,6 +32,21 @@
         search: {{ routes.search_url | json }}
       }
     };
+
+    // Failsafe: content is hidden by CSS (opacity:0) until the reveal engine
+    // adds .is-in. If theme.js never boots -- 404, parse error, a blocking app
+    // script -- the page keeps its scroll height but renders blank. This runs
+    // from the layout, independent of theme.js, and only fires when the engine
+    // did not come up, so normal scroll-reveal behaviour is untouched.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (window.__spRevealReady) return;
+        var sel = '[data-reveal],[data-stagger],[data-split]';
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function (el) {
+          el.classList.add('is-in');
+        });
+      }, 1200);
+    });
   </script>
 </head>
 

@@ -1,5 +1,52 @@
 # Build Log — silverplaymain
 
+## 2026-09-13 (d) — Fix content stuck invisible (scroll-reveal never firing)
+
+**Symptom:** article page scrolled to full height but rendered almost nothing — content
+present in the DOM, stuck at `opacity: 0`.
+
+### Root cause class
+`theme.css:221` hides every `[data-reveal]` / `[data-stagger]` / `[data-split]` at
+`opacity: 0` and depends entirely on JS adding `.is-in`. Anything that stops that from
+happening leaves a page with correct scroll height and no visible content. Two distinct
+failures were found and fixed.
+
+**1. Tall elements could never reveal (real bug, confirmed).**
+`IntersectionObserver`'s `intersectionRatio` is *visible area ÷ the element's own area*,
+so an element taller than ~6.7 viewports can never reach the `threshold: 0.15` the engine
+used. Measured: a 7684px body in a 900px viewport has a **maximum possible ratio of
+0.117** — mathematically unable to trigger. A long-form article is exactly this shape.
+Fixed by observing at `threshold: [0, 0.15]` and revealing an element as soon as it
+enters when it is taller than ~90% of the viewport, keeping the 15% trigger for
+normal-sized elements.
+
+**2. No failsafe if `theme.js` never boots.**
+404, parse error, or a blocking app script and the whole page stays blank. Added a
+watchdog to the inline script in `layout/theme.liquid`, which runs independently of
+`theme.js`: on `load`, after 1.2s, if `window.__spRevealReady` is not set, add `.is-in`
+to every reveal target. `initReveal()` sets that flag, so when the engine works the
+watchdog does nothing and scroll-reveal is untouched.
+
+### Verification
+- **theme.js deliberately 404'd** → `revealEngineBooted: false`, and title, excerpt and
+  body all reach `opacity: 1`. Previously all three stayed invisible.
+- **7684px element, real theme.js** → `couldEverHit015: false`, now `is-in`, opacity 1.
+- **Regression** — same element below the fold at scroll 0 stays `opacity: 0`: no
+  premature reveal, scroll-reveal still behaves as designed.
+
+### Corrected earlier in this session
+I first proposed the threshold as the cause of the reported blank page, then my own test
+(a 1759px body, max ratio 0.512) disproved it for normal-length articles and I said so.
+The bug is real but only bites past ~6000px; whether it is *this* store's cause depends
+on the article's rendered height, which I cannot measure — the store is password
+protected. The failsafe covers the remaining possibilities either way.
+
+### Also confirmed (store-side, no code change)
+Two blogs exist. The nav's JOURNAL item points at `/blogs/news`, which is empty, while
+articles live in `/blogs/journal`. Fix in Content → Menus → Main menu.
+
+---
+
 ## 2026-09-13 (c) — Journal: diagnosed empty page, extracted the five real articles
 
 **Status:** content pack committed. **Articles are NOT yet in the store** — that step
