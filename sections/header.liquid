@@ -41,7 +41,7 @@
     </nav>
 
     <div class="header__actions">
-      <a href="{{ routes.search_url }}" class="header__icon" aria-label="{{ 'accessibility.search' | t }}">
+      <a href="{{ routes.search_url }}" class="header__icon" data-search-open aria-label="{{ 'accessibility.search' | t }}">
         {% render 'icon', name: 'search' %}
       </a>
       {%- if section.settings.show_wishlist -%}

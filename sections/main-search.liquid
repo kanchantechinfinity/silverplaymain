@@ -1,8 +1,10 @@
 <div class="wrap" style="padding-top:9rem;padding-bottom:5rem">
-  <p class="eyebrow">{{ 'general.search.search' | t }}</p>
-  <h1 class="h-sec mt-3" data-split data-reveal="none">{{ section.settings.heading }}</h1>
+  <div class="search-page__head">
+    <p class="eyebrow">{{ 'general.search.search' | t }}</p>
+    <h1 class="h-sec mt-3" data-split data-reveal="none">{{ section.settings.heading }}</h1>
+  </div>
 
-  <form action="{{ routes.search_url }}" method="get" role="search" class="mt-8" style="display:flex;gap:.75rem;max-width:38rem">
+  <form action="{{ routes.search_url }}" method="get" role="search" class="mt-8 search-page__form" style="display:flex;gap:.75rem;max-width:38rem">
     <input type="search" name="q" value="{{ search.terms | escape }}" class="field field--pill"
            placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.search' | t }}">
     <input type="hidden" name="options[prefix]" value="last">

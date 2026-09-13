@@ -454,7 +454,7 @@
     });
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape") return;
-      $$("[data-modal].is-open, .cart-drawer.is-open, .mobile-nav.is-open, .shop__drawer.is-open").forEach(function (m) {
+      $$("[data-modal].is-open, .cart-drawer.is-open, .search-drawer.is-open, .mobile-nav.is-open, .shop__drawer.is-open").forEach(function (m) {
         m.classList.remove("is-open");
       });
       document.body.style.overflow = "";
@@ -804,6 +804,109 @@
     });
   }
 
+
+  /* ------------------------------------------------------ search drawer */
+  function initSearchDrawer() {
+    var drawer = $("[data-search-drawer]");
+    if (!drawer) return;
+    var input   = $("[data-search-input]", drawer);
+    var results = $("[data-search-results]", drawer);
+    var foot    = $("[data-search-foot]", drawer);
+    var allLink = $("[data-search-all]", drawer);
+    var hint    = results ? results.innerHTML : "";
+    var base    = (window.SilverPlay && window.SilverPlay.routes && window.SilverPlay.routes.search) || "/search";
+    var timer, lastQuery = "", controller;
+
+    function open(e) {
+      if (e) e.preventDefault();
+      drawer.classList.add("is-open");
+      drawer.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      if (input) setTimeout(function () { input.focus(); }, 120);
+    }
+    function close() {
+      drawer.classList.remove("is-open");
+      drawer.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    $$("[data-search-open]").forEach(function (b) { b.addEventListener("click", open); });
+    $$("[data-search-close], .search-drawer__scrim", drawer).forEach(function (b) {
+      b.addEventListener("click", close);
+    });
+
+    function esc(t) {
+      return String(t == null ? "" : t).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+    function row(item, meta) {
+      var img = item.featured_image && item.featured_image.url ? item.featured_image.url : (item.image || "");
+      return '<a class="sresult" href="' + esc(item.url) + '">' +
+        (img ? '<span class="sresult__img"><img src="' + esc(img) + '" alt="" loading="lazy"></span>' : "") +
+        '<span><span class="sresult__title">' + esc(item.title) + "</span>" +
+        (meta ? '<span class="sresult__meta">' + meta + "</span>" : "") +
+        "</span></a>";
+    }
+    function group(label, items, metaFor) {
+      if (!items || !items.length) return "";
+      return '<div class="search-drawer__group"><p class="search-drawer__label">' + esc(label) + "</p>" +
+             items.map(function (i) { return row(i, metaFor ? metaFor(i) : ""); }).join("") + "</div>";
+    }
+
+    function render(data, q) {
+      var r = (data && data.resources && data.resources.results) || {};
+      var html = group("Products", r.products, function (p) {
+            return p.price ? money(parseInt(p.price, 10)) : "";
+          }) +
+          group("Collections", r.collections) +
+          group("Journal", r.articles) +
+          group("Pages", r.pages);
+      if (!html) {
+        results.innerHTML = '<p class="search-drawer__hint">No results for &ldquo;' + esc(q) + '&rdquo;.</p>';
+        if (foot) foot.hidden = true;
+        return;
+      }
+      results.innerHTML = html;
+      if (foot) foot.hidden = false;
+      if (allLink) allLink.href = base + "?q=" + encodeURIComponent(q);
+    }
+
+    function run(q) {
+      if (controller) controller.abort();
+      controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var url = base + "/suggest.json?q=" + encodeURIComponent(q) +
+                "&resources[type]=product,collection,article,page&resources[limit]=5" +
+                "&resources[options][unavailable_products]=last";
+      fetch(url, controller ? { signal: controller.signal } : undefined)
+        .then(function (res) { return res.json(); })
+        .then(function (data) { render(data, q); })
+        .catch(function (err) {
+          if (err && err.name === "AbortError") return;
+          // network or endpoint failure: fall back to the full search page
+          results.innerHTML = '<p class="search-drawer__hint">' +
+            '<a class="link-cta" href="' + base + "?q=" + encodeURIComponent(q) + '">Search for &ldquo;' +
+            esc(q) + '&rdquo; &rarr;</a></p>';
+          if (foot) foot.hidden = true;
+        });
+    }
+
+    if (input) {
+      input.addEventListener("input", function () {
+        var q = input.value.trim();
+        if (q === lastQuery) return;
+        lastQuery = q;
+        clearTimeout(timer);
+        if (q.length < 2) {
+          results.innerHTML = hint;
+          if (foot) foot.hidden = true;
+          return;
+        }
+        timer = setTimeout(function () { run(q); }, 220);
+      });
+    }
+  }
+
   /* ------------------------------------------------------------- boot */
   function boot() {
     initSplit();
@@ -826,6 +929,7 @@
     initWishlistPage();
     initRecentlyViewed();
     initCart();
+    initSearchDrawer();
     initVariants();
     initSort();
     initFilters();

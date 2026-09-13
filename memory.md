@@ -134,6 +134,16 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
   in `/blogs/journal`. Menu fix, not code.
 
+## Search
+- Search is a **drawer**, not a page-first flow: `snippets/search-drawer.liquid`, mounted
+  in `layout/theme.liquid`, opened by `[data-search-open]` on the header icon.
+- It intentionally reuses the cart drawer's shell (`cart-drawer__head` / `__foot`) and the
+  same `.is-open` mechanics, so restyling one should usually restyle the other.
+- Results come from `/search/suggest.json` (`initSearchDrawer()` in theme.js), debounced
+  220ms, `AbortController` cancels in-flight requests, prices via the theme's `money()`.
+- `/search` still exists and is the no-JS fallback — the trigger keeps its `href`. Do not
+  replace it with a button.
+
 ## Journal / blog
 - **The theme side is complete** — `main-blog.liquid` (grid + tag chips + pagination),
   `main-article.liquid`, `.journal__grid` / `.jcard` CSS all already match the reference.

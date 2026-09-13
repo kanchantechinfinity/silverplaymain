@@ -1,5 +1,55 @@
 # Build Log — silverplaymain
 
+## 2026-09-13 (e) — Search as a drawer, plus centring the search page
+
+### Asked for
+Search page content was left-aligned; then: make search a pop-up like the cart.
+
+### Search drawer
+New `snippets/search-drawer.liquid`, mounted in `layout/theme.liquid` next to the cart
+drawer. Deliberately reuses the cart drawer's shell and mechanics so it feels like the
+same component: fixed overlay, blurred scrim, right-hand panel sliding in on `.is-open`,
+`cart-drawer__head` / `cart-drawer__foot` reused verbatim for the header and CTA.
+
+- `initSearchDrawer()` in `theme.js`, registered in `boot()` right after `initCart()`.
+- Live results from Shopify's `/search/suggest.json`, grouped Products / Collections /
+  Journal / Pages, 5 each. Empty groups are omitted.
+- 220ms debounce, queries under 2 characters reset to the hint, and in-flight requests
+  are cancelled via `AbortController` so slow responses cannot overwrite newer ones.
+- Prices run through the theme's existing `money()` helper, so they follow
+  `shop.money_format` (verified: ₹2,899 with Indian digit grouping).
+- Added to the existing global Escape handler alongside the cart drawer.
+- All interpolated result fields are escaped before being written as HTML.
+
+**Progressive enhancement:** the header trigger keeps `href="{{ routes.search_url }}"`
+and only calls `preventDefault()` once the drawer takes over, and the form still posts to
+`/search`. If `theme.js` fails, search degrades to the full page rather than breaking —
+the same lesson as entry (d).
+
+### Search page centring
+`main-search.liquid` gained a `.search-page__head` wrapper; the heading block and the
+form are now centred. Results stay left-aligned in their grid. The page remains the
+no-JS fallback and a valid destination for `/search?q=`.
+
+### Verification
+Harness with the real `theme.css` / `theme.js` and a stubbed `/search/suggest.json`:
+- Trigger click → panel slides 1280 → 840 (440px wide), `aria-hidden` false, body scroll
+  locked, input focused, and no navigation (preventDefault held).
+- Typing `gan` → correct suggest URL, three groups rendered, prices formatted ₹2,899 /
+  ₹1,999, "see all" link updated to `/search?q=gan`, footer CTA shown.
+- Single character → results reset to the hint, footer hidden again.
+- Escape → drawer closes and body overflow is restored.
+
+**Fixed during verification:** `.sresult__title` and `.sresult__meta` were inline spans,
+so `margin-top` did nothing and the title ran into the price on one line. Both are now
+`display: block`.
+
+**Not verified:** the real `/search/suggest.json` response from the live store — the
+endpoint was stubbed locally. Shape follows Shopify's documented
+`resources.results.{products,collections,articles,pages}`.
+
+---
+
 ## 2026-09-13 (d) — Fix content stuck invisible (scroll-reveal never firing)
 
 **Symptom:** article page scrolled to full height but rendered almost nothing — content
