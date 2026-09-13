@@ -882,7 +882,9 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 640px) { .gallery { flex-direction: row-reverse; gap: 1.25rem; } }
 .gallery__main { position: relative; aspect-ratio: 1; width: 100%; overflow: hidden; border-radius: var(--radius-lg); padding: 3px; background: var(--gilt); }
 @media (min-width: 640px) { .gallery__main { flex: 1; } }
-.gallery__stage { position: relative; height: 100%; width: 100%; overflow: hidden; border-radius: calc(var(--radius-lg) - 3px); background: var(--sp-bone-2); }
+.gallery__stage { position: relative; height: 100%; width: 100%; overflow: hidden; border-radius: calc(var(--radius-lg) - 3px); background: var(--sp-bone-2); touch-action: pan-y; cursor: grab; }
+.gallery__stage:focus-visible { outline: 2px solid var(--sp-gold-deep); outline-offset: 3px; }
+.gallery__slide img { -webkit-user-drag: none; user-select: none; }
 .gallery__slide { position: absolute; inset: 0; opacity: 0; transform: scale(1.03); transition: opacity .45s var(--ease-silk), transform .45s var(--ease-silk); }
 .gallery__slide.is-active { opacity: 1; transform: none; }
 .gallery__slide img { height: 100%; width: 100%; object-fit: cover; }

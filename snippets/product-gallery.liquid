@@ -1,7 +1,7 @@
 {%- comment -%}Product gallery: main stage + thumbnail rail + optional tilt/3D viewer.{%- endcomment -%}
 <div class="gallery" data-gallery>
   <div class="gallery__main">
-    <div class="gallery__stage">
+    <div class="gallery__stage" data-gallery-stage>
       {%- if product.media.size > 0 -%}
         {%- for media in product.media -%}
           <div class="gallery__slide{% if forloop.first %} is-active{% endif %}" data-gallery-slide>

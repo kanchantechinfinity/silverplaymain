@@ -412,6 +412,40 @@
       thumbs.forEach(function (t, i) { t.addEventListener("click", function () { show(i); }); });
       show(0);
 
+      /* Swipe / drag / keyboard through the slides. Thumbnails alone are a poor
+         target on mobile, and horizontal drag is what a product gallery implies.
+         Only acts on a mostly-horizontal gesture so vertical page scrolling and
+         the sticky media column are never hijacked. */
+      if (slides.length > 1) {
+        var stage = $("[data-gallery-stage]", root) || $(".gallery__stage", root);
+        if (stage) {
+          var down = false, sx = 0, sy = 0, locked = false;
+          var step = function (dir) {
+            var i = parseInt(root.dataset.active || 0, 10) + dir;
+            show(clamp(i, 0, slides.length - 1));
+          };
+          stage.addEventListener("pointerdown", function (e) {
+            if (e.pointerType === "mouse" && e.button !== 0) return;
+            down = true; locked = false; sx = e.clientX; sy = e.clientY;
+          });
+          stage.addEventListener("pointermove", function (e) {
+            if (!down || locked) return;
+            var dx = e.clientX - sx, dy = e.clientY - sy;
+            if (Math.abs(dx) < 40 || Math.abs(dx) <= Math.abs(dy)) return;
+            locked = true; down = false;
+            step(dx < 0 ? 1 : -1);
+          });
+          window.addEventListener("pointerup", function () { down = false; });
+          window.addEventListener("pointercancel", function () { down = false; });
+
+          stage.setAttribute("tabindex", "0");
+          stage.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+            else if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+          });
+        }
+      }
+
       var open3d = $("[data-gallery-3d]", root);
       var modal = $("[data-tilt-modal]");
       if (open3d && modal) {

@@ -134,6 +134,23 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
   in `/blogs/journal`. Menu fix, not code.
 
+## Product page (PDP)
+- The reference PDP gallery is a **crossfade stage + thumb rail**, not a scrolling image
+  column — the theme already matches it structurally. Don't "fix" it into a scroller.
+- `.pdp__media` is `position: sticky; top: 8rem` at ≥768px with `.pdp__grid`
+  `align-items: start` — verified pinning at 128px. The pin is only *visible* when the
+  buy-box column is taller than the gallery.
+- `initGallery()` supports thumbnail click, horizontal swipe/drag (40px threshold,
+  horizontal-dominant only) and Left/Right arrows. `touch-action: pan-y` on the stage
+  preserves vertical page scroll.
+
+## Measuring scroll behaviour in this theme — two traps
+- `html { scroll-behavior: smooth }`: `window.scrollTo()` is **not** synchronous. Set
+  `document.documentElement.style.scrollBehavior='auto'` and wait two rAFs before
+  reading positions, or every sample comes back at the old scroll offset.
+- `body { overflow-x: hidden }` is present but **does not** break sticky here, because
+  `html` declares no `overflow`, so the value propagates to the viewport. Don't chase it.
+
 ## Search
 - Search is a **drawer**, not a page-first flow: `snippets/search-drawer.liquid`, mounted
   in `layout/theme.liquid`, opened by `[data-search-open]` on the header icon.

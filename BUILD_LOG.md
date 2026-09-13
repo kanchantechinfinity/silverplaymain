@@ -1,5 +1,59 @@
 # Build Log — silverplaymain
 
+## 2026-09-13 (f) — Product gallery: swipe / drag / keyboard ("image scroll")
+
+### What the reference actually does
+Read the DOM of the reference PDP. Its gallery is **structurally identical to the
+theme's already**: `flex flex-col gap-4 sm:flex-row-reverse sm:gap-5` →
+`aspect-square w-full … p-[3px] sm:flex-1` → stage → `absolute inset-0` slides. It is a
+crossfade stage with a thumbnail rail, not a scrolling column of images. Its media
+column sits in a `md:sticky md:top-32` wrapper.
+
+### Sticky was already correct — measured, not assumed
+`theme.css` already had `.pdp__grid { align-items: start }` and
+`.pdp__media { position: sticky; top: 8rem }` at ≥768px, i.e. the same as `md:top-32`.
+Reproduced the real PDP structure against the real `theme.css` / `theme.js`: the media
+column sits at 173px at scroll 0 then **pins at exactly 128px** through every scroll
+position. No change was needed and none was made.
+
+Two traps hit while measuring, both worth remembering:
+- `html { scroll-behavior: smooth }` means `window.scrollTo()` does **not** apply
+  synchronously — a first run reported the column "never moving" because all six
+  samples were actually taken at scroll 0. Set `scrollBehavior='auto'` and wait two
+  animation frames before measuring.
+- `body { overflow-x: hidden }` looks like the classic sticky killer, but `html` here has
+  no `overflow` of its own, so the value propagates to the viewport and body does not
+  become a scroll container. It is **not** a problem in this theme.
+
+### The real gap: no way to scroll through the images
+`initGallery()` bound **thumbnail clicks only** — no swipe, no drag, no keyboard. On a
+phone the sole way to change image was tapping a 4rem thumbnail. Added to
+`initGallery()`, following the existing `initDragRails()` pointer convention:
+- horizontal pointer drag past 40px steps one slide, clamped at both ends;
+- the gesture is ignored unless it is **more horizontal than vertical**, so vertical page
+  scrolling and the sticky column are never hijacked;
+- `touch-action: pan-y` on the stage keeps native vertical scrolling on touch;
+- stage is focusable with Left/Right arrow support and a `:focus-visible` ring;
+- images get `user-drag: none` so a drag doesn't start a native image drag.
+
+### Verification
+| Case | Result |
+|---|---|
+| swipe left ×2 from slide 0 | 0 → 1 → 2 |
+| swipe left at last slide | clamped at 2 |
+| swipe right | 2 → 1 |
+| vertical swipe | no slide change |
+| 20px drag (under threshold) | no slide change |
+| ArrowRight / ArrowLeft | 1 → 2 → 1 |
+| thumbnail click | slide and thumb both land on index 2 |
+| sticky after the change | still pins at 128px |
+
+**Ambiguity flagged:** "image scroll" could have meant the sticky pin instead. That was
+measured as already working, so the swipe gap is the only real defect found. The live
+store could not be checked — it is password protected.
+
+---
+
 ## 2026-09-13 (e) — Search as a drawer, plus centring the search page
 
 ### Asked for
