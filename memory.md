@@ -120,6 +120,20 @@ viewports the full image is shown and they reappear. Proper fix is to crop the a
 - Assets folder is ~37 MB. Shopify's theme-zip limit is 50 MB — watch this when adding
   more full-res PNGs.
 
+## Journal / blog
+- **The theme side is complete** — `main-blog.liquid` (grid + tag chips + pagination),
+  `main-article.liquid`, `.journal__grid` / `.jcard` CSS all already match the reference.
+  If the Journal looks empty, it is **store data, not the theme**.
+- Shopify blog posts are store data. The theme repo syncs only assets/config/layout/
+  locales/sections/snippets/templates — **articles can never be created by a git push.**
+- The dev store's blog is titled **News** (Shopify default). `main-blog.liquid` prints
+  `blog.title`, so the "News" heading is fixed by renaming the blog in admin, not in code.
+- Filter chips come from `blog.all_tags`, so tag spelling must match exactly across posts.
+- `journal-arc` (homepage) already falls back to the first blog that has articles, so it
+  survives a blog-handle mismatch.
+- The five real articles live in `journal-content/` — JSON, paste-ready HTML, hero images
+  and a Matrixify CSV, with three import routes in its README. Shopify ignores that folder.
+
 ## Local dev
 - No Shopify CLI installed → the theme cannot be rendered locally as Liquid.
   To eyeball CSS/images, serve the repo statically and hand-write a harness page

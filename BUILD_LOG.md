@@ -1,5 +1,54 @@
 # Build Log — silverplaymain
 
+## 2026-09-13 (c) — Journal: diagnosed empty page, extracted the five real articles
+
+**Status:** content pack committed. **Articles are NOT yet in the store** — that step
+needs a store-side import (see `journal-content/README.md`).
+
+### Finding: not a theme bug
+`sections/main-blog.liquid` and `sections/main-article.liquid` are already complete and
+already match the reference design — 3-column `.journal__grid`, `.jcard` with tag badge,
+date, title, clamped excerpt and read-more, tag chips built from `blog.all_tags`,
+pagination, and an article template with hero, standfirst, RTE body and related posts.
+All the CSS exists. **No theme change was needed and none was made.**
+
+The page is empty because the dev store's blog contains **zero articles**. Shopify blog
+posts are store data, not theme files — the repo only syncs assets/config/layout/
+locales/sections/snippets/templates — so a `git push` cannot create them.
+
+Also found: the store's blog is still titled **News** (Shopify's default), which is why
+the header reads "News". `main-blog.liquid` prints `blog.title`, so renaming the blog to
+`Journal` in admin fixes the heading with no code change.
+
+### Extracted from the reference
+Five articles from `silverplayproject.vercel.app/journal`. Their images are served from
+`silverplay.in/cdn/shop/articles/…`, so these exist as real articles on the production
+store — only the dev store lacks them.
+
+| Date | Tag | Title |
+|---|---|---|
+| 2026-08-10 | 925 Silver | Raksha Bandhan Silver Gifts 2026: Rakhis, Pendants & More |
+| 2026-06-13 | Gifting | How to Wear Meaning: Choosing Stones for Love, Calm & Courage |
+| 2026-06-13 | Behind-the-Scenes | Inside the Jaipur Atelier: A Day With Our Karigars |
+| 2026-06-13 | Origins | A Map of Stones: Where Your Jewellery Was Born |
+| 2026-06-13 | Care | The Quiet Power of 925 Silver: Why Our Grandmothers Were Right |
+
+### Added — `journal-content/` (ignored by Shopify theme sync)
+- `articles.json` — handle, title, tag, date, author, excerpt, body HTML
+- `html/<handle>.html` — paste-ready body HTML per article
+- `images/<handle>.png` — five hero images at full resolution (14 MB total)
+- `matrixify-blog-posts.csv` — bulk import sheet, `Command: MERGE` keyed on handle
+- `README.md` — three import routes (Matrixify / Admin API / manual) plus the blog rename
+
+Body text was captured verbatim from the rendered article pages; typographic quotes and
+dashes were normalised to HTML entities for the Shopify editor.
+
+### Not done
+Creating the articles in the store — needs either the Matrixify app, an Admin API token,
+or manual entry. Awaiting the user's choice of route.
+
+---
+
 ## 2026-09-13 (b) — About images: portable assets, founder-style height match, face-safe framing
 
 **Repo:** `kanchantechinfinity/silverplaymain` — follows on from entry (a) below.
