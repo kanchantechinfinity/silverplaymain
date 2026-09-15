@@ -134,6 +134,23 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
   in `/blogs/journal`. Menu fix, not code.
 
+## Responsive / mobile
+- Below 1024px the header is **logo left + menu toggle right**; the icon cluster moves to
+  `.mbar`, a sticky bottom bar (Offers / Wishlist / Search / Bag) in `header.liquid`.
+  It reuses `data-search-open` / `data-cart-open`, and its `data-cart-count` badge is kept
+  in sync automatically because theme.js updates *every* match.
+- `body` carries bottom padding below 1024px so `.mbar` never covers page end or drawers.
+- The logo's base rule is `position: absolute; left: 50%`. Any attempt to reorder it with
+  flex `order` **must** reset it to `position: static` first, or nothing happens.
+- `.mobile-nav__list` is `nav > ul > li > a` — selectors must not assume `li` is a direct
+  child. A `> li` selector silently leaves every link unstyled and unreadable.
+- `.tabs__inner` scrolls horizontally rather than wrapping (wrapping breaks the pill
+  shape). Use `scroll-snap-align: start`; `center` clips the first pill on load.
+- `.line__rope` must live inside `.line__track` (`width: max-content`) so it spans the
+  scrolled width, not the visible width.
+- `.faq__btn` is `align-items: flex-start` — `center` drags the number and arrow into the
+  middle of an expanded answer.
+
 ## Images / performance
 - **Shopify CDN auto-serves WebP** by `Accept` header (verified: a 2388 KB PNG arrives as
   228 KB WebP). Raw file sizes overstate delivery ~10× — measure with a browser UA/Accept

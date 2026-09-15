@@ -408,6 +408,46 @@ input, textarea, select { font: inherit; color: inherit; }
 .meganav__promo-scrim { position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.25) 55%, rgba(36,26,16,.1)); }
 .meganav__promo-body { position: absolute; inset-inline: 0; bottom: 0; padding: 1.25rem; }
 
+/* --- Mobile action bar -------------------------------------------------- */
+.mbar {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 55;
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  background: rgba(36,26,16,.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(242,232,208,.14);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@media (min-width: 1024px) { .mbar { display: none; } }
+.mbar__item {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem;
+  padding: .7rem .25rem .6rem; color: rgba(242,232,208,.72); transition: color .3s;
+}
+.mbar__item:hover, .mbar__item:focus-visible { color: var(--sp-bone); }
+.mbar__item svg { height: 20px; width: 20px; }
+.mbar__item > span:last-child {
+  font-family: var(--font-display); font-size: .54rem; text-transform: uppercase;
+  letter-spacing: .16em; line-height: 1;
+}
+.mbar__ico { position: relative; display: grid; place-items: center; }
+.mbar__badge {
+  position: absolute; right: -8px; top: -6px; min-width: 15px; height: 15px; padding: 0 3px;
+  display: grid; place-items: center; border-radius: 999px;
+  background: var(--sp-gold-deep); color: var(--sp-ink);
+  font-family: var(--font-display); font-size: .5rem; line-height: 1;
+}
+/* keep the bar from covering the end of the page and the cart drawer's footer */
+@media (max-width: 1023px) {
+  body { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
+  .cart-drawer__panel, .search-drawer__panel { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
+  /* the icon cluster moved to .mbar, so the top bar is just logo + menu toggle */
+  .header__actions { display: none; }
+  .header__bar { justify-content: space-between; gap: 1rem; }
+  /* base rule centres the logo absolutely; take it back into flex flow so it
+     can sit left and `order` actually applies */
+  .header__logo { position: static; left: auto; top: auto; transform: none;
+                  order: 1; margin-right: auto; flex: none; }
+  .header__burger { order: 2; }
+}
+
 /* Mobile drawer nav */
 .mobile-nav {
   position: fixed; inset: 0; z-index: 60; background: rgba(36,26,16,.97);
@@ -419,8 +459,10 @@ input, textarea, select { font: inherit; color: inherit; }
   position: absolute; right: 1.75rem; top: 2rem; font-family: var(--font-display);
   font-size: .66rem; text-transform: uppercase; letter-spacing: .24em; color: rgba(242,232,208,.8);
 }
-.mobile-nav__list { display: flex; height: 100%; flex-direction: column; justify-content: center; gap: .25rem; padding-inline: 2rem; overflow-y: auto; }
-.mobile-nav__list > li > a { display: block; padding-block: .75rem; font-family: var(--font-display); font-size: 1.7rem; color: var(--sp-bone); }
+.mobile-nav__list { height: 100%; padding-inline: 2rem; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; }
+.mobile-nav__list ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .25rem; }
+.mobile-nav__list li > a { display: block; padding-block: .75rem; font-family: var(--font-display); font-size: 1.7rem; line-height: 1.2; color: var(--sp-bone); }
+.mobile-nav__list > ul { padding-block: 5.5rem 7.5rem; }
 .mobile-nav__sub a { display: block; padding: .35rem 0 .35rem 1rem; font-family: var(--font-body); font-size: 1rem; color: rgba(242,232,208,.6); }
 
 /* --- Cinematic hero ----------------------------------------------------- */
@@ -566,13 +608,17 @@ input, textarea, select { font: inherit; color: inherit; }
 .center-cta { margin-top: 3.5rem; display: flex; justify-content: center; }
 
 /* --- Tabs (fresh edit) -------------------------------------------------- */
-.tabs { margin-top: 2.5rem; display: flex; justify-content: center; }
+.tabs { margin-top: 2.5rem; display: flex; justify-content: center; max-width: 100%; }
 .tabs__inner {
-  display: inline-flex; flex-wrap: wrap; justify-content: center; gap: .5rem;
+  display: inline-flex; flex-wrap: nowrap; justify-content: flex-start; gap: .5rem;
   border-radius: 999px; border: 1px solid rgba(36,26,16,.1); background: var(--sp-bone); padding: .375rem;
+  max-width: 100%; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
 }
+.tabs__inner::-webkit-scrollbar { display: none; }
+.tabs__btn { flex: none; scroll-snap-align: start; }
+@media (min-width: 640px) { .tabs__inner { justify-content: center; } .tabs__btn { padding: .75rem 1.5rem; } }
 .tabs__btn {
-  border-radius: 999px; padding: .75rem 1.5rem; font-family: var(--font-display);
+  border-radius: 999px; padding: .75rem 1.15rem; white-space: nowrap; font-family: var(--font-display);
   font-size: .82rem; text-transform: uppercase; letter-spacing: .18em; color: rgba(36,26,16,.55);
   transition: background-color .4s, color .4s;
 }
@@ -782,6 +828,11 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* --- Testimonials (clothesline) ----------------------------------------- */
 .line { position: relative; width: 100%; overflow: hidden; background: var(--sp-ink); }
+.line__scroll { position: relative; margin-top: 6rem; width: 100%; overflow-x: auto; }
+.line__scroll::-webkit-scrollbar { display: none; }
+/* the rope must span the SCROLLED width, not the visible width, or it stops
+   partway along and the notes hang from nothing once you scroll. */
+.line__track { position: relative; width: max-content; min-width: 100%; }
 .line__rope { pointer-events: none; position: absolute; inset-inline: 0; top: 0; height: 64px; width: 100%; }
 .line__row { margin-inline: auto; display: flex; width: max-content; min-width: 100%; flex-wrap: nowrap; justify-content: center; gap: 1rem; padding: .75rem 2rem 0; }
 @media (min-width: 768px) { .line__row { gap: 3rem; padding-inline: 4rem; } }
@@ -837,19 +888,19 @@ input, textarea, select { font: inherit; color: inherit; }
 /* --- FAQ ---------------------------------------------------------------- */
 .faq__list { position: relative; margin-top: 3.5rem; border-top: 1px solid rgba(242,232,208,.12); }
 .faq__row { position: relative; border-bottom: 1px solid rgba(242,232,208,.12); }
-.faq__btn { position: relative; z-index: 1; display: flex; width: 100%; align-items: center; gap: 1rem; padding: 1.5rem 1rem; text-align: left; }
+.faq__btn { position: relative; z-index: 1; display: flex; width: 100%; align-items: flex-start; gap: .875rem; padding: 1.5rem 1rem; text-align: left; }
 @media (min-width: 768px) { .faq__btn { gap: 2rem; padding: 1.75rem 2rem; } }
 .faq__fill { position: absolute; inset: 0; background: #d9b66c; opacity: 0; transition: opacity .4s var(--ease-silk); }
 .faq__row.is-open .faq__fill { opacity: 1; }
-.faq__num { position: relative; font-family: var(--font-display); font-size: .72rem; letter-spacing: .1em; color: rgba(242,232,208,.4); transition: color .4s; }
+.faq__num { position: relative; flex: none; padding-top: .45rem; font-family: var(--font-display); font-size: .72rem; letter-spacing: .1em; color: rgba(242,232,208,.4); transition: color .4s; }
 .faq__q { position: relative; min-width: 0; flex: 1; }
 .faq__q h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; line-height: 1.35; color: var(--sp-bone); transition: color .4s; }
 @media (min-width: 768px) { .faq__q h3 { font-size: 1.4rem; } }
-.faq__a { max-width: 28rem; overflow: hidden; max-height: 0; opacity: 0; font-family: var(--font-body); font-size: .86rem; line-height: 1.7; color: rgba(36,26,16,.7); transition: max-height .4s var(--ease-silk), opacity .4s, margin-top .4s; }
+.faq__a { display: block; max-width: 28rem; overflow: hidden; max-height: 0; opacity: 0; font-family: var(--font-body); font-size: .86rem; line-height: 1.7; color: rgba(36,26,16,.7); transition: max-height .4s var(--ease-silk), opacity .4s, margin-top .4s; }
 .faq__row.is-open .faq__a { max-height: 22rem; opacity: 1; margin-top: .5rem; }
 .faq__row.is-open .faq__num { color: rgba(36,26,16,.5); }
 .faq__row.is-open .faq__q h3 { color: var(--sp-ink); }
-.faq__toggle { position: relative; display: grid; place-items: center; height: 2.75rem; width: 2.75rem; flex: none; border-radius: 999px; border: 1px solid rgba(242,232,208,.25); color: var(--sp-bone); transition: all .4s; }
+.faq__toggle { position: relative; display: grid; place-items: center; height: 2.25rem; width: 2.25rem; flex: none; margin-top: -.1rem; border-radius: 999px; border: 1px solid rgba(242,232,208,.25); color: var(--sp-bone); transition: all .4s; }
 .faq__row.is-open .faq__toggle { border-color: rgba(36,26,16,.3); color: var(--sp-ink); }
 .faq__thumb {
   pointer-events: none; position: absolute; top: -1.5rem; bottom: -1.5rem; right: 6rem; z-index: 2;

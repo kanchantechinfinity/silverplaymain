@@ -1,5 +1,58 @@
 # Build Log — silverplaymain
 
+## 2026-09-16 — Responsive pass: 7 mobile fixes
+
+### 1. Mobile menu was invisible — a selector that never matched
+The markup is `nav.mobile-nav__list > ul > li > a`, but the CSS targeted
+`.mobile-nav__list > li > a`. `li` is a **grandchild**, so the rule never applied and
+every link fell back to browser defaults — 16px dark-blue text on a near-black panel.
+Nothing was broken in the JS; the links were simply unreadable. Selectors now match the
+real nesting, the `ul` carries the flex column, and the list is padded clear of the
+close button. Verified: 9 links, 27.2px display type, `rgb(242,232,208)`.
+
+### 2. Filter pills wrapped inside a pill-shaped container
+`.tabs__inner` had `flex-wrap: wrap` plus `border-radius: 999px`, so a second row turned
+the capsule into a blob with "Pendants" stranded underneath. Now a single non-wrapping
+row that scrolls horizontally, with tighter padding on small screens and centring
+restored at ≥640px. Snap alignment is `start`, not `center` — `center` made the browser
+snap on load and clip "New Arrivals" (caught in testing).
+
+### 3. Rope ran out when the notes scrolled
+`.line__rope` was `inset-inline: 0` inside the scroll container, so it spanned the
+**visible** width while `.line__row` is `width: max-content` and scrolls — past the first
+screen the notes hung from nothing. Added `.line__track` (`width: max-content;
+min-width: 100%`) wrapping rope and row together. Verified at 375px: rope 944px = full
+track width, content genuinely wider than the 375px viewport.
+
+### 4. FAQ number and arrow floated mid-answer
+`.faq__btn` was `align-items: center`, so opening a row re-centred the number and the
+toggle against the **whole expanded answer** instead of the question. Now
+`align-items: flex-start` with a small top offset on the number and a slightly smaller
+toggle. Verified: number top 902px vs question top 902px, toggle 900px.
+
+### 5–7. Mobile action bar + header reflow
+New `.mbar` — a sticky bottom bar below 1024px: **Offers / Wishlist / Search / Bag**.
+It reuses the existing `data-search-open` and `data-cart-open` hooks rather than
+duplicating behaviour, and its badge carries `data-cart-count`, which `theme.js` already
+updates via `$$(...).forEach`, so both badges stay in sync with no JS change.
+`env(safe-area-inset-bottom)` keeps it clear of the iOS home indicator, and `body` gains
+matching bottom padding so the bar never covers the end of the page or the drawers.
+
+With the icon cluster hidden below 1024px, the top bar is now **logo left, menu toggle
+right**. That needed more than `order`: the base rule positions the logo
+`absolute; left: 50%`, so it sat outside flex flow and `order` did nothing — the mobile
+block returns it to `position: static` first.
+
+### Verification (375×812, real theme.css/theme.js)
+Menu 9 links visible · pills one row, first fully visible · rope spans full track · FAQ
+number/arrow aligned to question · bar pinned to viewport bottom with badge · logo at
+35px, burger right at 341px.
+
+**Desktop regression at 1280px:** bottom bar hidden, header actions visible, logo static,
+body padding 0, tabs centred, burger and mobile nav hidden. No desktop change.
+
+---
+
 ## 2026-09-15 (b) — Stone guide: 3840px images for 400px slots
 
 Rebased onto seven incoming commits from `kanchan12285` (cinematic hero, scroll deck,

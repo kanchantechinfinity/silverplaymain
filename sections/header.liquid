@@ -80,6 +80,37 @@
   </nav>
 </div>
 
+{%- comment -%}
+  Mobile action bar. Below 1024px the header's icon cluster is hidden and these
+  take over, thumb-reachable at the bottom of the screen. The cart badge here
+  carries data-cart-count too -- theme.js updates every match, so both stay in
+  sync. Each control reuses the same hooks as the header (data-search-open,
+  data-cart-open), so behaviour is identical, not a parallel implementation.
+{%- endcomment -%}
+<nav class="mbar" data-mobile-bar aria-label="{{ 'accessibility.menu' | t }}">
+  <a href="{{ section.settings.offer_url | default: routes.all_products_collection_url }}" class="mbar__item">
+    {% render 'icon', name: 'gift' %}
+    <span>{{ section.settings.offer_label | default: 'Offers' }}</span>
+  </a>
+  {%- if section.settings.show_wishlist -%}
+    <a href="{{ section.settings.wishlist_url | default: '/pages/wishlist' }}" class="mbar__item">
+      {% render 'icon', name: 'heart' %}
+      <span>{{ 'accessibility.wishlist' | t }}</span>
+    </a>
+  {%- endif -%}
+  <a href="{{ routes.search_url }}" class="mbar__item" data-search-open>
+    {% render 'icon', name: 'search' %}
+    <span>{{ 'general.search.search' | t }}</span>
+  </a>
+  <a href="{{ routes.cart_url }}" class="mbar__item" data-cart-open>
+    <span class="mbar__ico">
+      {% render 'icon', name: 'bag' %}
+      <span class="mbar__badge" data-cart-count>{{ cart.item_count }}</span>
+    </span>
+    <span>{{ 'cart.general.title' | t }}</span>
+  </a>
+</nav>
+
 {% schema %}
 {
   "name": "Header",
@@ -88,6 +119,8 @@
     { "type": "text", "id": "mega_menu_trigger", "label": "Menu item that opens the mega nav", "default": "Collections",
       "info": "Must match a top-level menu item title exactly (case-insensitive)." },
     { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist icon", "default": true },
+    { "type": "url", "id": "offer_url", "label": "Offers link (mobile bar)" },
+    { "type": "text", "id": "offer_label", "label": "Offers label (mobile bar)", "default": "Offers" },
     { "type": "url", "id": "wishlist_url", "label": "Wishlist link" },
     { "type": "header", "content": "Mega nav — panel copy" },
     { "type": "text", "id": "mega_eyebrow", "label": "Eyebrow", "default": "Our Jewellery" },
