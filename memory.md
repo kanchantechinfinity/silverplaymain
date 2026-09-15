@@ -134,6 +134,16 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
   in `/blogs/journal`. Menu fix, not code.
 
+## Banners / responsive art
+- Desktop vs mobile artwork is done with `<picture>` + `media="(max-width: 767px)"` in
+  `cinematic-hero.liquid` and `sections/banner.liquid`. Mobile falls back to the desktop
+  image when empty. Do not reimplement this with CSS backgrounds or JS — the phone would
+  fetch both crops.
+- `cinematic-hero` has a **Hero media** select: `video` (default) or `image`. In image
+  mode the `<video>` is not rendered at all.
+- `sections/banner.liquid` is a reusable promo banner with a preset, used on the homepage
+  after `fresh_edit`. Heights are separate per breakpoint via `--banner-h` / `--banner-h-m`.
+
 ## Product cards
 - `.card` is a **flex column at `height: 100%`**, with `.card__frame` / `.card__body` at
   `flex: 1 1 auto` and `.card__buy` at `margin-top: auto`. That is what keeps tiles equal
@@ -156,8 +166,9 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
   flex `order` **must** reset it to `position: static` first, or nothing happens.
 - `.mobile-nav__list` is `nav > ul > li > a` — selectors must not assume `li` is a direct
   child. A `> li` selector silently leaves every link unstyled and unreadable.
-- `.tabs__inner` scrolls horizontally rather than wrapping (wrapping breaks the pill
-  shape). Use `scroll-snap-align: start`; `center` clips the first pill on load.
+- `.tabs__inner`: below 640px the capsule is **dropped** and pills wrap with their own
+  borders; at ≥640px the single capsule returns. Two earlier attempts failed — wrapping
+  inside the capsule looks like a blob, and scrolling the rail hides tabs.
 - `.line__rope` must live inside `.line__track` (`width: max-content`) so it spans the
   scrolled width, not the visible width.
 - `.faq__btn` is `align-items: flex-start` — `center` drags the number and arrow into the

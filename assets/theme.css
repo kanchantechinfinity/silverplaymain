@@ -604,6 +604,38 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .stars { display: inline-flex; align-items: center; gap: 1px; }
 
+/* --- Promo banner ------------------------------------------------------- */
+.sec--flush { padding-block: 2.5rem; }
+@media (min-width: 768px) { .sec--flush { padding-block: 4rem; } }
+.wrap--full { max-width: none; padding-inline: 0; }
+.banner {
+  position: relative; display: block; overflow: hidden; border-radius: var(--radius-lg);
+  height: var(--banner-h-m, 320px); background: var(--sp-ink-2);
+}
+@media (min-width: 768px) { .banner { height: var(--banner-h, 420px); } }
+.wrap--full .banner { border-radius: 0; }
+.banner__media { position: absolute; inset: 0; }
+.banner__media img { height: 100%; width: 100%; object-fit: cover; }
+.banner__scrim { position: absolute; inset: 0; background: var(--sp-ink); }
+.banner__body {
+  position: relative; z-index: 1; display: flex; height: 100%; flex-direction: column;
+  justify-content: center; gap: .25rem; padding: 2rem 1.5rem;
+}
+@media (min-width: 768px) { .banner__body { padding: 3rem 4rem; } }
+.banner__body--left   { align-items: flex-start; text-align: left; }
+.banner__body--center { align-items: center; text-align: center; }
+.banner__body--right  { align-items: flex-end; text-align: right; }
+.banner__title {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 4.5vw, 3rem); font-weight: 600;
+  line-height: 1.1; color: var(--sp-bone); text-shadow: 0 2px 16px rgba(0,0,0,.45);
+}
+.banner__text {
+  margin-top: .625rem; max-width: 34rem; font-family: var(--font-body);
+  font-size: 1rem; line-height: 1.7; color: rgba(242,232,208,.85);
+}
+.banner--link:hover .banner__media img { transform: scale(1.03); }
+.banner__media img { transition: transform .9s var(--ease-silk); }
+
 /* --- Grids -------------------------------------------------------------- */
 .grid-products { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; }
 @media (min-width: 640px) { .grid-products { gap: 1.25rem; } }
@@ -620,14 +652,19 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* --- Tabs (fresh edit) -------------------------------------------------- */
 .tabs { margin-top: 2.5rem; display: flex; justify-content: center; max-width: 100%; }
+/* Below 640px the pills wrap and each carries its own outline. A single
+   capsule around a wrapped group reads as a blob, and making it scroll hides
+   half the tabs -- so at small sizes the capsule is dropped instead. */
 .tabs__inner {
-  display: inline-flex; flex-wrap: nowrap; justify-content: flex-start; gap: .5rem;
-  border-radius: 999px; border: 1px solid rgba(36,26,16,.1); background: var(--sp-bone); padding: .375rem;
-  max-width: 100%; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem;
+  max-width: 100%; border-radius: 999px; border: 1px solid transparent; background: none; padding: 0;
 }
-.tabs__inner::-webkit-scrollbar { display: none; }
-.tabs__btn { flex: none; scroll-snap-align: start; }
-@media (min-width: 640px) { .tabs__inner { justify-content: center; } .tabs__btn { padding: .75rem 1.5rem; } }
+.tabs__btn { flex: none; border: 1px solid rgba(36,26,16,.14); background: var(--sp-bone); }
+@media (min-width: 640px) {
+  .tabs__inner { flex-wrap: nowrap; border-color: rgba(36,26,16,.1); background: var(--sp-bone); padding: .375rem; }
+  .tabs__btn { border-color: transparent; background: none; }
+}
+@media (min-width: 640px) { .tabs__btn { padding: .75rem 1.5rem; } }
 .tabs__btn {
   border-radius: 999px; padding: .75rem 1.15rem; white-space: nowrap; font-family: var(--font-display);
   font-size: .82rem; text-transform: uppercase; letter-spacing: .18em; color: rgba(36,26,16,.55);

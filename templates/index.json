@@ -467,12 +467,28 @@
         "eyebrow": "Good To Know",
         "heading": "Frequently Asked"
       }
+    },
+    "promo_banner": {
+      "type": "banner",
+      "settings": {
+        "eyebrow": "Handcrafted in Jaipur",
+        "heading": "The Festive Edit",
+        "text": "925 sterling silver, set with natural stones and finished by hand — ready for the season's gifting.",
+        "align": "center",
+        "overlay": 40,
+        "height": 420,
+        "height_mobile": 320,
+        "full_width": false,
+        "cta_label": "Shop The Edit",
+        "link_whole_banner": false
+      }
     }
   },
   "order": [
     "hero",
     "assurance",
     "fresh_edit",
+    "promo_banner",
     "royal_simplicity",
     "best_sellers",
     "archive_treasure",

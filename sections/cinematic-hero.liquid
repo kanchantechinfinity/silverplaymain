@@ -5,11 +5,38 @@
 {%- endcomment -%}
 {%- liquid
   assign poster = section.settings.poster
+  assign media_type = section.settings.media_type | default: 'video'
+  assign banner_d = section.settings.banner_desktop
+  assign banner_m = section.settings.banner_mobile | default: banner_d
 -%}
 
 <div class="cinehero" data-page-hero data-cinehero>
   <div class="cinehero__stage">
-    {%- if section.settings.video != blank -%}
+    {%- if media_type == 'image' -%}
+      {%- comment -%}
+        Banner instead of film. <picture> does the swap in markup, so the phone
+        never downloads the desktop crop -- no JS, no layout shift. Falls back to
+        the desktop art if only one is set.
+      {%- endcomment -%}
+      {%- if banner_d != blank or banner_m != blank -%}
+        <picture>
+          {%- if banner_m != blank -%}
+            <source media="(max-width: 767px)"
+                    srcset="{{ banner_m | image_url: width: 750 }} 750w, {{ banner_m | image_url: width: 1100 }} 1100w"
+                    sizes="100vw">
+          {%- endif -%}
+          <img class="cinehero__video" src="{{ banner_d | default: banner_m | image_url: width: 1800 }}"
+               srcset="{{ banner_d | default: banner_m | image_url: width: 1200 }} 1200w,
+                       {{ banner_d | default: banner_m | image_url: width: 1800 }} 1800w,
+                       {{ banner_d | default: banner_m | image_url: width: 2400 }} 2400w"
+               sizes="100vw" alt="{{ section.settings.heading | escape }}"
+               width="2400" height="1350" fetchpriority="high">
+        </picture>
+      {%- else -%}
+        <img class="cinehero__video" src="{{ 'archive-balcony.jpg' | asset_url }}" alt=""
+             width="1600" height="1000" fetchpriority="high">
+      {%- endif -%}
+    {%- elsif section.settings.video != blank -%}
       {{ section.settings.video
         | video_tag:
           class: 'cinehero__video',
@@ -66,6 +93,18 @@
   "name": "Cinematic hero",
   "tag": "section",
   "settings": [
+    { "type": "select", "id": "media_type", "label": "Hero media", "default": "video",
+      "options": [
+        { "value": "video", "label": "Video" },
+        { "value": "image", "label": "Banner image" }
+      ],
+      "info": "Choose \"Banner image\" to show a still banner instead of the film. The video settings below are then ignored." },
+    { "type": "header", "content": "Banner image" },
+    { "type": "image_picker", "id": "banner_desktop", "label": "Banner — desktop",
+      "info": "Shown from 768px up. A wide crop works best." },
+    { "type": "image_picker", "id": "banner_mobile", "label": "Banner — mobile",
+      "info": "Shown below 768px. Use a taller crop. Falls back to the desktop banner if left empty." },
+    { "type": "header", "content": "Video" },
     { "type": "video", "id": "video", "label": "Hero video (Shopify-hosted)" },
     { "type": "url", "id": "video_url", "label": "Hero video URL (MP4 fallback)",
       "info": "Use this if the file is uploaded to Files rather than as a Shopify video. Upload the brand film under Content > Files and paste its URL." },

@@ -1,5 +1,47 @@
 # Build Log — silverplaymain
 
+## 2026-09-16 (c) — Hero banner option, new Banner section, tab pills reworked
+
+### 1. Hero: banner image instead of video
+`cinematic-hero` gains a **Hero media** select (Video / Banner image) plus separate
+**Banner — desktop** and **Banner — mobile** pickers. Choosing "Banner image" skips the
+`<video>` entirely, so a merchant using a still doesn't pay for the film.
+
+The swap is done with `<picture>` + `media="(max-width: 767px)"`, not JS or CSS
+background images: the phone only ever downloads the mobile crop, there is no flash of
+the wrong art, and no layout shift. Mobile falls back to the desktop image when left
+empty, so a single upload still works.
+
+### 2. New `banner` section, placed after The Fresh Edit
+`sections/banner.liquid` — same desktop/mobile `<picture>` treatment, plus eyebrow,
+heading, text, CTA, copy position (left/centre/right), adjustable darkening, separate
+desktop and mobile heights, optional full-bleed, and an option to make the whole banner
+one link. Added to `templates/index.json` directly after `fresh_edit`, and carries a
+`presets` entry so it can be added anywhere else from the theme editor.
+
+With no image chosen it renders a packaged fallback rather than an empty box.
+
+### 3. Fresh Edit tab pills
+Last round's fix made the pill rail scroll horizontally, which hid half the tabs. The
+round before, `flex-wrap: wrap` inside a single `border-radius: 999px` capsule turned two
+rows into a blob. Neither is right, so the capsule itself is now conditional: **below
+640px the pills wrap and each carries its own outline** (no outer capsule, nothing
+hidden, nothing clipped); **at ≥640px the single capsule returns** exactly as before.
+
+### Verification (real theme.css)
+| | 375px | 1280px |
+|---|---|---|
+| hero art served | mobile crop | desktop crop |
+| banner art served | mobile crop | desktop crop |
+| banner height | 320px | 420px |
+| tab rows / scrollable | 2 rows, not scrollable, all 3 visible | 1 row |
+| tab capsule | none, per-pill borders | restored, pill borders off |
+
+`templates/index.json` re-validated as JSON; both section schemas parse and their
+if/endif and for/endfor counts balance.
+
+---
+
 ## 2026-09-16 (b) — Uniform product cards, smaller corner discount seal
 
 ### Cards were not uniform
