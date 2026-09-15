@@ -1,5 +1,45 @@
 # Build Log — silverplaymain
 
+## 2026-09-15 (b) — Stone guide: 3840px images for 400px slots
+
+Rebased onto seven incoming commits from `kanchan12285` (cinematic hero, scroll deck,
+and `snippets/stone-image.liquid`). Conflicts in `scroll-deck.liquid` and
+`stone-explorer.liquid` were theirs-substantive vs mine-mechanical, so their versions
+were taken and the asset renames + `decoding="async"` re-applied on top. Both sides
+verified intact afterwards.
+
+### The stone guide problem
+`snippets/stone-image.liquid` hardcodes 24 stone photos as raw Shopify CDN URLs, all
+ending **`_3840x`** — 3840-pixel-wide masters. The same URL feeds both the **400px
+thumbnail grid** and the **920px detail panel**. Because these are raw URL strings, they
+bypass the `image_url: width:` resizing that the theme-editor images beside them get.
+
+### Measured, including a trap
+Shopify honours the `_NNNx` suffix on these URLs but **ignores `?width=`** — tested both:
+`&width=400` returned the full 2388 KB, the suffix returned 268 KB. Using the documented
+`width` param would have silently done nothing.
+
+Also measured with a real browser `Accept` header, which changes the picture: the CDN
+auto-converts to WebP, so raw PNG byte counts overstate delivery by ~10×.
+
+| variant | as PNG | what a browser gets |
+|---|---|---|
+| `_3840x` (was) | 2388 KB | 228 KB |
+| `_920x` (panel) | 1355 KB | 159 KB |
+| `_400x` (thumb) | 268 KB | **44 KB** |
+
+All 24 URLs verified to return 200 at both new sizes.
+
+### Fix
+`stone-explorer.liquid` now rewrites the suffix per use — `_400x` for the thumbnail grid,
+`_920x` for the detail panel — via `replace`, covering both `_3840x` and the one
+`_1080x` URL.
+
+Inactive panels are `display: none`, so only the active panel's image loads. Real page
+cost: **24 thumbs + 1 panel ≈ 5.7 MB → ≈ 1.2 MB (−79%)**.
+
+---
+
 ## 2026-09-15 — Site speed: 82% off image weight
 
 **Reported:** stone guide images, and the whole site, load slowly.
@@ -51,8 +91,10 @@ resolve to a file that exists on disk.
 
 ### Not done — deliberately
 Theme-asset images are still served through `asset_url`, which returns the **original
-file at full size with no resizing and no WebP/AVIF negotiation** — 22 references do
-this and none use a resizing filter. Routing them through Shopify's image CDN
+file at full size with no resizing** — 22 references do this and none use a resizing
+filter. (Correction to an earlier draft of this entry: Shopify's CDN *does* negotiate
+WebP by `Accept` header, verified below, so raw byte counts overstate what browsers
+actually download. Dimension is still un-negotiated, which is the part that matters.) Routing them through Shopify's image CDN
 (`image_url: width:` / `asset_img_url`) plus `srcset` would cut delivered bytes again,
 especially on mobile. I did not ship it because the exact filter behaviour for theme
 assets cannot be verified without a store, and getting it wrong breaks every image on

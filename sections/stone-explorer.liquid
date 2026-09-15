@@ -26,7 +26,7 @@
             endif
           -%}
           {%- capture fallback_img -%}{% render 'stone-image', name: block.settings.name %}{%- endcapture -%}
-          {%- assign fallback_img = fallback_img | strip -%}
+          {%- assign fallback_img = fallback_img | strip | replace: '_3840x', '_400x' | replace: '_1080x', '_400x' -%}
           <button type="button" class="stones__thumb{% if forloop.first %} is-active{% endif %}"
                   data-stone-thumb="{{ block.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
                   {{ block.shopify_attributes }}>
@@ -57,7 +57,7 @@
                 endif
               -%}
               {%- capture fallback_img -%}{% render 'stone-image', name: block.settings.name %}{%- endcapture -%}
-              {%- assign fallback_img = fallback_img | strip -%}
+              {%- assign fallback_img = fallback_img | strip | replace: '_3840x', '_920x' | replace: '_1080x', '_920x' -%}
               <div class="stones__panel{% if forloop.first %} is-active{% endif %}" data-stone-panel="{{ block.id }}">
                 <div class="stones__panel-img">
                   {%- if img -%}

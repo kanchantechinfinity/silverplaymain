@@ -135,6 +135,14 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
   in `/blogs/journal`. Menu fix, not code.
 
 ## Images / performance
+- **Shopify CDN auto-serves WebP** by `Accept` header (verified: a 2388 KB PNG arrives as
+  228 KB WebP). Raw file sizes overstate delivery ~10× — measure with a browser UA/Accept
+  before claiming a byte win. What the CDN does *not* fix is **dimensions**.
+- On raw `cdn.shopify.com` image URLs, the **`_NNNx` filename suffix resizes; `?width=` is
+  ignored**. Verified both. `snippets/stone-image.liquid` hardcodes 24 stone URLs at
+  `_3840x`; `stone-explorer.liquid` rewrites that per use (`_400x` grid, `_920x` panel).
+- `.stones__panel` is `display: none` when inactive, so only the active panel's image
+  loads — don't assume all 24 panels download.
 - **Photographs in `assets/` must be JPEG, never PNG.** The theme shipped 31.6 MB of
   photographic PNGs (a 600×600 tile was 1.78 MB); re-encoding to progressive JPEG cut
   images to 5.68 MB (−82%) with no dimension change. Only `logo-full.png` and
