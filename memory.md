@@ -67,11 +67,11 @@ merchant `image_picker` → `image_asset` theme asset → hardcoded stock fallba
 
 | Section | Asset | Source on the Vercel reference |
 |---|---|---|
-| hero | `about-hero-soul-of-silver.png` (1370×1092) | `Screenshot_2026-05-20_at_1.11.35_PM` |
+| hero | `about-hero-soul-of-silver.jpg` (1370×1092) | `Screenshot_2026-05-20_at_1.11.35_PM` |
 | founder | `founder-dalljiet-kaur.jpg` | `Dalljiet_Kaur_in_Silver` — already byte-identical, untouched |
-| craft | `about-craft-karigars.png` (1448×1086) | `ChatGPT_Image_Jun_20_2026_06_07_08_PM` |
-| values | `about-values-slow-making.png` (1080×1600) | `Rajsi_SP_Website_41ccae1d…` |
-| closing | `about-closing-wear-your-story.png` (1080×1600) | `10_bd25934c…` |
+| craft | `about-craft-karigars.jpg` (1448×1086) | `ChatGPT_Image_Jun_20_2026_06_07_08_PM` |
+| values | `about-values-slow-making.jpg` (1080×1600) | `Rajsi_SP_Website_41ccae1d…` |
+| closing | `about-closing-wear-your-story.jpg` (1080×1600) | `10_bd25934c…` |
 
 **All About images are bundled theme assets** — nothing points at a Shopify CDN or a
 store-specific file, so the theme drops into another store unchanged.
@@ -101,7 +101,7 @@ mobile 4:5, tablet): 23/24 subject boxes stay fully in frame. The miss is `craft
 impossible, and the real text is far too long to produce that shape.
 
 ### ⚠ Known issue — hero image provenance
-`about-hero-soul-of-silver.png` is literally a **screenshot** (original filename
+`about-hero-soul-of-silver.jpg` is literally a **screenshot** (original filename
 `Screenshot_2026-05-20_at_1.11.35_PM`) of a **British Library** archival photograph.
 It still contains the red *British Library* badge and two browser UI buttons in the
 bottom-right. `50% 8%` crops them out on typical desktop viewports, but on tall/narrow
@@ -133,6 +133,21 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
   This is the only thing standing between a `theme.js` failure and a blank storefront.
 - The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
   in `/blogs/journal`. Menu fix, not code.
+
+## Images / performance
+- **Photographs in `assets/` must be JPEG, never PNG.** The theme shipped 31.6 MB of
+  photographic PNGs (a 600×600 tile was 1.78 MB); re-encoding to progressive JPEG cut
+  images to 5.68 MB (−82%) with no dimension change. Only `logo-full.png` and
+  `logo-mark.png` have real transparency and must stay PNG.
+- Check PSNR against the original before accepting a conversion: aim >37 dB, re-encode
+  at q92 if lower. q82 was too aggressive for flat/graphic-heavy tiles.
+- `heritage-bg` is rendered by **10 sections**, so its fallback asset is on nearly every
+  page — keep it small.
+- `.meganav` hides with `opacity: 0`, not `display: none`, so anything inside it still
+  loads. Its promo video needs `preload="none"` or it costs 1.29 MB on every page load.
+- **Still open:** theme assets go out via `asset_url` = original size, no WebP. Moving to
+  `image_url: width:` / `asset_img_url` + `srcset` is the next big win, but needs
+  verifying against a real store first — a wrong filter breaks every image.
 
 ## Product page (PDP)
 - The reference PDP gallery is a **crossfade stage + thumb rail**, not a scrolling image

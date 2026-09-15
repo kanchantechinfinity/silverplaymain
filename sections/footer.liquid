@@ -4,9 +4,9 @@
       <div data-reveal>
         <a href="{{ routes.root_url }}" class="footer__logo" aria-label="{{ shop.name | escape }} — {{ 'general.breadcrumb.home' | t }}">
           {%- if settings.logo != blank -%}
-            <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}" width="400" height="400" loading="lazy">
+            <img src="{{ settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}" width="400" height="400" loading="lazy" decoding="async">
           {%- else -%}
-            <img src="{{ 'logo-mark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="120" height="120" loading="lazy" style="width:auto;height:8rem">
+            <img src="{{ 'logo-mark.png' | asset_url }}" alt="{{ shop.name | escape }}" width="120" height="120" loading="lazy" decoding="async" style="width:auto;height:8rem">
           {%- endif -%}
         </a>
         {%- if settings.brand_statement != blank -%}

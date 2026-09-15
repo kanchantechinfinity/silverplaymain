@@ -31,11 +31,11 @@
                   data-stone-thumb="{{ block.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
                   {{ block.shopify_attributes }}>
             {%- if img -%}
-              <img src="{{ img | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="400" height="400">
+              <img src="{{ img | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async" width="400" height="400">
             {%- elsif fallback_img != blank -%}
-              <img src="{{ fallback_img }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="400" height="400">
+              <img src="{{ fallback_img }}" alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async" width="400" height="400">
             {%- else -%}
-              <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+              <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067">
             {%- endif -%}
             <p>{{ block.settings.name }}</p>
           </button>
@@ -61,9 +61,9 @@
               <div class="stones__panel{% if forloop.first %} is-active{% endif %}" data-stone-panel="{{ block.id }}">
                 <div class="stones__panel-img">
                   {%- if img -%}
-                    <img src="{{ img | image_url: width: 920 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="920" height="632">
+                    <img src="{{ img | image_url: width: 920 }}" alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async" width="920" height="632">
                   {%- elsif fallback_img != blank -%}
-                    <img src="{{ fallback_img }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="920" height="632">
+                    <img src="{{ fallback_img }}" alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async" width="920" height="632">
                   {%- endif -%}
                 </div>
                 <div class="stones__panel-body">

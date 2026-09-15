@@ -9,7 +9,7 @@
         "b4": { "type": "badge", "settings": { "glyph": "✦", "label": "Gift-Ready", "sub": "Premium Packaging" } }
       },
       "block_order": ["b1", "b2", "b3", "b4"],
-      "settings": { "eyebrow": "Our Story", "heading": "The Soul of Indian Silver", "image_asset": "about-hero-soul-of-silver.png", "image_focus": "50% 8%" }
+      "settings": { "eyebrow": "Our Story", "heading": "The Soul of Indian Silver", "image_asset": "about-hero-soul-of-silver.jpg", "image_focus": "50% 8%" }
     },
     "founder": {
       "type": "founder",
@@ -31,7 +31,7 @@
       "settings": {
         "eyebrow": "The Hands Behind The Craft",
         "heading": "The Karigars of India",
-        "image_asset": "about-craft-karigars.png",
+        "image_asset": "about-craft-karigars.jpg",
         "image_focus": "70% 36%",
         "image_position": "right",
         "color_scheme": "light",
@@ -57,7 +57,7 @@
       "settings": {
         "eyebrow": "What We Stand For",
         "heading": "Slow Making, Honest Materials",
-        "image_asset": "about-values-slow-making.png",
+        "image_asset": "about-values-slow-making.jpg",
         "image_focus": "28% 10%",
         "image_position": "left",
         "flourish": true,
@@ -84,7 +84,7 @@
       "block_order": ["p1"],
       "settings": {
         "heading": "Wear Your Story",
-        "image_asset": "about-closing-wear-your-story.png",
+        "image_asset": "about-closing-wear-your-story.jpg",
         "image_focus": "50% 26%",
         "image_position": "right",
         "color_scheme": "light",

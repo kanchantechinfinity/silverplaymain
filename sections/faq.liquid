@@ -19,7 +19,7 @@
           </button>
           {%- if block.settings.image != blank -%}
             <span class="faq__thumb" aria-hidden="true">
-              <img src="{{ block.settings.image | image_url: width: 300 }}" alt="" loading="lazy" width="300" height="450">
+              <img src="{{ block.settings.image | image_url: width: 300 }}" alt="" loading="lazy" decoding="async" width="300" height="450">
             </span>
           {%- endif -%}
         </div>

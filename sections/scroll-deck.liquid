@@ -12,9 +12,9 @@
          aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
   <div class="deck__stage on-dark">
     {%- if section.settings.bg_image != blank -%}
-      <img class="deck__bg" src="{{ section.settings.bg_image | image_url: width: 2000 }}" alt="" loading="lazy" width="2000" height="1200">
+      <img class="deck__bg" src="{{ section.settings.bg_image | image_url: width: 2000 }}" alt="" loading="lazy" decoding="async" width="2000" height="1200">
     {%- else -%}
-      <img class="deck__bg" src="{{ 'heritage-mandala-dark.png' | asset_url }}" alt="" loading="lazy" width="1536" height="1024">
+      <img class="deck__bg" src="{{ 'heritage-mandala-dark.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1536" height="1024">
     {%- endif -%}
     <div class="deck__bg-wash" style="background: rgba(36,26,16,0.55)"></div>
 
@@ -54,7 +54,7 @@
           {%- else -%}
             {%- for i in (1..4) -%}
               <div class="deck__card{% if rep == 2 and forloop.first %} is-active{% endif %}"{% if is_buffer %} aria-hidden="true"{% endif %}>
-                <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+                <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067">
                 <span class="deck__wash" aria-hidden="true"></span>
               </div>
             {%- endfor -%}

@@ -30,7 +30,7 @@
               {%- if product.featured_media -%}
                 <img data-eleg-preview class="{% if forloop.first %}is-active{% endif %}"
                      src="{{ product.featured_media | image_url: width: 800 }}"
-                     alt="{{ product.title | escape }}" loading="lazy" width="800" height="450">
+                     alt="{{ product.title | escape }}" loading="lazy" decoding="async" width="800" height="450">
               {%- endif -%}
             {%- endfor -%}
             <span class="photo-vignette" aria-hidden="true"></span>
@@ -43,7 +43,7 @@
           <a href="{{ product.url }}" class="elegance__thumb{% if forloop.first %} is-active{% endif %}"
              data-eleg-thumb aria-label="View {{ product.title | escape }}">
             {%- if product.featured_media -%}
-              <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" width="400" height="500">
+              <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" decoding="async" width="400" height="500">
             {%- endif -%}
             <span class="photo-vignette" aria-hidden="true"></span>
           </a>
@@ -56,10 +56,11 @@
         {%- elsif section.settings.video_url != blank -%}
           <video src="{{ section.settings.video_url }}" autoplay muted loop playsinline></video>
         {%- elsif section.settings.video_image != blank -%}
-          <img src="{{ section.settings.video_image | image_url: width: 900 }}" alt="" loading="lazy" width="900" height="1200">
+          <img src="{{ section.settings.video_image | image_url: width: 900 }}" alt="" loading="lazy" decoding="async" width="900" height="1200">
         {%- else -%}
           {%- comment -%} Bundled brand footage — the real video from the Next.js source's Effortless Elegance section, until a merchant sets their own above. {%- endcomment -%}
-          <video autoplay muted loop playsinline>
+          <video autoplay muted loop playsinline preload="none"
+                 poster="{{ 'elegance-lotus.jpg' | asset_url }}">
             <source src="{{ 'effortless-elegance.mp4' | asset_url }}" type="video/mp4">
           </video>
         {%- endif -%}

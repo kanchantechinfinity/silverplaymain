@@ -31,9 +31,9 @@
         <a href="{{ article.url }}" class="jcard">
           <div class="jcard__media">
             {%- if article.image -%}
-              <img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.title | escape }}" loading="lazy" width="900" height="675">
+              <img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.title | escape }}" loading="lazy" decoding="async" width="900" height="675">
             {%- else -%}
-              <img src="{{ 'stock-lifestyle-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="2000">
+              <img src="{{ 'stock-lifestyle-1.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="2000">
             {%- endif -%}
             {%- if article.tags.size > 0 -%}
               <span class="jcard__tag">{{ article.tags.first }}</span>

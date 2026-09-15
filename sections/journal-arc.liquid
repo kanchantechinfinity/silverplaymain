@@ -26,7 +26,7 @@
   <div class="arc__stage">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
-      fallback: 'heritage-mandala-corner.png',
+      fallback: 'heritage-mandala-corner.jpg',
       wash: 'rgba(242,232,208,0.8)' %}
 
     <div class="arc__head">
@@ -42,9 +42,9 @@
               <a href="{{ post.url }}">
                 <div class="arc__inner">
                   {%- if post.image -%}
-                    <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" width="1200" height="800">
+                    <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" decoding="async" width="1200" height="800">
                   {%- else -%}
-                    <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+                    <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
                   {%- endif -%}
                   <span class="arc__scrim" aria-hidden="true"></span>
                   <div class="arc__foot">
@@ -59,7 +59,7 @@
           <div class="arc__card">
             <a href="{{ routes.root_url }}">
               <div class="arc__inner">
-                <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" width="736" height="916">
+                <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
                 <span class="arc__scrim" aria-hidden="true"></span>
                 <div class="arc__foot">
                   <h3>{{ 'onboarding.blog_title' | t }}</h3>

@@ -45,7 +45,7 @@
         {%- if product.media[1] -%}
           <div class="gilt" style="width:220px;margin-inline:auto">
             <div class="gilt__inner" style="aspect-ratio:4/3;background:var(--sp-bone-2)">
-              <img src="{{ product.media[1].preview_image | image_url: width: 520 }}" alt="" loading="lazy" width="520" height="390" style="height:100%;width:100%;object-fit:cover">
+              <img src="{{ product.media[1].preview_image | image_url: width: 520 }}" alt="" loading="lazy" decoding="async" width="520" height="390" style="height:100%;width:100%;object-fit:cover">
             </div>
           </div>
         {%- endif -%}

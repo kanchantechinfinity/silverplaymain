@@ -27,7 +27,7 @@
             {%- elsif item.object_type == 'article' -%}
               <a href="{{ item.url }}" class="jcard">
                 <div class="jcard__media">
-                  {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" width="700" height="525">{%- endif -%}
+                  {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" decoding="async" width="700" height="525">{%- endif -%}
                 </div>
                 <h3 class="jcard__title">{{ item.title }}</h3>
               </a>

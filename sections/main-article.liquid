@@ -67,7 +67,7 @@
           {%- if a.id != article.id and shown < 3 -%}
             <a href="{{ a.url }}" class="jcard">
               <div class="jcard__media">
-                {%- if a.image -%}<img src="{{ a.image | image_url: width: 800 }}" alt="{{ a.title | escape }}" loading="lazy" width="800" height="600">{%- endif -%}
+                {%- if a.image -%}<img src="{{ a.image | image_url: width: 800 }}" alt="{{ a.title | escape }}" loading="lazy" decoding="async" width="800" height="600">{%- endif -%}
               </div>
               <h3 class="jcard__title">{{ a.title }}</h3>
             </a>

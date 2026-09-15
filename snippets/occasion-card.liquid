@@ -5,13 +5,13 @@
   if img == blank
     case block.settings.collection
       when 'bali-collection'
-        assign img_asset = 'occasion-bali.png'
+        assign img_asset = 'occasion-bali.jpg'
       when 'party-wear'
-        assign img_asset = 'occasion-party-wear.png'
+        assign img_asset = 'occasion-party-wear.jpg'
       when 'office-muse'
-        assign img_asset = 'occasion-office-muse.png'
+        assign img_asset = 'occasion-office-muse.jpg'
       when 'everyday-elegance'
-        assign img_asset = 'occasion-everyday-elegance.png'
+        assign img_asset = 'occasion-everyday-elegance.jpg'
     endcase
   endif
   if img == blank and img_asset == blank
@@ -25,11 +25,11 @@
 <div class="occasion__cell" style="flex: {{ flex }}" {{ block.shopify_attributes }}>
   <a href="{{ col.url | default: routes.collections_url }}" class="occ-card{% if wide %} occ-card--wide{% endif %}">
     {%- if img_asset != blank -%}
-      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" width="900" height="900">
+      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="900">
     {%- elsif img -%}
-      <img src="{{ img | image_url: width: 900 }}" alt="{{ title | escape }}" loading="lazy" width="900" height="1100">
+      <img src="{{ img | image_url: width: 900 }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
     {%- else -%}
-      <img src="{{ 'stock-collection-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+      <img src="{{ 'stock-collection-1.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067">
     {%- endif -%}
     <span class="occ-card__scrim" aria-hidden="true"></span>
     <span class="occ-card__foot">

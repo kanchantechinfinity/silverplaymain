@@ -23,7 +23,7 @@
             <button type="button" class="reels__tile" data-reel-open {{ block.shopify_attributes }}>
               <span class="reels__inner">
                 {%- if block.settings.image != blank -%}
-                  <img src="{{ block.settings.image | image_url: width: 500 }}" alt="" loading="lazy" width="500" height="889">
+                  <img src="{{ block.settings.image | image_url: width: 500 }}" alt="" loading="lazy" decoding="async" width="500" height="889">
                 {%- endif -%}
                 <span class="reels__scrim" aria-hidden="true"></span>
                 <span class="reels__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
@@ -36,7 +36,7 @@
             <button type="button" class="reels__tile" data-reel-open>
               <span class="reels__inner">
                 {%- if p.featured_media -%}
-                  <img src="{{ p.featured_media | image_url: width: 500 }}" alt="{{ p.title | escape }}" loading="lazy" width="500" height="889">
+                  <img src="{{ p.featured_media | image_url: width: 500 }}" alt="{{ p.title | escape }}" loading="lazy" decoding="async" width="500" height="889">
                 {%- endif -%}
                 <span class="reels__scrim" aria-hidden="true"></span>
                 <span class="reels__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>

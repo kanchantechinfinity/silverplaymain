@@ -1,5 +1,65 @@
 # Build Log — silverplaymain
 
+## 2026-09-15 — Site speed: 82% off image weight
+
+**Reported:** stone guide images, and the whole site, load slowly.
+
+### Root cause
+`assets/` was **36.65 MB**, of which **31.64 MB was images** — and every one of the
+heavy files was a **photograph saved as PNG**. PNG is lossless and has no business
+holding photography: `meganav-rakhi.png` was 1.78 MB for a 600×600 tile.
+
+Checked all 23 PNGs for real transparency: only the two logos had any. The other 21
+were fully opaque, so nothing was gained by the format — only weight.
+
+Worse, `heritage-mandala-corner.png` (2.23 MB) is the `heritage-bg` fallback for four
+homepage sections, and **10 sections** render `heritage-bg` in total, so the heaviest
+files were on the most-visited pages.
+
+### What was done
+1. **Re-encoded 20 opaque PNGs as progressive JPEG.** Dimensions unchanged, so there is
+   no loss of sharpness from downscaling — only the format changed.
+2. **Deleted `heritage-peacock-garden.png` (2.75 MB)** — orphaned, zero references
+   anywhere in the repo since `b5afb9e` reverted the Shop By Occasion background. It is
+   still in git history if it is ever wanted back.
+3. **Deferred two autoplaying videos.** `.meganav` is hidden with `opacity: 0`, not
+   `display: none`, so its promo video sat in the render tree and pulled **1.29 MB on
+   every page load** for a panel most visitors never open. Both bundled videos now carry
+   `preload="none"`, and the Effortless Elegance video gained a `poster` (it had none).
+4. **`decoding="async"` on all 56 lazy images** across 27 files, so image decode stops
+   competing with the main thread.
+
+### Results
+| | before | after | |
+|---|---|---|---|
+| `assets/` total | 36.65 MB | **10.69 MB** | −71% |
+| images only | 31.64 MB | **5.68 MB** | −**82%** |
+| video (unchanged, now deferred) | 4.87 MB | 4.87 MB | — |
+
+Worst offenders: `meganav-rakhi` 1.78 MB → 104 KB, `heritage-mandala-corner`
+2.23 MB → 284 KB, `about-craft-karigars` 2.03 MB → 195 KB.
+
+### Quality verified, not assumed
+Measured PSNR of every converted file against the original PNG from git. Seven came in
+under 37 dB, so those were **re-encoded at q92** rather than shipped: all now sit at
+37.6–45.2 dB (>40 dB is visually indistinguishable; >35 dB is good). The most
+aggressively compressed file, `meganav-rakhi`, was also inspected by eye — gradients
+smooth, engraved logo crisp, no artefacts.
+
+All 32 asset references across `.liquid` and `.json` were rewritten and then verified to
+resolve to a file that exists on disk.
+
+### Not done — deliberately
+Theme-asset images are still served through `asset_url`, which returns the **original
+file at full size with no resizing and no WebP/AVIF negotiation** — 22 references do
+this and none use a resizing filter. Routing them through Shopify's image CDN
+(`image_url: width:` / `asset_img_url`) plus `srcset` would cut delivered bytes again,
+especially on mobile. I did not ship it because the exact filter behaviour for theme
+assets cannot be verified without a store, and getting it wrong breaks every image on
+the site. Worth doing as a follow-up against a live preview.
+
+---
+
 ## 2026-09-13 (f) — Product gallery: swipe / drag / keyboard ("image scroll")
 
 ### What the reference actually does

@@ -11,7 +11,7 @@
 <section class="heritage-sec sec--sm" style="background: var(--sp-bone-2)">
   {% render 'heritage-bg',
     image: section.settings.bg_image,
-    fallback: 'heritage-mandala-corner.png',
+    fallback: 'heritage-mandala-corner.jpg',
     wash: 'rgba(232,216,179,0.35)' %}
   <div class="wrap">
     <div class="ig__head">
@@ -36,9 +36,9 @@
                class="ig__tile" {{ block.shopify_attributes }}>
               <span class="ig__inner">
                 {%- if block.settings.image != blank -%}
-                  <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.alt | escape }}" loading="lazy" width="700" height="700">
+                  <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.alt | escape }}" loading="lazy" decoding="async" width="700" height="700">
                 {%- else -%}
-                  <img src="{{ 'stock-lifestyle-2.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="2404">
+                  <img src="{{ 'stock-lifestyle-2.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="2404">
                 {%- endif -%}
                 <span class="ig__overlay" aria-hidden="true"></span>
                 <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle }}</span></span>
@@ -51,7 +51,7 @@
             <a href="{{ profile }}" target="_blank" rel="noopener noreferrer" class="ig__tile">
               <span class="ig__inner">
                 {%- if product.featured_media -%}
-                  <img src="{{ product.featured_media | image_url: width: 700 }}" alt="{{ product.title | escape }}" loading="lazy" width="700" height="700">
+                  <img src="{{ product.featured_media | image_url: width: 700 }}" alt="{{ product.title | escape }}" loading="lazy" decoding="async" width="700" height="700">
                 {%- endif -%}
                 <span class="ig__overlay" aria-hidden="true"></span>
                 <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle }}</span></span>

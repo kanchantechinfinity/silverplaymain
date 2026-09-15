@@ -63,13 +63,13 @@
             width="{{ main_image.width }}" height="{{ main_image.height }}"
             loading="{{ loading }}">
         {%- else -%}
-          <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" class="card__img card__img--main" loading="lazy" width="1600" height="1067">
+          <img src="{{ 'stock-product-1.jpg' | asset_url }}" alt="" class="card__img card__img--main" loading="lazy" decoding="async" width="1600" height="1067">
         {%- endif -%}
 
         {%- if alt_image != blank -%}
           <img class="card__img card__img--alt"
             src="{{ alt_image | image_url: width: 800 }}"
-            sizes="{{ img_sizes }}" alt="" aria-hidden="true" loading="lazy"
+            sizes="{{ img_sizes }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
             width="{{ alt_image.width }}" height="{{ alt_image.height }}">
         {%- endif -%}
 

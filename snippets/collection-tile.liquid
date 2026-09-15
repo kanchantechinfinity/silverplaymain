@@ -10,9 +10,9 @@
   -%}
   <a href="{{ col.url }}" class="coltile">
     {%- if cover -%}
-      <img src="{{ cover | image_url: width: 700 }}" alt="{{ col.title | escape }}" loading="lazy" width="700" height="875">
+      <img src="{{ cover | image_url: width: 700 }}" alt="{{ col.title | escape }}" loading="lazy" decoding="async" width="700" height="875">
     {%- else -%}
-      <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+      <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067">
     {%- endif -%}
     <span class="coltile__scrim" aria-hidden="true"></span>
     <span class="coltile__body">

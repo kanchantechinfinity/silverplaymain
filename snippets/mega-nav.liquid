@@ -12,7 +12,7 @@
 {%- liquid
   assign fb_labels = 'Earrings,Pendants,Gemstone,Festive' | split: ','
   assign fb_hrefs = '/collections/earrings,/collections/pendants,/collections/gemstone-jewellery,/collections/festive-wedding-collection' | split: ','
-  assign fb_images = 'meganav-earrings.png,meganav-pendants.png,meganav-gemstone.jpg,meganav-rakhi.png' | split: ','
+  assign fb_images = 'meganav-earrings.jpg,meganav-pendants.jpg,meganav-gemstone.jpg,meganav-rakhi.jpg' | split: ','
 -%}
 <div class="meganav">
   <div class="meganav__grid">
@@ -43,9 +43,9 @@
             <a href="{{ tile_href }}">
               <span class="meganav__thumb">
                 {%- if cover -%}
-                  <img src="{{ cover | image_url: width: 300 }}" alt="{{ tile_label | escape }}" width="300" height="300" loading="lazy">
+                  <img src="{{ cover | image_url: width: 300 }}" alt="{{ tile_label | escape }}" width="300" height="300" loading="lazy" decoding="async">
                 {%- elsif cover_asset != blank -%}
-                  <img src="{{ cover_asset | asset_url }}" alt="{{ tile_label | escape }}" width="300" height="300" loading="lazy">
+                  <img src="{{ cover_asset | asset_url }}" alt="{{ tile_label | escape }}" width="300" height="300" loading="lazy" decoding="async">
                 {%- endif -%}
               </span>
               <span class="meganav__flabel">{{ tile_label }}</span>
@@ -58,7 +58,7 @@
             {%- assign fi = forloop.index0 -%}
             <a href="{{ fb_hrefs[fi] }}">
               <span class="meganav__thumb">
-                <img src="{{ fb_images[fi] | asset_url }}" alt="{{ label }}" width="300" height="300" loading="lazy">
+                <img src="{{ fb_images[fi] | asset_url }}" alt="{{ label }}" width="300" height="300" loading="lazy" decoding="async">
               </span>
               <span class="meganav__flabel">{{ label }}</span>
             </a>
@@ -118,11 +118,11 @@
       {%- if section.settings.promo_video != blank -%}
         {{ section.settings.promo_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '600x' }}
       {%- elsif section.settings.promo_poster != blank -%}
-        <img src="{{ section.settings.promo_poster | image_url: width: 600 }}" alt="" loading="lazy" width="600" height="800">
+        <img src="{{ section.settings.promo_poster | image_url: width: 600 }}" alt="" loading="lazy" decoding="async" width="600" height="800">
       {%- else -%}
         {%- comment -%} Bundled brand footage — the real promo panel video from the live site, until a merchant sets their own Shopify-hosted video above. {%- endcomment -%}
-        <video autoplay muted loop playsinline
-               poster="{{ 'meganav-promo-poster.png' | asset_url }}"
+        <video autoplay muted loop playsinline preload="none"
+               poster="{{ 'meganav-promo-poster.jpg' | asset_url }}"
                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
           <source src="{{ 'meganav-promo.mp4' | asset_url }}" type="video/mp4">
         </video>

@@ -6,7 +6,7 @@
 <section class="heritage-sec sec" style="background: {{ section.settings.bg_color }}" data-tabs>
   {% render 'heritage-bg',
     image: section.settings.bg_image,
-    fallback: 'heritage-mandala-corner.png',
+    fallback: 'heritage-mandala-corner.jpg',
     wash: section.settings.wash %}
 
   <div class="wrap">
@@ -41,7 +41,7 @@
         {%- else -%}
           {%- for i in (1..4) -%}
             <div class="card"><div class="card__frame">
-              <div class="card__media"><img src="{{ 'fresh-edit-courtyard.jpg' | asset_url }}" alt="" class="card__img" loading="lazy" width="1600" height="1067"></div>
+              <div class="card__media"><img src="{{ 'fresh-edit-courtyard.jpg' | asset_url }}" alt="" class="card__img" loading="lazy" decoding="async" width="1600" height="1067"></div>
               <div class="card__body"><h3 class="card__title">{{ 'onboarding.product_title' | t }}</h3></div>
             </div></div>
           {%- endfor -%}

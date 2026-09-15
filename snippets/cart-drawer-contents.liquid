@@ -17,7 +17,7 @@
       <div class="cart-line">
         <a href="{{ item.url }}" class="cart-line__img">
           {%- if item.image -%}
-            <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.image.alt | escape }}" width="200" height="250" loading="lazy">
+            <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.image.alt | escape }}" width="200" height="250" loading="lazy" decoding="async">
           {%- endif -%}
         </a>
         <div style="flex:1;min-width:0">

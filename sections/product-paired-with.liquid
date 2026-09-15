@@ -24,7 +24,7 @@
         <span class="paired__img">
           <div>
             {%- if pair.featured_media -%}
-              <img src="{{ pair.featured_media | image_url: width: 500 }}" alt="{{ pair.title | escape }}" loading="lazy" width="500" height="500">
+              <img src="{{ pair.featured_media | image_url: width: 500 }}" alt="{{ pair.title | escape }}" loading="lazy" decoding="async" width="500" height="500">
             {%- endif -%}
           </div>
         </span>

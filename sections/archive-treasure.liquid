@@ -6,7 +6,7 @@
 <section class="heritage-sec sec">
   {% render 'heritage-bg',
     image: section.settings.bg_image,
-    fallback: 'heritage-mandala-corner.png',
+    fallback: 'heritage-mandala-corner.jpg',
     wash: section.settings.wash %}
 
   <div class="wrap archive__layout">
@@ -38,17 +38,17 @@
           if front == blank
             case forloop.index
               when 1
-                assign front_asset = 'archive-tile-1-heritage.png'
+                assign front_asset = 'archive-tile-1-heritage.jpg'
               when 2
-                assign front_asset = 'archive-tile-2-craftsmanship.png'
+                assign front_asset = 'archive-tile-2-craftsmanship.jpg'
               when 3
-                assign front_asset = 'archive-tile-3-gemstone.png'
+                assign front_asset = 'archive-tile-3-gemstone.jpg'
               when 4
-                assign front_asset = 'archive-tile-4-elegance.png'
+                assign front_asset = 'archive-tile-4-elegance.jpg'
               when 5
-                assign front_asset = 'archive-tile-5-regal.png'
+                assign front_asset = 'archive-tile-5-regal.jpg'
               when 6
-                assign front_asset = 'archive-tile-6-lunarglow.png'
+                assign front_asset = 'archive-tile-6-lunarglow.jpg'
             endcase
           endif
           if front == blank and front_asset == blank
@@ -66,11 +66,11 @@
             <div class="flipcard__inner">
               <div class="flipcard__face flipcard__face--front">
                 {%- if front_asset != blank -%}
-                  <img src="{{ front_asset | asset_url }}" alt="{{ col.title | escape }}" loading="lazy" width="800" height="1200">
+                  <img src="{{ front_asset | asset_url }}" alt="{{ col.title | escape }}" loading="lazy" decoding="async" width="800" height="1200">
                 {%- elsif front -%}
-                  <img src="{{ front | image_url: width: 800 }}" alt="{{ col.title | escape }}" loading="lazy" width="800" height="1000">
+                  <img src="{{ front | image_url: width: 800 }}" alt="{{ col.title | escape }}" loading="lazy" decoding="async" width="800" height="1000">
                 {%- else -%}
-                  <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="1067">
+                  <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067">
                 {%- endif -%}
                 <span class="flipcard__scrim" aria-hidden="true"></span>
                 <div class="flipcard__body">
@@ -80,7 +80,7 @@
               </div>
               <div class="flipcard__face flipcard__face--back">
                 {%- if back -%}
-                  <img src="{{ back | image_url: width: 800 }}" alt="" loading="lazy" width="800" height="1000">
+                  <img src="{{ back | image_url: width: 800 }}" alt="" loading="lazy" decoding="async" width="800" height="1000">
                 {%- endif -%}
                 <span class="flipcard__scrim" aria-hidden="true"></span>
                 <div class="flipcard__body">

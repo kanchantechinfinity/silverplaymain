@@ -39,11 +39,11 @@
             assign focus = section.settings.image_focus | default: '50% 50%'
           -%}
           {%- if img_asset != blank -%}
-            <img src="{{ img_asset | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="1200" height="1500" style="object-position:{{ focus }}">
+            <img src="{{ img_asset | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" decoding="async" width="1200" height="1500" style="object-position:{{ focus }}">
           {%- elsif section.settings.image != blank -%}
-            <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="1200" height="1500" style="object-position:{{ focus }}">
+            <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.heading | escape }}" loading="lazy" decoding="async" width="1200" height="1500" style="object-position:{{ focus }}">
           {%- else -%}
-            <img src="{{ 'stock-lifestyle-1.jpg' | asset_url }}" alt="" loading="lazy" width="1600" height="2000">
+            <img src="{{ 'stock-lifestyle-1.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="2000">
           {%- endif -%}
         </div>
       </div>
