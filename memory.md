@@ -134,6 +134,18 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - The store has **two blogs**: nav JOURNAL points at `/blogs/news` (empty); articles are
   in `/blogs/journal`. Menu fix, not code.
 
+## Product cards
+- `.card` is a **flex column at `height: 100%`**, with `.card__frame` / `.card__body` at
+  `flex: 1 1 auto` and `.card__buy` at `margin-top: auto`. That is what keeps tiles equal
+  height when some have a compare-at price or a rating row and others don't. Don't put a
+  fixed `margin-top` back on `.card__buy` — that is exactly what knocked the heritage
+  variant 8px out of line.
+- `.card__price` carries `margin-bottom` to guarantee the gap above the button, since the
+  button's own margin is now `auto`.
+- The discount/sold-out `seal` is full size on the product page; on tiles it is scoped
+  down via `.card__badge` (2rem, 2.25rem ≥1024px). Change `.card__badge`, never `.seal`,
+  or the PDP badge shrinks too.
+
 ## Responsive / mobile
 - Below 1024px the header is **logo left + menu toggle right**; the icon cluster moves to
   `.mbar`, a sticky bottom bar (Offers / Wishlist / Search / Bag) in `header.liquid`.

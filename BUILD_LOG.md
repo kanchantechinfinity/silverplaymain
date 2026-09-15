@@ -1,5 +1,45 @@
 # Build Log — silverplaymain
 
+## 2026-09-16 (b) — Uniform product cards, smaller corner discount seal
+
+### Cards were not uniform
+`.card` was `display: block`, so each tile was only as tall as its own content. A tile
+with a compare-at price carries an extra strikethrough line, and one with a rating
+carries another — so neighbours in the same row ended at different heights and their
+Buy buttons sat at different y positions.
+
+Fixed by making the card stretch to its grid row and pushing the button to the bottom:
+`.card` → flex column, `height: 100%`; `.card__frame` and `.card__body` →
+`flex: 1 1 auto`; `.card__buy` → `margin-top: auto`, with `.card__price` carrying a
+`margin-bottom` so there is always a gap above the button whether the card is full or
+sparse.
+
+`.card--heritage .card__buy` had its own fixed `margin-top: 1rem`, which overrode the
+auto and left the heritage variant's buttons 8px out of line — caught in testing and
+also switched to `auto`.
+
+### Discount seal
+`.seal__inner` is 2.75rem, sized for the product page. On a tile that is a medallion
+competing with the photograph. The badge is now scoped down to **2rem (2.25rem ≥1024px)**
+with proportionally smaller type, a lighter shadow, and tucked to `.5rem` from the
+corner. Scoped to `.card__badge`, so the product page and quick-view seals keep their
+original size.
+
+### Verification (real theme.css)
+| | 375px | 1280px |
+|---|---|---|
+| gilt cards, same width | yes (166) | yes (294) |
+| gilt cards, same height | yes (353) | yes (491) |
+| Buy buttons aligned | yes | yes |
+| heritage same height / aligned | — | yes (507) / yes |
+
+Tested with a deliberately mixed grid — sale + strikethrough, no-sale, sold-out, rating
+row, long and short titles — which is what produced the ragged heights originally.
+Badge measures 35px (27% of the image) at 375px and 40px (15%) at 1280px, against 44px
+before.
+
+---
+
 ## 2026-09-16 — Responsive pass: 7 mobile fixes
 
 ### 1. Mobile menu was invisible — a selector that never matched
