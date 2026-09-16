@@ -222,9 +222,35 @@
         viewport.scrollTo({ left: center(i) - viewport.clientWidth / 2, behavior: smooth && !reduced ? "smooth" : "auto" });
       }
 
+      /* Only let free scrolling (touch/trackpad swipes) hand active-card
+         tracking to the observer; button-driven navigation (goTo, including
+         the very first centering below) sets it directly and locks the
+         observer out so it can't fight a scroll still in flight and flip
+         is-active onto the wrong card mid-transition (the "shake", and the
+         wrong card getting the border right after a hard refresh). */
+      var manual = false;
+      var manualTimer;
+      function releaseManual() { manual = false; clearTimeout(manualTimer); }
+      if ("onscrollend" in window) {
+        viewport.addEventListener("scrollend", releaseManual);
+      }
+      function goTo(i, smooth) {
+        var idx = clamp(i, 0, last);
+        manual = true;
+        setActive(idx);
+        scrollToIndex(idx, smooth);
+        /* Belt-and-suspenders release: "scrollend" (above) fires the instant
+           the browser's own scroll — smooth or instant — actually settles,
+           so the observer never resumes mid-transition. This timeout is
+           only a fallback for browsers without scrollend, generous enough
+           to outlast any single-step smooth scroll or a slow initial
+           layout pass (fonts/images still settling on a cold load). */
+        clearTimeout(manualTimer);
+        manualTimer = setTimeout(releaseManual, 1200);
+      }
+
       var startIdx = loopable ? setSize + Math.floor(setSize / 2) : 0;
-      scrollToIndex(startIdx, false);
-      setActive(startIdx);
+      goTo(startIdx, false);
 
       var jumping = false;
       function loopCheck() {
@@ -245,11 +271,6 @@
         scrollTimer = setTimeout(loopCheck, 120);
       }, { passive: true });
 
-      /* Only let free scrolling (touch/trackpad swipes) hand active-card
-         tracking to the observer; button-driven navigation sets it directly
-         so it can't be fought or double-fired mid-transition (the cause of
-         the card "shake"). */
-      var manual = false;
       if ("IntersectionObserver" in window) {
         var io = new IntersectionObserver(function (entries) {
           if (manual) return;
@@ -259,36 +280,16 @@
         }, { root: viewport, threshold: [0, 0.6, 1] });
         cards.forEach(function (c) { io.observe(c); });
       }
-
-      var manualTimer;
-      function releaseManual() { manual = false; clearTimeout(manualTimer); }
-      if ("onscrollend" in window) {
-        viewport.addEventListener("scrollend", releaseManual);
-      }
-      function goTo(i) {
-        var idx = clamp(i, 0, last);
-        manual = true;
-        setActive(idx);
-        scrollToIndex(idx, true);
-        /* Belt-and-suspenders release: "scrollend" (above) fires the instant
-           the browser's own smooth-scroll animation actually finishes, so
-           the observer never resumes mid-transition and flips is-active on
-           the wrong card (the "shake"). This timeout is only a fallback for
-           browsers without scrollend, generous enough to outlast any
-           single-step smooth scroll. */
-        clearTimeout(manualTimer);
-        manualTimer = setTimeout(releaseManual, 1000);
-      }
       cards.forEach(function (c, i) {
         if (c.hasAttribute("aria-hidden")) return;
-        c.addEventListener("click", function () { goTo(i); });
+        c.addEventListener("click", function () { goTo(i, true); });
       });
       var prev = $("[data-deck-prev]", root), next = $("[data-deck-next]", root);
       if (prev) prev.addEventListener("click", function () {
-        var a = parseInt(root.dataset.active || 0, 10); goTo(a - 1);
+        var a = parseInt(root.dataset.active || 0, 10); goTo(a - 1, true);
       });
       if (next) next.addEventListener("click", function () {
-        var a = parseInt(root.dataset.active || 0, 10); goTo(a + 1);
+        var a = parseInt(root.dataset.active || 0, 10); goTo(a + 1, true);
       });
     });
   }
