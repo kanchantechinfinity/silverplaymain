@@ -222,29 +222,34 @@
         viewport.scrollTo({ left: center(i) - viewport.clientWidth / 2, behavior: smooth && !reduced ? "smooth" : "auto" });
       }
 
-      /* Only let free scrolling (touch/trackpad swipes) hand active-card
-         tracking to the observer; button-driven navigation (goTo, including
-         the very first centering below) sets it directly and locks the
-         observer out so it can't fight a scroll still in flight and flip
-         is-active onto the wrong card mid-transition (the "shake", and the
-         wrong card getting the border right after a hard refresh). */
+      /* Which card is "active" is decided ONLY once scrolling has settled
+         (debounced below) by picking whichever card's centre is nearest the
+         viewport's centre — never reactively while a scroll is in flight.
+         An IntersectionObserver-based approach (tried earlier) fires
+         continuously as ratios cross a threshold, and during a scroll two
+         neighbouring cards can straddle that threshold back and forth,
+         each crossing toggling is-active (and its scale/opacity
+         transition) repeatedly — that rapid toggling was the card "shake".
+         Settling once, after the fact, makes exactly one clean transition
+         happen per scroll. */
+      function nearestIndex() {
+        var target = viewport.scrollLeft + viewport.clientWidth / 2;
+        var best = 0, bestDist = Infinity;
+        cards.forEach(function (c, idx) {
+          var d = Math.abs(center(idx) - target);
+          if (d < bestDist) { bestDist = d; best = idx; }
+        });
+        return best;
+      }
+
       var manual = false;
       var manualTimer;
       function releaseManual() { manual = false; clearTimeout(manualTimer); }
-      if ("onscrollend" in window) {
-        viewport.addEventListener("scrollend", releaseManual);
-      }
       function goTo(i, smooth) {
         var idx = clamp(i, 0, last);
         manual = true;
         setActive(idx);
         scrollToIndex(idx, smooth);
-        /* Belt-and-suspenders release: "scrollend" (above) fires the instant
-           the browser's own scroll — smooth or instant — actually settles,
-           so the observer never resumes mid-transition. This timeout is
-           only a fallback for browsers without scrollend, generous enough
-           to outlast any single-step smooth scroll or a slow initial
-           layout pass (fonts/images still settling on a cold load). */
         clearTimeout(manualTimer);
         manualTimer = setTimeout(releaseManual, 1200);
       }
@@ -253,33 +258,27 @@
       goTo(startIdx, false);
 
       var jumping = false;
-      function loopCheck() {
-        if (!loopable || jumping) return;
+      function settle() {
+        if (jumping) return;
         var a = parseInt(root.dataset.active || 0, 10);
-        if (a < setSize || a >= setSize * 2) {
+        if (loopable && (a < setSize || a >= setSize * 2)) {
           jumping = true;
           var delta = a < setSize ? setSize : -setSize;
           viewport.scrollLeft += delta * step();
           setActive(a + delta);
           requestAnimationFrame(function () { jumping = false; });
+          return;
         }
+        if (manual) return;
+        setActive(nearestIndex());
       }
       var scrollTimer;
       viewport.addEventListener("scroll", function () {
         if (jumping) return;
         clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(loopCheck, 120);
+        scrollTimer = setTimeout(settle, 120);
       }, { passive: true });
 
-      if ("IntersectionObserver" in window) {
-        var io = new IntersectionObserver(function (entries) {
-          if (manual) return;
-          entries.forEach(function (e) {
-            if (e.isIntersecting && e.intersectionRatio > 0.6) setActive(cards.indexOf(e.target));
-          });
-        }, { root: viewport, threshold: [0, 0.6, 1] });
-        cards.forEach(function (c) { io.observe(c); });
-      }
       cards.forEach(function (c, i) {
         if (c.hasAttribute("aria-hidden")) return;
         c.addEventListener("click", function () { goTo(i, true); });
