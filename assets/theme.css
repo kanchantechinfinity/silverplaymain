@@ -1108,7 +1108,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .reels__handle { position: absolute; inset-inline: 0; bottom: 0; padding: .75rem; font-family: var(--font-display); font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: var(--sp-bone); }
 
 /* --- Collection / shop grid + filters ----------------------------------- */
-.shop { position: relative; isolation: isolate; overflow-x: hidden; }
+.shop { position: relative; isolation: isolate; }
 .shop__backdrop { pointer-events: none; position: absolute; left: 0; top: -4rem; z-index: -1; height: calc(100% + 8rem); width: 100%; background-size: cover; background-position: top; }
 .shop__backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(242,232,208,.5); }
 .shop__layout { display: grid; gap: 2.5rem; }
