@@ -1115,11 +1115,9 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 768px) { .shop__layout { grid-template-columns: 220px 1fr; } }
 @media (min-width: 1024px) { .shop__layout { grid-template-columns: 260px 1fr; gap: 3.5rem; } }
 .shop__mobile-toggle {
-  position: sticky; top: 5.75rem; z-index: 10;
   display: flex; align-items: center; justify-content: space-between; border-radius: 999px;
   border: 1px solid rgba(138,106,46,.5); background: var(--sp-ink); padding: .75rem 1.25rem;
   font-family: var(--font-display); font-size: .68rem; text-transform: uppercase; letter-spacing: .2em; color: var(--sp-bone);
-  box-shadow: 0 10px 30px -12px rgba(26,22,20,.4);
 }
 @media (max-width: 479px) { .shop__mobile-toggle { padding: .6rem 1rem; font-size: .6rem; letter-spacing: .14em; } }
 @media (min-width: 768px) { .shop__mobile-toggle { display: none; } }
