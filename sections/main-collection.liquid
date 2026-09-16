@@ -35,21 +35,6 @@
         </div>
       </aside>
 
-      <div class="shop__drawer" data-filter-drawer>
-        <div class="shop__drawer-scrim" data-filter-close></div>
-        <div class="shop__drawer-panel">
-          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(138,106,46,.25);padding-bottom:1.25rem">
-            <p style="font-family:var(--font-display);font-size:.9rem;text-transform:uppercase;letter-spacing:.2em;color:var(--sp-bone)">
-              {{ 'products.facets.filter_and_sort' | t }}
-            </p>
-            <button type="button" class="round-btn" data-filter-close aria-label="{{ 'accessibility.close' | t }}" style="color:var(--sp-bone);border-color:rgba(138,106,46,.4);height:2rem;width:2rem">&times;</button>
-          </div>
-          <div class="mt-6">
-            {% render 'facets', results: collection, results_url: collection.url, sort_by: sort_by %}
-          </div>
-        </div>
-      </div>
-
       <div>
         <div class="shop__toolbar">
           <p class="shop__count">{{ 'products.facets.product_count' | t: count: collection.products_count }}</p>
@@ -103,6 +88,28 @@
             {%- endif -%}
           {%- endpaginate -%}
         </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}
+    Deliberately outside .shop (which is isolation:isolate for its
+    backdrop trick) -- isolation traps descendant z-index inside its own
+    stacking context, which was silently capping this drawer below the
+    fixed header. cart-drawer/search-drawer don't have this problem
+    because they're not nested inside any isolated ancestor.
+  {%- endcomment -%}
+  <div class="shop__drawer" data-filter-drawer>
+    <div class="shop__drawer-scrim" data-filter-close></div>
+    <div class="shop__drawer-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(138,106,46,.25);padding-bottom:1.25rem">
+        <p style="font-family:var(--font-display);font-size:.9rem;text-transform:uppercase;letter-spacing:.2em;color:var(--sp-bone)">
+          {{ 'products.facets.filter_and_sort' | t }}
+        </p>
+        <button type="button" class="round-btn" data-filter-close aria-label="{{ 'accessibility.close' | t }}" style="color:var(--sp-bone);border-color:rgba(138,106,46,.4);height:2rem;width:2rem">&times;</button>
+      </div>
+      <div class="mt-6">
+        {% render 'facets', results: collection, results_url: collection.url, sort_by: sort_by %}
       </div>
     </div>
   </div>
