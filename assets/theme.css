@@ -1110,9 +1110,9 @@ input, textarea, select { font: inherit; color: inherit; }
 .shop { position: relative; isolation: isolate; }
 .shop__backdrop { pointer-events: none; position: absolute; left: 50%; top: -4rem; z-index: -1; height: calc(100% + 8rem); width: 100vw; margin-left: -50vw; background-size: cover; background-position: top; }
 .shop__backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(242,232,208,.5); }
-.shop__layout { display: grid; gap: 2.5rem; }
-@media (min-width: 768px) { .shop__layout { grid-template-columns: 220px 1fr; } }
-@media (min-width: 1024px) { .shop__layout { grid-template-columns: 260px 1fr; gap: 3.5rem; } }
+.shop__layout { display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .shop__layout { grid-template-columns: 220px minmax(0, 1fr); } }
+@media (min-width: 1024px) { .shop__layout { grid-template-columns: 260px minmax(0, 1fr); gap: 3.5rem; } }
 .shop__mobile-toggle {
   display: flex; align-items: center; justify-content: space-between; border-radius: 999px;
   border: 1px solid rgba(138,106,46,.5); background: var(--sp-ink); padding: .75rem 1.25rem;
@@ -1171,7 +1171,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .shop__results { margin-top: 2rem; }
 .shop__empty { padding-block: 5rem; text-align: center; }
 
-.pagination { margin-top: 3.5rem; display: flex; justify-content: center; gap: .5rem; }
+.pagination { margin-top: 3.5rem; display: flex; justify-content: center; gap: .5rem; max-width: 100%; overflow-x: auto; }
 .pagination a, .pagination span {
   display: grid; place-items: center; min-width: 2.5rem; height: 2.5rem; padding-inline: .5rem;
   border-radius: 999px; border: 1px solid rgba(36,26,16,.15);
