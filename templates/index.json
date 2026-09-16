@@ -148,7 +148,7 @@
         "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
         "height": 480,
         "height_mobile": 320,
-        "full_width": false,
+        "full_width": true,
         "eyebrow": "",
         "heading": "",
         "text": "",
