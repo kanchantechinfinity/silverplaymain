@@ -139,9 +139,14 @@ input, textarea, select { font: inherit; color: inherit; }
 .h-sec--lg { font-size: clamp(2.2rem, 5.5vw, 3.8rem); }
 
 .on-dark { background: var(--sp-ink); color: var(--sp-bone); }
-.on-dark .eyebrow { color: var(--sp-ash-3); }
+.on-dark .eyebrow { color: rgba(242,232,208,.65); }
 .on-dark h1, .on-dark h2, .on-dark h3 { color: var(--sp-bone); }
 .lede { font-family: var(--font-body); font-size: 1.06rem; line-height: 1.7; color: rgba(36,26,16,.6); }
+/* The photo behind this section's wash is a darker tan than the usual
+   near-white --sp-bone, so the shared .lede's 60%-alpha ink reads too
+   faint here — deepen it just for this section instead of weakening
+   the wash everyone else's lede already relies on. */
+[data-elegance] .lede { color: rgba(36,26,16,.85); }
 .on-dark .lede { color: rgba(242,232,208,.6); }
 
 .grain { position: relative; }
