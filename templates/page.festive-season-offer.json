@@ -44,7 +44,7 @@
         "heading": "Auspicious Sacred Silver Artifacts",
         "lede": "Authentic 925 hallmark creations for ceremonial sthapana, personal worship, and cherished festive gifts.",
         "show_stock_label": true,
-        "stock_label": "{{ count }} Consecrated Pieces In Stock",
+        "stock_label": "[count] Consecrated Pieces In Stock",
         "count": 8,
         "card_style": "gilt",
         "color_scheme": "dark",
