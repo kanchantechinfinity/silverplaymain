@@ -367,7 +367,8 @@ input, textarea, select { font: inherit; color: inherit; }
   z-index: 60;
 }
 .header__navitem:hover .header__dropdown,
-.header__navitem:focus-within .header__dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+.header__navitem:focus-within .header__dropdown,
+.header__navitem.is-open .header__dropdown { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
 .header__dropdown a {
   display: block; padding: .625rem 1.25rem; font-family: var(--font-body);
   font-size: .98rem; color: rgba(36,26,16,.75); transition: background-color .3s, color .3s;
@@ -384,7 +385,8 @@ input, textarea, select { font: inherit; color: inherit; }
   transition: opacity .32s var(--ease-silk), transform .32s var(--ease-silk);
 }
 .header__navitem:hover .meganav,
-.header__navitem:focus-within .meganav { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+.header__navitem:focus-within .meganav,
+.header__navitem.is-open .meganav { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
 .meganav__grid { display: grid; grid-template-columns: 1fr; }
 @media (min-width: 900px) { .meganav__grid { grid-template-columns: 1fr 300px; } }
 .meganav__main { padding: 1.5rem; }

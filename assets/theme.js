@@ -116,6 +116,36 @@
         if (drawer) { drawer.classList.remove("is-open"); document.body.style.overflow = ""; }
       });
     });
+
+    /* Nav items with a mega panel or dropdown: clicking the label toggles the
+       panel (instead of navigating straight to its href), matching the
+       hover-or-click pattern on vamas.in. Hover keeps working via CSS. */
+    var panelItems = $$(".header__navitem").filter(function (item) {
+      return $(".meganav", item) || $(".header__dropdown", item);
+    });
+    function closeAllPanels(except) {
+      panelItems.forEach(function (item) {
+        if (item !== except) item.classList.remove("is-open");
+      });
+    }
+    panelItems.forEach(function (item) {
+      var link = $(".header__link", item);
+      if (!link) return;
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        var willOpen = !item.classList.contains("is-open");
+        closeAllPanels(item);
+        item.classList.toggle("is-open", willOpen);
+      });
+    });
+    document.addEventListener("click", function (e) {
+      panelItems.forEach(function (item) {
+        if (!item.contains(e.target)) item.classList.remove("is-open");
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeAllPanels(null);
+    });
   }
 
   /* ------------------------------------------------------------ marquee */
