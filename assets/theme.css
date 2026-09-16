@@ -236,7 +236,10 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 [data-stagger].is-in > * { opacity: 1; transform: none; filter: blur(0); }
 
-.split { display: inline-flex; flex-wrap: wrap; }
+/* Plain inline (not inline-flex): inline-block mask children already wrap
+   like normal text, so each wrapped line follows the ancestor's own
+   text-align (center/left/right) instead of flexbox's fixed flex-start. */
+.split { display: inline; }
 .split__mask { display: inline-block; overflow: hidden; padding-bottom: .14em; vertical-align: bottom; }
 .split__unit {
   display: inline-block; transform: translateY(110%) rotate(4deg); opacity: 0;
@@ -654,6 +657,8 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .section-head { margin-inline: auto; max-width: 42rem; text-align: center; }
 .section-head .lede { margin-top: 1.5rem; }
+.section-head--wide { max-width: none; }
+.section-head--wide .lede { max-width: 42rem; margin-inline: auto; }
 .center-cta { margin-top: 3.5rem; display: flex; justify-content: center; }
 
 /* --- Tabs (fresh edit) -------------------------------------------------- */
