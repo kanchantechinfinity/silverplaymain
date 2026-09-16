@@ -206,22 +206,25 @@
       var sets = Math.round(cards.length / setSize);
       var loopable = sets >= 3 && setSize > 0;
 
+      /* offsetLeft is pure layout (untouched by the active card's transform:
+         scale), so — unlike getBoundingClientRect — it gives a step size that
+         stays correct no matter which cards are currently scaled up/down. */
       function step() {
-        if (cards.length < 2) return cards[0].getBoundingClientRect().width;
-        return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
+        if (cards.length < 2) return cards[0].offsetWidth;
+        return cards[1].offsetLeft - cards[0].offsetLeft;
       }
+      function center(i) { return cards[i].offsetLeft + cards[i].offsetWidth / 2; }
       function setActive(i) {
         cards.forEach(function (c, idx) { c.classList.toggle("is-active", idx === i); });
         root.dataset.active = i;
       }
-
-      if (loopable) {
-        var startIdx = setSize + Math.floor(setSize / 2);
-        cards[startIdx].scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
-        setActive(startIdx);
-      } else {
-        setActive(0);
+      function scrollToIndex(i, smooth) {
+        viewport.scrollTo({ left: center(i) - viewport.clientWidth / 2, behavior: smooth && !reduced ? "smooth" : "auto" });
       }
+
+      var startIdx = loopable ? setSize + Math.floor(setSize / 2) : 0;
+      scrollToIndex(startIdx, false);
+      setActive(startIdx);
 
       var jumping = false;
       function loopCheck() {
@@ -237,12 +240,19 @@
       }
       var scrollTimer;
       viewport.addEventListener("scroll", function () {
+        if (jumping) return;
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(loopCheck, 120);
       }, { passive: true });
 
+      /* Only let free scrolling (touch/trackpad swipes) hand active-card
+         tracking to the observer; button-driven navigation sets it directly
+         so it can't be fought or double-fired mid-transition (the cause of
+         the card "shake"). */
+      var manual = false;
       if ("IntersectionObserver" in window) {
         var io = new IntersectionObserver(function (entries) {
+          if (manual) return;
           entries.forEach(function (e) {
             if (e.isIntersecting && e.intersectionRatio > 0.6) setActive(cards.indexOf(e.target));
           });
@@ -250,9 +260,14 @@
         cards.forEach(function (c) { io.observe(c); });
       }
 
+      var manualTimer;
       function goTo(i) {
         var idx = clamp(i, 0, last);
-        cards[idx].scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
+        manual = true;
+        setActive(idx);
+        scrollToIndex(idx, true);
+        clearTimeout(manualTimer);
+        manualTimer = setTimeout(function () { manual = false; }, 500);
       }
       cards.forEach(function (c, i) {
         if (c.hasAttribute("aria-hidden")) return;
