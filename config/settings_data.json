@@ -55,7 +55,7 @@
             "type": "menu",
             "settings": {
               "heading": "Connect",
-              "menu": "footer"
+              "menu": "connect"
             }
           }
         },
