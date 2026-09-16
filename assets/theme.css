@@ -1115,7 +1115,7 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 768px) { .shop__layout { grid-template-columns: 220px 1fr; } }
 @media (min-width: 1024px) { .shop__layout { grid-template-columns: 260px 1fr; gap: 3.5rem; } }
 .shop__mobile-toggle {
-  position: sticky; top: 4.5rem; z-index: 10;
+  position: sticky; top: 5.75rem; z-index: 10;
   display: flex; align-items: center; justify-content: space-between; border-radius: 999px;
   border: 1px solid rgba(138,106,46,.5); background: var(--sp-ink); padding: .75rem 1.25rem;
   font-family: var(--font-display); font-size: .68rem; text-transform: uppercase; letter-spacing: .2em; color: var(--sp-bone);
