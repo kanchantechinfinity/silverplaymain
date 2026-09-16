@@ -440,7 +440,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .cart-drawer__panel, .search-drawer__panel { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
   /* the icon cluster moved to .mbar, so the top bar is just logo + menu toggle */
   .header__actions { display: none; }
-  .header__bar { justify-content: space-between !important; gap: 1rem; }
+  .header__bar { justify-content: space-between !important; gap: 1rem; padding-inline: 0.75rem !important; }
   /* base rule centres the logo absolutely; take it back into flex flow so it
      can sit left and `order` actually applies */
   .header__logo { position: static !important; left: auto !important; top: auto !important; transform: none !important;
