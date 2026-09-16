@@ -689,9 +689,9 @@ input, textarea, select { font: inherit; color: inherit; }
   transition: background-color .4s, color .4s;
   /* Fixed width so a tab's size doesn't change with its label's length —
      wide enough for a typical longest label like "New Arrivals". */
-  min-width: 9.5rem; text-align: center;
+  min-width: 11rem; text-align: center;
 }
-@media (max-width: 639px) { .tabs__btn { min-width: 8.25rem; } }
+@media (max-width: 639px) { .tabs__btn { min-width: 9.5rem; } }
 .tabs__btn:hover { color: var(--sp-ink); }
 .tabs__btn[aria-selected="true"] { background: var(--sp-ink); color: var(--sp-bone); }
 .tabs__panel[hidden] { display: none !important; }
