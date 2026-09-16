@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": { "type": "faq", "settings": { "question": "Is Silver Play jewellery real 925 sterling silver?", "answer": "Yes. Every piece is crafted in genuine 925 sterling silver, guaranteed for purity and skin-friendly, so it is gentle on the skin." } },
+        "q2": { "type": "faq", "settings": { "question": "Are the gemstones natural?", "answer": "Always. Each stone is a genuine natural gemstone, hand-selected and hand-set. Because they are natural, slight variations in colour, pattern and size are normal — and make every piece one of a kind." } },
+        "q3": { "type": "faq", "settings": { "question": "Do you offer Cash on Delivery (COD)?", "answer": "No. We are prepaid only and do not offer COD. All orders are paid in full at checkout through our secure payment partners." } },
+        "q4": { "type": "faq", "settings": { "question": "What is your return policy?", "answer": "All sales are final — we do not offer returns or exchanges for change of mind. We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered, reported within 24 hours of delivery with photos or an unboxing video shared to care@silverplay.in. See our Returns & Refunds page." } },
+        "q5": { "type": "faq", "settings": { "question": "How long will my order take to arrive?", "answer": "Orders are dispatched in 2–4 business days (made-to-order pieces may take 7–10 days). Delivery is 3–7 business days within India and 7–15 business days internationally. See our Shipping Policy." } },
+        "q6": { "type": "faq", "settings": { "question": "How do I care for my silver and stones?", "answer": "Wear it last (after perfume and lotion), keep it away from water and chemicals, wipe with a soft dry cloth, and store each piece separately. Soft stones like opal and pearl need extra care. Full guide on our Jewellery Care page." } },
+        "q7": { "type": "faq", "settings": { "question": "Will my piece look exactly like the photo?", "answer": "Very close, but not identical. Each stone is natural, so the exact colour and pattern of your piece will be unique to you." } },
+        "q8": { "type": "faq", "settings": { "question": "Do you ship internationally?", "answer": "Yes, we ship worldwide. International shipping is calculated at checkout; any customs duties are the customer's responsibility." } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "settings": {
+        "eyebrow": "Good To Know",
+        "heading": "Frequently Asked Questions"
+      }
+    }
+  },
+  "order": ["faq"]
+}
