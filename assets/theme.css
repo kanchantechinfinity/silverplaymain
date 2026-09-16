@@ -1328,9 +1328,12 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .fhero { position: relative; padding-block: 6rem 4.5rem; overflow: hidden; background: var(--sp-ink); }
 .fhero__grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
-@media (min-width: 900px) { .fhero__grid { grid-template-columns: 1.1fr 1fr; gap: 3.5rem; } }
+@media (min-width: 900px) { .fhero__grid { grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: stretch; } }
 .fhero__body { position: relative; z-index: 1; }
 .fhero__side { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; background: var(--sp-ink-2); }
+/* Beside the content column (900px+) match its height exactly instead of
+   the aspect-ratio, which made the photo taller than the text beside it. */
+@media (min-width: 900px) { .fhero__side { aspect-ratio: auto; height: 100%; min-height: 22rem; } }
 .fhero__side img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
 .fhero__badges { margin-top: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .fhero__pill, .fhero__offer {
