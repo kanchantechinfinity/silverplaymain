@@ -1291,6 +1291,55 @@ input, textarea, select { font: inherit; color: inherit; }
 .vision__glyph { font-family: var(--font-display); font-size: 1.6rem; color: var(--sp-gold); }
 .vision__inner h3 { font-family: var(--font-display); font-size: 1.1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--sp-bone); }
 .vision__inner p { font-family: var(--font-body); font-size: .92rem; line-height: 1.7; color: rgba(242,232,208,.6); }
+@media (min-width: 1024px) { .vision--cols-4 { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+
+/* --- Festive offer page -------------------------------------------------- */
+.on-dark .breadcrumb { color: rgba(242,232,208,.5); }
+.on-dark .breadcrumb span { color: rgba(242,232,208,.3); }
+.on-dark .breadcrumb a:hover { color: var(--sp-bone); }
+
+.fhero { position: relative; padding-block: 6rem 4.5rem; overflow: hidden; background: var(--sp-ink); }
+.fhero__media { position: absolute; inset: 0; z-index: 0; }
+.fhero__media img { height: 100%; width: 100%; object-fit: cover; }
+.fhero__media::after { content: ""; position: absolute; inset: 0; background: rgba(36,26,16,var(--fhero-overlay, .55)); }
+.fhero__body { position: relative; z-index: 1; }
+.fhero__pill, .fhero__offer {
+  display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px;
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: .14em;
+}
+.fhero__pill {
+  border: 1px solid rgba(242,232,208,.3); padding: .55rem 1.1rem; font-size: .68rem; color: var(--sp-bone-2);
+}
+.fhero__offer {
+  margin-top: .9rem; background: var(--sp-gold); color: var(--sp-ink); padding: .65rem 1.35rem; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: none;
+}
+.fhero__title { margin-top: 1.5rem; font-size: clamp(2.4rem, 6.5vw, 4.4rem); line-height: 1.05; color: var(--sp-bone); }
+.fhero__sub {
+  margin-top: .5rem; font-family: var(--font-body); font-style: italic; font-weight: 500;
+  font-size: clamp(1.3rem, 3vw, 2rem); color: var(--sp-gold);
+}
+.fhero__divider { margin: 1.75rem auto 0; display: block; color: var(--sp-ash-2); }
+.fhero__text { margin: 1.25rem auto 0; max-width: 40rem; font-family: var(--font-body); font-size: 1.05rem; line-height: 1.7; color: rgba(242,232,208,.7); }
+.fhero__ctas { margin-top: 2.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.fhero__validity {
+  margin-top: 1.75rem; display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-display); font-size: .66rem; text-transform: uppercase; letter-spacing: .14em; color: rgba(242,232,208,.55);
+}
+
+.spotlight { position: relative; padding-block: 6rem; overflow: hidden; }
+.spotlight__inner { position: relative; z-index: 1; margin-inline: auto; max-width: 46rem; text-align: center; }
+.spotlight__quote { margin-top: 1.5rem; font-family: var(--font-body); font-style: italic; font-size: clamp(1.25rem, 2.6vw, 1.65rem); line-height: 1.55; }
+.spotlight__name { margin-top: 1.75rem; font-family: var(--font-display); font-size: .85rem; text-transform: uppercase; letter-spacing: .1em; }
+.spotlight__loc { margin-top: .25rem; font-family: var(--font-body); font-size: .82rem; opacity: .6; }
+.spotlight__verified {
+  margin-top: .9rem; display: inline-flex; align-items: center; gap: .4rem;
+  font-family: var(--font-display); font-size: .62rem; text-transform: uppercase; letter-spacing: .14em; color: var(--sp-gold-deep);
+}
+
+.statband { display: grid; gap: 2rem; margin-top: 3.5rem; text-align: center; }
+@media (min-width: 640px) { .statband { grid-template-columns: repeat(var(--statband-cols, 3), minmax(0,1fr)); } }
+.statband__value { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3rem); color: var(--sp-gold); }
+.statband__label { margin-top: .5rem; font-family: var(--font-display); font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: rgba(242,232,208,.6); }
 
 /* --- Footer ------------------------------------------------------------- */
 .footer { position: relative; overflow: hidden; background: var(--sp-ink); color: var(--sp-bone); }

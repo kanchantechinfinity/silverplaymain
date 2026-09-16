@@ -1,0 +1,52 @@
+{%- comment -%}
+  Heading + lede + a row of big stat numbers (up to 4 blocks). Generic —
+  used on the festive offer page for trust stats ("50,000+ idols
+  delivered", "100% BIS Hallmarked", "4.9/5 trust rating") but not tied
+  to any one festival's copy.
+{%- endcomment -%}
+<section class="sec on-dark" style="background: {{ section.settings.bg_color }}">
+  <div class="wrap text-center">
+    {% render 'heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, lede: section.settings.lede %}
+    <div class="statband" style="--statband-cols: {{ section.blocks.size | at_least: 1 }}">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <p class="statband__value" data-reveal data-delay="{{ forloop.index0 | times: 0.08 }}">{{ block.settings.value }}</p>
+          <p class="statband__label">{{ block.settings.label }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stats band",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Uncompromising Reverence" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sanctity Sealed in Pure Silver" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Each artifact is fashioned according to Shilpa Shastra proportions, ensuring balanced spiritual iconography and generational durability." },
+    { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#241a10" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "50,000+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Idols Delivered" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats band",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "50,000+", "label": "Idols Delivered" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "BIS Hallmarked" } },
+        { "type": "stat", "settings": { "value": "4.9/5", "label": "Trust Rating" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

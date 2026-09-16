@@ -1,0 +1,43 @@
+{%- comment -%}
+  Single spotlighted testimonial — star row, one quote, name, location and
+  a "verified" badge. Different shape from the "Notes We Keep" clothesline
+  (testimonials.liquid): this is for one strong review front and centre,
+  e.g. the festive offer page.
+{%- endcomment -%}
+<section class="spotlight {% if section.settings.color_scheme == 'dark' %}on-dark{% endif %}" style="background: {{ section.settings.bg_color }}">
+  <div class="wrap spotlight__inner">
+    {% render 'stars', rating: section.settings.rating, size: 16 %}
+    {%- if section.settings.quote != blank -%}
+      <p class="spotlight__quote" data-reveal data-delay="0.06">&ldquo;{{ section.settings.quote }}&rdquo;</p>
+    {%- endif -%}
+    {%- if section.settings.name != blank -%}
+      <p class="spotlight__name" data-reveal data-delay="0.12">{{ section.settings.name }}</p>
+    {%- endif -%}
+    {%- if section.settings.location != blank -%}
+      <p class="spotlight__loc">{{ section.settings.location }}</p>
+    {%- endif -%}
+    {%- if section.settings.verified_label != blank -%}
+      <p class="spotlight__verified">
+        <span aria-hidden="true">✓</span> {{ section.settings.verified_label }}
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quote spotlight",
+  "tag": "section",
+  "settings": [
+    { "type": "range", "id": "rating", "min": 0, "max": 5, "step": 1, "label": "Star rating", "default": 5 },
+    { "type": "textarea", "id": "quote", "label": "Quote", "default": "The finish of the 925 silver Ganesha murti is breathtaking. It arrived in secure velvet packaging just two days before Vinayaka Chaturthi with full hallmark papers. Our home temple feels truly blessed." },
+    { "type": "text", "id": "name", "label": "Name", "default": "Ananya R. Deshmukh" },
+    { "type": "text", "id": "location", "label": "Location", "default": "Pune, Maharashtra" },
+    { "type": "text", "id": "verified_label", "label": "Verified badge label", "default": "Verified Pooja Ready" },
+    { "type": "select", "id": "color_scheme", "label": "Colour scheme", "default": "dark",
+      "options": [ { "value": "dark", "label": "Dark" }, { "value": "light", "label": "Light" } ] },
+    { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#2e2115" }
+  ],
+  "presets": [{ "name": "Quote spotlight" }]
+}
+{% endschema %}

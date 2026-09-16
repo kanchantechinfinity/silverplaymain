@@ -1,0 +1,61 @@
+{%- comment -%}
+  Generic icon + heading + text feature grid (2 cols mobile, up to 4 on
+  desktop). Reuses the theme's existing gilt vision-card look. Built for
+  the festive offer page's trust bar ("925 BIS Hallmarked", "Pran
+  Pratishtha Ready", etc.) but works anywhere a short row of credentials
+  or reassurances is needed — every glyph/heading/text is a block.
+{%- endcomment -%}
+<section class="sec--sm on-dark" style="background: {{ section.settings.bg_color }}">
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="wrap text-center">
+      {% render 'heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading %}
+    </div>
+  {%- endif -%}
+  <div class="wrap">
+    <div class="vision vision--cols-4">
+      {%- for block in section.blocks -%}
+        <div class="vision__card" {{ block.shopify_attributes }}>
+          <div class="vision__inner">
+            <span class="vision__glyph" aria-hidden="true">{{ block.settings.glyph }}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.body }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icon features",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#241a10" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "glyph", "label": "Glyph / emoji", "default": "✦" },
+        { "type": "text", "id": "title", "label": "Title", "default": "100% 925 BIS Hallmarked" },
+        { "type": "textarea", "id": "body", "label": "Text", "default": "Assayed purity with digital QR certificate" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon features",
+      "blocks": [
+        { "type": "feature", "settings": { "glyph": "✦", "title": "100% 925 BIS Hallmarked", "body": "Assayed purity with digital QR certificate" } },
+        { "type": "feature", "settings": { "glyph": "🛕", "title": "Pran Pratishtha Ready", "body": "Consecrated unboxing with sacred roli & chandan" } },
+        { "type": "feature", "settings": { "glyph": "🚚", "title": "Insured Express Delivery", "body": "Guaranteed arrival before Ganesh Sthapana" } },
+        { "type": "feature", "settings": { "glyph": "♻", "title": "Lifetime Silver Card", "body": "Assured net weight exchange across Silver Play" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
