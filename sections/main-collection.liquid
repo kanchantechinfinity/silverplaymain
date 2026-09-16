@@ -56,7 +56,7 @@
           <div class="sortmenu" data-sortmenu>
             <button type="button" class="sortmenu__btn" data-sortmenu-btn aria-expanded="false">
               {%- assign current_sort = collection.sort_options | where: 'value', sort_by | first -%}
-              {{ current_sort.name | default: 'products.facets.sort_by_label' | t }}
+              {%- if current_sort.name != blank -%}{{ current_sort.name }}{%- else -%}{{ 'products.facets.sort_by_label' | t }}{%- endif -%}
               <span aria-hidden="true" style="font-size:.6rem;color:var(--sp-gold-deep)">&#9662;</span>
             </button>
             <div class="sortmenu__list">

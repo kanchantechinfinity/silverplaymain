@@ -645,6 +645,7 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 1280px) { .grid-products--3 { grid-template-columns: repeat(4, minmax(0,1fr)); } }
 .grid-products--5 { grid-template-columns: repeat(2, minmax(0,1fr)); }
 @media (min-width: 1024px) { .grid-products--5 { grid-template-columns: repeat(5, minmax(0,1fr)); } }
+@media (max-width: 767px) { .related-grid > *:nth-child(n+5) { display: none; } }
 
 .section-head { margin-inline: auto; max-width: 42rem; text-align: center; }
 .section-head .lede { margin-top: 1.5rem; }
@@ -1015,6 +1016,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .buybox__actions { margin-top: 1.25rem; display: flex; align-items: center; gap: .75rem; }
 .buybox__actions .btn { flex: 1; }
 .buybox__wish { position: static; height: 52px; width: 52px; border: 1px solid rgba(138,106,46,.3); flex: none; }
+@media (max-width: 420px) {
+  .buybox__actions { gap: .5rem; }
+  .buybox__actions .btn { padding: .9rem .75rem; font-size: .64rem; letter-spacing: .1em; }
+  .buybox__wish { height: 44px; width: 44px; }
+}
 .buybox__box { margin-top: 1rem; border-radius: var(--radius-sm); border: 1px solid rgba(36,26,16,.1); padding: 1rem; }
 .buybox__box > p:first-child { font-family: var(--font-display); font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; }
 .buybox__desc { margin-top: 1.25rem; font-family: var(--font-body); font-size: .82rem; line-height: 1.7; color: rgba(36,26,16,.6); }
@@ -1102,8 +1108,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .reels__handle { position: absolute; inset-inline: 0; bottom: 0; padding: .75rem; font-family: var(--font-display); font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: var(--sp-bone); }
 
 /* --- Collection / shop grid + filters ----------------------------------- */
-.shop { position: relative; isolation: isolate; }
-.shop__backdrop { pointer-events: none; position: absolute; left: 50%; top: -4rem; z-index: -1; height: calc(100% + 8rem); width: 100vw; transform: translateX(-50%); background-size: cover; background-position: top; background-attachment: fixed; }
+.shop { position: relative; isolation: isolate; overflow-x: hidden; }
+.shop__backdrop { pointer-events: none; position: absolute; left: 0; top: -4rem; z-index: -1; height: calc(100% + 8rem); width: 100%; background-size: cover; background-position: top; background-attachment: fixed; }
 .shop__backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(242,232,208,.78); }
 .shop__layout { display: grid; gap: 2.5rem; }
 @media (min-width: 768px) { .shop__layout { grid-template-columns: 220px 1fr; } }
@@ -1113,6 +1119,7 @@ input, textarea, select { font: inherit; color: inherit; }
   border: 1px solid rgba(138,106,46,.5); background: var(--sp-ink); padding: .75rem 1.25rem;
   font-family: var(--font-display); font-size: .68rem; text-transform: uppercase; letter-spacing: .2em; color: var(--sp-bone);
 }
+@media (max-width: 479px) { .shop__mobile-toggle { padding: .6rem 1rem; font-size: .6rem; letter-spacing: .14em; } }
 @media (min-width: 768px) { .shop__mobile-toggle { display: none; } }
 .shop__aside { display: none; }
 @media (min-width: 768px) { .shop__aside { display: block; position: sticky; top: 7rem; max-height: calc(100vh - 8rem); overflow-y: auto; align-self: start; } }
@@ -1392,7 +1399,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .cart-drawer.is-open { pointer-events: auto; }
 .cart-drawer.is-open .cart-drawer__scrim { opacity: 1; }
 .cart-drawer.is-open .cart-drawer__panel { transform: none; }
-.cart-drawer__head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--sp-line); padding: 1.5rem; }
+.cart-drawer__head { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--sp-line); padding: 1.5rem; }
 .cart-drawer__body { flex: 1; overflow-y: auto; padding: 1.5rem; }
 .cart-drawer__foot { border-top: 1px solid var(--sp-line); padding: 1.5rem; background: var(--sp-bone-2); }
 
