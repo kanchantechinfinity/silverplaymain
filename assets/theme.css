@@ -1159,6 +1159,7 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .shop__toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(36,26,16,.1); padding-bottom: 1rem; }
 .shop__count { font-family: var(--font-body); font-size: .85rem; color: rgba(36,26,16,.55); }
+.shop__toolbar-controls { display: flex; align-items: center; gap: .75rem; }
 .sortmenu { position: relative; }
 .sortmenu__btn { display: flex; align-items: center; gap: .625rem; border-radius: 999px; border: 1px solid rgba(36,26,16,.15); padding: .5rem 1rem; font-family: var(--font-display); font-size: .68rem; text-transform: uppercase; letter-spacing: .14em; transition: border-color .3s; }
 .sortmenu__btn:hover { border-color: rgba(138,106,46,.5); }

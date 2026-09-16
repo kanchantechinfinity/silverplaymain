@@ -25,10 +25,6 @@
     <div class="shop__backdrop" style="background-image:url({{ 'archive-balcony.jpg' | asset_url }})" aria-hidden="true"></div>
 
     <div class="shop__layout">
-      <button type="button" class="shop__mobile-toggle" data-filter-open>
-        {{ 'products.facets.filter_and_sort' | t }} <span aria-hidden="true" style="color:var(--sp-gold-mid)">&#8862;</span>
-      </button>
-
       <aside class="shop__aside">
         <div class="gilt gilt--lg">
           {% render 'facets', results: collection, results_url: collection.url, sort_by: sort_by %}
@@ -39,7 +35,12 @@
         <div class="shop__toolbar">
           <p class="shop__count">{{ 'products.facets.product_count' | t: count: collection.products_count }}</p>
 
-          <div class="sortmenu" data-sortmenu>
+          <div class="shop__toolbar-controls">
+            <button type="button" class="shop__mobile-toggle" data-filter-open>
+              {{ 'products.facets.filter_and_sort' | t }} <span aria-hidden="true" style="color:var(--sp-gold-mid)">&#8862;</span>
+            </button>
+
+            <div class="sortmenu" data-sortmenu>
             <button type="button" class="sortmenu__btn" data-sortmenu-btn aria-expanded="false">
               {%- assign current_sort = collection.sort_options | where: 'value', sort_by | first -%}
               {%- if current_sort.name != blank -%}{{ current_sort.name }}{%- else -%}{{ 'products.facets.sort_by_label' | t }}{%- endif -%}
@@ -54,6 +55,7 @@
                   </a>
                 {%- endfor -%}
               </div>
+            </div>
             </div>
           </div>
         </div>
