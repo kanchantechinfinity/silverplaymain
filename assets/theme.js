@@ -621,6 +621,7 @@
         var c = doc.querySelector("[data-cart-count]");
         if (c) cartCountUpdate(c.textContent.trim());
         bindCartLines();
+        bindCartClose(drawer);
       });
   }
   function bindCartLines() {
@@ -638,6 +639,17 @@
       });
     });
   }
+  function bindCartClose(drawer) {
+    // refreshDrawer() replaces [data-cart-drawer-inner]'s whole innerHTML
+    // (to pull fresh totals) every time the cart opens, which destroys and
+    // recreates the header's close button -- so this has to be re-run after
+    // every refresh, not just once at boot, or the new button has no listener.
+    $$("[data-cart-close], .cart-drawer__scrim", drawer).forEach(function (b) {
+      if (b.dataset.closeBound) return;
+      b.dataset.closeBound = "1";
+      b.addEventListener("click", function () { drawer.classList.remove("is-open"); document.body.style.overflow = ""; });
+    });
+  }
   function initCart() {
     var drawer = $("[data-cart-drawer]");
     $$("[data-cart-open]").forEach(function (b) {
@@ -649,11 +661,7 @@
         refreshDrawer();
       });
     });
-    if (drawer) {
-      $$("[data-cart-close], .cart-drawer__scrim", drawer).forEach(function (b) {
-        b.addEventListener("click", function () { drawer.classList.remove("is-open"); document.body.style.overflow = ""; });
-      });
-    }
+    if (drawer) bindCartClose(drawer);
     bindCartLines();
 
     document.addEventListener("submit", function (e) {
