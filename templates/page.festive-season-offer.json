@@ -3,7 +3,7 @@
     "hero": {
       "type": "festive-hero",
       "settings": {
-        "align": "left",
+        "align": "right",
         "show_breadcrumb": true,
         "breadcrumb_mid": "Offer",
         "breadcrumb_current": "The Ganpati Collection",
@@ -23,6 +23,7 @@
         "validity_glyph": "⏳",
         "validity_text": "Offer valid till 25th Sept (Ganpati Visarjan)",
         "bg_color": "#241a10",
+        "image_asset": "heritage-mandala-dark.jpg",
         "overlay": 55
       }
     },

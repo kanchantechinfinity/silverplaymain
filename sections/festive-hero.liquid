@@ -8,12 +8,20 @@
 {%- endcomment -%}
 {%- liquid
   assign collection = collections[section.settings.collection]
+  assign img_asset = section.settings.image_asset
+  if section.settings.bg_image != blank
+    assign img_asset = blank
+  endif
 -%}
 
 <section class="fhero on-dark" data-page-hero style="background: {{ section.settings.bg_color }}; --fhero-overlay: {{ section.settings.overlay | divided_by: 100.0 }}">
   {%- if section.settings.bg_image != blank -%}
     <div class="fhero__media" aria-hidden="true">
       <img src="{{ section.settings.bg_image | image_url: width: 2400 }}" alt="" width="2400" height="1400" fetchpriority="high">
+    </div>
+  {%- elsif img_asset != blank -%}
+    <div class="fhero__media" aria-hidden="true">
+      <img src="{{ img_asset | asset_url }}" alt="" width="1536" height="1024" fetchpriority="high">
     </div>
   {%- endif -%}
 
@@ -93,7 +101,7 @@
   "tag": "section",
   "settings": [
     { "type": "select", "id": "align", "label": "Text alignment", "default": "left",
-      "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Centre" } ] },
+      "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Right" } ] },
     { "type": "header", "content": "Breadcrumb" },
     { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
     { "type": "text", "id": "breadcrumb_mid", "label": "Breadcrumb — middle segment", "default": "Offer" },
@@ -127,7 +135,8 @@
 
     { "type": "header", "content": "Background" },
     { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#241a10" },
-    { "type": "image_picker", "id": "bg_image", "label": "Background photo (optional)" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo (Shopify upload — takes priority over the theme asset below)" },
+    { "type": "text", "id": "image_asset", "label": "Theme asset filename (used when no photo is picked above)", "default": "heritage-mandala-dark.jpg" },
     { "type": "range", "id": "overlay", "min": 0, "max": 85, "step": 5, "unit": "%", "label": "Photo darkening", "default": 55 }
   ],
   "presets": [{ "name": "Festive hero" }]
