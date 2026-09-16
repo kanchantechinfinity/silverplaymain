@@ -450,14 +450,14 @@ input, textarea, select { font: inherit; color: inherit; }
   .cart-drawer__panel, .search-drawer__panel { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
   /* the icon cluster moved to .mbar, so the top bar is just logo + menu toggle */
   .header__actions { display: none; }
-  .header__bar { justify-content: space-between !important; gap: 1rem; padding: 4px 0.75rem !important; }
+  .header__bar { justify-content: space-between !important; gap: 1rem; padding: 8px 0.75rem !important; }
   /* base rule centres the logo absolutely; take it back into flex flow so it
      can sit left and `order` actually applies */
   .header__logo { position: static !important; left: auto !important; top: auto !important; transform: none !important;
                   order: 1 !important; margin-right: auto !important; flex: none !important; }
   /* the merchant's --logo-h setting is tuned for the tall hero header, not
      this slim mobile bar — cap it so the bar itself stays compact */
-  .header__logo img, .header__logo svg { height: 2.5rem !important; }
+  .header__logo img, .header__logo svg { height: 2.75rem !important; }
   .header__burger { order: 2 !important; }
 }
 
