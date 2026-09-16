@@ -9,8 +9,8 @@
     {% render 'heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, lede: section.settings.lede %}
     <div class="statband" style="--statband-cols: {{ section.blocks.size | at_least: 1 }}">
       {%- for block in section.blocks -%}
-        <div {{ block.shopify_attributes }}>
-          <p class="statband__value" data-reveal data-delay="{{ forloop.index0 | times: 0.08 }}">{{ block.settings.value }}</p>
+        <div class="statband__item" data-reveal data-delay="{{ forloop.index0 | times: 0.08 }}" {{ block.shopify_attributes }}>
+          <p class="statband__value">{{ block.settings.value }}</p>
           <p class="statband__label">{{ block.settings.label }}</p>
         </div>
       {%- endfor -%}

@@ -3,6 +3,7 @@
     "hero": {
       "type": "festive-hero",
       "settings": {
+        "align": "left",
         "show_breadcrumb": true,
         "breadcrumb_mid": "Offer",
         "breadcrumb_current": "The Ganpati Collection",
@@ -28,10 +29,10 @@
     "trust": {
       "type": "icon-features",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "glyph": "✦", "title": "100% 925 BIS Hallmarked", "body": "Assayed purity with digital QR certificate" } },
-        "f2": { "type": "feature", "settings": { "glyph": "🛕", "title": "Pran Pratishtha Ready", "body": "Consecrated unboxing with sacred roli & chandan" } },
-        "f3": { "type": "feature", "settings": { "glyph": "🚚", "title": "Insured Express Delivery", "body": "Guaranteed arrival before Ganesh Sthapana" } },
-        "f4": { "type": "feature", "settings": { "glyph": "♻", "title": "Lifetime Silver Card", "body": "Assured net weight exchange across Silver Play" } }
+        "f1": { "type": "feature", "settings": { "icon": "certificate", "title": "100% 925 BIS Hallmarked", "body": "Assayed purity with digital QR certificate" } },
+        "f2": { "type": "feature", "settings": { "icon": "temple", "title": "Pran Pratishtha Ready", "body": "Consecrated unboxing with sacred roli & chandan" } },
+        "f3": { "type": "feature", "settings": { "icon": "truck", "title": "Insured Express Delivery", "body": "Guaranteed arrival before Ganesh Sthapana" } },
+        "f4": { "type": "feature", "settings": { "icon": "refresh", "title": "Lifetime Silver Card", "body": "Assured net weight exchange across Silver Play" } }
       },
       "block_order": ["f1", "f2", "f3", "f4"],
       "settings": { "bg_color": "#f2e8d0" }

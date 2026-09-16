@@ -17,7 +17,7 @@
     </div>
   {%- endif -%}
 
-  <div class="wrap wrap--tight fhero__body text-center">
+  <div class="wrap wrap--tight fhero__body fhero__body--{{ section.settings.align }}">
     {%- if section.settings.show_breadcrumb -%}
       <nav aria-label="Breadcrumb" class="breadcrumb" data-reveal>
         <a href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t | default: 'Home' }}</a>
@@ -92,6 +92,8 @@
   "name": "Festive hero",
   "tag": "section",
   "settings": [
+    { "type": "select", "id": "align", "label": "Text alignment", "default": "left",
+      "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Centre" } ] },
     { "type": "header", "content": "Breadcrumb" },
     { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
     { "type": "text", "id": "breadcrumb_mid", "label": "Breadcrumb — middle segment", "default": "Offer" },

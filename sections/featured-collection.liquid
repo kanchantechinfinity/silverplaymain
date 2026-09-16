@@ -20,7 +20,7 @@
         heading: section.settings.heading,
         lede: section.settings.lede %}
       {%- if section.settings.show_stock_label and stock_label != blank -%}
-        <p class="fhero__pill mt-6" data-reveal data-delay="0.14" style="display:inline-flex{% unless dark == 'dark' %};border-color:var(--sp-line);color:var(--sp-gold-text){% endunless %}">{{ stock_label }}</p>
+        <p class="fhero__pill mt-6" data-reveal data-delay="0.14" style="display:inline-flex;justify-content:center;margin-inline:auto{% unless dark == 'dark' %};border-color:var(--sp-line);color:var(--sp-gold-text){% endunless %}">{{ stock_label }}</p>
       {%- endif -%}
     </div>
 

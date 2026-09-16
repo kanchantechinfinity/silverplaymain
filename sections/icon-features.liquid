@@ -16,7 +16,7 @@
       {%- for block in section.blocks -%}
         <div class="vision__card" {{ block.shopify_attributes }}>
           <div class="vision__inner">
-            <span class="vision__glyph" aria-hidden="true">{{ block.settings.glyph }}</span>
+            <span class="vision__icon" aria-hidden="true">{% render 'icon', name: block.settings.icon, size: 34, stroke: 1.3 %}</span>
             <h3>{{ block.settings.title }}</h3>
             <p>{{ block.settings.body }}</p>
           </div>
@@ -40,7 +40,19 @@
       "type": "feature",
       "name": "Feature",
       "settings": [
-        { "type": "text", "id": "glyph", "label": "Glyph / emoji", "default": "✦" },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "certificate",
+          "options": [
+            { "value": "certificate", "label": "Certificate (hallmark / purity)" },
+            { "value": "temple", "label": "Temple (sacred / ceremonial)" },
+            { "value": "truck", "label": "Truck (delivery)" },
+            { "value": "refresh", "label": "Refresh (exchange / lifetime)" },
+            { "value": "shield", "label": "Shield (protection / guarantee)" },
+            { "value": "gem", "label": "Gem" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "pouch", "label": "Pouch" },
+            { "value": "cloth", "label": "Cloth (care)" }
+          ] },
         { "type": "text", "id": "title", "label": "Title", "default": "100% 925 BIS Hallmarked" },
         { "type": "textarea", "id": "body", "label": "Text", "default": "Assayed purity with digital QR certificate" }
       ]
@@ -50,10 +62,10 @@
     {
       "name": "Icon features",
       "blocks": [
-        { "type": "feature", "settings": { "glyph": "✦", "title": "100% 925 BIS Hallmarked", "body": "Assayed purity with digital QR certificate" } },
-        { "type": "feature", "settings": { "glyph": "🛕", "title": "Pran Pratishtha Ready", "body": "Consecrated unboxing with sacred roli & chandan" } },
-        { "type": "feature", "settings": { "glyph": "🚚", "title": "Insured Express Delivery", "body": "Guaranteed arrival before Ganesh Sthapana" } },
-        { "type": "feature", "settings": { "glyph": "♻", "title": "Lifetime Silver Card", "body": "Assured net weight exchange across Silver Play" } }
+        { "type": "feature", "settings": { "icon": "certificate", "title": "100% 925 BIS Hallmarked", "body": "Assayed purity with digital QR certificate" } },
+        { "type": "feature", "settings": { "icon": "temple", "title": "Pran Pratishtha Ready", "body": "Consecrated unboxing with sacred roli & chandan" } },
+        { "type": "feature", "settings": { "icon": "truck", "title": "Insured Express Delivery", "body": "Guaranteed arrival before Ganesh Sthapana" } },
+        { "type": "feature", "settings": { "icon": "refresh", "title": "Lifetime Silver Card", "body": "Assured net weight exchange across Silver Play" } }
       ]
     }
   ]
