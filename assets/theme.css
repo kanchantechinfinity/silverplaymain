@@ -1109,8 +1109,8 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* --- Collection / shop grid + filters ----------------------------------- */
 .shop { position: relative; isolation: isolate; overflow-x: hidden; }
-.shop__backdrop { pointer-events: none; position: absolute; left: 0; top: -4rem; z-index: -1; height: calc(100% + 8rem); width: 100%; background-size: cover; background-position: top; background-attachment: fixed; }
-.shop__backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(242,232,208,.78); }
+.shop__backdrop { pointer-events: none; position: absolute; left: 0; top: -4rem; z-index: -1; height: calc(100% + 8rem); width: 100%; background-size: cover; background-position: top; }
+.shop__backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(242,232,208,.5); }
 .shop__layout { display: grid; gap: 2.5rem; }
 @media (min-width: 768px) { .shop__layout { grid-template-columns: 220px 1fr; } }
 @media (min-width: 1024px) { .shop__layout { grid-template-columns: 260px 1fr; gap: 3.5rem; } }
