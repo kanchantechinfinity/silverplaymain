@@ -605,8 +605,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .stars { display: inline-flex; align-items: center; gap: 1px; }
 
 /* --- Promo banner ------------------------------------------------------- */
-.sec--flush { padding-block: 2.5rem; }
-@media (min-width: 768px) { .sec--flush { padding-block: 4rem; } }
+.sec--flush { padding-block: 0; }
 .wrap--full { max-width: none; padding-inline: 0; }
 .banner {
   position: relative; display: block; overflow: hidden; border-radius: var(--radius-lg);
