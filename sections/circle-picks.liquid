@@ -1,9 +1,16 @@
 {%- comment -%}
-  Compact category-strip band ("Kavach" in the source): heading + tagline on the
-  left, a draggable row of gold-ringed circular product picks on the right.
-  Mobile falls back to a continuous marquee so no drag is needed.
+  Compact category-strip band ("Kavach" in the source): heading + tagline on
+  the left, a continuously auto-scrolling row of gold-ringed circular product
+  picks on the right (pauses on hover so pieces stay clickable).
 {%- endcomment -%}
-{%- assign col = collections[section.settings.collection] -%}
+{%- liquid
+  assign col = collections[section.settings.collection]
+  assign pick_count = col.products.size | default: 6
+  if pick_count > section.settings.count
+    assign pick_count = section.settings.count
+  endif
+  assign duration = pick_count | times: 3.2 | round
+-%}
 <section class="wrap" style="padding-block: 6rem">
   <div class="kavach heritage-sec on-dark">
     {% render 'heritage-bg',
@@ -25,20 +32,22 @@
     </div>
 
     <div class="kavach__viewport">
-      <div class="kavach__rail" data-drag-rail>
-        {%- for product in col.products limit: section.settings.count -%}
-          <div class="kavach__pick">
-            <a href="{{ product.url }}" class="kavach__circle">
-              {%- if product.featured_media -%}
-                <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" decoding="async" width="400" height="400">
-              {%- endif -%}
-              <span class="photo-vignette" aria-hidden="true"></span>
-            </a>
-            <p>{{ product.metafields.custom.chip.value | default: product.type | default: product.title | truncate: 22 }}</p>
-          </div>
-        {%- else -%}
-          {%- for i in (1..6) -%}
-            <div class="kavach__pick"><span class="kavach__circle"><img src="{{ 'vanity-mood.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067"></span></div>
+      <div class="kavach__rail" style="--kavach-duration:{{ duration }}s">
+        {%- for rep in (1..2) -%}
+          {%- for product in col.products limit: section.settings.count -%}
+            <div class="kavach__pick"{% if rep == 2 %} aria-hidden="true"{% endif %}>
+              <a href="{{ product.url }}" class="kavach__circle"{% if rep == 2 %} tabindex="-1"{% endif %}>
+                {%- if product.featured_media -%}
+                  <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy" decoding="async" width="400" height="400">
+                {%- endif -%}
+                <span class="photo-vignette" aria-hidden="true"></span>
+              </a>
+              <p>{{ product.metafields.custom.chip.value | default: product.type | default: product.title | truncate: 22 }}</p>
+            </div>
+          {%- else -%}
+            {%- for i in (1..6) -%}
+              <div class="kavach__pick"{% if rep == 2 %} aria-hidden="true"{% endif %}><span class="kavach__circle"><img src="{{ 'vanity-mood.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067"></span></div>
+            {%- endfor -%}
           {%- endfor -%}
         {%- endfor -%}
       </div>
