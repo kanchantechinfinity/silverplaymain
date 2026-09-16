@@ -1,75 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "cinematic-hero",
-      "blocks": {
-        "c1": {
-          "type": "chapter",
-          "settings": {
-            "range_start": 0,
-            "range_end": 8,
-            "title": "Silverplay"
-          }
-        },
-        "c2": {
-          "type": "chapter",
-          "settings": {
-            "range_start": 8,
-            "range_end": 15,
-            "title": "Timeless Silver.",
-            "subtitle": "Crafted as Heritage."
-          }
-        },
-        "c3": {
-          "type": "chapter",
-          "settings": {
-            "range_start": 17,
-            "range_end": 33,
-            "title": "925 Sterling Silver",
-            "subtitle": "Artisan crafted in India"
-          }
-        },
-        "c4": {
-          "type": "chapter",
-          "settings": {
-            "range_start": 36,
-            "range_end": 54,
-            "devanagari": "कारीगरी",
-            "subtitle": "Crafted by hand. Made to be treasured."
-          }
-        },
-        "c5": {
-          "type": "chapter",
-          "settings": {
-            "range_start": 56,
-            "range_end": 74,
-            "devanagari": "विरासत",
-            "subtitle": "Stories of silver, carried forward."
-          }
-        },
-        "c6": {
-          "type": "chapter",
-          "settings": {
-            "range_start": 93,
-            "range_end": 100,
-            "title": "Discover Silverplay",
-            "dock": "bottom",
-            "cta_label": "Explore Collection"
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2",
-        "c3",
-        "c4",
-        "c5",
-        "c6"
-      ],
       "settings": {
-        "trim_end": 6.5,
+        "media_type": "image",
+        "banner_desktop": "shopify://shop_images/ChatGPT_Image_Jun_24_2026_10_49_37_AM_1.webp",
+        "video_url": "",
         "corner_vignette": true,
-        "scroll_cue": "Scroll to discover"
+        "devanagari": "",
+        "heading": "Timeless Silver.",
+        "subtitle": "Crafted as Heritage.",
+        "cta_label": "Explore Collection",
+        "cta_url": ""
       }
     },
     "assurance": {
@@ -176,32 +127,54 @@
         "count": 8,
         "bg_color": "#dbc596",
         "wash": "rgba(219,197,150,0.35)",
-        "cta_label": "Shop New Arrivals"
+        "cta_label": "Shop New Arrivals",
+        "cta_url": ""
       }
     },
     "royal_simplicity": {
       "type": "scroll-deck",
       "settings": {
+        "collection": "quiet-luxury",
         "eyebrow": "The Edit",
         "heading": "Her Royal Simplicity",
         "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
-        "cta_label": "Shop The Edit",
-        "collection": "quiet-luxury"
+        "cta_label": "Shop The Edit"
+      }
+    },
+    "banner_Q6YcY4": {
+      "type": "banner",
+      "name": "Banner",
+      "settings": {
+        "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
+        "height": 480,
+        "height_mobile": 320,
+        "full_width": true,
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
+        "align": "center",
+        "overlay": 35,
+        "cta_label": "",
+        "cta_url": "",
+        "link_whole_banner": false
       }
     },
     "best_sellers": {
       "type": "featured-collection",
       "settings": {
+        "collection": "premium-collection",
         "eyebrow": "As Seen & Loved",
         "heading": "Best Sellers",
         "lede": "The pieces Silver Play wearers keep coming back for — proven favourites, worn on repeat.",
+        "show_stock_label": false,
+        "stock_label": "[count] Pieces In Stock",
         "count": 8,
         "card_style": "gilt",
         "color_scheme": "dark",
         "bg_color": "#3a2b1c",
         "wash": "rgba(58,43,28,0.62)",
         "cta_label": "Shop Best Sellers",
-        "collection": "premium-collection"
+        "cta_url": ""
       }
     },
     "archive_treasure": {
@@ -210,49 +183,49 @@
         "h1": {
           "type": "tile",
           "settings": {
+            "collection": "virasat",
             "title": "Heritage",
-            "devanagari": "विरासत",
-            "collection": "virasat"
+            "devanagari": "विरासत"
           }
         },
         "h2": {
           "type": "tile",
           "settings": {
+            "collection": "karigari",
             "title": "Craftsmanship",
-            "devanagari": "कारीगरी",
-            "collection": "karigari"
+            "devanagari": "कारीगरी"
           }
         },
         "h3": {
           "type": "tile",
           "settings": {
+            "collection": "ratna-virasat",
             "title": "Gemstone Heritage",
-            "devanagari": "रत्न विरासत",
-            "collection": "ratna-virasat"
+            "devanagari": "रत्न विरासत"
           }
         },
         "h4": {
           "type": "tile",
           "settings": {
+            "collection": "nazakat",
             "title": "Elegance",
-            "devanagari": "नज़ाकत",
-            "collection": "nazakat"
+            "devanagari": "नज़ाकत"
           }
         },
         "h5": {
           "type": "tile",
           "settings": {
+            "collection": "shahi",
             "title": "Regal",
-            "devanagari": "शाही",
-            "collection": "shahi"
+            "devanagari": "शाही"
           }
         },
         "h6": {
           "type": "tile",
           "settings": {
+            "collection": "chandini",
             "title": "Lunar Glow",
-            "devanagari": "चांदनी",
-            "collection": "chandini"
+            "devanagari": "चांदनी"
           }
         }
       },
@@ -268,6 +241,7 @@
         "eyebrow": "Heritage",
         "heading": "The Archive Silver Treasure",
         "cta_label": "Shop The Collection",
+        "cta_url": "",
         "card_cta": "Shop The Collection",
         "wash": "rgba(242,232,208,0.35)"
       }
@@ -275,12 +249,12 @@
     "circle_picks": {
       "type": "circle-picks",
       "settings": {
+        "collection": "kavach",
         "eyebrow": "The Edit",
         "heading": "Kavach",
         "lede": "Earthy stones for strength, grounding, courage and quiet power — Tiger Eye, Blood Stone, Black Banded Agate and more, set in 925 sterling silver as a protective piece worn close.",
         "cta_label": "Shop The Edit",
-        "count": 10,
-        "collection": "kavach"
+        "count": 10
       }
     },
     "shop_by_occasion": {
@@ -289,29 +263,29 @@
         "o1": {
           "type": "tile",
           "settings": {
-            "title": "Bali Collection",
-            "collection": "bali-collection"
+            "collection": "bali-collection",
+            "title": "Bali Collection"
           }
         },
         "o2": {
           "type": "tile",
           "settings": {
-            "title": "Party Wear",
-            "collection": "party-wear"
+            "collection": "party-wear",
+            "title": "Party Wear"
           }
         },
         "o3": {
           "type": "tile",
           "settings": {
-            "title": "Office Muse",
-            "collection": "office-muse"
+            "collection": "office-muse",
+            "title": "Office Muse"
           }
         },
         "o4": {
           "type": "tile",
           "settings": {
-            "title": "Everyday Elegance",
-            "collection": "everyday-elegance"
+            "collection": "everyday-elegance",
+            "title": "Everyday Elegance"
           }
         }
       },
@@ -324,13 +298,16 @@
       "settings": {
         "eyebrow": "Dressed For The Moment",
         "heading": "Shop By Occasion",
-        "cta_label": "Shop Now"
+        "cta_label": "Shop Now",
+        "cta_url": ""
       }
     },
     "instagram": {
       "type": "instagram-slider",
       "settings": {
         "eyebrow": "As Seen & Loved",
+        "handle": "",
+        "profile_url": "",
         "cta_label": "Follow on Instagram",
         "fallback_collection": "premium-collection"
       }
@@ -348,12 +325,13 @@
     "effortless_elegance": {
       "type": "edit-with-video",
       "settings": {
+        "collection": "everyday-elegance",
         "eyebrow": "The Edit",
         "heading": "Effortless Elegance",
         "lede": "Perfect for women who love Indian silhouettes, celebrity inspired ethnic styling, statement silver and looks that feel graceful but not predictable.",
         "cta_label": "Shop The Edit",
         "count": 4,
-        "collection": "everyday-elegance"
+        "video_url": ""
       }
     },
     "testimonials": {
@@ -467,29 +445,14 @@
         "eyebrow": "Good To Know",
         "heading": "Frequently Asked"
       }
-    },
-    "promo_banner": {
-      "type": "banner",
-      "settings": {
-        "eyebrow": "Handcrafted in Jaipur",
-        "heading": "The Festive Edit",
-        "text": "925 sterling silver, set with natural stones and finished by hand — ready for the season's gifting.",
-        "align": "center",
-        "overlay": 40,
-        "height": 420,
-        "height_mobile": 320,
-        "full_width": false,
-        "cta_label": "Shop The Edit",
-        "link_whole_banner": false
-      }
     }
   },
   "order": [
     "hero",
     "assurance",
     "fresh_edit",
-    "promo_banner",
     "royal_simplicity",
+    "banner_Q6YcY4",
     "best_sellers",
     "archive_treasure",
     "circle_picks",
