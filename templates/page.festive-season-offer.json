@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -6,6 +15,7 @@
         "align": "right",
         "show_breadcrumb": true,
         "breadcrumb_mid": "Offer",
+        "breadcrumb_url": "",
         "breadcrumb_current": "The Ganpati Collection",
         "badge_glyph": "✦",
         "badge_label": "Divine Auspicious Collection",
@@ -19,10 +29,13 @@
         "text": "Handcrafted in pure 925 Hallmarked Sterling Silver. Forged in ancient karigari traditions for Vinayaka Sthapana & auspicious home sanctification.",
         "collection": "ganpati-collection",
         "cta_label": "Explore The Collection",
+        "cta_url": "",
         "cta2_label": "Bespoke Hamper",
+        "cta2_url": "",
         "validity_glyph": "⏳",
         "validity_text": "Offer valid till 25th Sept (Ganpati Visarjan)",
         "bg_color": "#241a10",
+        "bg_image": "shopify://shop_images/sterling-silver-amethyst-oval-shaped-drop-designer-earring.png",
         "image_asset": "heritage-mandala-dark.jpg",
         "overlay": 55
       }
@@ -30,13 +43,50 @@
     "trust": {
       "type": "icon-features",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "icon": "certificate", "title": "100% 925 BIS Hallmarked", "body": "Assayed purity with digital QR certificate" } },
-        "f2": { "type": "feature", "settings": { "icon": "temple", "title": "Pran Pratishtha Ready", "body": "Consecrated unboxing with sacred roli & chandan" } },
-        "f3": { "type": "feature", "settings": { "icon": "truck", "title": "Insured Express Delivery", "body": "Guaranteed arrival before Ganesh Sthapana" } },
-        "f4": { "type": "feature", "settings": { "icon": "refresh", "title": "Lifetime Silver Card", "body": "Assured net weight exchange across Silver Play" } }
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "certificate",
+            "title": "100% 925 BIS Hallmarked",
+            "body": "Assayed purity with digital QR certificate"
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "temple",
+            "title": "Pran Pratishtha Ready",
+            "body": "Consecrated unboxing with sacred roli & chandan"
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Insured Express Delivery",
+            "body": "Guaranteed arrival before Ganesh Sthapana"
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "icon": "refresh",
+            "title": "Lifetime Silver Card",
+            "body": "Assured net weight exchange across Silver Play"
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3", "f4"],
-      "settings": { "bg_color": "#f2e8d0" }
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "bg_color": "#f2e8d0"
+      }
     },
     "products": {
       "type": "featured-collection",
@@ -51,7 +101,9 @@
         "card_style": "gilt",
         "color_scheme": "dark",
         "bg_color": "#241a10",
-        "cta_label": "View All Pieces"
+        "wash": "rgba(58,43,28,0.62)",
+        "cta_label": "View All Pieces",
+        "cta_url": ""
       }
     },
     "review": {
@@ -69,11 +121,33 @@
     "stats": {
       "type": "stats-band",
       "blocks": {
-        "s1": { "type": "stat", "settings": { "value": "50,000+", "label": "Idols Delivered" } },
-        "s2": { "type": "stat", "settings": { "value": "100%", "label": "BIS Hallmarked" } },
-        "s3": { "type": "stat", "settings": { "value": "4.9/5", "label": "Trust Rating" } }
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "50,000+",
+            "label": "Idols Delivered"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "BIS Hallmarked"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9/5",
+            "label": "Trust Rating"
+          }
+        }
       },
-      "block_order": ["s1", "s2", "s3"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
       "settings": {
         "eyebrow": "Uncompromising Reverence",
         "heading": "Sanctity Sealed in Pure Silver",
@@ -84,18 +158,61 @@
     "faq": {
       "type": "faq",
       "blocks": {
-        "q1": { "type": "faq", "settings": { "question": "How long does delivery take?", "answer": "Orders are dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free. You'll receive a tracking link via WhatsApp/email once your order is shipped." } },
-        "q2": { "type": "faq", "settings": { "question": "Does the free Ganpati coin apply automatically?", "answer": "Yes — the free silver Ganpati coin is added automatically to any order of ₹15,000 or more before checkout. No code needed." } },
-        "q3": { "type": "faq", "settings": { "question": "What is the return policy?", "answer": "Silver Play does not accept returns or exchanges for change of mind. We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered — reported within 24 hours of delivery with photos or an unboxing video." } },
-        "q4": { "type": "faq", "settings": { "question": "How do I care for my silver jewellery?", "answer": "Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions, and water. Wipe gently with a soft cloth after wearing. For deep cleaning, use a mild silver polishing cloth." } },
-        "q5": { "type": "faq", "settings": { "question": "Why is silver called sterling silver?", "answer": "Pure silver is too soft to wear every day, so it is blended with a small amount of another metal — usually copper — for strength. 'Sterling' silver is the standard that is 92.5% pure silver and 7.5% other metals, which is why every piece is stamped '925'." } }
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "Orders are dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free. You'll receive a tracking link via WhatsApp/email once your order is shipped."
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Does the free Ganpati coin apply automatically?",
+            "answer": "Yes — the free silver Ganpati coin is added automatically to any order of ₹15,000 or more before checkout. No code needed."
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the return policy?",
+            "answer": "Silver Play does not accept returns or exchanges for change of mind. We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered — reported within 24 hours of delivery with photos or an unboxing video."
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I care for my silver jewellery?",
+            "answer": "Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions, and water. Wipe gently with a soft cloth after wearing. For deep cleaning, use a mild silver polishing cloth."
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Why is silver called sterling silver?",
+            "answer": "Pure silver is too soft to wear every day, so it is blended with a small amount of another metal — usually copper — for strength. 'Sterling' silver is the standard that is 92.5% pure silver and 7.5% other metals, which is why every piece is stamped '925'."
+          }
+        }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"],
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
       "settings": {
         "eyebrow": "Reassurance & Delivery",
         "heading": "Frequently Asked Questions"
       }
     }
   },
-  "order": ["hero", "trust", "products", "review", "stats", "faq"]
+  "order": [
+    "hero",
+    "trust",
+    "products",
+    "review",
+    "stats",
+    "faq"
+  ]
 }

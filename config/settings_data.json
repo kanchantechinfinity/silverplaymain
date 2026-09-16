@@ -41,7 +41,7 @@
             "type": "menu",
             "settings": {
               "heading": "Explore",
-              "menu": "footer"
+              "menu": "silver-play-menu"
             }
           },
           "col2": {
@@ -104,11 +104,18 @@
           "menu": "silver-play-menu",
           "mega_menu_trigger": "Collections",
           "show_wishlist": true,
+          "offer_url": "",
+          "offer_label": "Offers",
           "wishlist_url": "",
           "mega_eyebrow": "Our Jewellery",
           "mega_view_all": "",
           "mega_view_all_label": "View All Products",
-          "mega_featured": ["earrings", "pendants", "gemstone-jewellery", "festive-wedding-collection"],
+          "mega_featured": [
+            "earrings",
+            "pendants",
+            "gemstone-jewellery",
+            "festive-wedding-collection"
+          ],
           "promo_eyebrow": "Handcrafted in Jaipur",
           "promo_heading": "Discover The Bestsellers",
           "promo_cta_url": "",
