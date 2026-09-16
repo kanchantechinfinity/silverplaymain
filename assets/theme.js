@@ -261,13 +261,23 @@
       }
 
       var manualTimer;
+      function releaseManual() { manual = false; clearTimeout(manualTimer); }
+      if ("onscrollend" in window) {
+        viewport.addEventListener("scrollend", releaseManual);
+      }
       function goTo(i) {
         var idx = clamp(i, 0, last);
         manual = true;
         setActive(idx);
         scrollToIndex(idx, true);
+        /* Belt-and-suspenders release: "scrollend" (above) fires the instant
+           the browser's own smooth-scroll animation actually finishes, so
+           the observer never resumes mid-transition and flips is-active on
+           the wrong card (the "shake"). This timeout is only a fallback for
+           browsers without scrollend, generous enough to outlast any
+           single-step smooth scroll. */
         clearTimeout(manualTimer);
-        manualTimer = setTimeout(function () { manual = false; }, 500);
+        manualTimer = setTimeout(releaseManual, 1000);
       }
       cards.forEach(function (c, i) {
         if (c.hasAttribute("aria-hidden")) return;

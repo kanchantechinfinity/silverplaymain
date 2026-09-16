@@ -8,90 +8,94 @@
 {%- endcomment -%}
 {%- liquid
   assign collection = collections[section.settings.collection]
-  assign img_asset = section.settings.image_asset
-  if section.settings.bg_image != blank
-    assign img_asset = blank
+  assign side_asset = section.settings.side_image_asset
+  if section.settings.side_image != blank
+    assign side_asset = blank
   endif
 -%}
 
-<section class="fhero on-dark" data-page-hero style="background: {{ section.settings.bg_color }}; --fhero-overlay: {{ section.settings.overlay | divided_by: 100.0 }}">
-  {%- if section.settings.bg_image != blank -%}
-    <div class="fhero__media" aria-hidden="true">
-      <img src="{{ section.settings.bg_image | image_url: width: 2400 }}" alt="" width="2400" height="1400" fetchpriority="high">
+<section class="fhero on-dark" data-page-hero style="background: {{ section.settings.bg_color }}">
+  <div class="wrap wrap--tight fhero__grid">
+    <div class="fhero__body fhero__body--{{ section.settings.align }}">
+      {%- if section.settings.show_breadcrumb -%}
+        <nav aria-label="Breadcrumb" class="breadcrumb" data-reveal>
+          <a href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t | default: 'Home' }}</a>
+          <span>/</span>
+          <a href="{{ section.settings.breadcrumb_url | default: routes.all_products_collection_url }}">{{ section.settings.breadcrumb_mid | default: 'Offer' }}</a>
+          {%- if section.settings.breadcrumb_current != blank -%}
+            <span>/</span><span style="color:var(--sp-bone)">{{ section.settings.breadcrumb_current }}</span>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="fhero__title" data-split data-reveal="none">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.badge_label != blank or section.settings.show_offer -%}
+        <div class="fhero__badges" data-reveal data-delay="0.06">
+          {%- if section.settings.badge_label != blank -%}
+            <p class="fhero__pill">
+              {%- if section.settings.badge_glyph != blank -%}<span aria-hidden="true">{{ section.settings.badge_glyph }}</span>{%- endif -%}
+              {{ section.settings.badge_label }}
+            </p>
+          {%- endif -%}
+          {%- if section.settings.show_offer and section.settings.offer_text != blank -%}
+            <p class="fhero__offer">
+              {%- if section.settings.offer_glyph != blank -%}<span aria-hidden="true">{{ section.settings.offer_glyph }}</span>{%- endif -%}
+              {{ section.settings.offer_text }}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="fhero__sub" data-reveal data-delay="0.1">
+          {%- if section.settings.subheading_dash -%}&mdash; {%- endif -%}{{ section.settings.subheading }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.show_divider -%}
+        <svg class="fhero__divider" width="120" height="20" viewBox="0 0 120 20" fill="none" aria-hidden="true" data-reveal data-delay="0.14">
+          <path d="M0 10c20 10 40-10 60 0s40 10 60 0" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="60" cy="10" r="3" fill="currentColor"/>
+        </svg>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="fhero__text" data-reveal data-delay="0.18">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank or section.settings.cta2_label != blank -%}
+        <div class="fhero__ctas" data-reveal data-delay="0.22">
+          {%- if section.settings.cta_label != blank -%}
+            <a href="{{ section.settings.cta_url | default: collection.url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg">
+              {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.cta2_label != blank -%}
+            <a href="{{ section.settings.cta2_url | default: routes.root_url }}" class="btn btn--outline-bone btn--lg">
+              {{ section.settings.cta2_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.validity_text != blank -%}
+        <p class="fhero__validity" data-reveal data-delay="0.28">
+          {%- if section.settings.validity_glyph != blank -%}<span aria-hidden="true">{{ section.settings.validity_glyph }}</span>{%- endif -%}
+          {{ section.settings.validity_text }}
+        </p>
+      {%- endif -%}
     </div>
-  {%- elsif img_asset != blank -%}
-    <div class="fhero__media" aria-hidden="true">
-      <img src="{{ img_asset | asset_url }}" alt="" width="1536" height="1024" fetchpriority="high">
+
+    <div class="fhero__side" data-reveal data-delay="0.1">
+      {%- if section.settings.side_image != blank -%}
+        <img src="{{ section.settings.side_image | image_url: width: 900 }}" alt="" width="900" height="1125" loading="lazy" decoding="async">
+      {%- elsif side_asset != blank -%}
+        <img src="{{ side_asset | asset_url }}" alt="" width="900" height="1125" loading="lazy" decoding="async">
+      {%- endif -%}
     </div>
-  {%- endif -%}
-
-  <div class="wrap wrap--tight fhero__body fhero__body--{{ section.settings.align }}">
-    {%- if section.settings.show_breadcrumb -%}
-      <nav aria-label="Breadcrumb" class="breadcrumb" data-reveal>
-        <a href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t | default: 'Home' }}</a>
-        <span>/</span>
-        <a href="{{ section.settings.breadcrumb_url | default: routes.all_products_collection_url }}">{{ section.settings.breadcrumb_mid | default: 'Offer' }}</a>
-        {%- if section.settings.breadcrumb_current != blank -%}
-          <span>/</span><span style="color:var(--sp-bone)">{{ section.settings.breadcrumb_current }}</span>
-        {%- endif -%}
-      </nav>
-    {%- endif -%}
-
-    {%- if section.settings.badge_label != blank -%}
-      <p class="fhero__pill" data-reveal>
-        {%- if section.settings.badge_glyph != blank -%}<span aria-hidden="true">{{ section.settings.badge_glyph }}</span>{%- endif -%}
-        {{ section.settings.badge_label }}
-      </p>
-    {%- endif -%}
-
-    {%- if section.settings.show_offer and section.settings.offer_text != blank -%}
-      <p class="fhero__offer" data-reveal data-delay="0.06">
-        {%- if section.settings.offer_glyph != blank -%}<span aria-hidden="true">{{ section.settings.offer_glyph }}</span>{%- endif -%}
-        {{ section.settings.offer_text }}
-      </p>
-    {%- endif -%}
-
-    {%- if section.settings.heading != blank -%}
-      <h1 class="fhero__title" data-split data-reveal="none">{{ section.settings.heading }}</h1>
-    {%- endif -%}
-    {%- if section.settings.subheading != blank -%}
-      <p class="fhero__sub" data-reveal data-delay="0.1">
-        {%- if section.settings.subheading_dash -%}&mdash; {%- endif -%}{{ section.settings.subheading }}
-      </p>
-    {%- endif -%}
-
-    {%- if section.settings.show_divider -%}
-      <svg class="fhero__divider" width="120" height="20" viewBox="0 0 120 20" fill="none" aria-hidden="true" data-reveal data-delay="0.14">
-        <path d="M0 10c20 10 40-10 60 0s40 10 60 0" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-        <circle cx="60" cy="10" r="3" fill="currentColor"/>
-      </svg>
-    {%- endif -%}
-
-    {%- if section.settings.text != blank -%}
-      <p class="fhero__text" data-reveal data-delay="0.18">{{ section.settings.text }}</p>
-    {%- endif -%}
-
-    {%- if section.settings.cta_label != blank or section.settings.cta2_label != blank -%}
-      <div class="fhero__ctas" data-reveal data-delay="0.22">
-        {%- if section.settings.cta_label != blank -%}
-          <a href="{{ section.settings.cta_url | default: collection.url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg">
-            {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
-          </a>
-        {%- endif -%}
-        {%- if section.settings.cta2_label != blank -%}
-          <a href="{{ section.settings.cta2_url | default: routes.root_url }}" class="btn btn--outline-bone btn--lg">
-            {{ section.settings.cta2_label }}
-          </a>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    {%- if section.settings.validity_text != blank -%}
-      <p class="fhero__validity" data-reveal data-delay="0.28">
-        {%- if section.settings.validity_glyph != blank -%}<span aria-hidden="true">{{ section.settings.validity_glyph }}</span>{%- endif -%}
-        {{ section.settings.validity_text }}
-      </p>
-    {%- endif -%}
   </div>
 </section>
 
@@ -133,11 +137,10 @@
     { "type": "text", "id": "validity_glyph", "label": "Validity glyph", "default": "⏳" },
     { "type": "text", "id": "validity_text", "label": "Validity text", "default": "Offer valid till 25th Sept (Ganpati Visarjan)" },
 
-    { "type": "header", "content": "Background" },
+    { "type": "header", "content": "Background & side image" },
     { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#241a10" },
-    { "type": "image_picker", "id": "bg_image", "label": "Background photo (overrides asset below)" },
-    { "type": "text", "id": "image_asset", "label": "Theme asset filename (used when no photo is picked above)", "default": "heritage-mandala-dark.jpg" },
-    { "type": "range", "id": "overlay", "min": 0, "max": 85, "step": 5, "unit": "%", "label": "Photo darkening", "default": 55 }
+    { "type": "image_picker", "id": "side_image", "label": "Side image (overrides asset below)" },
+    { "type": "text", "id": "side_image_asset", "label": "Theme asset filename (used when no photo is picked above)", "default": "meganav-rakhi.jpg" }
   ],
   "presets": [{ "name": "Festive hero" }]
 }

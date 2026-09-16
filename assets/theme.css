@@ -1315,10 +1315,12 @@ input, textarea, select { font: inherit; color: inherit; }
 .on-dark .breadcrumb a:hover { color: var(--sp-bone); }
 
 .fhero { position: relative; padding-block: 6rem 4.5rem; overflow: hidden; background: var(--sp-ink); }
-.fhero__media { position: absolute; inset: 0; z-index: 0; }
-.fhero__media img { height: 100%; width: 100%; object-fit: cover; }
-.fhero__media::after { content: ""; position: absolute; inset: 0; background: rgba(36,26,16,var(--fhero-overlay, .55)); }
+.fhero__grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
+@media (min-width: 900px) { .fhero__grid { grid-template-columns: 1.1fr 1fr; gap: 3.5rem; } }
 .fhero__body { position: relative; z-index: 1; }
+.fhero__side { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; background: var(--sp-ink-2); }
+.fhero__side img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
+.fhero__badges { margin-top: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .fhero__pill, .fhero__offer {
   display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px;
   font-family: var(--font-display); text-transform: uppercase; letter-spacing: .14em;
@@ -1327,7 +1329,7 @@ input, textarea, select { font: inherit; color: inherit; }
   border: 1px solid rgba(242,232,208,.3); padding: .55rem 1.1rem; font-size: .68rem; color: var(--sp-bone-2);
 }
 .fhero__offer {
-  margin-top: .9rem; background: var(--sp-gold); color: var(--sp-ink); padding: .65rem 1.35rem; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: none;
+  background: var(--sp-gold); color: var(--sp-ink); padding: .65rem 1.35rem; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: none;
 }
 .fhero__title { margin-top: 1.5rem; font-size: clamp(2.4rem, 6.5vw, 4.4rem); line-height: 1.05; color: var(--sp-bone); }
 .fhero__sub {
