@@ -440,12 +440,12 @@ input, textarea, select { font: inherit; color: inherit; }
   .cart-drawer__panel, .search-drawer__panel { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
   /* the icon cluster moved to .mbar, so the top bar is just logo + menu toggle */
   .header__actions { display: none; }
-  .header__bar { justify-content: space-between; gap: 1rem; }
+  .header__bar { justify-content: space-between !important; gap: 1rem; }
   /* base rule centres the logo absolutely; take it back into flex flow so it
      can sit left and `order` actually applies */
-  .header__logo { position: static; left: auto; top: auto; transform: none;
-                  order: 1; margin-right: auto; flex: none; }
-  .header__burger { order: 2; }
+  .header__logo { position: static !important; left: auto !important; top: auto !important; transform: none !important;
+                  order: 1 !important; margin-right: auto !important; flex: none !important; }
+  .header__burger { order: 2 !important; }
 }
 
 /* Mobile drawer nav */
@@ -1115,9 +1115,11 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 768px) { .shop__layout { grid-template-columns: 220px 1fr; } }
 @media (min-width: 1024px) { .shop__layout { grid-template-columns: 260px 1fr; gap: 3.5rem; } }
 .shop__mobile-toggle {
+  position: sticky; top: 4.5rem; z-index: 10;
   display: flex; align-items: center; justify-content: space-between; border-radius: 999px;
   border: 1px solid rgba(138,106,46,.5); background: var(--sp-ink); padding: .75rem 1.25rem;
   font-family: var(--font-display); font-size: .68rem; text-transform: uppercase; letter-spacing: .2em; color: var(--sp-bone);
+  box-shadow: 0 10px 30px -12px rgba(26,22,20,.4);
 }
 @media (max-width: 479px) { .shop__mobile-toggle { padding: .6rem 1rem; font-size: .6rem; letter-spacing: .14em; } }
 @media (min-width: 768px) { .shop__mobile-toggle { display: none; } }
