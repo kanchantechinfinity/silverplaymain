@@ -141,6 +141,24 @@
         "cta_label": "Shop The Edit"
       }
     },
+    "banner_Q6YcY4": {
+      "type": "banner",
+      "name": "Banner",
+      "settings": {
+        "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
+        "height": 480,
+        "height_mobile": 320,
+        "full_width": false,
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
+        "align": "center",
+        "overlay": 35,
+        "cta_label": "",
+        "cta_url": "",
+        "link_whole_banner": false
+      }
+    },
     "best_sellers": {
       "type": "featured-collection",
       "settings": {
@@ -434,6 +452,7 @@
     "assurance",
     "fresh_edit",
     "royal_simplicity",
+    "banner_Q6YcY4",
     "best_sellers",
     "archive_treasure",
     "circle_picks",
