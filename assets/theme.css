@@ -530,7 +530,8 @@ input, textarea, select { font: inherit; color: inherit; }
    plain photo slide never gets an unwanted empty bar. */
 .cinehero__slide--contain .cinehero__video { object-fit: contain; object-position: 50% 50%; }
 .cinehero__backdrop {
-  position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover;
+  position: absolute; inset: 0; height: 100%; width: 100%;
+  background-size: cover; background-position: center;
   filter: blur(40px) brightness(.55) saturate(1.15); transform: scale(1.15);
 }
 .cinehero__dots { position: absolute; z-index: 20; left: 50%; bottom: 1.75rem; transform: translateX(-50%); display: flex; gap: .5rem; }
