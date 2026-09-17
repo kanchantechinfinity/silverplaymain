@@ -28,7 +28,7 @@
         "slide_Mt8Ybe": {
           "type": "slide",
           "settings": {
-            "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
+            "image_desktop": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM.jpg",
             "image_mobile": "shopify://shop_images/ac0e9f1e-e079-497f-93ba-027488bd2243_430x_90373068-45e8-472a-8e07-e6c36ebd7af1.webp",
             "link_url": "shopify://pages/festive-season-offer",
             "devanagari": "",
@@ -230,7 +230,9 @@
         "eyebrow": "The Edit",
         "heading": "Her Royal Simplicity",
         "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
-        "cta_label": "Shop The Edit"
+        "cta_label": "Shop The Edit",
+        "bg_color": "#241a10",
+        "wash": "rgba(36,26,16,0.72)"
       }
     },
     "banner_Q6YcY4": {
@@ -285,7 +287,7 @@
         "h2": {
           "type": "tile",
           "settings": {
-            "collection": "karigari",
+            "collection": "drop-earrings",
             "title": "Craftsmanship",
             "devanagari": "कारीगरी"
           }
@@ -293,7 +295,7 @@
         "h3": {
           "type": "tile",
           "settings": {
-            "collection": "ratna-virasat",
+            "collection": "designer-collection",
             "title": "Gemstone Heritage",
             "devanagari": "रत्न विरासत"
           }
@@ -301,7 +303,7 @@
         "h4": {
           "type": "tile",
           "settings": {
-            "collection": "nazakat",
+            "collection": "earrings",
             "title": "Elegance",
             "devanagari": "नज़ाकत"
           }
@@ -309,7 +311,7 @@
         "h5": {
           "type": "tile",
           "settings": {
-            "collection": "shahi",
+            "collection": "classic-collection",
             "title": "Regal",
             "devanagari": "शाही"
           }
@@ -443,6 +445,7 @@
       "type": "journal-arc",
       "settings": {
         "blog": "journal",
+        "featured_article": "",
         "article_count": 6,
         "eyebrow": "From The Journal",
         "heading": "Stories, Worn as Silver",
