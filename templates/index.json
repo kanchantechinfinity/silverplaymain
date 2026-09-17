@@ -314,6 +314,15 @@
         "fallback_collection": "premium-collection"
       }
     },
+    "reels": {
+      "type": "product-reels",
+      "settings": {
+        "eyebrow": "In The Wild",
+        "heading": "Loved By Creators",
+        "lede": "Real Silver Play pieces, styled by the people who wear them.",
+        "collection": "premium-collection"
+      }
+    },
     "founder": {
       "type": "founder",
       "settings": {
@@ -453,6 +462,7 @@
     "hero",
     "assurance",
     "fresh_edit",
+    "testimonials",
     "royal_simplicity",
     "banner_Q6YcY4",
     "best_sellers",
@@ -460,9 +470,9 @@
     "circle_picks",
     "shop_by_occasion",
     "instagram",
+    "reels",
     "founder",
     "effortless_elegance",
-    "testimonials",
     "journal_arc",
     "faq"
   ]

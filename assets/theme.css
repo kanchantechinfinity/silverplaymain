@@ -508,6 +508,16 @@ input, textarea, select { font: inherit; color: inherit; }
 .cinehero__sub { margin-top: .5rem; font-family: var(--font-body); font-size: 1.65rem; font-weight: 600; font-style: italic; line-height: 1.35; color: var(--sp-bone); text-shadow: 0 2px 14px rgba(0,0,0,.5); }
 .cinehero__cta { margin-top: 2.5rem; }
 
+/* Multi-banner slider (only rendered when the section has slide blocks) */
+.cinehero__slides { position: absolute; inset: 0; }
+.cinehero__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
+.cinehero__slide.is-active { opacity: 1; z-index: 1; }
+.cinehero__dots { position: absolute; z-index: 20; left: 50%; bottom: 1.75rem; transform: translateX(-50%); display: flex; gap: .5rem; }
+@media (min-width: 640px) { .cinehero__dots { left: auto; right: 2.5rem; transform: none; bottom: 2rem; } }
+.cinehero__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.4); border: none; padding: 0; transition: background-color .3s, width .3s; }
+.cinehero__dot:hover { background: rgba(242,232,208,.7); }
+.cinehero__dot.is-active { width: 20px; background: var(--sp-bone); }
+
 /* --- Page hero (interior) ----------------------------------------------- */
 .pagehero {
   position: relative; display: flex; align-items: flex-end; overflow: hidden;
@@ -712,7 +722,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .deck__card {
   position: relative; flex: none; width: clamp(260px, 22vw, 440px); height: clamp(320px, 50vh, 540px);
   overflow: hidden; border-radius: var(--radius-xl); background: var(--sp-ink-2);
-  box-shadow: 0 0 0 2px transparent; transform: scale(.84); opacity: .42;
+  /* A visible (not transparent) ring at all times, so a card's edge reads
+     clearly against the busy mandala-line background instead of the two
+     seeming to merge into each other. */
+  box-shadow: 0 12px 30px -14px rgba(0,0,0,.6), 0 0 0 1px rgba(242,232,208,.16);
+  transform: scale(.84); opacity: .58;
   transition: transform .8s var(--ease-silk), opacity .25s, box-shadow .25s;
   cursor: pointer;
 }
@@ -822,16 +836,23 @@ input, textarea, select { font: inherit; color: inherit; }
 .kavach__wash { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to right, var(--sp-ink), rgba(36,26,16,.85) 50%, rgba(36,26,16,.55)); }
 .kavach__text { flex: none; text-align: center; }
 @media (min-width: 768px) { .kavach__text { text-align: left; } }
-.kavach__rail {
-  display: flex; gap: 2.5rem; width: max-content;
-  animation: sp-marquee var(--kavach-duration, 32s) linear infinite;
+.kavach__rail { display: flex; gap: 1.25rem; }
+@media (min-width: 1024px) { .kavach__rail { gap: 1.5rem; } }
+.kavach__right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.kavach__viewport { width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.kavach__viewport::-webkit-scrollbar { display: none; }
+/* Exactly five picks fit the viewport at any width — sized as a fifth of
+   it (minus its share of the gaps) rather than a fixed rem width, so
+   none is ever partially cropped at the edge. */
+.kavach__pick {
+  display: flex; flex: 0 0 calc((100% - 4 * 1.25rem) / 5); min-width: 0;
+  flex-direction: column; align-items: center; gap: .75rem; text-align: center;
 }
-@media (min-width: 1024px) { .kavach__rail { gap: 3rem; } }
-.kavach__viewport { width: 100%; flex: 1; overflow: hidden; }
-.kavach__viewport:hover .kavach__rail { animation-play-state: paused; }
-.kavach__pick { display: flex; width: 7rem; flex: none; flex-direction: column; align-items: center; gap: .75rem; text-align: center; }
-@media (min-width: 768px) { .kavach__pick { width: 8rem; } }
-@media (min-width: 1024px) { .kavach__pick { width: 9rem; } }
+@media (min-width: 1024px) { .kavach__pick { flex-basis: calc((100% - 4 * 1.5rem) / 5); } }
+.kavach__dots { margin-top: 1.5rem; display: flex; justify-content: center; gap: .5rem; }
+.kavach__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.3); transition: background-color .3s, width .3s; padding: 0; border: none; }
+.kavach__dot:hover { background: rgba(242,232,208,.55); }
+.kavach__dot.is-active { width: 18px; background: var(--sp-gold); }
 .kavach__circle {
   position: relative; display: block; aspect-ratio: 1; width: 100%; overflow: hidden;
   border-radius: 999px; box-shadow: 0 0 0 2px rgba(138,106,46,.55); transition: box-shadow .5s;
@@ -873,7 +894,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .founder__photo { aspect-ratio: auto; height: auto; width: 100%; }
   .founder__text { flex: 1; }
 }
-.founder__photo img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 18%; }
+.founder__photo img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 24%; }
 .founder__text { border-top: 1px solid rgba(242,232,208,.15); padding-top: 2rem; }
 @media (min-width: 768px) { .founder__text { border-top: 0; border-left: 1px solid rgba(242,232,208,.15); padding: 0 0 0 4rem; } }
 .founder__name { font-family: var(--font-display); font-size: 1.1rem; color: var(--sp-gold); }

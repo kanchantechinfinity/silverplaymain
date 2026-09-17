@@ -85,6 +85,41 @@
     });
   }
 
+  /* ---------------------------------------------------- cinehero slider */
+  function initCineheroSlider() {
+    $$("[data-cinehero-slider]").forEach(function (root) {
+      var slides = $$("[data-cinehero-slide]", root);
+      if (slides.length < 2) return;
+      var dotsWrap = $("[data-cinehero-dots]", root);
+      var active = 0, timer;
+
+      function setActive(i) {
+        active = (i + slides.length) % slides.length;
+        slides.forEach(function (s, j) { s.classList.toggle("is-active", j === active); });
+        if (dots.length) dots.forEach(function (d, j) { d.classList.toggle("is-active", j === active); });
+      }
+      function next() { setActive(active + 1); }
+      function restart() {
+        clearInterval(timer);
+        if (!reduced) timer = setInterval(next, 6000);
+      }
+
+      var dots = [];
+      if (dotsWrap) {
+        slides.forEach(function (_, i) {
+          var dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "cinehero__dot" + (i === 0 ? " is-active" : "");
+          dot.setAttribute("aria-label", "Show slide " + (i + 1));
+          dot.addEventListener("click", function () { setActive(i); restart(); });
+          dotsWrap.appendChild(dot);
+          dots.push(dot);
+        });
+      }
+      restart();
+    });
+  }
+
   /* ------------------------------------------------------------- header */
   function initHeader() {
     var header = $("[data-header]");
@@ -398,6 +433,47 @@
         vp.scrollLeft = startScroll - dx;
       });
       rail.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    });
+  }
+
+  /* ---------------------------------------------------------- kavach */
+  function initKavach() {
+    $$("[data-kavach]").forEach(function (root) {
+      var viewport = $("[data-kavach-viewport]", root);
+      var rail = $("[data-kavach-rail]", root);
+      var dotsWrap = $("[data-kavach-dots]", root);
+      var picks = $$(".kavach__pick", rail);
+      if (!picks.length) return;
+      var pageSize = 5;
+      var pages = Math.ceil(picks.length / pageSize);
+      if (pages < 2) return;
+
+      var dots = [];
+      for (var i = 0; i < pages; i++) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "kavach__dot" + (i === 0 ? " is-active" : "");
+        var from = i * pageSize + 1, to = Math.min((i + 1) * pageSize, picks.length);
+        dot.setAttribute("aria-label", "Show picks " + from + " to " + to);
+        (function (idx) { dot.addEventListener("click", function () { goTo(idx, true); }); })(i);
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      }
+      function setActive(i) {
+        dots.forEach(function (d, j) { d.classList.toggle("is-active", j === i); });
+      }
+      function goTo(i, smooth) {
+        viewport.scrollTo({ left: i * viewport.clientWidth, behavior: smooth && !reduced ? "smooth" : "auto" });
+        setActive(i);
+      }
+      var scrollTimer;
+      viewport.addEventListener("scroll", function () {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function () {
+          var page = clamp(Math.round(viewport.scrollLeft / viewport.clientWidth), 0, pages - 1);
+          setActive(page);
+        }, 120);
+      }, { passive: true });
     });
   }
 
@@ -1003,6 +1079,7 @@
     initSplit();
     initReveal();
     initHeader();
+    initCineheroSlider();
     initMarquee();
     initTabs();
     initCineHero();
@@ -1011,6 +1088,7 @@
     initArc();
     initDisclosures();
     initDragRails();
+    initKavach();
     initElegance();
     initStones();
     initGallery();
