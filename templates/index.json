@@ -230,7 +230,8 @@
         "eyebrow": "The Edit",
         "heading": "Her Royal Simplicity",
         "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
-        "cta_label": "Shop The Edit"
+        "cta_label": "Shop The Edit",
+        "bg_color": "#241a10"
       }
     },
     "banner_Q6YcY4": {
@@ -285,7 +286,7 @@
         "h2": {
           "type": "tile",
           "settings": {
-            "collection": "karigari",
+            "collection": "drop-earrings",
             "title": "Craftsmanship",
             "devanagari": "कारीगरी"
           }
@@ -293,7 +294,7 @@
         "h3": {
           "type": "tile",
           "settings": {
-            "collection": "ratna-virasat",
+            "collection": "designer-collection",
             "title": "Gemstone Heritage",
             "devanagari": "रत्न विरासत"
           }
@@ -301,7 +302,7 @@
         "h4": {
           "type": "tile",
           "settings": {
-            "collection": "nazakat",
+            "collection": "earrings",
             "title": "Elegance",
             "devanagari": "नज़ाकत"
           }
@@ -309,7 +310,7 @@
         "h5": {
           "type": "tile",
           "settings": {
-            "collection": "shahi",
+            "collection": "classic-collection",
             "title": "Regal",
             "devanagari": "शाही"
           }
