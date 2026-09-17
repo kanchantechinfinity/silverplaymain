@@ -517,6 +517,12 @@ input, textarea, select { font: inherit; color: inherit; }
 .cinehero__slides { position: absolute; inset: 0; }
 .cinehero__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
 .cinehero__slide.is-active { opacity: 1; z-index: 1; }
+/* Slide banners usually have text baked into the image itself (offers,
+   headlines) right up to the edges — object-fit:cover would crop that
+   off-screen on viewports whose aspect ratio doesn't match the image's.
+   Show the whole banner instead, letterboxed on --sp-ink if needed, so
+   nothing is ever cut off on any screen size. */
+.cinehero__slide .cinehero__video { object-fit: contain; object-position: 50% 50%; }
 .cinehero__dots { position: absolute; z-index: 20; left: 50%; bottom: 1.75rem; transform: translateX(-50%); display: flex; gap: .5rem; }
 @media (min-width: 640px) { .cinehero__dots { left: auto; right: 2.5rem; transform: none; bottom: 2rem; } }
 .cinehero__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.4); border: none; padding: 0; transition: background-color .3s, width .3s; }
