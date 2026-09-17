@@ -132,6 +132,65 @@
         "cta_url": ""
       }
     },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "n1": {
+          "type": "note",
+          "settings": {
+            "quote": "Handcrafted sterling silver jewellery, forged for the woman who wears her story.",
+            "attribution": "Silver Play"
+          }
+        },
+        "n2": {
+          "type": "note",
+          "settings": {
+            "quote": "Every piece is made with a belief that you deserve beautiful things around you.",
+            "attribution": "Dalljiet Kaur, Founder"
+          }
+        },
+        "n3": {
+          "type": "note",
+          "settings": {
+            "quote": "A single pendant can pass through five pairs of hands before it reaches yours.",
+            "attribution": "Inside the Jaipur Atelier"
+          }
+        },
+        "n4": {
+          "type": "note",
+          "settings": {
+            "quote": "Jewellery can be more than beautiful — it can be intentional.",
+            "attribution": "How to Wear Meaning"
+          }
+        },
+        "n5": {
+          "type": "note",
+          "settings": {
+            "quote": "With proper care, your Silver Play pieces will last a lifetime.",
+            "attribution": "Jewellery Care"
+          }
+        },
+        "n6": {
+          "type": "note",
+          "settings": {
+            "quote": "Handcrafted sterling silver jewellery, forged in the ancient tradition.",
+            "attribution": "Silver Play"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4",
+        "n5",
+        "n6"
+      ],
+      "settings": {
+        "eyebrow": "In Her Own Words",
+        "heading": "Words from Our Customers"
+      }
+    },
     "royal_simplicity": {
       "type": "scroll-deck",
       "settings": {
@@ -164,7 +223,7 @@
     "best_sellers": {
       "type": "featured-collection",
       "settings": {
-        "collection": "premium-collection",
+        "collection": "best-seller",
         "eyebrow": "As Seen & Loved",
         "heading": "Best Sellers",
         "lede": "The pieces Silver Play wearers keep coming back for — proven favourites, worn on repeat.",
@@ -343,65 +402,6 @@
         "cta_label": "Shop The Edit",
         "count": 4,
         "video_url": ""
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "blocks": {
-        "n1": {
-          "type": "note",
-          "settings": {
-            "quote": "Handcrafted sterling silver jewellery, forged for the woman who wears her story.",
-            "attribution": "Silver Play"
-          }
-        },
-        "n2": {
-          "type": "note",
-          "settings": {
-            "quote": "Every piece is made with a belief that you deserve beautiful things around you.",
-            "attribution": "Dalljiet Kaur, Founder"
-          }
-        },
-        "n3": {
-          "type": "note",
-          "settings": {
-            "quote": "A single pendant can pass through five pairs of hands before it reaches yours.",
-            "attribution": "Inside the Jaipur Atelier"
-          }
-        },
-        "n4": {
-          "type": "note",
-          "settings": {
-            "quote": "Jewellery can be more than beautiful — it can be intentional.",
-            "attribution": "How to Wear Meaning"
-          }
-        },
-        "n5": {
-          "type": "note",
-          "settings": {
-            "quote": "With proper care, your Silver Play pieces will last a lifetime.",
-            "attribution": "Jewellery Care"
-          }
-        },
-        "n6": {
-          "type": "note",
-          "settings": {
-            "quote": "Handcrafted sterling silver jewellery, forged in the ancient tradition.",
-            "attribution": "Silver Play"
-          }
-        }
-      },
-      "block_order": [
-        "n1",
-        "n2",
-        "n3",
-        "n4",
-        "n5",
-        "n6"
-      ],
-      "settings": {
-        "eyebrow": "In Her Own Words",
-        "heading": "Words from Our Customers"
       }
     },
     "journal_arc": {
