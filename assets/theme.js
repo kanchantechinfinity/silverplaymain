@@ -172,6 +172,15 @@
         closeAllPanels(item);
         item.classList.toggle("is-open", willOpen);
       });
+      /* A click only opens it — the mouse is already over the item at that
+         point, so :hover is showing it too. Once the cursor actually leaves
+         the item (trigger AND panel, since the panel is nested inside it in
+         the DOM, hovering it doesn't count as "leaving"), drop the sticky
+         class so it closes immediately instead of staying open until an
+         unrelated click elsewhere on the page. */
+      item.addEventListener("mouseleave", function () {
+        item.classList.remove("is-open");
+      });
     });
     document.addEventListener("click", function (e) {
       panelItems.forEach(function (item) {
