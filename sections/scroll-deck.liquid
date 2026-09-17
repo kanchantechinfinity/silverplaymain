@@ -11,11 +11,11 @@
 <section class="deck" data-deck
          aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
   <div class="deck__stage on-dark" style="background: {{ section.settings.bg_color | default: '#241a10' }}">
-    {%- if section.settings.bg_image != blank -%}
-      <img class="deck__bg" src="{{ section.settings.bg_image | image_url: width: 2000 }}" alt="" loading="lazy" decoding="async" width="2000" height="1200">
-    {%- else -%}
-      <img class="deck__bg" src="{{ 'deck-mandala-peacock.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1536" height="1024">
-    {%- endif -%}
+    {% render 'heritage-bg',
+      image: section.settings.bg_image,
+      fallback: 'deck-mandala-peacock.jpg',
+      wash: section.settings.wash %}
+
     <div class="deck__head">
       {% render 'heading',
         eyebrow: section.settings.eyebrow,
@@ -86,7 +86,8 @@
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful." },
     { "type": "text", "id": "cta_label", "label": "Link label", "default": "Shop The Edit" },
     { "type": "color", "id": "bg_color", "label": "Background color", "default": "#241a10" },
-    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" },
+    { "type": "color_background", "id": "wash", "label": "Background wash", "default": "rgba(36,26,16,0.72)" }
   ],
   "presets": [{ "name": "Scroll deck edit" }]
 }
