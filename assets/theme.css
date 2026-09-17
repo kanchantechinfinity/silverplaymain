@@ -742,7 +742,11 @@ input, textarea, select { font: inherit; color: inherit; }
 /* --- Royal Simplicity (sticky scroll deck) ------------------------------ */
 .deck { position: relative; background: var(--sp-ink); }
 .deck__stage { position: relative; display: flex; flex-direction: column; padding-block: 4rem; isolation: isolate; }
-.deck__bg { position: absolute; inset: 0; z-index: -1; object-fit: cover; width: 100%; height: 100%; pointer-events: none; }
+/* Already z-index:-1 (behind everything) -- toned down here because the
+   corner mandala flourish reads too crisp/bright against the dark wash,
+   especially near the top where the transparent header sits over it,
+   making it compete with the heading instead of receding as a backdrop. */
+.deck__bg { position: absolute; inset: 0; z-index: -1; object-fit: cover; width: 100%; height: 100%; pointer-events: none; opacity: .55; }
 .deck__bg-wash { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .deck__head { margin-inline: auto; width: 100%; max-width: 48rem; padding: 0 1.25rem 1.5rem; text-align: center; }
 .deck__viewport { position: relative; display: flex; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-inline: 1.25rem; }
