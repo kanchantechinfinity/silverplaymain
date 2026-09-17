@@ -499,21 +499,30 @@
       }
     });
 
-    // Tilt interaction
+    // Click-to-zoom interaction: click toggles a magnified view that pans
+    // to follow the cursor, instead of the old 3D tilt/rotate effect.
     var stage = $(".tilt-stage");
     if (stage) {
       var inner = $(".tilt-stage__inner", stage);
       var zoomed = false;
-      stage.addEventListener("mousemove", function (e) {
+      var ZOOM = 2.2;
+      function pan(e) {
+        if (!zoomed) return;
         var r = stage.getBoundingClientRect();
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
-        inner.style.transform = "rotateX(" + (py * -18) + "deg) rotateY(" + (px * 22) + "deg) scale(" + (zoomed ? 1.6 : 1) + ")";
-      });
+        inner.style.transform = "scale(" + ZOOM + ") translate(" + (px * -100 / ZOOM) + "%, " + (py * -100 / ZOOM) + "%)";
+      }
+      stage.addEventListener("mousemove", pan);
       stage.addEventListener("mouseleave", function () {
-        inner.style.transform = "scale(" + (zoomed ? 1.6 : 1) + ")";
+        if (!zoomed) inner.style.transform = "scale(1)";
       });
-      stage.addEventListener("click", function (e) { e.stopPropagation(); zoomed = !zoomed; });
+      stage.addEventListener("click", function (e) {
+        e.stopPropagation();
+        zoomed = !zoomed;
+        stage.classList.toggle("is-zoomed", zoomed);
+        inner.style.transform = zoomed ? "scale(" + ZOOM + ")" : "scale(1)";
+      });
     }
   }
 

@@ -1500,8 +1500,9 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 640px) { .modal__body { padding: 2rem; } }
 .modal--media .modal__panel { max-width: 24rem; }
 .modal--tilt .modal__panel { background: none; padding: 0; max-width: 520px; }
-.tilt-stage { position: relative; width: min(70vh, 520px); aspect-ratio: 1; perspective: 1400px; cursor: zoom-in; }
-.tilt-stage__inner { position: relative; height: 100%; width: 100%; overflow: hidden; border-radius: var(--radius-lg); box-shadow: 0 40px 100px -20px rgba(0,0,0,.6); transition: transform .3s ease-out; transform-style: preserve-3d; }
+.tilt-stage { position: relative; width: min(70vh, 520px); aspect-ratio: 1; cursor: zoom-in; overflow: hidden; border-radius: var(--radius-lg); }
+.tilt-stage.is-zoomed { cursor: zoom-out; }
+.tilt-stage__inner { position: relative; height: 100%; width: 100%; box-shadow: 0 40px 100px -20px rgba(0,0,0,.6); transition: transform .3s ease-out; }
 .tilt-stage img { height: 100%; width: 100%; object-fit: cover; }
 
 /* --- Misc --------------------------------------------------------------- */
