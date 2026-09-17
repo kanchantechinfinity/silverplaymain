@@ -184,11 +184,21 @@
          and the panel below it — without it, moving the mouse diagonally
          from the link down into the panel can clip a sliver of unrelated
          page in between and close the menu before it arrives. */
+      /* Hover also sets is-open (not just click) so the panel is covered by
+         the same sticky class + grace-timer as a click-open. Plain CSS
+         :hover has no tolerance for the visual gap between the trigger link
+         and the panel below it -- it unmatches the instant the cursor
+         leaves the item's own box, closing the menu before it reaches the
+         panel. Driving it through is-open instead means the panel stays
+         open across that gap and only closes after the real mouseleave. */
       var closeTimer;
+      item.addEventListener("mouseenter", function () {
+        clearTimeout(closeTimer);
+        item.classList.add("is-open");
+      });
       item.addEventListener("mouseleave", function () {
         closeTimer = setTimeout(function () { item.classList.remove("is-open"); }, 200);
       });
-      item.addEventListener("mouseenter", function () { clearTimeout(closeTimer); });
     });
     document.addEventListener("click", function (e) {
       panelItems.forEach(function (item) {
