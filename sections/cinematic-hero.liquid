@@ -50,6 +50,11 @@
             <span class="cinehero__scrim-a" aria-hidden="true"></span>
             <span class="cinehero__scrim-b" aria-hidden="true"></span>
 
+            {%- if block.settings.link_url != blank -%}
+              {%- comment -%} Covers the whole slide so clicking anywhere on the banner navigates — sits below the button (a sibling, not nested inside it) so the button's own link still takes priority where the two overlap. {%- endcomment -%}
+              <a href="{{ block.settings.link_url }}" class="cinehero__slidelink" aria-label="{{ block.settings.heading | default: 'View' | escape }}"></a>
+            {%- endif -%}
+
             <div class="cinehero__content">
               <div class="cinehero__inner">
                 {%- if block.settings.devanagari != blank -%}
@@ -190,6 +195,7 @@
         { "type": "image_picker", "id": "image_mobile", "label": "Image — mobile", "info": "Shown below 768px. Falls back to the desktop image if left empty." },
         { "type": "checkbox", "id": "fit_contain", "label": "Fit whole image without cropping", "default": false,
           "info": "Turn on for a banner with text baked into the image (so nothing gets cropped off) — leaves empty bars on screens the image doesn't exactly match. Leave off for a full-bleed photo." },
+        { "type": "url", "id": "link_url", "label": "Banner link", "info": "Makes the whole slide clickable — wherever you tap/click on it, not just the button below." },
         { "type": "text", "id": "devanagari", "label": "Devanagari line" },
         { "type": "text", "id": "heading", "label": "Heading" },
         { "type": "text", "id": "subtitle", "label": "Subtitle" },

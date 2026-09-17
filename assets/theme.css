@@ -502,7 +502,13 @@ input, textarea, select { font: inherit; color: inherit; }
 .cinehero__content {
   position: relative; z-index: 10; height: 100%; width: 100%; display: flex; flex-direction: column;
   align-items: center; justify-content: flex-end; padding: 1.5rem; padding-bottom: 4.5rem; text-align: center;
+  /* Transparent everywhere except its own text/button, so a click on the
+     empty space around them reaches the slide-wide link behind it instead
+     of being swallowed by this full-size wrapper. */
+  pointer-events: none;
 }
+.cinehero__content a, .cinehero__content button { pointer-events: auto; }
+.cinehero__slidelink { position: absolute; inset: 0; z-index: 5; }
 @media (min-width: 640px) { .cinehero__content { align-items: flex-start; justify-content: center; text-align: left; padding-inline: 3rem; padding-bottom: 1.5rem; } }
 @media (min-width: 768px) { .cinehero__content { padding-inline: 5rem; } }
 @media (min-width: 1024px) { .cinehero__content { padding-inline: 7rem; } }
