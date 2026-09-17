@@ -749,7 +749,12 @@ input, textarea, select { font: inherit; color: inherit; }
 .deck__bg { position: absolute; inset: 0; z-index: -1; object-fit: cover; width: 100%; height: 100%; pointer-events: none; opacity: .55; }
 .deck__bg-wash { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .deck__head { margin-inline: auto; width: 100%; max-width: 48rem; padding: 0 1.25rem 1.5rem; text-align: center; }
-.deck__viewport { position: relative; display: flex; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-inline: 1.25rem; }
+/* overflow-x:auto forces overflow-y to also clip (per the CSS overflow
+   spec, one axis can't be scrollable while the other is truly unclipped),
+   and the active card scales up from .84x to 1x -- growing past its
+   resting box top and bottom, so its gold ring got cut with no vertical
+   padding here to absorb that growth. */
+.deck__viewport { position: relative; display: flex; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 3rem 1.25rem; }
 .deck__viewport::-webkit-scrollbar { display: none; }
 .deck__rail { display: flex; align-items: center; gap: 1.25rem; }
 @media (min-width: 768px) { .deck__rail { gap: 1.75rem; } }
