@@ -354,18 +354,18 @@
     "shop_by_occasion": {
       "type": "shop-by-occasion",
       "blocks": {
-        "o1": {
-          "type": "tile",
-          "settings": {
-            "collection": "bali-collection",
-            "title": "Bali Collection"
-          }
-        },
         "o2": {
           "type": "tile",
           "settings": {
             "collection": "party-wear",
             "title": "Party Wear"
+          }
+        },
+        "o1": {
+          "type": "tile",
+          "settings": {
+            "collection": "bali-collection",
+            "title": "Bali Collection"
           }
         },
         "o3": {
@@ -408,6 +408,7 @@
     },
     "reels": {
       "type": "product-reels",
+      "disabled": true,
       "settings": {
         "eyebrow": "In The Wild",
         "heading": "Loved By Creators",
