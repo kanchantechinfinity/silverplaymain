@@ -220,6 +220,7 @@
     },
     "banner_Q6YcY4": {
       "type": "banner",
+      "disabled": true,
       "name": "Banner",
       "settings": {
         "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
@@ -401,6 +402,7 @@
     },
     "founder": {
       "type": "founder",
+      "disabled": true,
       "settings": {
         "eyebrow": "The Founder",
         "heading": "A Timeless Curation by",
