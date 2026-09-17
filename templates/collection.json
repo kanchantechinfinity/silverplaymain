@@ -1,4 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "sections": { "main": { "type": "main-collection", "settings": { "eyebrow": "Collection", "per_page": 24 } } },
-  "order": ["main"]
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "eyebrow": "Collection",
+        "banner_image": "shopify://shop_images/ChatGPT_Image_Jun_20_2026_06_07_08_PM.webp",
+        "per_page": 24
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
 }
