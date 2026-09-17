@@ -54,7 +54,7 @@
       <span>{{ 'cart.general.subtotal' | t }}</span>
       <span>{{ cart.total_price | money }}</span>
     </div>
-    <p class="lede mt-2" style="font-size:.8rem">{{ settings.cart_note }}</p>
+    <p class="mt-2" style="font-family:var(--font-body);font-size:.95rem;color:rgba(36,26,16,.8)">{{ settings.cart_note }}</p>
     <form action="{{ routes.cart_url }}" method="post" class="mt-4">
       <button type="submit" name="checkout" class="btn btn--ink btn--block btn--lg">{{ 'cart.general.checkout' | t }}</button>
     </form>
