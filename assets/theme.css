@@ -1,4 +1,4 @@
-/* ==========================================================================
+  /* ==========================================================================
    Silver Play — theme.css
    Design tokens ported from the Next.js source's globals.css (Tailwind v4
    @theme block). Tailwind utilities are NOT shipped: every component below
@@ -537,11 +537,6 @@ input, textarea, select { font: inherit; color: inherit; }
   position: relative; display: flex; align-items: flex-end;
   background: var(--sp-ink); padding-top: 8rem; min-height: 52vh;
 }
-/* overflow:hidden lives here (on the media layer only), not on .pagehero
-   itself — a long collection description wrapping to many lines on a
-   narrow screen needs the hero to grow taller than min-height, and a
-   parent-level overflow:hidden would clip that text instead of letting
-   it push the box (and the absolutely-positioned photo behind it) down. */
 .pagehero__media { position: absolute; inset: 0; overflow: hidden; }
 .pagehero__media img { height: 100%; width: 100%; object-fit: cover; opacity: .6; }
 /* Stronger throughout (was .45/.25) — the description text sits in the
@@ -589,10 +584,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .card:hover .card__img--main.has-alt { opacity: 0; }
 .card:hover .card__img--alt { opacity: 1; }
 .card__body { padding-top: 1rem; }
-/* !important: belt-and-suspenders against any stray override, same
-   fully-opaque dark ink on hover as at rest (no color change at all)
-   since a subtle hover-only shift was repeatedly reported as "goes
-   pale"/hard to read. */
 .card__title {
   font-family: var(--font-body); font-size: 1.02rem; font-weight: 500; line-height: 1.35; color: var(--sp-ink) !important;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
