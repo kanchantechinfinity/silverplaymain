@@ -15,7 +15,7 @@
 :root {
   --spacing: 0.25rem;
 
-  --sp-ink: #241a10;
+  --sp-ink: #ffe9d3ff;
   --sp-ink-2: #2e2115;
   --sp-ink-3: #3a2b1c;
   --sp-ink-4: #4a3826;
@@ -1601,4 +1601,3 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* Quick-view modal body is injected at runtime */
 .modal__grid:empty { min-height: 12rem; }
-body{background:red!important}
