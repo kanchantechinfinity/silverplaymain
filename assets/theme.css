@@ -978,7 +978,12 @@ input, textarea, select { font: inherit; color: inherit; }
    unclipped) -- since each card sways by rotating around its top pivot, the
    bottom corners swing outward and get cut by that clip without generous
    padding here to absorb the swing's extent. */
-.line__row { margin-inline: auto; display: flex; width: max-content; min-width: 100%; flex-wrap: nowrap; justify-content: center; gap: 1rem; padding: 1.5rem 2.5rem 3rem; }
+/* width:max-content (not min-width:100%, which the track already provides
+   and which was fighting margin-inline:auto for how the row centers) so the
+   row is exactly as wide as its cards and centers symmetrically via the
+   margin, instead of stretching to the track's width and centering its
+   children a second way that could drift unevenly. */
+.line__row { margin-inline: auto; display: flex; width: max-content; flex-wrap: nowrap; justify-content: center; gap: 1rem; padding: 1.5rem 2.5rem 3rem; }
 @media (min-width: 768px) { .line__row { gap: 3rem; padding: 1.5rem 5rem 3.5rem; } }
 .line__peg { position: relative; display: flex; flex: none; flex-direction: column; align-items: center; }
 .line__thread { position: absolute; width: 2px; background: #7a5c30; }
