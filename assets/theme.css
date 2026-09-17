@@ -836,7 +836,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .kavach__wash { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to right, var(--sp-ink), rgba(36,26,16,.85) 50%, rgba(36,26,16,.55)); }
 .kavach__text { flex: none; text-align: center; }
 @media (min-width: 768px) { .kavach__text { text-align: left; } }
-.kavach__rail { display: flex; gap: 1.25rem; }
+.kavach__rail { display: flex; width: 100%; gap: 1.25rem; }
 @media (min-width: 1024px) { .kavach__rail { gap: 1.5rem; } }
 .kavach__right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .kavach__viewport { width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -845,10 +845,13 @@ input, textarea, select { font: inherit; color: inherit; }
    it (minus its share of the gaps) rather than a fixed rem width, so
    none is ever partially cropped at the edge. */
 .kavach__pick {
-  display: flex; flex: 0 0 calc((100% - 4 * 1.25rem) / 5); min-width: 0;
+  /* flex-shrink allowed (not 0 0) so sub-pixel rounding across five items
+     plus four gaps shrinks each a hair instead of overflowing the row and
+     letting a sixth circle peek in at the edge. */
+  display: flex; flex: 1 1 calc((100% - 4 * 1.25rem) / 5.1); min-width: 0;
   flex-direction: column; align-items: center; gap: .75rem; text-align: center;
 }
-@media (min-width: 1024px) { .kavach__pick { flex-basis: calc((100% - 4 * 1.5rem) / 5); } }
+@media (min-width: 1024px) { .kavach__pick { flex-basis: calc((100% - 4 * 1.5rem) / 5.1); } }
 .kavach__dots { margin-top: 1.5rem; display: flex; justify-content: center; gap: .5rem; }
 .kavach__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.3); transition: background-color .3s, width .3s; padding: 0; border: none; }
 .kavach__dot:hover { background: rgba(242,232,208,.55); }
@@ -894,7 +897,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .founder__photo { aspect-ratio: auto; height: auto; width: 100%; }
   .founder__text { flex: 1; }
 }
-.founder__photo img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 24%; }
+.founder__photo img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 18%; }
 .founder__text { border-top: 1px solid rgba(242,232,208,.15); padding-top: 2rem; }
 @media (min-width: 768px) { .founder__text { border-top: 0; border-left: 1px solid rgba(242,232,208,.15); padding: 0 0 0 4rem; } }
 .founder__name { font-family: var(--font-display); font-size: 1.1rem; color: var(--sp-gold); }

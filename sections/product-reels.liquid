@@ -31,7 +31,7 @@
               </span>
             </button>
           {%- endfor -%}
-        {%- else -%}
+        {%- elsif col.products.size > 0 -%}
           {%- for p in col.products limit: 8 -%}
             <button type="button" class="reels__tile" data-reel-open>
               <span class="reels__inner">
@@ -41,6 +41,19 @@
                 <span class="reels__scrim" aria-hidden="true"></span>
                 <span class="reels__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
                 <span class="reels__handle">@{{ settings.instagram_handle }}</span>
+              </span>
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Last-resort placeholder tiles — bundled photography, shown until real reel blocks or a fallback collection are in place, so this strip is never empty. {%- endcomment -%}
+          {%- assign dummy_imgs = 'stock-lifestyle-1.jpg,stock-lifestyle-2.jpg,vanity-mood.jpg,elegance-lotus.jpg,meganav-earrings.jpg,meganav-pendants.jpg,occasion-party-wear.jpg,occasion-office-muse.jpg' | split: ',' -%}
+          {%- for src in dummy_imgs -%}
+            <button type="button" class="reels__tile" data-reel-open>
+              <span class="reels__inner">
+                <img src="{{ src | asset_url }}" alt="" loading="lazy" decoding="async" width="500" height="889">
+                <span class="reels__scrim" aria-hidden="true"></span>
+                <span class="reels__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
+                <span class="reels__handle">@{{ settings.instagram_handle | default: 'thesilverplay' }}</span>
               </span>
             </button>
           {%- endfor -%}

@@ -46,7 +46,7 @@
               </span>
             </a>
           {%- endfor -%}
-        {%- else -%}
+        {%- elsif col.products.size > 0 -%}
           {%- for product in col.products limit: 8 -%}
             <a href="{{ profile }}" target="_blank" rel="noopener noreferrer" class="ig__tile">
               <span class="ig__inner">
@@ -55,6 +55,18 @@
                 {%- endif -%}
                 <span class="ig__overlay" aria-hidden="true"></span>
                 <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle }}</span></span>
+              </span>
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Last-resort placeholder tiles — bundled photography, shown until real post blocks or a fallback collection are in place, so this strip is never empty. {%- endcomment -%}
+          {%- assign dummy_imgs = 'stock-lifestyle-1.jpg,stock-lifestyle-2.jpg,vanity-mood.jpg,elegance-lotus.jpg,meganav-earrings.jpg,meganav-pendants.jpg,occasion-bali.jpg,occasion-party-wear.jpg' | split: ',' -%}
+          {%- for src in dummy_imgs -%}
+            <a href="{{ profile | default: '#' }}" target="_blank" rel="noopener noreferrer" class="ig__tile">
+              <span class="ig__inner">
+                <img src="{{ src | asset_url }}" alt="" loading="lazy" decoding="async" width="700" height="700">
+                <span class="ig__overlay" aria-hidden="true"></span>
+                <span class="ig__handle">{% render 'icon', name: 'instagram', s: 16 %}<span>{{ handle | default: 'thesilverplay' }}</span></span>
               </span>
             </a>
           {%- endfor -%}
