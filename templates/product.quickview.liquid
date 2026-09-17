@@ -31,11 +31,11 @@
         <span style="font-family:var(--font-body);font-size:.78rem;color:var(--sp-gold-deep)">({{ rating_count }})</span>
       </div>
     {%- endif -%}
-    <p class="mt-4" style="display:flex;align-items:baseline;gap:.75rem;font-family:var(--font-display);font-size:1.15rem;font-weight:600;color:var(--sp-ink-3)">
+    <p class="mt-4" style="display:flex;align-items:baseline;gap:.75rem;font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--sp-ink-3)">
       {{ v.price | money }}
-      {%- if on_sale -%}<span style="font-size:.85rem;font-weight:400;color:var(--sp-gold-deep);text-decoration:line-through">{{ v.compare_at_price | money }}</span>{%- endif -%}
+      {%- if on_sale -%}<span style="font-size:1rem;font-weight:400;color:var(--sp-gold-deep);text-decoration:line-through">{{ v.compare_at_price | money }}</span>{%- endif -%}
     </p>
-    <p class="mt-4" style="font-family:var(--font-body);font-size:.88rem;line-height:1.7;color:#5c4a2e">
+    <p class="mt-4" style="font-family:var(--font-body);font-size:1.05rem;line-height:1.7;color:#5c4a2e">
       {{ product.description | strip_html | truncatewords: 45 }}
     </p>
     <form method="post" action="{{ routes.cart_add_url }}" class="product-form mt-6">
