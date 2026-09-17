@@ -969,8 +969,13 @@ input, textarea, select { font: inherit; color: inherit; }
    partway along and the notes hang from nothing once you scroll. */
 .line__track { position: relative; width: max-content; min-width: 100%; }
 .line__rope { pointer-events: none; position: absolute; inset-inline: 0; top: 0; height: 64px; width: 100%; }
-.line__row { margin-inline: auto; display: flex; width: max-content; min-width: 100%; flex-wrap: nowrap; justify-content: center; gap: 1rem; padding: .75rem 2rem 0; }
-@media (min-width: 768px) { .line__row { gap: 3rem; padding-inline: 4rem; } }
+/* overflow-x:auto on .line__scroll forces overflow-y to also clip (per the
+   CSS overflow spec you can't have one axis scrollable and the other truly
+   unclipped) -- since each card sways by rotating around its top pivot, the
+   bottom corners swing outward and get cut by that clip without generous
+   padding here to absorb the swing's extent. */
+.line__row { margin-inline: auto; display: flex; width: max-content; min-width: 100%; flex-wrap: nowrap; justify-content: center; gap: 1rem; padding: 1.5rem 2.5rem 3rem; }
+@media (min-width: 768px) { .line__row { gap: 3rem; padding: 1.5rem 5rem 3.5rem; } }
 .line__peg { position: relative; display: flex; flex: none; flex-direction: column; align-items: center; }
 .line__thread { position: absolute; width: 2px; background: #7a5c30; }
 .line__knot { position: absolute; height: 9px; width: 9px; border-radius: 999px; border: 1px solid #4a3618; background: #8a6a3d; box-shadow: 0 1px 2px rgba(0,0,0,.5); }
