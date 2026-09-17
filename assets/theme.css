@@ -529,8 +529,11 @@ input, textarea, select { font: inherit; color: inherit; }
   background: var(--sp-ink); padding-top: 8rem; min-height: 52vh;
 }
 .pagehero__media { position: absolute; inset: 0; }
-.pagehero__media img { height: 100%; width: 100%; object-fit: cover; opacity: .7; }
-.pagehero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.45) 55%, rgba(36,26,16,.25)); }
+.pagehero__media img { height: 100%; width: 100%; object-fit: cover; opacity: .6; }
+/* Stronger throughout (was .45/.25) — the description text sits in the
+   45-55% band, and a bright patch in some photos (e.g. a pale prop)
+   left it low-contrast even with fully light-colored text. */
+.pagehero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.72) 55%, rgba(36,26,16,.5)); }
 .pagehero__body { position: relative; z-index: 10; width: 100%; padding-bottom: 3.5rem; }
 @media (min-width: 768px) { .pagehero__body { padding-bottom: 5rem; } }
 .pagehero__title { margin-top: .75rem; max-width: 42rem; font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.05; color: var(--sp-bone); }
