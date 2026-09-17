@@ -443,11 +443,20 @@
       var rail = $("[data-kavach-rail]", root);
       var dotsWrap = $("[data-kavach-dots]", root);
       var picks = $$(".kavach__pick", rail);
-      if (!picks.length) return;
-      var pageSize = 5;
-      var pages = Math.ceil(picks.length / pageSize);
-      if (pages < 2) return;
+      if (picks.length < 2) return;
 
+      /* How many whole circles actually fit is measured from real layout
+         (stride = one pick's width + gap) rather than assumed, and pages
+         are scrolled by exactly pageSize * stride — never by clientWidth,
+         which is rarely an exact multiple of the circle size and would
+         leave a sliver of the next one showing. */
+      var stride = picks[1].offsetLeft - picks[0].offsetLeft;
+      var pageSize = Math.max(1, Math.floor(viewport.clientWidth / stride));
+      var pages = Math.ceil(picks.length / pageSize);
+      if (pages < 2) { dotsWrap.innerHTML = ""; return; }
+      var pageWidth = pageSize * stride;
+
+      dotsWrap.innerHTML = "";
       var dots = [];
       for (var i = 0; i < pages; i++) {
         var dot = document.createElement("button");
@@ -463,14 +472,14 @@
         dots.forEach(function (d, j) { d.classList.toggle("is-active", j === i); });
       }
       function goTo(i, smooth) {
-        viewport.scrollTo({ left: i * viewport.clientWidth, behavior: smooth && !reduced ? "smooth" : "auto" });
+        viewport.scrollTo({ left: i * pageWidth, behavior: smooth && !reduced ? "smooth" : "auto" });
         setActive(i);
       }
       var scrollTimer;
       viewport.addEventListener("scroll", function () {
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(function () {
-          var page = clamp(Math.round(viewport.scrollLeft / viewport.clientWidth), 0, pages - 1);
+          var page = clamp(Math.round(viewport.scrollLeft / pageWidth), 0, pages - 1);
           setActive(page);
         }, 120);
       }, { passive: true });

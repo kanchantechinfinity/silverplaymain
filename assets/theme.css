@@ -846,17 +846,15 @@ input, textarea, select { font: inherit; color: inherit; }
 .kavach__right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .kavach__viewport { width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .kavach__viewport::-webkit-scrollbar { display: none; }
-/* Exactly five picks fit the viewport at any width — sized as a fifth of
-   it (minus its share of the gaps) rather than a fixed rem width, so
-   none is ever partially cropped at the edge. */
+/* Fixed (smaller) circle sizes — theme.js measures how many whole picks
+   actually fit the viewport and pages by that exact count, so there is
+   never a partially-cropped circle at the edge no matter the size. */
 .kavach__pick {
-  /* flex-shrink allowed (not 0 0) so sub-pixel rounding across five items
-     plus four gaps shrinks each a hair instead of overflowing the row and
-     letting a sixth circle peek in at the edge. */
-  display: flex; flex: 1 1 calc((100% - 4 * 1.25rem) / 5.1); min-width: 0;
+  display: flex; flex: 0 0 6rem; width: 6rem;
   flex-direction: column; align-items: center; gap: .75rem; text-align: center;
 }
-@media (min-width: 1024px) { .kavach__pick { flex-basis: calc((100% - 4 * 1.5rem) / 5.1); } }
+@media (min-width: 640px) { .kavach__pick { flex-basis: 7rem; width: 7rem; } }
+@media (min-width: 1024px) { .kavach__pick { flex-basis: 7.5rem; width: 7.5rem; } }
 .kavach__dots { margin-top: 1.5rem; display: flex; justify-content: center; gap: .5rem; }
 .kavach__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.3); transition: background-color .3s, width .3s; padding: 0; border: none; }
 .kavach__dot:hover { background: rgba(242,232,208,.55); }
