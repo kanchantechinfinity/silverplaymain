@@ -390,8 +390,12 @@ input, textarea, select { font: inherit; color: inherit; }
   position: fixed; left: 50%; top: 6rem; z-index: 55; width: min(94vw, 940px);
   transform: translateX(-50%) translateY(10px); opacity: 0; pointer-events: none;
   overflow: hidden; border-radius: var(--radius-lg); border: 1px solid rgba(36,26,16,.1);
-  background: rgba(242,232,208,.97); box-shadow: 0 30px 70px -24px rgba(26,22,20,.5);
-  backdrop-filter: blur(20px);
+  /* Background is opaque enough on its own (.97 alpha) that the heavy
+     backdrop-filter blur wasn't buying much — it was the likely cause of the
+     panel feeling laggy/stuck (cursor not moving smoothly) while hovering
+     text inside it, since blur is recalculated continuously during the
+     opacity/transform transition. */
+  background: rgba(242,232,208,.99); box-shadow: 0 30px 70px -24px rgba(26,22,20,.5);
   transition: opacity .32s var(--ease-silk), transform .32s var(--ease-silk);
 }
 .header__navitem:hover .meganav,
@@ -410,6 +414,7 @@ input, textarea, select { font: inherit; color: inherit; }
   margin-top: 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
   border-top: 1px solid rgba(36,26,16,.08); padding-top: 1.25rem;
 }
+.meganav__groups .eyebrow, .meganav__top .eyebrow { cursor: default; }
 .meganav__groups a {
   display: block; border-radius: var(--radius-xs); padding-block: .25rem;
   font-family: var(--font-body); font-size: .9rem; color: rgba(36,26,16,.7); transition: color .2s;
@@ -1268,7 +1273,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .article__hero-media { position: absolute; inset: 0; }
 .article__hero-media img { height: 100%; width: 100%; object-fit: cover; opacity: .65; }
 .article__hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.5) 55%, rgba(36,26,16,.2)); }
-.article__body { margin-inline: auto; max-width: 42rem; }
+.article__body { margin-inline: auto; max-width: 64rem; }
 .article__body .rte { margin-top: 2rem; }
 .rte { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.8; color: rgba(36,26,16,.7); }
 .rte h2 { margin: 2.5rem 0 .75rem; font-size: 1.35rem; color: var(--sp-ink); }

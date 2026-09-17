@@ -5,7 +5,7 @@
         <img src="{{ article.image | image_url: width: 2000 }}" alt="{{ article.title | escape }}" width="2000" height="1200" fetchpriority="high">
       {%- endif -%}
     </div>
-    <div class="wrap wrap--tight pagehero__body" data-page-hero>
+    <div class="wrap pagehero__body" data-page-hero>
       {%- if article.tags.size > 0 -%}
         <p class="eyebrow" style="color:var(--sp-gold)" data-reveal>{{ article.tags.first }}</p>
       {%- endif -%}
