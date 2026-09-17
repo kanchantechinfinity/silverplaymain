@@ -288,7 +288,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .header { position: fixed; inset-inline: 0; top: 0; z-index: 50; pointer-events: none; }
 .header__bar {
   pointer-events: auto; position: relative; margin-inline: auto; display: flex; align-items: center; gap: 1.5rem;
-  padding: 10px 34px; width: 100%;
+  padding: 10px 37px; width: 100%;
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   background: rgba(245,242,237,0); border: 1px solid transparent; border-radius: 0; margin-top: 0;
   transition: background-color .6s var(--ease-silk), margin-top .6s var(--ease-silk),
@@ -452,7 +452,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .cart-drawer__panel, .search-drawer__panel { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
   /* the icon cluster moved to .mbar, so the top bar is just logo + menu toggle */
   .header__actions { display: none; }
-  .header__bar { justify-content: space-between !important; gap: 1rem; padding: 12px 0.75rem !important; }
+  .header__bar { justify-content: space-between !important; gap: 1rem; padding: 12px 0.85rem !important; }
   /* base rule centres the logo absolutely; take it back into flex flow so it
      can sit left and `order` actually applies */
   .header__logo { position: static !important; left: auto !important; top: auto !important; transform: none !important;
@@ -1002,7 +1002,10 @@ input, textarea, select { font: inherit; color: inherit; }
 .faq__toggle { position: relative; display: grid; place-items: center; height: 2.25rem; width: 2.25rem; flex: none; margin-top: -.1rem; border-radius: 999px; border: 1px solid rgba(242,232,208,.25); color: var(--sp-bone); transition: all .4s; }
 .faq__row.is-open .faq__toggle { border-color: rgba(36,26,16,.3); color: var(--sp-ink); }
 .faq__thumb {
-  pointer-events: none; position: absolute; top: -1.5rem; bottom: -1.5rem; right: 6rem; z-index: 2;
+  /* Kept within the row's own top/bottom edges (no longer bleeding -1.5rem
+     past them) so it doesn't visually cut through this row's or the next
+     row's divider line. */
+  pointer-events: none; position: absolute; top: .75rem; bottom: .75rem; right: 6rem; z-index: 2;
   display: none; width: 96px; overflow: hidden; border-radius: var(--radius-md);
   box-shadow: 0 20px 45px -15px rgba(0,0,0,.55); opacity: 0; transform: scale(.85) rotate(-6deg);
   transition: all .4s var(--ease-silk);
@@ -1527,7 +1530,10 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 640px) { .modal__body { padding: 2rem; } }
 .modal--media .modal__panel { max-width: 24rem; }
 .modal--tilt .modal__panel { background: none; padding: 0; max-width: 520px; }
-.tilt-stage { position: relative; width: min(70vh, 520px); aspect-ratio: 1; cursor: zoom-in; overflow: hidden; border-radius: var(--radius-lg); }
+/* 4:5, matching the product gallery's own portrait crop, so the popup
+   shows the same framing instead of force-cropping to a square and
+   cutting off the top/bottom of the piece. */
+.tilt-stage { position: relative; width: min(60vh, 460px); aspect-ratio: 4 / 5; max-height: 82vh; cursor: zoom-in; overflow: hidden; border-radius: var(--radius-lg); }
 .tilt-stage.is-zoomed { cursor: zoom-out; }
 .tilt-stage__inner { position: relative; height: 100%; width: 100%; box-shadow: 0 40px 100px -20px rgba(0,0,0,.6); transition: transform .3s ease-out; }
 .tilt-stage img { height: 100%; width: 100%; object-fit: cover; }
