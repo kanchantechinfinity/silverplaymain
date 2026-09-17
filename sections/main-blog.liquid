@@ -7,6 +7,7 @@
   if banner == blank
     assign banner = blog.articles.first.image
   endif
+  assign hidden_tags = '925 silver,kavach pendant,raksha bandhan gifts' | split: ','
 -%}
 
 {% render 'page-hero',
@@ -20,8 +21,11 @@
     <div class="chips">
       <a href="{{ blog.url }}" class="chip" {% if current_tags == empty %}aria-current="true"{% endif %}>{{ 'blogs.article.all' | t }}</a>
       {%- for tag in blog.all_tags -%}
-        {%- comment -%} Shopify's real tag-filter route is /tagged/<tag>, not /<handleized-tag> -- the old link 404'd for every tag. {%- endcomment -%}
-        <a href="{{ blog.url }}/tagged/{{ tag | url_encode }}" class="chip" {% if current_tags contains tag %}aria-current="true"{% endif %}>{{ tag }}</a>
+        {%- assign tag_lc = tag | downcase -%}
+        {%- unless hidden_tags contains tag_lc -%}
+          {%- comment -%} Shopify's real tag-filter route is /tagged/<tag>, not /<handleized-tag> -- the old link 404'd for every tag. {%- endcomment -%}
+          <a href="{{ blog.url }}/tagged/{{ tag | url_encode }}" class="chip" {% if current_tags contains tag %}aria-current="true"{% endif %}>{{ tag }}</a>
+        {%- endunless -%}
       {%- endfor -%}
     </div>
   {%- endif -%}
