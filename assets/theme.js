@@ -167,20 +167,28 @@
       var link = $(".header__link", item);
       if (!link) return;
       link.addEventListener("click", function (e) {
+        /* Always opens — never toggles closed on a second click, matching
+           the reference site: the only ways to close it are moving the
+           cursor away or clicking outside. */
         e.preventDefault();
-        var willOpen = !item.classList.contains("is-open");
         closeAllPanels(item);
-        item.classList.toggle("is-open", willOpen);
+        item.classList.add("is-open");
       });
       /* A click only opens it — the mouse is already over the item at that
          point, so :hover is showing it too. Once the cursor actually leaves
          the item (trigger AND panel, since the panel is nested inside it in
          the DOM, hovering it doesn't count as "leaving"), drop the sticky
-         class so it closes immediately instead of staying open until an
-         unrelated click elsewhere on the page. */
+         class so it closes instead of staying open until an unrelated click
+         elsewhere on the page. A short delay (cancelled if the pointer comes
+         straight back) tolerates the real-world gap between the trigger link
+         and the panel below it — without it, moving the mouse diagonally
+         from the link down into the panel can clip a sliver of unrelated
+         page in between and close the menu before it arrives. */
+      var closeTimer;
       item.addEventListener("mouseleave", function () {
-        item.classList.remove("is-open");
+        closeTimer = setTimeout(function () { item.classList.remove("is-open"); }, 200);
       });
+      item.addEventListener("mouseenter", function () { clearTimeout(closeTimer); });
     });
     document.addEventListener("click", function (e) {
       panelItems.forEach(function (item) {
