@@ -551,7 +551,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .card:hover .card__img--alt { opacity: 1; }
 .card__body { padding-top: 1rem; }
 .card__title {
-  font-family: var(--font-body); font-size: 1.02rem; line-height: 1.35; color: rgba(58,43,28,.9);
+  font-family: var(--font-body); font-size: 1.02rem; font-weight: 500; line-height: 1.35; color: var(--sp-ink);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color .4s;
 }
 .card:hover .card__title { color: var(--sp-ink-3); }
