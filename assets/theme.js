@@ -1060,7 +1060,11 @@
     function render(data, q) {
       var r = (data && data.resources && data.resources.results) || {};
       var html = group("Products", r.products, function (p) {
-            return p.price ? money(parseInt(p.price, 10)) : "";
+            /* suggest.json's price is a decimal string in the shop's main
+               currency unit (e.g. "24999.00"), not cents — money() expects
+               cents, so it has to be scaled up first or it divides an
+               already-whole-rupee price by 100 again. */
+            return p.price ? money(Math.round(parseFloat(p.price) * 100)) : "";
           }) +
           group("Collections", r.collections) +
           group("Journal", r.articles) +

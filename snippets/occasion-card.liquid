@@ -21,11 +21,15 @@
     assign img = col.products.first.featured_media.preview_image
   endif
   assign title = block.settings.title | default: col.title
+  assign img_position = '50% 50%'
+  if block.settings.collection == 'party-wear'
+    assign img_position = '50% 28%'
+  endif
 -%}
 <div class="occasion__cell" style="flex: {{ flex }}" {{ block.shopify_attributes }}>
   <a href="{{ col.url | default: routes.collections_url }}" class="occ-card{% if wide %} occ-card--wide{% endif %}">
     {%- if img_asset != blank -%}
-      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="900">
+      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="900" style="object-position: {{ img_position }}">
     {%- elsif img -%}
       <img src="{{ img | image_url: width: 900 }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
     {%- else -%}
