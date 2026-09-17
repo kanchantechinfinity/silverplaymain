@@ -873,7 +873,7 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 768px) { .kavach__text { text-align: left; } }
 .kavach__rail { display: flex; width: 100%; gap: 1.25rem; }
 @media (min-width: 1024px) { .kavach__rail { gap: 1.5rem; } }
-.kavach__right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.kavach__right { position: relative; z-index: 2; flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .kavach__viewport { width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .kavach__viewport::-webkit-scrollbar { display: none; }
 /* Fixed (smaller) circle sizes — theme.js measures how many whole picks
@@ -890,7 +890,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .kavach__dot:hover { background: rgba(242,232,208,.55); }
 .kavach__dot.is-active { width: 18px; background: var(--sp-gold); }
 .kavach__circle {
-  position: relative; display: block; aspect-ratio: 1; width: 100%; overflow: hidden;
+  position: relative; z-index: 2; display: block; aspect-ratio: 1; width: 100%; overflow: hidden;
   border-radius: 999px; box-shadow: 0 0 0 2px rgba(138,106,46,.55); transition: box-shadow .5s;
 }
 .kavach__circle:hover { box-shadow: 0 0 0 2px rgba(216,180,102,.8); }
