@@ -23,16 +23,7 @@
             assign s_d = block.settings.image_desktop
             assign s_m = block.settings.image_mobile | default: s_d
           -%}
-          <div class="cinehero__slide{% if forloop.first %} is-active{% endif %}{% if block.settings.fit_contain %} cinehero__slide--contain{% endif %}" data-cinehero-slide {{ block.shopify_attributes }}>
-            {%- if block.settings.fit_contain -%}
-              {%- liquid
-                assign bg_src = s_d | default: s_m
-              -%}
-              {%- if bg_src != blank -%}
-                {%- comment -%} Blurred, zoomed-in copy filling the frame behind the uncropped image, so any letterbox gap reads as a soft continuation of the same photo instead of empty space. A CSS background (not a second <img>) so it's guaranteed to cover the full slide regardless of the source image's own dimensions. {%- endcomment -%}
-                <div class="cinehero__backdrop" aria-hidden="true" style="background-image:url('{{ bg_src | image_url: width: 1200 }}')"></div>
-              {%- endif -%}
-            {%- endif -%}
+          <div class="cinehero__slide{% if forloop.first %} is-active{% endif %}" data-cinehero-slide {{ block.shopify_attributes }}>
             <picture>
               {%- if s_m != blank -%}
                 <source media="(max-width: 767px)"
@@ -194,10 +185,10 @@
       "type": "slide",
       "name": "Slide",
       "settings": [
-        { "type": "image_picker", "id": "image_desktop", "label": "Image — desktop", "info": "Shown from 768px up. A wide crop works best." },
-        { "type": "image_picker", "id": "image_mobile", "label": "Image — mobile", "info": "Shown below 768px. Falls back to the desktop image if left empty." },
-        { "type": "checkbox", "id": "fit_contain", "label": "Fit whole image without cropping", "default": false,
-          "info": "Turn on for a banner with text baked into the image (so nothing gets cropped off) — leaves empty bars on screens the image doesn't exactly match. Leave off for a full-bleed photo." },
+        { "type": "image_picker", "id": "image_desktop", "label": "Image — desktop",
+          "info": "Fills the screen edge-to-edge (cropped to fit, like a cover photo) — use 2400 x 1350px (16:9). Keep any text baked into the image within the middle 80% width / 70% height so it never gets cropped on a different screen size." },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image — mobile",
+          "info": "Shown below 768px. Use a taller crop — 1080 x 1920px (9:16) — same 80%/70% safe-zone rule for any text. Falls back to the desktop image if left empty." },
         { "type": "url", "id": "link_url", "label": "Banner link", "info": "Makes the whole slide clickable — wherever you tap/click on it, not just the button below." },
         { "type": "text", "id": "devanagari", "label": "Devanagari line" },
         { "type": "text", "id": "heading", "label": "Heading" },
