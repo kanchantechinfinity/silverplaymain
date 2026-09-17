@@ -1559,7 +1559,12 @@ input, textarea, select { font: inherit; color: inherit; }
   border-radius: calc(var(--radius-lg) - 3px) calc(var(--radius-lg) - 3px) 0 0;
 }
 @media (min-width: 768px) {
-  .modal__img { border-radius: calc(var(--radius-lg) - 3px) 0 0 calc(var(--radius-lg) - 3px); }
+  /* aspect-ratio wins over grid's default stretch, so the image stayed a
+     fixed square even when the text column (long description, rating,
+     sale price) ran taller -- leaving a visible gap of parchment below it.
+     Filling the row height directly instead, with object-fit:cover on the
+     img, means the image always matches whatever height the text side is. */
+  .modal__img { aspect-ratio: auto; height: 100%; border-radius: calc(var(--radius-lg) - 3px) 0 0 calc(var(--radius-lg) - 3px); }
 }
 .modal__img img { height: 100%; width: 100%; object-fit: cover; }
 .modal__body { display: flex; flex-direction: column; padding: 1.5rem; }
