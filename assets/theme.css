@@ -288,7 +288,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .header { position: fixed; inset-inline: 0; top: 0; z-index: 50; pointer-events: none; }
 .header__bar {
   pointer-events: auto; position: relative; margin-inline: auto; display: flex; align-items: center; gap: 1.5rem;
-  padding: 10px 37px; width: 100%;
+  padding: 6px 28px; width: 100%;
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   background: rgba(245,242,237,0); border: 1px solid transparent; border-radius: 0; margin-top: 0;
   transition: background-color .6s var(--ease-silk), margin-top .6s var(--ease-silk),
@@ -457,7 +457,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .cart-drawer__panel, .search-drawer__panel { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
   /* the icon cluster moved to .mbar, so the top bar is just logo + menu toggle */
   .header__actions { display: none; }
-  .header__bar { justify-content: space-between !important; gap: 1rem; padding: 12px 0.85rem !important; }
+  .header__bar { justify-content: space-between !important; gap: 1rem; padding: 8px 0.85rem !important; }
   /* base rule centres the logo absolutely; take it back into flex flow so it
      can sit left and `order` actually applies */
   .header__logo { position: static !important; left: auto !important; top: auto !important; transform: none !important;
