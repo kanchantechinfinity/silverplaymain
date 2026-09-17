@@ -1,5 +1,70 @@
 # Build Log — silverplaymain
 
+## 2026-09-17 — Mega nav hover-gap fix, deck card tint, header/marquee sizing, sitewide type bump, search price bug, occasion crop
+
+### Mega nav: hover now sticky like click
+`.header__navitem:hover` alone has no grace period — it unmatches the instant the
+cursor leaves the item's own box crossing the gap to the panel below, closing the
+menu before the pointer arrives. Fixed by having `mouseenter` (not just `click`) also
+add `is-open`, so hover is covered by the same 200ms `mouseleave` grace timer as a
+click-open. `assets/theme.js:166-201`.
+
+### Scroll-deck ("Her Royal Simplicity") cards: uniform tint
+`.deck__wash` only darkened the bottom ~45% of each card for label legibility, leaving
+each product photo's own backdrop (branch, cloth, bright green leaf) fully exposed at
+the top — inconsistent against the section's dark mandala background. Added a flat
+`rgba(36,26,16,.4)` layer under the existing bottom gradient. `assets/theme.css:761-765`.
+
+### Header bar padding reduced
+Desktop `10px 37px` → `6px 28px`; mobile `12px` → `8px`, to shrink the pill height.
+`assets/theme.css:295`, `:464`.
+
+### Marquee now fits in the first viewport on load
+`.assurance` (trust-claim marquee) rendered *after* the 100vh cinehero, so it was
+always below the fold until scrolled to. Gave it an explicit height via a new
+`--assurance-h: 1.75rem` token and subtracted that from `.cinehero__stage`'s height
+(`calc(100vh - var(--assurance-h))`), so hero + marquee together exactly fill one
+screen. Coupling is safe — `cinematic-hero` is only used on `templates/index.json`.
+
+### Sitewide typography bump
+Every `font-size` in `theme.css` increased by exactly 2px (converted to rem, root
+assumed 16px) and every explicit numeric `font-weight` stepped up by 100 (capped at
+900), done via a one-off regex pass over the whole file (not hand-edited per rule).
+`body` also gained an explicit `font-weight: 500` since it previously had none.
+
+### Critical bug: predictive search showed prices ~100x too low
+`suggest.json`'s `price` field is a **decimal rupee string** (e.g. `"24999.00"`), not
+paise/cents — but `money()` unconditionally divides its input by 100. The old code did
+`money(parseInt(p.price, 10))`, i.e. divided an already-whole-rupee price by 100 again
+(₹24,999 rendered as ₹250). Fixed to `money(Math.round(parseFloat(p.price) * 100))`.
+`assets/theme.js:1060-1069`. **Any other place that reads `suggest.json` prices needs
+the same ×100 treatment — `money()` itself still expects cents everywhere else.**
+
+### Occasion tile ("Party Wear") earring crop
+`occasion-party-wear.jpg`'s subject (earring hook loops) sits in the upper third of the
+square source photo; default `object-position: 50% 50%` cover-cropped into the hooks on
+the wide/short bento tile. Added a per-collection `object-position` override
+(`50% 28%` for `party-wear`) in `snippets/occasion-card.liquid`. Only that one tile was
+reported broken — the other three (`bali-collection`, `office-muse`,
+`everyday-elegance`) were left at default centering.
+
+### ⚠ Known unresolved — GitHub → Shopify auto-deploy stalled
+Confirmed via direct CDN fetch of the live `theme.js`/`theme.css` that pushes to `main`
+were **not** reaching the storefront for an extended stretch this session (byte length
+frozen across multiple commits, `closeTimer` — a brand-new string literal — absent from
+the live file long after it was pushed). Shopify → GitHub sync (admin "Edit code" edits
+auto-committing back) was independently confirmed still working. Root cause not
+identified from this side; likely the GitHub→Shopify webhook silently failing. Next
+person hitting "I pushed a fix but nothing changed" should first rule this out — check
+GitHub repo Settings → Webhooks for failed deliveries, or disconnect/reconnect the
+theme's GitHub connection in Shopify Admin — **before** re-debugging the CSS/JS itself.
+Also: CDN fetches of the *unversioned* asset URL
+(`/cdn/shop/t/<n>/assets/theme.css` with no `?v=` fingerprint) can themselves serve a
+stale cached copy even with a `?cb=` cache-buster — treat that verification method as
+unreliable; a live user screenshot is the ground truth.
+
+---
+
 ## 2026-09-16 (c) — Hero banner option, new Banner section, tab pills reworked
 
 ### 1. Hero: banner image instead of video

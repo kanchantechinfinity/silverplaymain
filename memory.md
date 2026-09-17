@@ -223,6 +223,41 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
   220ms, `AbortController` cancels in-flight requests, prices via the theme's `money()`.
 - `/search` still exists and is the no-JS fallback — the trigger keeps its `href`. Do not
   replace it with a button.
+- **`money(cents)` always divides its input by 100** (`theme.js:15`). `suggest.json`'s
+  `product.price` is a **decimal rupee string** (`"24999.00"`), not cents — feeding it
+  straight in (or via `parseInt`) silently shows prices ~100x too low. Always
+  `Math.round(parseFloat(p.price) * 100)` before calling `money()` on anything sourced
+  from the predictive-search endpoint. Fixed 2026-09-17 in `initSearchDrawer`'s `render()`.
+
+## Mega nav / dropdown hover behaviour
+- Reference behaviour (matched to vamas.in): hover opens, moving the cursor from the
+  trigger into the panel keeps it open, click also opens (never toggles closed on a
+  second click), and it closes ~200ms after the cursor leaves both trigger and panel —
+  outside click or Escape close it immediately.
+- **Plain CSS `:hover` has no grace period.** It unmatches the instant the pointer
+  leaves the item's own rendered box, which happens when crossing the real-world gap
+  between the trigger link and the panel below it — closing the menu before the cursor
+  arrives, even though the panel is a DOM descendant (CSS `:hover` containment doesn't
+  help once the cursor is genuinely outside the box mid-transit). Fix: drive **both**
+  hover and click through the same JS `is-open` class + `mouseenter`/`mouseleave` timer,
+  don't rely on `:hover` alone for anything gap-tolerant. `assets/theme.js:158-201`.
+
+## Deploy pipeline — GitHub ⇄ Shopify sync (⚠ read before debugging "my fix didn't work")
+- Two independent directions exist: Shopify admin "Edit code" edits **auto-commit back
+  to GitHub** (`shopify[bot]`, this direction has stayed reliable), and pushes to
+  `main` are **supposed to** auto-deploy to the live theme via a GitHub webhook — this
+  direction stalled silently for an extended stretch on 2026-09-17 (confirmed: live
+  `theme.js`/`theme.css` byte-identical across several real pushed commits).
+- **If the user reports "I did the change / nothing changed" after a real code fix,
+  suspect the sync before suspecting the code.** Check: Shopify Admin → Online Store →
+  Themes → "⋯" → Edit code → open the file directly and search for a distinctive new
+  string; or GitHub repo Settings → Webhooks for failed deliveries; or just
+  disconnect/reconnect the theme's GitHub connection in Admin to force a fresh pull.
+- **CDN-fetch verification is unreliable** — even `fetch(url + '?cb=' + Date.now(),
+  {cache:'no-store'})` against the *unversioned* asset path
+  (`/cdn/shop/t/<n>/assets/theme.css`, no `?v=` fingerprint) has returned stale/frozen
+  content repeatedly in this project. Don't trust byte-length/string checks against that
+  URL as the final word — a live screenshot or the Admin code editor is ground truth.
 
 ## Journal / blog
 - **The theme side is complete** — `main-blog.liquid` (grid + tag chips + pagination),
