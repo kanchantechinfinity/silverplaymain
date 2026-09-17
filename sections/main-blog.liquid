@@ -1,6 +1,6 @@
 {%- comment -%}
   Journal archive. Category chips are real article tags, so filtering happens
-  server-side via /blogs/<handle>/<tag> rather than in client state.
+  server-side via /blogs/<handle>/tagged/<tag> rather than in client state.
 {%- endcomment -%}
 {%- liquid
   assign banner = section.settings.banner_image
@@ -20,7 +20,8 @@
     <div class="chips">
       <a href="{{ blog.url }}" class="chip" {% if current_tags == empty %}aria-current="true"{% endif %}>{{ 'blogs.article.all' | t }}</a>
       {%- for tag in blog.all_tags -%}
-        <a href="{{ blog.url }}/{{ tag | handleize }}" class="chip" {% if current_tags contains tag %}aria-current="true"{% endif %}>{{ tag }}</a>
+        {%- comment -%} Shopify's real tag-filter route is /tagged/<tag>, not /<handleized-tag> -- the old link 404'd for every tag. {%- endcomment -%}
+        <a href="{{ blog.url }}/tagged/{{ tag | url_encode }}" class="chip" {% if current_tags contains tag %}aria-current="true"{% endif %}>{{ tag }}</a>
       {%- endfor -%}
     </div>
   {%- endif -%}
