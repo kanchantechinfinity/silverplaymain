@@ -534,7 +534,12 @@ input, textarea, select { font: inherit; color: inherit; }
 .pagehero__body { position: relative; z-index: 10; width: 100%; padding-bottom: 3.5rem; }
 @media (min-width: 768px) { .pagehero__body { padding-bottom: 5rem; } }
 .pagehero__title { margin-top: .75rem; max-width: 42rem; font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.05; color: var(--sp-bone); }
-.pagehero__desc { margin-top: 1rem; max-width: 36rem; font-family: var(--font-body); font-size: 1rem; line-height: 1.7; color: rgba(242,232,208,.65); }
+.pagehero__desc { margin-top: 1rem; max-width: 36rem; font-family: var(--font-body); font-size: 1rem; line-height: 1.7; }
+/* !important + descendants: a collection's admin-entered rich-text
+   description can carry its own inline color (e.g. pasted from Word/
+   Docs as plain black text), which otherwise wins over this class and
+   renders unreadably dark against the dark photo behind it. */
+.pagehero__desc, .pagehero__desc * { color: rgba(242,232,208,.75) !important; }
 
 /* --- Product card (gilt tile) ------------------------------------------- */
 .card { display: flex; flex-direction: column; height: 100%; position: relative; }
