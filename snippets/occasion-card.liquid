@@ -21,20 +21,15 @@
     assign img = col.products.first.featured_media.preview_image
   endif
   assign title = block.settings.title | default: col.title
-  assign img_style = 'object-position: 50% 50%'
+  assign img_position = '50% 50%'
   if block.settings.collection == 'party-wear'
-    /* This tile's tall, narrow subject (dangling earrings) can't be
-       guaranteed to survive a cover-crop at every bento aspect ratio the
-       tile takes across breakpoints -- contain guarantees it's never cut,
-       and the ink backdrop makes any letterbox read as intentional on this
-       already-dark section instead of a broken crop. */
-    assign img_style = 'object-fit: contain; background: var(--sp-ink)'
+    assign img_position = '50% 46%'
   endif
 -%}
 <div class="occasion__cell" style="flex: {{ flex }}" {{ block.shopify_attributes }}>
   <a href="{{ col.url | default: routes.collections_url }}" class="occ-card{% if wide %} occ-card--wide{% endif %}">
     {%- if img_asset != blank -%}
-      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="900" style="{{ img_style }}">
+      <img src="{{ img_asset | asset_url }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="900" style="object-position: {{ img_position }}">
     {%- elsif img -%}
       <img src="{{ img | image_url: width: 900 }}" alt="{{ title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
     {%- else -%}
