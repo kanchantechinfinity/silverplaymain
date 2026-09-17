@@ -316,7 +316,9 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 48rem) {
   .header__logo img, .header__logo svg { height: calc(var(--spacing) * 20); }
 }
-.header.is-pinned .header__logo img { height: 3rem; filter: invert(1); }
+/* Only invert colour on pin — keep the same logo height as the transparent
+   state so the bar itself doesn't visibly shrink when it goes white. */
+.header.is-pinned .header__logo img { filter: invert(1); }
 .header__logo-text {
   font-family: var(--font-flourish); font-size: 1.25rem; letter-spacing: .14em;
   text-transform: uppercase; color: var(--sp-bone); white-space: nowrap;
@@ -435,7 +437,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .mbar__item svg { height: 20px; width: 20px; }
 .mbar__item > span:last-child {
   font-family: var(--font-display); font-size: .54rem; text-transform: uppercase;
-  letter-spacing: .16em; line-height: 1;
+  letter-spacing: .1em; line-height: 1; white-space: nowrap;
 }
 .mbar__ico { position: relative; display: grid; place-items: center; }
 .mbar__badge {
@@ -614,7 +616,8 @@ input, textarea, select { font: inherit; color: inherit; }
   backdrop-filter: blur(4px); transition: background-color .3s, color .3s;
 }
 .icon-btn:hover { background: rgba(242,232,208,.9); }
-.icon-btn[aria-pressed="true"] { background: var(--sp-ink); color: var(--sp-bone); }
+.icon-btn[aria-pressed="true"] { background: rgba(242,232,208,.9); color: #e0483e; }
+.icon-btn[aria-pressed="true"] svg { fill: currentColor; }
 .icon-btn--wish { right: .75rem; top: .75rem; }
 .icon-btn--quick { right: .75rem; bottom: .75rem; }
 
@@ -1401,8 +1404,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .footer__logo img { height: 10rem; width: auto; }
 .footer__logo-text { font-family: var(--font-flourish); font-size: 2rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sp-bone); }
 .footer__statement { margin-top: 1.5rem; max-width: 24rem; font-family: var(--font-body); font-size: 1.05rem; font-style: italic; line-height: 1.7; color: rgba(242,232,208,.65); }
-.footer__social { margin-top: 2rem; display: flex; gap: 1.5rem; }
-.footer__social a { font-family: var(--font-display); font-size: .64rem; text-transform: uppercase; letter-spacing: .24em; color: rgba(242,232,208,.6); transition: color .3s; }
+.footer__social { margin-top: 2rem; display: flex; align-items: center; gap: 1.25rem; }
+.footer__social a { display: inline-flex; font-family: var(--font-display); font-size: .64rem; text-transform: uppercase; letter-spacing: .24em; color: rgba(242,232,208,.6); transition: color .3s; }
 .footer__social a:hover { color: var(--sp-bone); }
 .footer__col h4 { font-family: var(--font-display); font-size: .6875rem; letter-spacing: .32em; text-transform: uppercase; color: var(--sp-ash-2); }
 .footer__col ul { margin-top: 1.5rem; display: grid; gap: .875rem; }
