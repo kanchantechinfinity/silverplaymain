@@ -24,6 +24,12 @@
             assign s_m = block.settings.image_mobile | default: s_d
           -%}
           <div class="cinehero__slide{% if forloop.first %} is-active{% endif %}{% if block.settings.fit_contain %} cinehero__slide--contain{% endif %}" data-cinehero-slide {{ block.shopify_attributes }}>
+            {%- if block.settings.fit_contain -%}
+              {%- if s_d != blank or s_m != blank -%}
+                {%- comment -%} Blurred, zoomed-in copy filling the frame behind the uncropped image, so any letterbox gap reads as a soft continuation of the same photo instead of empty space. {%- endcomment -%}
+                <img class="cinehero__backdrop" src="{{ s_d | default: s_m | image_url: width: 1200 }}" alt="" aria-hidden="true" width="1200" height="675" loading="lazy">
+              {%- endif -%}
+            {%- endif -%}
             <picture>
               {%- if s_m != blank -%}
                 <source media="(max-width: 767px)"

@@ -523,6 +523,10 @@ input, textarea, select { font: inherit; color: inherit; }
    on --sp-ink where the image doesn't match the screen's shape — so a
    plain photo slide never gets an unwanted empty bar. */
 .cinehero__slide--contain .cinehero__video { object-fit: contain; object-position: 50% 50%; }
+.cinehero__backdrop {
+  position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover;
+  filter: blur(40px) brightness(.55) saturate(1.15); transform: scale(1.15);
+}
 .cinehero__dots { position: absolute; z-index: 20; left: 50%; bottom: 1.75rem; transform: translateX(-50%); display: flex; gap: .5rem; }
 @media (min-width: 640px) { .cinehero__dots { left: auto; right: 2.5rem; transform: none; bottom: 2rem; } }
 .cinehero__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.4); border: none; padding: 0; transition: background-color .3s, width .3s; }
