@@ -517,12 +517,12 @@ input, textarea, select { font: inherit; color: inherit; }
 .cinehero__slides { position: absolute; inset: 0; }
 .cinehero__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
 .cinehero__slide.is-active { opacity: 1; z-index: 1; }
-/* Slide banners usually have text baked into the image itself (offers,
-   headlines) right up to the edges — object-fit:cover would crop that
-   off-screen on viewports whose aspect ratio doesn't match the image's.
-   Show the whole banner instead, letterboxed on --sp-ink if needed, so
-   nothing is ever cut off on any screen size. */
-.cinehero__slide .cinehero__video { object-fit: contain; object-position: 50% 50%; }
+/* Default: full-bleed cover, same as a photo slide always was. Only a
+   slide explicitly marked "fit without cropping" (banners with text
+   baked in right up to the edges) switches to contain — letterboxed
+   on --sp-ink where the image doesn't match the screen's shape — so a
+   plain photo slide never gets an unwanted empty bar. */
+.cinehero__slide--contain .cinehero__video { object-fit: contain; object-position: 50% 50%; }
 .cinehero__dots { position: absolute; z-index: 20; left: 50%; bottom: 1.75rem; transform: translateX(-50%); display: flex; gap: .5rem; }
 @media (min-width: 640px) { .cinehero__dots { left: auto; right: 2.5rem; transform: none; bottom: 2rem; } }
 .cinehero__dot { height: 6px; width: 6px; border-radius: 999px; background: rgba(242,232,208,.4); border: none; padding: 0; transition: background-color .3s, width .3s; }
@@ -531,10 +531,15 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* --- Page hero (interior) ----------------------------------------------- */
 .pagehero {
-  position: relative; display: flex; align-items: flex-end; overflow: hidden;
+  position: relative; display: flex; align-items: flex-end;
   background: var(--sp-ink); padding-top: 8rem; min-height: 52vh;
 }
-.pagehero__media { position: absolute; inset: 0; }
+/* overflow:hidden lives here (on the media layer only), not on .pagehero
+   itself — a long collection description wrapping to many lines on a
+   narrow screen needs the hero to grow taller than min-height, and a
+   parent-level overflow:hidden would clip that text instead of letting
+   it push the box (and the absolutely-positioned photo behind it) down. */
+.pagehero__media { position: absolute; inset: 0; overflow: hidden; }
 .pagehero__media img { height: 100%; width: 100%; object-fit: cover; opacity: .6; }
 /* Stronger throughout (was .45/.25) — the description text sits in the
    45-55% band, and a bright patch in some photos (e.g. a pale prop)
@@ -581,11 +586,15 @@ input, textarea, select { font: inherit; color: inherit; }
 .card:hover .card__img--main.has-alt { opacity: 0; }
 .card:hover .card__img--alt { opacity: 1; }
 .card__body { padding-top: 1rem; }
+/* !important: belt-and-suspenders against any stray override, same
+   fully-opaque dark ink on hover as at rest (no color change at all)
+   since a subtle hover-only shift was repeatedly reported as "goes
+   pale"/hard to read. */
 .card__title {
-  font-family: var(--font-body); font-size: 1.02rem; font-weight: 500; line-height: 1.35; color: var(--sp-ink);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color .4s;
+  font-family: var(--font-body); font-size: 1.02rem; font-weight: 500; line-height: 1.35; color: var(--sp-ink) !important;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.card:hover .card__title { color: var(--sp-ink-3); }
+.card:hover .card__title { color: var(--sp-ink) !important; }
 .card__price {
   margin-top: .375rem; margin-bottom: .75rem; display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .5rem;
   font-family: var(--font-display); font-size: .82rem; letter-spacing: .06em; color: var(--sp-ink-3);
