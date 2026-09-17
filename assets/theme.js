@@ -478,10 +478,16 @@
          which is rarely an exact multiple of the circle size and would
          leave a sliver of the next one showing. */
       var stride = picks[1].offsetLeft - picks[0].offsetLeft;
-      var pageSize = Math.max(1, Math.floor(viewport.clientWidth / stride));
+      /* Never show more than 5 at once, but still adapt down (never up) for
+         a viewport too narrow to fit 5 -- capped either way at exactly
+         pageSize * stride so no partial circle is ever in the box. */
+      var fitCount = Math.max(1, Math.floor(viewport.clientWidth / stride));
+      var pageSize = Math.min(5, fitCount);
       var pages = Math.ceil(picks.length / pageSize);
       if (pages < 2) { dotsWrap.innerHTML = ""; return; }
       var pageWidth = pageSize * stride;
+      viewport.style.maxWidth = pageWidth + "px";
+      viewport.style.marginInline = "auto";
 
       dotsWrap.innerHTML = "";
       var dots = [];
