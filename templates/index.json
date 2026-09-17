@@ -12,6 +12,18 @@
     "hero": {
       "type": "cinematic-hero",
       "blocks": {
+        "slide_QwGMnH": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/ChatGPT_Image_Jun_24_2026_10_49_37_AM_1.webp",
+            "image_mobile": "shopify://shop_images/Mobile_layout_430x_5190c385-dd5f-4d2a-b582-a8f9b738457a.webp",
+            "devanagari": "",
+            "heading": "Timeless Silver.",
+            "subtitle": "",
+            "cta_label": "Explore Collection",
+            "cta_url": ""
+          }
+        },
         "slide_Mt8Ybe": {
           "type": "slide",
           "settings": {
@@ -26,6 +38,7 @@
         }
       },
       "block_order": [
+        "slide_QwGMnH",
         "slide_Mt8Ybe"
       ],
       "settings": {
