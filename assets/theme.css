@@ -874,7 +874,16 @@ input, textarea, select { font: inherit; color: inherit; }
 .kavach__rail { display: flex; width: 100%; gap: 1.25rem; }
 @media (min-width: 1024px) { .kavach__rail { gap: 1.5rem; } }
 .kavach__right { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.kavach__viewport { width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.kavach__viewport {
+  width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  /* clientWidth is rarely an exact multiple of one circle's width + gap, so
+     whatever sliver of the next circle also fits still renders and gets
+     hard-cut by the box edge. Fading it out at the edges (same technique as
+     the marquee) reads as intentional instead of a broken crop, without
+     wasting space the way capping the box width to a whole multiple did. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
+}
 .kavach__viewport::-webkit-scrollbar { display: none; }
 /* Fixed (smaller) circle sizes — theme.js measures how many whole picks
    actually fit the viewport and pages by that exact count, so there is

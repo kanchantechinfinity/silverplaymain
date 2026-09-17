@@ -482,13 +482,6 @@
       var pages = Math.ceil(picks.length / pageSize);
       if (pages < 2) { dotsWrap.innerHTML = ""; return; }
       var pageWidth = pageSize * stride;
-      /* The viewport box itself is as wide as clientWidth, so without this
-         cap, whatever fraction of the next circle also fits (clientWidth is
-         rarely an exact multiple of stride) still renders and gets hard-cut
-         by the box edge, even though paging already advances by whole
-         circles. Capping the box to exactly pageWidth means only whole
-         circles are ever in the rendered box, never a sliver of the next. */
-      viewport.style.maxWidth = pageWidth + "px";
 
       dotsWrap.innerHTML = "";
       var dots = [];
