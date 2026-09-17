@@ -894,7 +894,10 @@ input, textarea, select { font: inherit; color: inherit; }
   border-radius: 999px; box-shadow: 0 0 0 2px rgba(138,106,46,.55); transition: box-shadow .5s;
 }
 .kavach__circle:hover { box-shadow: 0 0 0 2px rgba(216,180,102,.8); }
-.kavach__circle img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transition: transform .7s; }
+/* Pendant photos hang from a loop/bail near the top of the shot -- default
+   center cropping into a circle clips it. Bias up instead of cropping the
+   background/surface below the piece equally from both sides. */
+.kavach__circle img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 22%; transition: transform .7s; }
 .kavach__circle:hover img { transform: scale(1.1); }
 .kavach__pick p { font-family: var(--font-display); font-size: 0.725rem; text-transform: uppercase; letter-spacing: .16em; color: rgba(242,232,208,.6); }
 
