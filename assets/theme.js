@@ -1063,6 +1063,54 @@
              items.map(function (i) { return row(i, metaFor ? metaFor(i) : ""); }).join("") + "</div>";
     }
 
+    /* Shopify's predictive search matches substrings/prefixes, not spelling
+       -- "pandent" simply never matches "Pendant" server-side, no matter
+       how many results are asked for. This corrects the query client-side
+       against the store's own product vocabulary before searching, and
+       merges results from both the typed and corrected query so a typo
+       still surfaces every match a correct spelling would have. */
+    var VOCAB = [
+      "pendant", "pendants", "earring", "earrings", "necklace", "necklaces",
+      "bracelet", "bracelets", "ring", "rings", "anklet", "anklets",
+      "chain", "chains", "bali", "jhumka", "jhumkas", "hoop", "hoops",
+      "rakhi", "kavach", "silver", "sterling", "gemstone", "gemstones",
+      "stone", "stones", "collection", "collections", "wedding", "festive",
+      "ganpati", "moonlight", "lakshmi", "shakti", "tiger", "eye", "agate",
+      "pyrite", "garnet", "ruby", "emerald", "amethyst", "quartz", "druzy",
+      "peacock", "feather", "butterfly", "flower", "floral", "vintage",
+      "designer", "handmade", "oxidised", "oxidized", "jewellery", "jewelry"
+    ];
+    function editDistance(a, b) {
+      var m = a.length, n = b.length;
+      var d = [];
+      for (var i = 0; i <= m; i++) d[i] = [i];
+      for (var j = 0; j <= n; j++) d[0][j] = j;
+      for (i = 1; i <= m; i++) {
+        for (j = 1; j <= n; j++) {
+          d[i][j] = a[i - 1] === b[j - 1]
+            ? d[i - 1][j - 1]
+            : 1 + Math.min(d[i - 1][j], d[i][j - 1], d[i - 1][j - 1]);
+        }
+      }
+      return d[m][n];
+    }
+    function correctQuery(q) {
+      return q.split(/\s+/).map(function (token) {
+        var lc = token.toLowerCase();
+        if (lc.length < 3) return token;
+        var exact = VOCAB.indexOf(lc) !== -1;
+        if (exact) return token;
+        var best = null, bestDist = Infinity;
+        VOCAB.forEach(function (word) {
+          if (Math.abs(word.length - lc.length) > 2) return;
+          var dist = editDistance(lc, word);
+          if (dist < bestDist) { bestDist = dist; best = word; }
+        });
+        var maxAllowed = lc.length <= 5 ? 1 : 2;
+        return best && bestDist <= maxAllowed ? best : token;
+      }).join(" ");
+    }
+
     function render(data, q) {
       var r = (data && data.resources && data.resources.results) || {};
       var html = group("Products", r.products, function (p) {
@@ -1085,15 +1133,42 @@
       if (allLink) allLink.href = base + "?q=" + encodeURIComponent(q);
     }
 
-    function run(q) {
-      if (controller) controller.abort();
-      controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+    function suggest(q, signal) {
       var url = base + "/suggest.json?q=" + encodeURIComponent(q) +
                 "&resources[type]=product,collection,article,page&resources[limit]=5" +
                 "&resources[options][unavailable_products]=last";
-      fetch(url, controller ? { signal: controller.signal } : undefined)
-        .then(function (res) { return res.json(); })
-        .then(function (data) { render(data, q); })
+      return fetch(url, signal ? { signal: signal } : undefined).then(function (res) { return res.json(); });
+    }
+    function mergeResults(a, b) {
+      var ra = (a && a.resources && a.resources.results) || {};
+      var rb = (b && b.resources && b.resources.results) || {};
+      function merge(listA, listB) {
+        var seen = {}, out = [];
+        (listA || []).concat(listB || []).forEach(function (item) {
+          if (!item || seen[item.url]) return;
+          seen[item.url] = true;
+          out.push(item);
+        });
+        return out;
+      }
+      return {
+        resources: { results: {
+          products: merge(ra.products, rb.products),
+          collections: merge(ra.collections, rb.collections),
+          articles: merge(ra.articles, rb.articles),
+          pages: merge(ra.pages, rb.pages)
+        } }
+      };
+    }
+    function run(q) {
+      if (controller) controller.abort();
+      controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var signal = controller ? controller.signal : undefined;
+      var corrected = correctQuery(q);
+      var requests = [suggest(q, signal)];
+      if (corrected !== q) requests.push(suggest(corrected, signal));
+      Promise.all(requests)
+        .then(function (all) { render(all.length > 1 ? mergeResults(all[0], all[1]) : all[0], q); })
         .catch(function (err) {
           if (err && err.name === "AbortError") return;
           // network or endpoint failure: fall back to the full search page
