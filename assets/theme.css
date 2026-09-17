@@ -770,8 +770,11 @@ input, textarea, select { font: inherit; color: inherit; }
   cursor: pointer;
 }
 .deck__card.is-active { transform: scale(1); opacity: 1; box-shadow: 0 0 0 2px rgba(216,180,102,.7); }
+/* The gold ring is reserved for the active card only -- it used to also
+   flash on hover/focus of any other card and vanish the moment the cursor
+   left, which read as a glitch rather than a hover cue. */
 .deck__card:not(.is-active):hover,
-.deck__card:not(.is-active):focus-visible { opacity: .75; box-shadow: 0 0 0 2px rgba(216,180,102,.7); }
+.deck__card:not(.is-active):focus-visible { opacity: .75; }
 .deck__card:focus-visible { outline: none; }
 .deck__card img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
 .deck__wash {

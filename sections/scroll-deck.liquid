@@ -10,7 +10,7 @@
 
 <section class="deck" data-deck
          aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
-  <div class="deck__stage on-dark">
+  <div class="deck__stage on-dark" style="background: {{ section.settings.bg_color | default: '#241a10' }}">
     <div class="deck__head">
       {% render 'heading',
         eyebrow: section.settings.eyebrow,
@@ -79,7 +79,8 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Edit" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Her Royal Simplicity" },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful." },
-    { "type": "text", "id": "cta_label", "label": "Link label", "default": "Shop The Edit" }
+    { "type": "text", "id": "cta_label", "label": "Link label", "default": "Shop The Edit" },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#241a10" }
   ],
   "presets": [{ "name": "Scroll deck edit" }]
 }
