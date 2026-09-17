@@ -201,13 +201,6 @@
             "quote": "With proper care, your Silver Play pieces will last a lifetime.",
             "attribution": "Jewellery Care"
           }
-        },
-        "n6": {
-          "type": "note",
-          "settings": {
-            "quote": "Handcrafted sterling silver jewellery, forged in the ancient tradition.",
-            "attribution": "Silver Play"
-          }
         }
       },
       "block_order": [
@@ -215,8 +208,7 @@
         "n2",
         "n3",
         "n4",
-        "n5",
-        "n6"
+        "n5"
       ],
       "settings": {
         "eyebrow": "In Her Own Words",
