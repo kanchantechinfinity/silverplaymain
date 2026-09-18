@@ -102,6 +102,7 @@
         ],
         "settings": {
           "menu": "silver-play-menu",
+          "mobile_menu": "responsive-mobile-menu",
           "mega_menu_trigger": "Women",
           "show_wishlist": true,
           "offer_url": "",
