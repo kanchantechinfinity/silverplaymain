@@ -1,6 +1,7 @@
 {%- liquid
   assign menu = linklists[section.settings.menu]
   assign mega_handle = section.settings.mega_menu_trigger | downcase
+  assign mobile_menu = linklists[section.settings.mobile_menu] | default: menu
 -%}
 
 <header class="header" data-header role="banner">
@@ -64,7 +65,7 @@
   <button type="button" class="mobile-nav__close" data-mobile-nav-close>{{ 'accessibility.close' | t }}</button>
   <nav class="mobile-nav__list" role="navigation" aria-label="Mobile">
     <ul>
-      {%- for link in menu.links -%}
+      {%- for link in mobile_menu.links -%}
         <li>
           <a href="{{ link.url }}">{{ link.title }}</a>
           {%- if link.links.size > 0 -%}
@@ -116,6 +117,8 @@
   "name": "Header",
   "settings": [
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "link_list", "id": "mobile_menu", "label": "Mobile menu",
+      "info": "Used for the mobile drawer (the ☰ icon below 1024px). Leave blank to reuse the menu above." },
     { "type": "text", "id": "mega_menu_trigger", "label": "Menu item that opens the mega nav", "default": "Collections",
       "info": "Must match a top-level menu item title exactly (case-insensitive)." },
     { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist icon", "default": true },
