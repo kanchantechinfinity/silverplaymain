@@ -66,14 +66,23 @@
   <nav class="mobile-nav__list" role="navigation" aria-label="Mobile">
     <ul>
       {%- for link in mobile_menu.links -%}
-        <li>
-          <a href="{{ link.url }}">{{ link.title }}</a>
+        <li class="mobile-nav__item"{% if link.links.size > 0 %} data-accordion-row{% endif %}>
+          <div class="mobile-nav__row">
+            <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}
+              <button type="button" class="mobile-nav__toggle" data-accordion-btn aria-expanded="false" aria-label="{{ link.title | escape }} submenu">
+                <span class="mobile-nav__plus" aria-hidden="true"></span>
+              </button>
+            {%- endif -%}
+          </div>
           {%- if link.links.size > 0 -%}
-            <ul class="mobile-nav__sub">
-              {%- for child in link.links -%}
-                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
-              {%- endfor -%}
-            </ul>
+            <div class="mobile-nav__panel">
+              <ul class="mobile-nav__sub">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
           {%- endif -%}
         </li>
       {%- endfor -%}
