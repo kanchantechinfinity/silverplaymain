@@ -88,7 +88,7 @@
   data-cart-open), so behaviour is identical, not a parallel implementation.
 {%- endcomment -%}
 <nav class="mbar" data-mobile-bar aria-label="{{ 'accessibility.menu' | t }}">
-  <a href="{{ section.settings.offer_url | default: routes.all_products_collection_url }}" class="mbar__item">
+  <a href="{{ section.settings.offer_url | default: '/pages/festive-season-offer' }}" class="mbar__item">
     {% render 'icon', name: 'gift' %}
     <span>{{ section.settings.offer_label | default: 'Offers' }}</span>
   </a>
