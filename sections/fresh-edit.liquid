@@ -21,8 +21,11 @@
       <div class="tabs" data-reveal data-delay="0.16">
         <div class="tabs__inner" role="tablist">
           {%- for block in section.blocks -%}
+            {%- assign tab_col = collections[block.settings.collection] -%}
             <button type="button" class="tabs__btn" role="tab"
                     data-tab-btn="{{ block.id }}"
+                    data-tab-url="{{ tab_col.url }}"
+                    data-tab-label="{{ block.settings.label | escape }}"
                     aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                     {{ block.shopify_attributes }}>
               {{ block.settings.label }}
@@ -50,10 +53,22 @@
     {%- endfor -%}
 
     {%- if section.settings.cta_label != blank -%}
+      {%- liquid
+        assign first_block = section.blocks.first
+        assign first_col = collections[first_block.settings.collection]
+      -%}
       <div class="center-cta" data-reveal data-delay="0.1">
-        <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="btn btn--ink">
-          {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
-        </a>
+        {%- if section.settings.cta_url != blank -%}
+          {%- comment -%} An explicit link overrides the per-tab default -- it stays the same for every tab. {%- endcomment -%}
+          <a href="{{ section.settings.cta_url }}" class="btn btn--ink">
+            {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
+          </a>
+        {%- else -%}
+          {%- comment -%} No explicit link: follow whichever tab is active, so "Shop Now" always goes to that tab's own collection instead of one fixed page. {%- endcomment -%}
+          <a href="{{ first_col.url | default: routes.all_products_collection_url }}" class="btn btn--ink" data-tab-cta>
+            {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
+          </a>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>

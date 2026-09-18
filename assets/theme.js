@@ -235,6 +235,12 @@
           });
           var label = $("[data-tab-label]", root);
           if (label) label.textContent = btn.textContent.trim();
+          /* "Shop Now"-style CTA below the grid: no explicit link configured,
+             so it should always point at whichever tab is currently showing,
+             not stay stuck on the first tab's collection. */
+          var cta = $("[data-tab-cta]", root);
+          var url = btn.getAttribute("data-tab-url");
+          if (cta && url) cta.href = url;
         });
       });
     });
