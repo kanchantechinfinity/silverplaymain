@@ -20,12 +20,20 @@
     {%- if section.blocks.size > 1 -%}
       <div class="tabs" data-reveal data-delay="0.16">
         <div class="tabs__inner" role="tablist">
+          {%- liquid
+            assign first_block = section.blocks.first
+            assign cta_prefix = section.settings.cta_label
+            if cta_prefix contains first_block.settings.label
+              assign cta_prefix = cta_prefix | remove: first_block.settings.label | rstrip
+            endif
+          -%}
           {%- for block in section.blocks -%}
             {%- assign tab_col = collections[block.settings.collection] -%}
+            {%- assign tab_cta_label = cta_prefix | append: ' ' | append: block.settings.label -%}
             <button type="button" class="tabs__btn" role="tab"
                     data-tab-btn="{{ block.id }}"
                     data-tab-url="{{ tab_col.url }}"
-                    data-tab-label="{{ block.settings.label | escape }}"
+                    data-tab-cta-label="{{ tab_cta_label | escape }}"
                     aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                     {{ block.shopify_attributes }}>
               {{ block.settings.label }}
@@ -66,7 +74,7 @@
         {%- else -%}
           {%- comment -%} No explicit link: follow whichever tab is active, so "Shop Now" always goes to that tab's own collection instead of one fixed page. {%- endcomment -%}
           <a href="{{ first_col.url | default: routes.all_products_collection_url }}" class="btn btn--ink" data-tab-cta>
-            {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
+            <span data-tab-cta-text>{{ section.settings.cta_label }}</span> <span class="btn__arrow">&rarr;</span>
           </a>
         {%- endif -%}
       </div>

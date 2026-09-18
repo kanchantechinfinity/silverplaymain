@@ -236,11 +236,15 @@
           var label = $("[data-tab-label]", root);
           if (label) label.textContent = btn.textContent.trim();
           /* "Shop Now"-style CTA below the grid: no explicit link configured,
-             so it should always point at whichever tab is currently showing,
-             not stay stuck on the first tab's collection. */
+             so it should always point at whichever tab is currently showing
+             (link AND label), not stay stuck on the first tab's collection
+             while still reading "Shop New Arrivals" on every other tab. */
           var cta = $("[data-tab-cta]", root);
           var url = btn.getAttribute("data-tab-url");
           if (cta && url) cta.href = url;
+          var ctaText = $("[data-tab-cta-text]", root);
+          var ctaLabel = btn.getAttribute("data-tab-cta-label");
+          if (ctaText && ctaLabel) ctaText.textContent = ctaLabel;
         });
       });
     });
