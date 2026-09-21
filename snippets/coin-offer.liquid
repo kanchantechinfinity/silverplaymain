@@ -1,0 +1,27 @@
+{%- comment -%}
+  Tiered free-silver-coin progress banner: 1 free 5g 99.9%-purity coin per
+  ₹15,000 spent (₹15,000+ = 1 coin, ₹30,000+ = 2, and so on), shown wherever
+  {% render 'coin-offer' %} is placed (cart drawer, cart page). Emits a
+  data-coins attribute theme.js reads to fire the celebration pop when the
+  shopper crosses into a new tier.
+{%- endcomment -%}
+{%- liquid
+  assign threshold = 1500000
+  assign coins = cart.total_price | divided_by: threshold
+  assign remaining_cents = coins | plus: 1 | times: threshold | minus: cart.total_price
+  assign grams = coins | times: 5
+-%}
+<div class="coin-offer" data-coin-offer data-coins="{{ coins }}">
+  <span class="coin-offer__icon" aria-hidden="true">&#9679;</span>
+  <div class="coin-offer__text">
+    {%- if coins > 0 -%}
+      <p class="coin-offer__headline">
+        You've unlocked {{ coins }} free silver coin{% if coins > 1 %}s{% endif %} &mdash; {{ grams }}g, 99.9% purity!
+      </p>
+      <p class="coin-offer__sub">Add {{ remaining_cents | money }} more for another free coin.</p>
+    {%- else -%}
+      <p class="coin-offer__headline">Free silver coin on orders ₹15,000+</p>
+      <p class="coin-offer__sub">Add {{ remaining_cents | money }} more to unlock a free 5g, 99.9%-purity silver coin.</p>
+    {%- endif -%}
+  </div>
+</div>

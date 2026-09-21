@@ -9,6 +9,7 @@
       <a href="{{ routes.all_products_collection_url }}" class="btn btn--ink mt-8">{{ 'cart.general.continue_shopping' | t }}</a>
     </div>
   {%- else -%}
+    {% render 'coin-offer' %}
     <form action="{{ routes.cart_url }}" method="post" novalidate class="mt-8">
       <table class="cart-table">
         <thead>

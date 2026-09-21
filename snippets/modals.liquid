@@ -68,3 +68,22 @@
     <button type="button" class="link-cta link-cta--bone mt-4" data-note-close style="margin-inline:auto;display:flex">{{ 'accessibility.close' | t }}</button>
   </div>
 </div>
+
+{%- comment -%}
+  Free-silver-coin celebration: fires from theme.js's initCoinOffer() the
+  moment the cart crosses into a new ₹15,000 tier. Message/gram count are
+  filled in by JS since they depend on the live cart total, not anything
+  Liquid knows at render time.
+{%- endcomment -%}
+<div class="coin-modal" data-coin-modal aria-hidden="true">
+  <div class="coin-modal__scrim" data-coin-close></div>
+  <div class="coin-modal__panel" role="dialog" aria-modal="true" aria-label="Free silver coin unlocked">
+    <div class="coin-modal__stars" aria-hidden="true">
+      {%- for i in (1..14) -%}<span class="coin-modal__star"></span>{%- endfor -%}
+    </div>
+    <span class="coin-modal__medal" aria-hidden="true">&#9679;</span>
+    <p class="coin-modal__heading">Congratulations!</p>
+    <p class="coin-modal__body" data-coin-modal-text></p>
+    <button type="button" class="btn btn--ink mt-4" data-coin-close>Yay!</button>
+  </div>
+</div>

@@ -665,7 +665,7 @@
     });
     document.addEventListener("keydown", function (e) {
       if (e.key !== "Escape") return;
-      $$("[data-modal].is-open, .cart-drawer.is-open, .search-drawer.is-open, .mobile-nav.is-open, .shop__drawer.is-open").forEach(function (m) {
+      $$("[data-modal].is-open, .cart-drawer.is-open, .search-drawer.is-open, .mobile-nav.is-open, .shop__drawer.is-open, .coin-modal.is-open").forEach(function (m) {
         m.classList.remove("is-open");
       });
       document.body.style.overflow = "";
@@ -814,6 +814,7 @@
         if (c) cartCountUpdate(c.textContent.trim());
         bindCartLines();
         bindCartClose(drawer);
+        checkCoinCelebration();
       });
   }
   function bindCartLines() {
@@ -985,6 +986,46 @@
     $$("[data-note-close], .note-modal__scrim", modal).forEach(function (b) {
       b.addEventListener("click", function () { modal.classList.remove("is-open"); document.body.style.overflow = ""; });
     });
+  }
+
+  /* -------------------------------------------- free silver coin offer */
+  var COIN_TIER_KEY = "sp_coin_tier";
+  function checkCoinCelebration() {
+    var el = $("[data-coin-offer]");
+    if (!el) return;
+    var coins = parseInt(el.getAttribute("data-coins"), 10) || 0;
+    var prev = 0;
+    try { prev = parseInt(localStorage.getItem(COIN_TIER_KEY) || "0", 10) || 0; } catch (e) {}
+    if (coins > prev) celebrateCoins(coins);
+    try { localStorage.setItem(COIN_TIER_KEY, String(coins)); } catch (e) {}
+  }
+  function celebrateCoins(coins) {
+    var modal = $("[data-coin-modal]");
+    if (!modal) return;
+    var grams = coins * 5;
+    var text = $("[data-coin-modal-text]", modal);
+    if (text) {
+      var label = coins > 1 ? "silver coins" : "a silver coin";
+      text.textContent = "You've received " + label + " worth " + grams +
+        "g of 99.9% pure silver — absolutely FREE!";
+    }
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function initCoinOffer() {
+    $$("[data-coin-close], .coin-modal__scrim").forEach(function (b) {
+      if (b.dataset.coinBound) return;
+      b.dataset.coinBound = "1";
+      b.addEventListener("click", function () {
+        var modal = $("[data-coin-modal]");
+        if (!modal) return;
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      });
+    });
+    checkCoinCelebration();
   }
 
   /* --------------------------------------------------- reel/video modal */
@@ -1237,6 +1278,7 @@
     initReels();
     initPin();
     initGift();
+    initCoinOffer();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

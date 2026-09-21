@@ -5,6 +5,10 @@
   </button>
 </header>
 
+{%- if cart.item_count > 0 -%}
+  {% render 'coin-offer' %}
+{%- endif -%}
+
 <div class="cart-drawer__body">
   {%- if cart.item_count == 0 -%}
     <div class="cart-empty">

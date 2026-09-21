@@ -1035,6 +1035,77 @@ input, textarea, select { font: inherit; color: inherit; }
 .note-modal__panel .note__quote { font-size: 2.125rem; line-height: 1.5; }
 .note-modal__panel .note__body { gap: 1.5rem; padding: 3rem 2.25rem; }
 
+/* --- Free silver coin offer --------------------------------------------- */
+.coin-offer {
+  display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem;
+  padding: .875rem 1rem; border-radius: var(--radius-md);
+  background: var(--gilt); color: var(--sp-ink);
+}
+.coin-offer__icon {
+  flex: none; display: grid; place-items: center; height: 2.25rem; width: 2.25rem; border-radius: 999px;
+  background: var(--sp-ink); color: var(--sp-gold); font-size: .8rem;
+}
+.coin-offer__headline { font-family: var(--font-display); font-size: .82rem; font-weight: 600; line-height: 1.3; }
+.coin-offer__sub { margin-top: .15rem; font-family: var(--font-body); font-size: .8rem; color: rgba(36,26,16,.75); }
+
+/* --- Free silver coin celebration --------------------------------------- */
+.coin-modal {
+  position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity .35s;
+}
+.coin-modal.is-open { opacity: 1; pointer-events: auto; }
+.coin-modal__scrim { position: absolute; inset: 0; background: rgba(36,26,16,.85); backdrop-filter: blur(4px); }
+.coin-modal__panel {
+  position: relative; z-index: 10; width: 100%; max-width: 24rem; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 3rem 2rem 2.5rem; border-radius: var(--radius-lg); background: var(--parchment);
+  box-shadow: 0 30px 70px -24px rgba(26,22,20,.6);
+  transform: scale(.85) translateY(20px); transition: transform .45s var(--ease-out-expo);
+}
+.coin-modal.is-open .coin-modal__panel { transform: none; }
+.coin-modal__medal {
+  display: grid; place-items: center; height: 4.5rem; width: 4.5rem; margin-bottom: 1rem; border-radius: 999px;
+  background: var(--gilt); color: var(--sp-ink); font-size: 1.75rem;
+  box-shadow: 0 12px 28px -10px rgba(138,106,46,.6);
+  animation: sp-coin-pop .6s var(--ease-out-expo) .1s both;
+}
+.coin-modal__heading {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--sp-ink);
+  animation: sp-coin-pop .5s var(--ease-out-expo) .25s both;
+}
+.coin-modal__body {
+  margin-top: .5rem; font-family: var(--font-body); font-size: 1rem; line-height: 1.6; color: rgba(36,26,16,.75);
+  animation: sp-coin-pop .5s var(--ease-out-expo) .35s both;
+}
+@keyframes sp-coin-pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.coin-modal__stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.coin-modal__star {
+  position: absolute; top: 50%; left: 50%; height: 6px; width: 6px; border-radius: 999px;
+  background: var(--sp-gold); opacity: 0;
+}
+.coin-modal.is-open .coin-modal__star { animation: sp-coin-star .9s var(--ease-out-expo) forwards; }
+/* Each star bursts to its own angle/distance via nth-child, so 14 fixed
+   points read as a scatter instead of every star flying the same line. */
+.coin-modal__star:nth-child(1) { --a: 0deg; --d: 9rem; animation-delay: .05s; }
+.coin-modal__star:nth-child(2) { --a: 26deg; --d: 7rem; animation-delay: .1s; }
+.coin-modal__star:nth-child(3) { --a: 52deg; --d: 10rem; animation-delay: 0s; }
+.coin-modal__star:nth-child(4) { --a: 78deg; --d: 6.5rem; animation-delay: .15s; }
+.coin-modal__star:nth-child(5) { --a: 104deg; --d: 8.5rem; animation-delay: .05s; }
+.coin-modal__star:nth-child(6) { --a: 130deg; --d: 7.5rem; animation-delay: .12s; }
+.coin-modal__star:nth-child(7) { --a: 156deg; --d: 9.5rem; animation-delay: .02s; }
+.coin-modal__star:nth-child(8) { --a: 182deg; --d: 8rem; animation-delay: .18s; }
+.coin-modal__star:nth-child(9) { --a: 208deg; --d: 6.8rem; animation-delay: .08s; }
+.coin-modal__star:nth-child(10) { --a: 234deg; --d: 9.8rem; animation-delay: .14s; }
+.coin-modal__star:nth-child(11) { --a: 260deg; --d: 7.2rem; animation-delay: 0s; }
+.coin-modal__star:nth-child(12) { --a: 286deg; --d: 8.8rem; animation-delay: .2s; }
+.coin-modal__star:nth-child(13) { --a: 312deg; --d: 6.2rem; animation-delay: .1s; }
+.coin-modal__star:nth-child(14) { --a: 338deg; --d: 9.2rem; animation-delay: .16s; }
+@keyframes sp-coin-star {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--a)) translateX(0) scale(.4); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--a)) translateX(var(--d)) scale(1); }
+}
+
 /* --- Journal showcase (3D arc) ------------------------------------------ */
 .arc { position: relative; isolation: isolate; background: var(--sp-bone); }
 .arc__stage { position: sticky; top: 0; display: flex; height: 100vh; flex-direction: column; overflow: hidden; }
