@@ -448,16 +448,32 @@
         "role": "Founder, Silver Play"
       }
     },
-    "effortless_elegance": {
-      "type": "edit-with-video",
+    "celeb_love": {
+      "type": "celeb-love",
+      "blocks": {
+        "r1": {
+          "type": "reel",
+          "settings": { "video_asset": "celeb-reel-ankita.mp4", "name": "Ankita" }
+        },
+        "r2": {
+          "type": "reel",
+          "settings": { "video_asset": "celeb-reel-rashmi.mp4", "name": "Rashmi" }
+        },
+        "r3": {
+          "type": "reel",
+          "settings": { "video_asset": "celeb-reel-pp.mp4", "name": "" }
+        },
+        "r4": {
+          "type": "reel",
+          "settings": { "video_asset": "celeb-reel-4.mp4", "name": "" }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"],
       "settings": {
-        "collection": "everyday-elegance",
-        "eyebrow": "The Edit",
-        "heading": "Effortless Elegance",
-        "lede": "Perfect for women who love Indian silhouettes, celebrity inspired ethnic styling, statement silver and looks that feel graceful but not predictable.",
-        "cta_label": "Shop The Edit",
-        "count": 4,
-        "video_url": ""
+        "eyebrow": "As Seen & Loved",
+        "heading": "Celeb Who Loves Us",
+        "lede": "Real reels from the faces who wear Silver Play.",
+        "bg_image": ""
       }
     },
     "journal_arc": {
@@ -530,7 +546,7 @@
     "instagram",
     "reels",
     "founder",
-    "effortless_elegance",
+    "celeb_love",
     "journal_arc",
     "faq"
   ]

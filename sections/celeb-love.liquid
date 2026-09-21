@@ -1,0 +1,83 @@
+{%- comment -%}
+  "Celeb Who Loves Us" — a row of real reels (muted, autoplaying, looping),
+  replacing Effortless Elegance. Each block first checks for a merchant-
+  uploaded video (native picker) or a pasted URL, then falls back to its
+  own bundled asset, so the section works out of the box.
+{%- endcomment -%}
+<section class="heritage-sec sec on-dark" style="background: var(--sp-ink)">
+  {% render 'heritage-bg',
+    image: section.settings.bg_image,
+    fallback: 'story-veena.jpg',
+    wash: 'rgba(36,26,16,0.82)' %}
+
+  <div class="wrap">
+    <div class="text-center">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="h-sec mt-4" data-split data-reveal="none">{{ section.settings.heading }}</h2>
+      {%- if section.settings.lede != blank -%}
+        <div data-reveal data-delay="0.12">
+          <p class="lede mt-4" style="margin-inline:auto;max-width:32rem">{{ section.settings.lede }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="celeb-reels mt-12">
+      {%- for block in section.blocks -%}
+        <div class="celeb-reels__card" {{ block.shopify_attributes }}>
+          <div class="celeb-reels__frame">
+            <div class="celeb-reels__video">
+              {%- if block.settings.video != blank -%}
+                {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '600x' }}
+              {%- elsif block.settings.video_url != blank -%}
+                <video src="{{ block.settings.video_url }}" autoplay muted loop playsinline></video>
+              {%- elsif block.settings.video_asset != blank -%}
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="{{ block.settings.video_asset | asset_url }}" type="video/mp4">
+                </video>
+              {%- endif -%}
+            </div>
+          </div>
+          {%- if block.settings.name != blank -%}
+            <p class="celeb-reels__name">{{ block.settings.name }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Celeb who loves us",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "As Seen & Loved" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Celeb Who Loves Us" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Real reels from the faces who wear Silver Play." },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Reel",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Video (uploaded here overrides the URL/asset below)" },
+        { "type": "url", "id": "video_url", "label": "Video URL (MP4)" },
+        { "type": "text", "id": "video_asset", "label": "Theme asset filename (bundled fallback)" },
+        { "type": "text", "id": "name", "label": "Name / caption" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Celeb who loves us",
+      "blocks": [
+        { "type": "reel", "settings": { "video_asset": "celeb-reel-ankita.mp4", "name": "Ankita" } },
+        { "type": "reel", "settings": { "video_asset": "celeb-reel-rashmi.mp4", "name": "Rashmi" } },
+        { "type": "reel", "settings": { "video_asset": "celeb-reel-pp.mp4", "name": "" } },
+        { "type": "reel", "settings": { "video_asset": "celeb-reel-4.mp4", "name": "" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
