@@ -1,5 +1,29 @@
 # Build Log — silverplaymain
 
+## 2026-09-21 — Tiered free-silver-coin offer, India GST removed at checkout
+
+### Free silver coin offer (new feature)
+Replaces the old static "buy ₹15,000+ get a coin" marketing line with an
+actual tiered calculation: 1 free 5g 99.9%-purity coin per ₹15,000 in the
+cart (₹15,000+ = 1, ₹30,000+ = 2, uncapped). `snippets/coin-offer.liquid`
+computes the tier from `cart.total_price` and renders a gilt progress
+banner (in the cart drawer and cart page) showing how much more unlocks
+the next coin. `theme.js`'s `checkCoinCelebration()` compares the current
+tier against the last one stored in `localStorage` and fires a starburst
+"Congratulations" modal (`snippets/modals.liquid`'s `.coin-modal`) the
+moment the shopper crosses into a new tier — on add-to-cart (drawer
+refresh) and on cart-page load.
+
+### India GST removed at checkout (Shopify Admin, not theme code)
+Silver Play's Shopify Admin → Taxes and duties → India had a 3% federal
+rate **plus a separate override on every one of the ~36 states/UTs**
+("X% instead of federal tax" — some at 18%, Karnataka at 9% SGST "added
+to" federal). Zeroing only the top-level India rate does nothing, since
+every state's override replaces that calculation independently — had to
+zero all ~36 rows individually, then Save. Verified live at
+silverplay.in checkout for two different states (Maharashtra, Karnataka)
+that total now equals subtotal exactly, no tax line added.
+
 ## 2026-09-17 — Mega nav hover-gap fix, deck card tint, header/marquee sizing, sitewide type bump, search price bug, occasion crop
 
 ### Mega nav: hover now sticky like click
