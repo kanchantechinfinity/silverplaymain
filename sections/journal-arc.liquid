@@ -1,7 +1,8 @@
 {%- comment -%}
-  "Stories, Worn as Silver" — a plain static grid of real blog articles,
-  cards sized to match .deck__card (Her Royal Simplicity). No scroll-jacking:
-  the page scrolls normally past this section like any other.
+  "Stories, Worn as Silver" — the exact same one-line, natively-swipeable
+  card rail as "Her Royal Simplicity" (.deck__viewport/.deck__rail/.deck__card,
+  driven by theme.js -> initDeck, which matches on these classes generically).
+  Real blog articles instead of products; no page-scroll hijacking.
 {%- endcomment -%}
 {%- liquid
   assign blog = blogs[section.settings.blog]
@@ -21,78 +22,74 @@
   assign featured = section.settings.featured_article
 -%}
 
-<section class="arc">
-  <div class="arc__stage">
+<section class="deck" data-deck aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
+  <div class="deck__stage" style="background: var(--sp-bone)">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
       fallback: 'heritage-mandala-corner.jpg',
       wash: 'rgba(242,232,208,0.8)' %}
 
-    <div class="arc__head">
+    <div class="deck__head">
       <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
       <h2 class="mt-2" style="font-size:clamp(1.5rem,3.2vw,2.3rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
     </div>
 
-    <div class="arc__grid">
-      {%- if blog != blank and blog.articles.size > 0 -%}
-        {%- assign shown = 0 -%}
-        {%- if featured != blank -%}
-          <div class="arc__card">
-            <a href="{{ featured.url }}">
-              <div class="arc__inner">
+    <div class="deck__viewport">
+      <div class="deck__rail" data-set-size="{{ real_count }}">
+        {%- for rep in (1..3) -%}
+          {%- assign is_buffer = true -%}
+          {%- if rep == 2 -%}{%- assign is_buffer = false -%}{%- endif -%}
+          {%- assign shown = 0 -%}
+          {%- assign slot = 0 -%}
+          {%- if blog != blank and blog.articles.size > 0 -%}
+            {%- if featured != blank -%}
+              <div class="deck__card{% if rep == 2 and slot == 0 %} is-active{% endif %}" data-deck-card{% if is_buffer %} aria-hidden="true"{% endif %}>
                 {%- if featured.image -%}
-                  <img src="{{ featured.image | image_url: width: 900 }}" alt="{{ featured.title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
+                  <img src="{{ featured.image | image_url: width: 900 }}" alt="{{ featured.title | escape }}" loading="{% if rep == 2 %}eager{% else %}lazy{% endif %}" decoding="async" width="900" height="1100">
                 {%- else -%}
-                  <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
+                  <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="900" height="1100">
                 {%- endif -%}
-                <span class="arc__scrim" aria-hidden="true"></span>
-                <div class="arc__foot">
-                  <h3>{{ featured.title }}</h3>
-                  <span class="arc__go" aria-hidden="true">&rarr;</span>
-                </div>
+                <span class="deck__wash" aria-hidden="true"></span>
+                <div class="deck__label"><p>{{ featured.title }}</p></div>
+                <a href="{{ featured.url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ featured.title }}</a>
               </div>
-            </a>
-          </div>
-          {%- assign shown = 1 -%}
-        {%- endif -%}
-        {%- for post in blog.articles -%}
-          {%- if shown >= real_count -%}{%- break -%}{%- endif -%}
-          {%- if featured != blank and post.id == featured.id -%}{%- continue -%}{%- endif -%}
-          <div class="arc__card">
-            <a href="{{ post.url }}">
-              <div class="arc__inner">
+              {%- assign shown = 1 -%}
+              {%- assign slot = slot | plus: 1 -%}
+            {%- endif -%}
+            {%- for post in blog.articles -%}
+              {%- if shown >= real_count -%}{%- break -%}{%- endif -%}
+              {%- if featured != blank and post.id == featured.id -%}{%- continue -%}{%- endif -%}
+              <div class="deck__card{% if rep == 2 and slot == 0 %} is-active{% endif %}" data-deck-card{% if is_buffer %} aria-hidden="true"{% endif %}>
                 {%- if post.image -%}
-                  <img src="{{ post.image | image_url: width: 900 }}" alt="{{ post.title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
+                  <img src="{{ post.image | image_url: width: 900 }}" alt="{{ post.title | escape }}" loading="{% if rep == 2 and slot <= 1 %}eager{% else %}lazy{% endif %}" decoding="async" width="900" height="1100">
                 {%- else -%}
-                  <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
+                  <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="900" height="1100">
                 {%- endif -%}
-                <span class="arc__scrim" aria-hidden="true"></span>
-                <div class="arc__foot">
-                  <h3>{{ post.title }}</h3>
-                  <span class="arc__go" aria-hidden="true">&rarr;</span>
-                </div>
+                <span class="deck__wash" aria-hidden="true"></span>
+                <div class="deck__label"><p>{{ post.title }}</p></div>
+                <a href="{{ post.url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ post.title }}</a>
               </div>
-            </a>
-          </div>
-          {%- assign shown = shown | plus: 1 -%}
-        {%- endfor -%}
-      {%- else -%}
-        <div class="arc__card">
-          <a href="{{ routes.root_url }}">
-            <div class="arc__inner">
-              <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
-              <span class="arc__scrim" aria-hidden="true"></span>
-              <div class="arc__foot">
-                <h3>{{ 'onboarding.blog_title' | t }}</h3>
-              </div>
+              {%- assign shown = shown | plus: 1 -%}
+              {%- assign slot = slot | plus: 1 -%}
+            {%- endfor -%}
+          {%- else -%}
+            <div class="deck__card{% if rep == 2 %} is-active{% endif %}" data-deck-card{% if is_buffer %} aria-hidden="true"{% endif %}>
+              <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="900" height="1100">
+              <span class="deck__wash" aria-hidden="true"></span>
+              <div class="deck__label"><p>{{ 'onboarding.blog_title' | t }}</p></div>
+              <a href="{{ routes.root_url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ 'onboarding.blog_title' | t }}</a>
             </div>
-          </a>
-        </div>
-      {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
     </div>
 
-    <div class="arc__controls">
-      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta">
+    <span class="deck__fade" aria-hidden="true"></span>
+
+    <div class="deck__controls">
+      <button type="button" class="round-btn" data-deck-prev aria-label="{{ 'accessibility.previous' | t }}">&larr;</button>
+      <button type="button" class="round-btn round-btn--solid" data-deck-next aria-label="{{ 'accessibility.next' | t }}">&rarr;</button>
+      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta" style="margin-left:1rem">
         {{ section.settings.cta_label }} <span>&rarr;</span>
       </a>
     </div>
