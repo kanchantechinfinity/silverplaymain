@@ -22,7 +22,7 @@
   assign featured = section.settings.featured_article
 -%}
 
-<section class="deck deck--journal" data-deck aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
+<section class="deck deck--journal" data-deck data-autoscroll="3200" aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
   <div class="deck__stage" style="background: var(--sp-bone)">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
@@ -50,6 +50,7 @@
                   <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="900" height="1100">
                 {%- endif -%}
                 <span class="deck__wash" aria-hidden="true"></span>
+                <span class="deck__read" aria-hidden="true">Read the Story <span aria-hidden="true">&rarr;</span></span>
                 <div class="deck__label"><p>{{ featured.title }}</p></div>
                 <a href="{{ featured.url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ featured.title }}</a>
               </div>
@@ -66,6 +67,7 @@
                   <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="900" height="1100">
                 {%- endif -%}
                 <span class="deck__wash" aria-hidden="true"></span>
+                <span class="deck__read" aria-hidden="true">Read the Story <span aria-hidden="true">&rarr;</span></span>
                 <div class="deck__label"><p>{{ post.title }}</p></div>
                 <a href="{{ post.url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ post.title }}</a>
               </div>

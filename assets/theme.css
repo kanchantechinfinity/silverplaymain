@@ -814,9 +814,26 @@ input, textarea, select { font: inherit; color: inherit; }
    dim/scale on non-centred cards (that scale+opacity read as a hazy
    overlay here, since these are article photos rather than a
    "which one's active" product carousel). */
-.deck--journal .deck__card { opacity: 1; transform: scale(1); }
+.deck--journal .deck__card { opacity: 1; transform: scale(1); transition: transform .35s var(--ease-silk), box-shadow .35s; }
 .deck--journal .deck__card:not(.is-active):hover,
 .deck--journal .deck__card:not(.is-active):focus-visible { opacity: 1; }
+.deck--journal .deck__card:hover,
+.deck--journal .deck__card:focus-visible {
+  transform: scale(1.035); z-index: 2;
+  box-shadow: 0 0 0 2px rgba(216,180,102,.7), 0 24px 45px -18px rgba(0,0,0,.5);
+}
+.deck--journal .deck__card img { transition: transform .5s var(--ease-silk); }
+.deck--journal .deck__card:hover img { transform: scale(1.06); }
+.deck__read {
+  position: absolute; top: 1rem; right: 1rem; z-index: 2;
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .45rem .85rem; border-radius: 999px; background: var(--sp-gold); color: var(--sp-ink);
+  font-family: var(--font-display); font-size: 0.665rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .3s;
+}
+.deck--journal .deck__card:hover .deck__read,
+.deck--journal .deck__card:focus-visible .deck__read { opacity: 1; transform: none; }
 
 /* --- Home offer band ----------------------------------------------------- */
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }

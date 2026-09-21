@@ -362,6 +362,26 @@
       if (next) next.addEventListener("click", function () {
         var a = parseInt(root.dataset.active || 0, 10); goTo(a + 1, true);
       });
+
+      /* Opt-in autoplay -- only for a rail carrying data-autoscroll (its
+         value is the delay in ms), so Her Royal Simplicity's own rail is
+         unaffected unless it opts in too. Pauses on hover/touch so it
+         never fights a shopper mid-swipe. */
+      var autoDelay = parseInt(root.dataset.autoscroll, 10);
+      if (autoDelay > 0 && !reduced) {
+        var autoTimer;
+        function auto() {
+          var a = parseInt(root.dataset.active || 0, 10);
+          goTo(a + 1, true);
+        }
+        function stopAuto() { clearInterval(autoTimer); }
+        function startAuto() { stopAuto(); autoTimer = setInterval(auto, autoDelay); }
+        startAuto();
+        viewport.addEventListener("mouseenter", stopAuto);
+        viewport.addEventListener("mouseleave", startAuto);
+        viewport.addEventListener("touchstart", stopAuto, { passive: true });
+        viewport.addEventListener("touchend", function () { setTimeout(startAuto, 2000); }, { passive: true });
+      }
     });
   }
 
