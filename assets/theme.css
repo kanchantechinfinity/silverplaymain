@@ -818,6 +818,20 @@ input, textarea, select { font: inherit; color: inherit; }
 .deck--journal .deck__card:not(.is-active):hover,
 .deck--journal .deck__card:not(.is-active):focus-visible { opacity: 1; }
 
+/* --- Home offer band ----------------------------------------------------- */
+.offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+.offer-tiers__item {
+  display: flex; align-items: center; gap: .65rem; padding: 1rem 1.75rem;
+  border: 1px solid rgba(216,180,102,.35); border-radius: 999px; background: rgba(242,232,208,.05);
+}
+.offer-tiers__amt { font-family: var(--font-display); font-size: 1.075rem; font-weight: 700; color: var(--sp-gold); white-space: nowrap; }
+.offer-tiers__arrow { color: rgba(242,232,208,.4); }
+.offer-tiers__gift { font-family: var(--font-body); font-size: 0.965rem; color: var(--sp-bone-2); white-space: nowrap; }
+@media (max-width: 480px) {
+  .offer-tiers { flex-direction: column; align-items: stretch; }
+  .offer-tiers__item { justify-content: center; }
+}
+
 /* --- Archive treasure (flip collage) ------------------------------------ */
 /* Keeps its original fixed-column grid (2 cols mobile, 3 cols desktop) so
    the layout stays a reliable 3-across grid at any desktop width, rather
@@ -1557,15 +1571,6 @@ input, textarea, select { font: inherit; color: inherit; }
   margin-top: 1.75rem; display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--font-display); font-size: 0.785rem; text-transform: uppercase; letter-spacing: .14em; color: rgba(242,232,208,.55);
 }
-
-/* Compact variant — for embedding the festive hero mid-page (e.g. homepage)
-   instead of as a full page-opening hero. */
-.fhero--compact { padding-block: 4.5rem; }
-.fhero--compact .wrap { max-width: 76rem; }
-.fhero--compact .fhero__title { font-size: clamp(2rem, 4.4vw, 3.1rem); }
-.fhero--compact .fhero__text { font-size: 1.05rem; }
-.fhero--compact .fhero__side { aspect-ratio: 4 / 3; }
-@media (min-width: 900px) { .fhero--compact .fhero__side { min-height: 18rem; } }
 
 .spotlight { position: relative; padding-block: 6rem; overflow: hidden; }
 .spotlight__inner { position: relative; z-index: 1; margin-inline: auto; max-width: 46rem; text-align: center; }
