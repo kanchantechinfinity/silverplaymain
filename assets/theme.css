@@ -811,10 +811,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .deck__controls { position: relative; z-index: 10; margin-top: 2rem; display: flex; align-items: center; justify-content: center; gap: .75rem; padding-bottom: 2rem; }
 
 /* --- Archive treasure (flip collage) ------------------------------------ */
-.collage { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 2.5rem 1.25rem; flex: 1; }
-@media (min-width: 640px) { .collage { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+/* Card size matches .deck__card (Her Royal Simplicity) exactly, so the two
+   sections read as the same visual scale as you scroll past them. */
+.collage { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5rem 1.25rem; flex: 1; }
 @media (min-width: 768px) { .collage { gap: 3.5rem 1.75rem; } }
-.collage__slot { transition: transform .5s; }
+.collage__slot { flex: none; width: clamp(260px, 22vw, 440px); transition: transform .5s; }
 .collage__slot:nth-child(3n+1) { transform: rotate(-4deg); }
 .collage__slot:nth-child(3n+3) { transform: rotate(4deg); }
 @media (min-width: 1024px) { .collage__slot:nth-child(3n+2) { transform: translateY(-1rem); } }
@@ -1106,14 +1107,15 @@ input, textarea, select { font: inherit; color: inherit; }
   100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--a)) translateX(var(--d)) scale(1); }
 }
 
-/* --- Journal showcase (3D arc) ------------------------------------------ */
+/* --- Journal showcase (plain grid) --------------------------------------
+   Was a pinned, scroll-jacked 3D ring; now a normal static grid that scrolls
+   with the page like any other section. Cards match .deck__card's size
+   (Her Royal Simplicity) for a consistent scale across the homepage. */
 .arc { position: relative; isolation: isolate; background: var(--sp-bone); }
-.arc__stage { position: sticky; top: 0; display: flex; height: 100vh; flex-direction: column; overflow: hidden; }
-.arc__head { margin-inline: auto; width: 100%; max-width: 42rem; padding: 2rem 1.25rem .5rem; text-align: center; }
-.arc__ring-wrap { position: relative; display: flex; flex: 1; align-items: center; justify-content: center; perspective: 1800px; }
-.arc__ring { position: relative; height: 44vh; max-height: 520px; width: min(50vw, 620px); transform-style: preserve-3d; }
-@media (max-width: 767px) { .arc__ring { width: min(80vw, 460px); } }
-.arc__card { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform, opacity; }
+.arc__stage { position: relative; display: flex; flex-direction: column; overflow: hidden; padding-block: 4rem; }
+.arc__head { margin-inline: auto; width: 100%; max-width: 42rem; padding: 0 1.25rem 2.5rem; text-align: center; }
+.arc__grid { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.75rem; padding-inline: 1.25rem; }
+.arc__card { flex: none; width: clamp(260px, 22vw, 440px); aspect-ratio: 4 / 5; }
 .arc__card > a { display: block; height: 100%; width: 100%; }
 .arc__inner { position: relative; height: 100%; width: 100%; overflow: hidden; border-radius: var(--radius-lg); box-shadow: 0 30px 70px -30px rgba(26,22,20,.35); }
 .arc__inner img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transition: transform .7s; }
@@ -1122,7 +1124,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .arc__foot { position: absolute; inset-inline: 0; bottom: 0; display: flex; align-items: flex-end; justify-content: space-between; padding: 1rem; }
 .arc__foot h3 { font-family: var(--font-display); font-size: 1.175rem; font-weight: 700; line-height: 1.35; color: var(--sp-bone); }
 .arc__go { display: grid; place-items: center; height: 2.25rem; width: 2.25rem; flex: none; border-radius: 999px; background: var(--sp-bone); color: var(--sp-ink); }
-.arc__controls { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; gap: .75rem; padding-bottom: 3rem; }
+.arc__controls { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; padding-top: 2.5rem; }
 
 /* --- FAQ ---------------------------------------------------------------- */
 .faq__list { position: relative; margin-top: 3.5rem; border-top: 1px solid rgba(242,232,208,.12); }
@@ -1542,6 +1544,15 @@ input, textarea, select { font: inherit; color: inherit; }
   margin-top: 1.75rem; display: inline-flex; align-items: center; gap: .5rem;
   font-family: var(--font-display); font-size: 0.785rem; text-transform: uppercase; letter-spacing: .14em; color: rgba(242,232,208,.55);
 }
+
+/* Compact variant — for embedding the festive hero mid-page (e.g. homepage)
+   instead of as a full page-opening hero. */
+.fhero--compact { padding-block: 4.5rem; }
+.fhero--compact .wrap { max-width: 76rem; }
+.fhero--compact .fhero__title { font-size: clamp(2rem, 4.4vw, 3.1rem); }
+.fhero--compact .fhero__text { font-size: 1.05rem; }
+.fhero--compact .fhero__side { aspect-ratio: 4 / 3; }
+@media (min-width: 900px) { .fhero--compact .fhero__side { min-height: 18rem; } }
 
 .spotlight { position: relative; padding-block: 6rem; overflow: hidden; }
 .spotlight__inner { position: relative; z-index: 1; margin-inline: auto; max-width: 46rem; text-align: center; }

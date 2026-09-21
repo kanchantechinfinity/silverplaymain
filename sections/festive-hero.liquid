@@ -14,7 +14,7 @@
   endif
 -%}
 
-<section class="fhero on-dark" data-page-hero style="background: {{ section.settings.bg_color }}">
+<section class="fhero on-dark{% if section.settings.compact %} fhero--compact{% endif %}" data-page-hero style="background: {{ section.settings.bg_color }}">
   <div class="wrap fhero__grid">
     <div class="fhero__body fhero__body--{{ section.settings.align }}">
       {%- if section.settings.show_breadcrumb -%}
@@ -104,6 +104,7 @@
   "name": "Festive hero",
   "tag": "section",
   "settings": [
+    { "type": "checkbox", "id": "compact", "label": "Compact (for embedding mid-page, e.g. homepage)", "default": false },
     { "type": "select", "id": "align", "label": "Text alignment", "default": "left",
       "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Right" } ] },
     { "type": "header", "content": "Breadcrumb" },

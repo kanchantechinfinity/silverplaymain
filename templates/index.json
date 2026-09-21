@@ -334,6 +334,34 @@
         "wash": "rgba(242,232,208,0.35)"
       }
     },
+    "home_offer": {
+      "type": "festive-hero",
+      "settings": {
+        "compact": true,
+        "align": "left",
+        "show_breadcrumb": false,
+        "badge_glyph": "✦",
+        "badge_label": "Festive Season Offer",
+        "show_offer": true,
+        "offer_glyph": "🥈",
+        "offer_text": "Spend ₹15,000 & get a free 5g silver coin — spend ₹30,000 & get 2, uncapped",
+        "heading": "A Little Silver, On Us",
+        "subheading": "This Festive Season",
+        "subheading_dash": true,
+        "show_divider": true,
+        "text": "Every coin is 99.9% pure silver, added automatically to your cart — no code needed.",
+        "collection": "",
+        "cta_label": "Shop The Collection",
+        "cta_url": "",
+        "cta2_label": "",
+        "cta2_url": "",
+        "validity_glyph": "⏳",
+        "validity_text": "Offer valid till 25th Sept",
+        "bg_color": "#241a10",
+        "side_image": "",
+        "side_image_asset": "meganav-rakhi.jpg"
+      }
+    },
     "circle_picks": {
       "type": "circle-picks",
       "settings": {
@@ -493,10 +521,11 @@
     "assurance",
     "fresh_edit",
     "testimonials",
+    "archive_treasure",
     "royal_simplicity",
     "banner_Q6YcY4",
     "best_sellers",
-    "archive_treasure",
+    "home_offer",
     "circle_picks",
     "shop_by_occasion",
     "instagram",

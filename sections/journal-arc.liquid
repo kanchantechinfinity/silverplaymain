@@ -1,8 +1,7 @@
 {%- comment -%}
-  "Stories, Worn as Silver" — exact port of the Vercel reference's
-  JournalShowcase: a pinned 3D ring of cards driven by scroll progress
-  (theme.js -> initArc), track height = (n + 0.6) * 62vh. Cards are real
-  blog articles only -- no theme-editor blocks or manual images.
+  "Stories, Worn as Silver" — a plain static grid of real blog articles,
+  cards sized to match .deck__card (Her Royal Simplicity). No scroll-jacking:
+  the page scrolls normally past this section like any other.
 {%- endcomment -%}
 {%- liquid
   assign blog = blogs[section.settings.blog]
@@ -19,11 +18,10 @@
   if real_count < 1
     assign real_count = 1
   endif
-  assign track = real_count | plus: 0.6 | times: 62
   assign featured = section.settings.featured_article
 -%}
 
-<section class="arc" data-arc style="height: {{ track }}vh">
+<section class="arc">
   <div class="arc__stage">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
@@ -35,70 +33,66 @@
       <h2 class="mt-2" style="font-size:clamp(1.5rem,3.2vw,2.3rem)" data-split data-reveal="none">{{ section.settings.heading }}</h2>
     </div>
 
-    <div class="arc__ring-wrap">
-      <div class="arc__ring">
-        {%- if blog != blank and blog.articles.size > 0 -%}
-          {%- assign shown = 0 -%}
-          {%- if featured != blank -%}
-            <div class="arc__card">
-              <a href="{{ featured.url }}">
-                <div class="arc__inner">
-                  {%- if featured.image -%}
-                    <img src="{{ featured.image | image_url: width: 1200 }}" alt="{{ featured.title | escape }}" loading="lazy" decoding="async" width="1200" height="800">
-                  {%- else -%}
-                    <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
-                  {%- endif -%}
-                  <span class="arc__scrim" aria-hidden="true"></span>
-                  <div class="arc__foot">
-                    <h3>{{ featured.title }}</h3>
-                    <span class="arc__go" aria-hidden="true">&rarr;</span>
-                  </div>
-                </div>
-              </a>
-            </div>
-            {%- assign shown = 1 -%}
-          {%- endif -%}
-          {%- for post in blog.articles -%}
-            {%- if shown >= real_count -%}{%- break -%}{%- endif -%}
-            {%- if featured != blank and post.id == featured.id -%}{%- continue -%}{%- endif -%}
-            <div class="arc__card">
-              <a href="{{ post.url }}">
-                <div class="arc__inner">
-                  {%- if post.image -%}
-                    <img src="{{ post.image | image_url: width: 1200 }}" alt="{{ post.title | escape }}" loading="lazy" decoding="async" width="1200" height="800">
-                  {%- else -%}
-                    <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
-                  {%- endif -%}
-                  <span class="arc__scrim" aria-hidden="true"></span>
-                  <div class="arc__foot">
-                    <h3>{{ post.title }}</h3>
-                    <span class="arc__go" aria-hidden="true">&rarr;</span>
-                  </div>
-                </div>
-              </a>
-            </div>
-            {%- assign shown = shown | plus: 1 -%}
-          {%- endfor -%}
-        {%- else -%}
+    <div class="arc__grid">
+      {%- if blog != blank and blog.articles.size > 0 -%}
+        {%- assign shown = 0 -%}
+        {%- if featured != blank -%}
           <div class="arc__card">
-            <a href="{{ routes.root_url }}">
+            <a href="{{ featured.url }}">
               <div class="arc__inner">
-                <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
+                {%- if featured.image -%}
+                  <img src="{{ featured.image | image_url: width: 900 }}" alt="{{ featured.title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
+                {%- else -%}
+                  <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
+                {%- endif -%}
                 <span class="arc__scrim" aria-hidden="true"></span>
                 <div class="arc__foot">
-                  <h3>{{ 'onboarding.blog_title' | t }}</h3>
+                  <h3>{{ featured.title }}</h3>
+                  <span class="arc__go" aria-hidden="true">&rarr;</span>
                 </div>
               </div>
             </a>
           </div>
+          {%- assign shown = 1 -%}
         {%- endif -%}
-      </div>
+        {%- for post in blog.articles -%}
+          {%- if shown >= real_count -%}{%- break -%}{%- endif -%}
+          {%- if featured != blank and post.id == featured.id -%}{%- continue -%}{%- endif -%}
+          <div class="arc__card">
+            <a href="{{ post.url }}">
+              <div class="arc__inner">
+                {%- if post.image -%}
+                  <img src="{{ post.image | image_url: width: 900 }}" alt="{{ post.title | escape }}" loading="lazy" decoding="async" width="900" height="1100">
+                {%- else -%}
+                  <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
+                {%- endif -%}
+                <span class="arc__scrim" aria-hidden="true"></span>
+                <div class="arc__foot">
+                  <h3>{{ post.title }}</h3>
+                  <span class="arc__go" aria-hidden="true">&rarr;</span>
+                </div>
+              </div>
+            </a>
+          </div>
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      {%- else -%}
+        <div class="arc__card">
+          <a href="{{ routes.root_url }}">
+            <div class="arc__inner">
+              <img src="{{ 'story-veena.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="736" height="916">
+              <span class="arc__scrim" aria-hidden="true"></span>
+              <div class="arc__foot">
+                <h3>{{ 'onboarding.blog_title' | t }}</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="arc__controls">
-      <button type="button" class="round-btn" data-arc-prev aria-label="{{ 'accessibility.previous' | t }}">&larr;</button>
-      <button type="button" class="round-btn round-btn--solid" data-arc-next aria-label="{{ 'accessibility.next' | t }}">&rarr;</button>
-      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta" style="margin-left:1rem">
+      <a href="{{ blog.url | default: routes.root_url }}" class="link-cta">
         {{ section.settings.cta_label }} <span>&rarr;</span>
       </a>
     </div>
