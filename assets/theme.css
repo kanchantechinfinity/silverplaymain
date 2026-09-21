@@ -810,6 +810,16 @@ input, textarea, select { font: inherit; color: inherit; }
 .deck__fade { pointer-events: none; position: absolute; inset-inline: 0; bottom: 0; height: 8rem; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.7) 45%, transparent); }
 .deck__controls { position: relative; z-index: 10; margin-top: 2rem; display: flex; align-items: center; justify-content: center; gap: .75rem; padding-bottom: 2rem; }
 
+/* Journal rail — same mechanics as the card rail above, but tighter
+   spacing and no dim/scale on non-centred cards (that scale+opacity
+   read as a hazy overlay here, since these are article photos rather
+   than a "which one's active" product carousel). */
+.deck--journal .deck__rail { gap: .5rem; }
+@media (min-width: 768px) { .deck--journal .deck__rail { gap: .75rem; } }
+.deck--journal .deck__card { opacity: 1; transform: scale(1); }
+.deck--journal .deck__card:not(.is-active):hover,
+.deck--journal .deck__card:not(.is-active):focus-visible { opacity: 1; }
+
 /* --- Archive treasure (flip collage) ------------------------------------ */
 /* Keeps its original fixed-column grid (2 cols mobile, 3 cols desktop) so
    the layout stays a reliable 3-across grid at any desktop width, rather

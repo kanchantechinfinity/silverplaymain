@@ -22,7 +22,7 @@
   assign featured = section.settings.featured_article
 -%}
 
-<section class="deck" data-deck aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
+<section class="deck deck--journal" data-deck aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
   <div class="deck__stage" style="background: var(--sp-bone)">
     {% render 'heritage-bg',
       image: section.settings.bg_image,
