@@ -201,6 +201,14 @@
             "quote": "With proper care, your Silver Play pieces will last a lifetime.",
             "attribution": "Jewellery Care"
           }
+        },
+        "n6": {
+          "type": "note",
+          "settings": {
+            "quote": "When the package arrives looking this beautiful, it's nothing short of overwhelming.",
+            "attribution": "Sunita Ahuja",
+            "image": ""
+          }
         }
       },
       "block_order": [
@@ -208,7 +216,8 @@
         "n2",
         "n3",
         "n4",
-        "n5"
+        "n5",
+        "n6"
       ],
       "settings": {
         "eyebrow": "In Her Own Words",

@@ -63,7 +63,13 @@
                   <span class="note__corner" style="bottom:.5rem;left:.5rem" aria-hidden="true">&#10022;</span>
                   <span class="note__corner" style="bottom:.5rem;right:.5rem" aria-hidden="true">&#10022;</span>
                   <div class="note__body">
-                    <span class="note__mark" aria-hidden="true">&#10087;</span>
+                    {%- if block.settings.image != blank -%}
+                      <span class="note__photo">
+                        <img src="{{ block.settings.image | image_url: width: 140 }}" alt="" loading="lazy" decoding="async" width="70" height="70">
+                      </span>
+                    {%- else -%}
+                      <span class="note__mark" aria-hidden="true">&#10087;</span>
+                    {%- endif -%}
                     <p class="note__quote">&ldquo;{{ block.settings.quote }}&rdquo;</p>
                     <p class="note__by">{{ block.settings.attribution }}</p>
                   </div>
@@ -92,7 +98,8 @@
       "name": "Note",
       "settings": [
         { "type": "textarea", "id": "quote", "label": "Quote" },
-        { "type": "text", "id": "attribution", "label": "Attribution" }
+        { "type": "text", "id": "attribution", "label": "Attribution" },
+        { "type": "image_picker", "id": "image", "label": "Reviewer photo (optional)" }
       ]
     }
   ],
