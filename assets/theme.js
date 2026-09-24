@@ -997,8 +997,19 @@
       btn.addEventListener("click", function () {
         var q = btn.getAttribute("data-note-quote");
         var a = btn.getAttribute("data-note-by");
+        var img = btn.getAttribute("data-note-image");
         $("[data-note-quote-out]", modal).textContent = "“" + q + "”";
         $("[data-note-by-out]", modal).textContent = a;
+        var photo = $("[data-note-photo-out]", modal);
+        var mark = $("[data-note-mark-out]", modal);
+        if (img) {
+          $("img", photo).src = img;
+          photo.hidden = false;
+          if (mark) mark.hidden = true;
+        } else {
+          photo.hidden = true;
+          if (mark) mark.hidden = false;
+        }
         modal.classList.add("is-open");
         document.body.style.overflow = "hidden";
       });
