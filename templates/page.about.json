@@ -14,6 +14,7 @@
     "founder": {
       "type": "founder",
       "settings": {
+        "image_focus": "50% 0%",
         "eyebrow": "The Founder",
         "heading": "A Timeless Curation by",
         "bio": "Dalljiet Kaur believes jewellery should make people feel seen, valued and connected. Her vision for Silver Play is to create a brand where silver feels luxurious, meaningful and relevant for modern life.",
