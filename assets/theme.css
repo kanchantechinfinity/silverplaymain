@@ -294,7 +294,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .header__bar {
   pointer-events: auto; position: relative; margin-inline: auto; display: flex; align-items: center; gap: 1.5rem;
   padding: 6px 28px; width: 100%;
-  background: rgba(245,242,237,0); border: 1px solid transparent; border-radius: 0; margin-top: 0;
+  background: rgba(20,14,8,.22); border: 1px solid transparent; border-radius: 0; margin-top: 0;
   transition: background-color .6s var(--ease-silk), margin-top .6s var(--ease-silk),
               border-radius .6s var(--ease-silk), width .6s var(--ease-silk), box-shadow .6s var(--ease-silk),
               backdrop-filter .6s var(--ease-silk);
