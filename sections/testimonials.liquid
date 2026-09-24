@@ -63,6 +63,7 @@
                   <span class="note__corner" style="bottom:.5rem;left:.5rem" aria-hidden="true">&#10022;</span>
                   <span class="note__corner" style="bottom:.5rem;right:.5rem" aria-hidden="true">&#10022;</span>
                   <div class="note__body">
+                    <p style="color:red;font-size:10px">DEBUG img=[{{ block.settings.image }}] asset=[{{ block.settings.image_asset }}]</p>
                     {%- if block.settings.image != blank -%}
                       <span class="note__photo">
                         <img src="{{ block.settings.image | image_url: width: 140 }}" alt="" loading="lazy" decoding="async" width="70" height="70">
