@@ -12,19 +12,6 @@
     "hero": {
       "type": "cinematic-hero",
       "blocks": {
-        "slide_YbVicB": {
-          "type": "slide",
-          "settings": {
-            "image_desktop": "shopify://shop_images/04.png",
-            "link_url": "shopify://collections/mens-collection",
-            "devanagari": "",
-            "heading": "",
-            "subtitle": "",
-            "cta_label": "",
-            "cta_url": "",
-            "image_position": "50% 0%"
-          }
-        },
         "slide_nemViJ": {
           "type": "slide",
           "settings": {
@@ -34,8 +21,19 @@
             "heading": "",
             "subtitle": "",
             "cta_label": "",
-            "cta_url": "",
-            "image_position": "50% 0%"
+            "cta_url": ""
+          }
+        },
+        "slide_YbVicB": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/04.png",
+            "link_url": "shopify://collections/mens-collection",
+            "devanagari": "",
+            "heading": "",
+            "subtitle": "",
+            "cta_label": "",
+            "cta_url": ""
           }
         },
         "slide_QwGMnH": {
@@ -67,8 +65,8 @@
         }
       },
       "block_order": [
-        "slide_YbVicB",
         "slide_nemViJ",
+        "slide_YbVicB",
         "slide_QwGMnH",
         "slide_Mt8Ybe"
       ],
@@ -233,6 +231,7 @@
           "settings": {
             "quote": "When the package arrives looking this beautiful, it's nothing short of overwhelming.",
             "attribution": "Sunita Ahuja",
+            "image": "shopify://shop_images/sunita.jpg",
             "image_asset": "testimonial-sunita-ahuja.jpg"
           }
         }
