@@ -46,7 +46,7 @@
           endif
           assign photo_url = blank
           if block.settings.image != blank
-            assign photo_url = block.settings.image | image_url: width: 140
+            assign photo_url = block.settings.image | image_url: width: 220
           elsif block.settings.image_asset != blank
             assign photo_url = block.settings.image_asset | asset_url
           endif
@@ -72,7 +72,7 @@
                   <div class="note__body">
                     {%- if photo_url != blank -%}
                       <span class="note__photo">
-                        <img src="{{ photo_url }}" alt="" loading="lazy" decoding="async" width="70" height="70">
+                        <img src="{{ photo_url }}" alt="" loading="lazy" decoding="async" width="110" height="110">
                       </span>
                     {%- else -%}
                       <span class="note__mark" aria-hidden="true">&#10087;</span>
