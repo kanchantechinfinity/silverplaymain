@@ -167,13 +167,6 @@
     "testimonials": {
       "type": "testimonials",
       "blocks": {
-        "n1": {
-          "type": "note",
-          "settings": {
-            "quote": "Handcrafted sterling silver jewellery, forged for the woman who wears her story.",
-            "attribution": "Silver Play"
-          }
-        },
         "n2": {
           "type": "note",
           "settings": {
@@ -212,7 +205,6 @@
         }
       },
       "block_order": [
-        "n1",
         "n2",
         "n3",
         "n4",
