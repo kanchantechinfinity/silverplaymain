@@ -43,7 +43,7 @@
               <input type="text" value="{{ item.quantity }}" readonly aria-label="{{ 'cart.general.quantity' | t }}">
               <button type="button" data-cart-change="{{ item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" aria-label="Increase">+</button>
             </span>
-            <span style="font-family:var(--font-display);font-size:.95rem">{{ item.final_line_price | money }}</span>
+            <span style="font-family:var(--font-display);font-size:.95rem;font-weight:700">{{ item.final_line_price | money }}</span>
           </div>
           <button type="button" class="link-cta mt-2" data-cart-change="0" data-line="{{ forloop.index }}">{{ 'cart.general.remove' | t }}</button>
         </div>
