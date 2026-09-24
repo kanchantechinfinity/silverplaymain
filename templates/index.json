@@ -12,6 +12,30 @@
     "hero": {
       "type": "cinematic-hero",
       "blocks": {
+        "slide_YbVicB": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/04.png",
+            "link_url": "shopify://collections/mens-collection",
+            "devanagari": "",
+            "heading": "",
+            "subtitle": "",
+            "cta_label": "",
+            "cta_url": ""
+          }
+        },
+        "slide_nemViJ": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/01.png",
+            "link_url": "shopify://collections/earrings",
+            "devanagari": "",
+            "heading": "",
+            "subtitle": "",
+            "cta_label": "",
+            "cta_url": ""
+          }
+        },
         "slide_QwGMnH": {
           "type": "slide",
           "settings": {
@@ -40,6 +64,8 @@
         }
       },
       "block_order": [
+        "slide_YbVicB",
+        "slide_nemViJ",
         "slide_QwGMnH",
         "slide_Mt8Ybe"
       ],
@@ -204,8 +230,7 @@
           "settings": {
             "quote": "When the package arrives looking this beautiful, it's nothing short of overwhelming.",
             "attribution": "Sunita Ahuja",
-            "image_asset": "testimonial-sunita-ahuja.jpg",
-            "image": ""
+            "image_asset": "testimonial-sunita-ahuja.jpg"
           }
         }
       },
@@ -219,56 +244,6 @@
       "settings": {
         "eyebrow": "In Her Own Words",
         "heading": "Words from Our Customers"
-      }
-    },
-    "royal_simplicity": {
-      "type": "scroll-deck",
-      "settings": {
-        "collection": "quiet-luxury",
-        "eyebrow": "The Edit",
-        "heading": "Her Royal Simplicity",
-        "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
-        "cta_label": "Shop The Edit",
-        "bg_color": "#241a10",
-        "wash": "rgba(36,26,16,0.72)"
-      }
-    },
-    "banner_Q6YcY4": {
-      "type": "banner",
-      "disabled": true,
-      "name": "Banner",
-      "settings": {
-        "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
-        "image_mobile": "shopify://shop_images/ac0e9f1e-e079-497f-93ba-027488bd2243_430x_90373068-45e8-472a-8e07-e6c36ebd7af1.webp",
-        "height": 480,
-        "height_mobile": 480,
-        "full_width": true,
-        "eyebrow": "",
-        "heading": "",
-        "text": "",
-        "align": "center",
-        "overlay": 35,
-        "cta_label": "",
-        "cta_url": "",
-        "link_whole_banner": false
-      }
-    },
-    "best_sellers": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "best-seller",
-        "eyebrow": "As Seen & Loved",
-        "heading": "Best Sellers",
-        "lede": "The pieces Silver Play wearers keep coming back for — proven favourites, worn on repeat.",
-        "show_stock_label": false,
-        "stock_label": "[count] Pieces In Stock",
-        "count": 8,
-        "card_style": "gilt",
-        "color_scheme": "dark",
-        "bg_color": "#3a2b1c",
-        "wash": "rgba(58,43,28,0.62)",
-        "cta_label": "Shop Best Sellers",
-        "cta_url": ""
       }
     },
     "archive_treasure": {
@@ -340,21 +315,79 @@
         "wash": "rgba(242,232,208,0.35)"
       }
     },
+    "royal_simplicity": {
+      "type": "scroll-deck",
+      "settings": {
+        "collection": "quiet-luxury",
+        "eyebrow": "The Edit",
+        "heading": "Her Royal Simplicity",
+        "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
+        "cta_label": "Shop The Edit",
+        "bg_color": "#241a10",
+        "wash": "rgba(36,26,16,0.72)"
+      }
+    },
+    "banner_Q6YcY4": {
+      "type": "banner",
+      "disabled": true,
+      "name": "Banner",
+      "settings": {
+        "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
+        "image_mobile": "shopify://shop_images/ac0e9f1e-e079-497f-93ba-027488bd2243_430x_90373068-45e8-472a-8e07-e6c36ebd7af1.webp",
+        "height": 480,
+        "height_mobile": 480,
+        "full_width": true,
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
+        "align": "center",
+        "overlay": 35,
+        "cta_label": "",
+        "cta_url": "",
+        "link_whole_banner": false
+      }
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "best-seller",
+        "eyebrow": "As Seen & Loved",
+        "heading": "Best Sellers",
+        "lede": "The pieces Silver Play wearers keep coming back for — proven favourites, worn on repeat.",
+        "show_stock_label": false,
+        "stock_label": "[count] Pieces In Stock",
+        "count": 8,
+        "card_style": "gilt",
+        "color_scheme": "dark",
+        "bg_color": "#3a2b1c",
+        "wash": "rgba(58,43,28,0.62)",
+        "cta_label": "Shop Best Sellers",
+        "cta_url": ""
+      }
+    },
     "home_offer": {
       "type": "home-offer",
       "blocks": {
         "t1": {
           "type": "tier",
-          "settings": { "amount": "₹15,000", "gift": "1 Free Silver Coin" }
+          "settings": {
+            "amount": "₹15,000",
+            "gift": "1 Free Silver Coin"
+          }
         },
         "t2": {
           "type": "tier",
-          "settings": { "amount": "₹30,000", "gift": "2 Free Silver Coins" }
+          "settings": {
+            "amount": "₹30,000",
+            "gift": "2 Free Silver Coins"
+          }
         }
       },
-      "block_order": ["t1", "t2"],
+      "block_order": [
+        "t1",
+        "t2"
+      ],
       "settings": {
-        "side_image": "",
         "eyebrow": "Festive Season Offer",
         "heading": "A Little Silver, On Us",
         "lede": "This festive season, every order over ₹15,000 comes home with a little extra silver.",
@@ -362,7 +395,6 @@
         "cta_label": "Shop The Collection",
         "cta_url": "",
         "bg_color": "#241a10",
-        "bg_image": "",
         "wash": "rgba(36,26,16,0.82)"
       }
     },
@@ -458,27 +490,47 @@
       "blocks": {
         "r1": {
           "type": "reel",
-          "settings": { "video_asset": "celeb-reel-ankita.mp4", "name": "Ankita" }
+          "settings": {
+            "video_url": "",
+            "video_asset": "celeb-reel-ankita.mp4",
+            "name": "Ankita"
+          }
         },
         "r2": {
           "type": "reel",
-          "settings": { "video_asset": "celeb-reel-rashmi.mp4", "name": "Rashmi" }
+          "settings": {
+            "video_url": "",
+            "video_asset": "celeb-reel-rashmi.mp4",
+            "name": "Rashmi"
+          }
         },
         "r3": {
           "type": "reel",
-          "settings": { "video_asset": "celeb-reel-pp.mp4", "name": "" }
+          "settings": {
+            "video_url": "",
+            "video_asset": "celeb-reel-pp.mp4",
+            "name": ""
+          }
         },
         "r4": {
           "type": "reel",
-          "settings": { "video_asset": "celeb-reel-4.mp4", "name": "" }
+          "settings": {
+            "video_url": "",
+            "video_asset": "celeb-reel-4.mp4",
+            "name": ""
+          }
         }
       },
-      "block_order": ["r1", "r2", "r3", "r4"],
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
       "settings": {
         "eyebrow": "As Seen & Loved",
         "heading": "Celeb Who Loves Us",
-        "lede": "Real reels from the faces who wear Silver Play.",
-        "bg_image": ""
+        "lede": "Real reels from the faces who wear Silver Play."
       }
     },
     "journal_arc": {
