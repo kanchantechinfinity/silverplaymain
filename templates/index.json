@@ -171,28 +171,32 @@
           "type": "note",
           "settings": {
             "quote": "Every piece is made with a belief that you deserve beautiful things around you.",
-            "attribution": "Dalljiet Kaur, Founder"
+            "attribution": "Dalljiet Kaur, Founder",
+            "image_asset": "founder-dalljiet-kaur.jpg"
           }
         },
         "n3": {
           "type": "note",
           "settings": {
             "quote": "A single pendant can pass through five pairs of hands before it reaches yours.",
-            "attribution": "Inside the Jaipur Atelier"
+            "attribution": "Inside the Jaipur Atelier",
+            "image_asset": "about-craft-karigars.jpg"
           }
         },
         "n4": {
           "type": "note",
           "settings": {
             "quote": "Jewellery can be more than beautiful — it can be intentional.",
-            "attribution": "How to Wear Meaning"
+            "attribution": "How to Wear Meaning",
+            "image_asset": "about-closing-wear-your-story.jpg"
           }
         },
         "n5": {
           "type": "note",
           "settings": {
             "quote": "With proper care, your Silver Play pieces will last a lifetime.",
-            "attribution": "Jewellery Care"
+            "attribution": "Jewellery Care",
+            "image_asset": "about-values-slow-making.jpg"
           }
         },
         "n6": {
@@ -200,7 +204,7 @@
           "settings": {
             "quote": "When the package arrives looking this beautiful, it's nothing short of overwhelming.",
             "attribution": "Sunita Ahuja",
-            "image": ""
+            "image_asset": "testimonial-sunita-ahuja.jpg"
           }
         }
       },

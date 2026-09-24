@@ -67,6 +67,10 @@
                       <span class="note__photo">
                         <img src="{{ block.settings.image | image_url: width: 140 }}" alt="" loading="lazy" decoding="async" width="70" height="70">
                       </span>
+                    {%- elsif block.settings.image_asset != blank -%}
+                      <span class="note__photo">
+                        <img src="{{ block.settings.image_asset | asset_url }}" alt="" loading="lazy" decoding="async" width="70" height="70">
+                      </span>
                     {%- else -%}
                       <span class="note__mark" aria-hidden="true">&#10087;</span>
                     {%- endif -%}
@@ -99,7 +103,8 @@
       "settings": [
         { "type": "textarea", "id": "quote", "label": "Quote" },
         { "type": "text", "id": "attribution", "label": "Attribution" },
-        { "type": "image_picker", "id": "image", "label": "Reviewer photo (optional)" }
+        { "type": "image_picker", "id": "image", "label": "Reviewer photo (optional)" },
+        { "type": "text", "id": "image_asset", "label": "Theme asset filename (bundled fallback, used when no photo is picked above)" }
       ]
     }
   ],
