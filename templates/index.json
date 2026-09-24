@@ -354,14 +354,13 @@
       },
       "block_order": ["t1", "t2"],
       "settings": {
+        "side_image": "",
         "eyebrow": "Festive Season Offer",
         "heading": "A Little Silver, On Us",
         "lede": "This festive season, every order over ₹15,000 comes home with a little extra silver.",
         "note": "Every coin is 99.9% pure silver, added automatically to your cart — no code needed.",
         "cta_label": "Shop The Collection",
         "cta_url": "",
-        "validity_glyph": "⏳",
-        "validity_text": "Offer valid till 25th Sept",
         "bg_color": "#241a10",
         "bg_image": "",
         "wash": "rgba(36,26,16,0.82)"

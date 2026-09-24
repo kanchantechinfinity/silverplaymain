@@ -847,7 +847,15 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 
 /* --- Home offer band ----------------------------------------------------- */
+.offer-split { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: stretch; }
+@media (min-width: 900px) { .offer-split { grid-template-columns: 1fr 1.1fr; gap: 3.5rem; } }
+.offer-split__image { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; background: var(--sp-ink-2); }
+@media (min-width: 900px) { .offer-split__image { aspect-ratio: auto; height: 100%; min-height: 22rem; } }
+.offer-split__image img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
+.offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
+.offer-split__content .lede { max-width: 30rem; }
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+.offer-tiers--left { justify-content: flex-start; }
 .offer-tiers__item {
   display: flex; align-items: center; gap: .65rem; padding: 1rem 1.75rem;
   border: 1px solid rgba(216,180,102,.35); border-radius: 999px; background: rgba(242,232,208,.05);
