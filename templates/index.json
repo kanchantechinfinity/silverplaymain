@@ -16,26 +16,28 @@
           "type": "slide",
           "settings": {
             "image_desktop": "shopify://shop_images/01.png",
+            "image_mobile": "shopify://shop_images/Mobile_view_2.png",
             "link_url": "shopify://collections/earrings",
+            "image_position": "50% 0%",
             "devanagari": "",
             "heading": "",
             "subtitle": "",
             "cta_label": "",
-            "cta_url": "",
-            "image_position": "50% 0%"
+            "cta_url": ""
           }
         },
         "slide_YbVicB": {
           "type": "slide",
           "settings": {
             "image_desktop": "shopify://shop_images/04.png",
+            "image_mobile": "shopify://shop_images/Mobile_view.png",
             "link_url": "shopify://collections/mens-collection",
+            "image_position": "50% 0%",
             "devanagari": "",
             "heading": "",
             "subtitle": "",
             "cta_label": "",
-            "cta_url": "",
-            "image_position": "50% 0%"
+            "cta_url": ""
           }
         },
         "slide_QwGMnH": {
@@ -45,6 +47,7 @@
             "image_desktop": "shopify://shop_images/Banner_2_2400_x_1350_jpg.jpg",
             "image_mobile": "shopify://shop_images/Banner_1_1080_x_1920_jpg.jpg",
             "link_url": "",
+            "image_position": "",
             "devanagari": "",
             "heading": "Timeless Silver.",
             "subtitle": "",
@@ -58,6 +61,7 @@
             "image_desktop": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM.jpg",
             "image_mobile": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM_1.jpg",
             "link_url": "shopify://pages/festive-season-offer",
+            "image_position": "",
             "devanagari": "",
             "heading": "",
             "subtitle": "",
@@ -484,6 +488,7 @@
       "type": "founder",
       "disabled": true,
       "settings": {
+        "image_focus": "50% 18%",
         "eyebrow": "The Founder",
         "heading": "A Timeless Curation by",
         "bio": "Dalljiet Kaur believes jewellery should make people feel seen, valued and connected. Her vision for Silver Play is to create a brand where silver feels luxurious, meaningful and relevant for modern life. A brand where people can find jewellery for themselves, for someone special and for moments that deserve to be remembered. Through Silver Play, she wants to bring back the charm of thoughtful jewellery in a modern way. Pieces that feel personal. Pieces that carry beauty. Pieces that become part of everyday life and lasting memories.",
