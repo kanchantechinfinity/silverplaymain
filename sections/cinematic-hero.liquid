@@ -188,9 +188,12 @@
       "settings": [
         { "type": "image_picker", "id": "image_desktop", "label": "Image — desktop",
           "info": "Fills the screen edge-to-edge (cropped to fit, like a cover photo) — use 2400 x 1350px (16:9). Keep any text baked into the image within the middle 80% width / 70% height so it never gets cropped on a different screen size." },
-        { "type": "image_picker", "id": "image_mobile", "label": "Image — mobile",
-          "info": "Shown below 768px. Use a taller crop — 1080 x 1920px (9:16) — same 80%/70% safe-zone rule for any text. Falls back to the desktop image if left empty." },
-        { "type": "url", "id": "link_url", "label": "Banner link", "info": "Makes the whole slide clickable — wherever you tap/click on it, not just the button below." },
+{
+  "type": "image_picker",
+  "id": "image_mobile",
+  "label": "Image — mobile",
+  "info": "Shown below 768px. Use a 1080 × 1920px (9:16) image with the main subject and text positioned lower in the frame. Falls back to the desktop image if left empty."
+},        { "type": "url", "id": "link_url", "label": "Banner link", "info": "Makes the whole slide clickable — wherever you tap/click on it, not just the button below." },
         { "type": "text", "id": "image_position", "label": "Image position override",
           "info": "CSS object-position, e.g. \"50% 10%\" to show heads higher up. Leave blank to use the default framing." },
         { "type": "text", "id": "devanagari", "label": "Devanagari line" },
