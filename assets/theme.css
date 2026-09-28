@@ -474,6 +474,19 @@ input, textarea, select { font: inherit; color: inherit; }
   .header__burger { order: 2 !important; gap: 6px !important; padding-block: .25rem !important; }
   .header__burger span { width: 1.85rem !important; height: 2px !important; }
   .header__burger span:last-child { width: 1.2rem !important; }
+
+  /* solid bar on mobile always — same treatment as .header--nohero (the
+     single-product-page look) instead of the translucent hero overlay,
+     which let the photo bleed through and washed out the heading/menu */
+  .header__bar, .header.is-pinned .header__bar {
+    background: rgba(36,26,16,.97) !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+    box-shadow: none !important; border-color: transparent !important;
+  }
+  .header__link, .header.is-pinned .header__link { color: var(--sp-bone) !important; text-shadow: none; }
+  .header__icon, .header.is-pinned .header__icon { color: var(--sp-bone) !important; filter: none; }
+  .header__burger span, .header.is-pinned .header__burger span { background: var(--sp-bone) !important; }
+  .header__logo img, .header.is-pinned .header__logo img { filter: none !important; }
 }
 
 /* Mobile drawer nav */
@@ -519,6 +532,13 @@ input, textarea, select { font: inherit; color: inherit; }
 .cinehero__stage {
   position: sticky; top: 0; width: 100%; overflow: hidden; background: var(--sp-ink);
   height: calc(100vh - var(--assurance-h)); height: calc(100dvh - var(--assurance-h));
+}
+/* below 1024px the header is a plain top bar (not the desktop overlay), so
+   give the hero its own top padding instead of letting the fixed header
+   sit across the first ~70px of the image/heading */
+@media (max-width: 1023px) {
+  .cinehero { padding-top: 4.5rem; }
+  .cinehero__stage { height: calc(100vh - var(--assurance-h) - 4.5rem); height: calc(100dvh - var(--assurance-h) - 4.5rem); }
 }
 .cinehero__video, .cinehero__poster { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 22%; }
 @media (max-width: 639px) { .cinehero__video, .cinehero__poster { object-position: 42% 20%; } }
