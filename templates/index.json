@@ -190,10 +190,10 @@
         "eyebrow": "Start Here",
         "heading": "Find Your Pick",
         "lede": "From everyday affordable picks to new arrivals, earrings and pendants — browse by budget or category.",
-        "count": 8,
+        "count": 4,
         "bg_color": "#dbc596",
         "wash": "rgba(219,197,150,0.35)",
-        "cta_label": "Shop New Arrivals",
+        "cta_label": "Shop",
         "cta_url": ""
       }
     },
