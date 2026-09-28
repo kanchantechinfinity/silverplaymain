@@ -20,21 +20,66 @@
       </div>
     {%- else -%}
       {%- paginate search.results by 24 -%}
-        <div class="grid-products grid-products--3 mt-4">
+        {%- comment -%}
+          Shopify's own backend search sometimes pads out weak queries with
+          products that don't actually contain any of the searched words
+          (e.g. a "Tiger Eye Pendant" showing up for "rose quartz") -- this
+          re-checks each product's own title against the query terms and
+          drops the ones that don't share a single word with it. Falls
+          back to the unfiltered list if that would hide every result, so
+          a genuinely broad/fuzzy query still shows something.
+        {%- endcomment -%}
+        {%- assign terms = search.terms | strip | split: ' ' -%}
+        {%- assign shown_count = 0 -%}
+        {%- capture filtered_html -%}
           {%- for item in search.results -%}
+            {%- assign relevant = true -%}
             {%- if item.object_type == 'product' -%}
-              {% render 'product-card', product: item %}
-            {%- elsif item.object_type == 'article' -%}
-              <a href="{{ item.url }}" class="jcard">
-                <div class="jcard__media">
-                  {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" decoding="async" width="700" height="525">{%- endif -%}
-                </div>
-                <h3 class="jcard__title">{{ item.title }}</h3>
-              </a>
-            {%- else -%}
-              <a href="{{ item.url }}" class="jcard"><h3 class="jcard__title">{{ item.title }}</h3></a>
+              {%- assign relevant = false -%}
+              {%- assign title_dc = item.title | downcase -%}
+              {%- for t in terms -%}
+                {%- assign tdc = t | downcase -%}
+                {%- if tdc.size >= 3 and title_dc contains tdc -%}
+                  {%- assign relevant = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- if relevant -%}
+              {%- assign shown_count = shown_count | plus: 1 -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card', product: item %}
+              {%- elsif item.object_type == 'article' -%}
+                <a href="{{ item.url }}" class="jcard">
+                  <div class="jcard__media">
+                    {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" decoding="async" width="700" height="525">{%- endif -%}
+                  </div>
+                  <h3 class="jcard__title">{{ item.title }}</h3>
+                </a>
+              {%- else -%}
+                <a href="{{ item.url }}" class="jcard"><h3 class="jcard__title">{{ item.title }}</h3></a>
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
+        {%- endcapture -%}
+        <div class="grid-products grid-products--3 mt-4">
+          {%- if shown_count > 0 -%}
+            {{ filtered_html }}
+          {%- else -%}
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card', product: item %}
+              {%- elsif item.object_type == 'article' -%}
+                <a href="{{ item.url }}" class="jcard">
+                  <div class="jcard__media">
+                    {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" decoding="async" width="700" height="525">{%- endif -%}
+                  </div>
+                  <h3 class="jcard__title">{{ item.title }}</h3>
+                </a>
+              {%- else -%}
+                <a href="{{ item.url }}" class="jcard"><h3 class="jcard__title">{{ item.title }}</h3></a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
         </div>
 
         {%- if paginate.pages > 1 -%}
