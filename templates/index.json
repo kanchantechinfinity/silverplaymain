@@ -159,6 +159,13 @@
     "fresh_edit": {
       "type": "fresh-edit",
       "blocks": {
+        "t0": {
+          "type": "tab",
+          "settings": {
+            "label": "Under ₹1,500",
+            "collection": "gen-z-edit-everyday-silver"
+          }
+        },
         "t1": {
           "type": "tab",
           "settings": {
@@ -182,6 +189,7 @@
         }
       },
       "block_order": [
+        "t0",
         "t1",
         "t2",
         "t3"
@@ -227,7 +235,7 @@
         "n5": {
           "type": "note",
           "settings": {
-            "quote": "Six months in and it still looks brand new. I was skeptical about silver holding up daily, but the anti-tarnish pouch tip actually works.",
+            "quote": "A few months into wearing my Panchmukhi Hanuman pendant and it still looks brand new. I was skeptical about silver holding up daily, but the anti-tarnish pouch tip actually works.",
             "attribution": "Anjali R., Delhi",
             "image_asset": "testimonial-jewellery-care.jpg"
           }
@@ -330,7 +338,7 @@
         "eyebrow": "The Edit",
         "heading": "Her Royal Simplicity",
         "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
-        "cta_label": "Shop The Edit",
+        "cta_label": "Shop The Collection",
         "bg_color": "#241a10",
         "wash": "rgba(36,26,16,0.72)"
       }
@@ -401,7 +409,7 @@
         "eyebrow": "Festive Season Offer",
         "heading": "A Little Silver, On Us",
         "lede": "This festive season, every order over ₹15,000 comes home with a little extra silver.",
-        "note": "Every coin is 99.9% pure silver, added automatically to your cart — no code needed.",
+        "note": "Every coin is 99.9% pure silver, 5g — worth ₹1,850 — added automatically to your cart, no code needed.",
         "cta_label": "Shop The Collection",
         "cta_url": "",
         "bg_color": "#241a10",

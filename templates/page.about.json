@@ -72,7 +72,7 @@
         "n2": { "type": "note", "settings": { "quote": "Silver Play's craftsmanship feels timeless, every piece like it was made just for me.", "attribution": "Ankita Lokhande", "image_asset": "testimonial-ankita-lokhande.jpg" } },
         "n3": { "type": "note", "settings": { "quote": "I wasn't expecting to feel emotional over a pendant, but the detailing genuinely stopped me. You can tell real hands made this.", "attribution": "Priya S., Jaipur", "image_asset": "testimonial-atelier.jpg" } },
         "n4": { "type": "note", "settings": { "quote": "I bought this for myself after a rough year and honestly, wearing it every day has made me feel a little more put-together.", "attribution": "Meera K., Mumbai", "image_asset": "testimonial-wear-meaning.jpg" } },
-        "n5": { "type": "note", "settings": { "quote": "Six months in and it still looks brand new. I was skeptical about silver holding up daily, but the anti-tarnish pouch tip actually works.", "attribution": "Anjali R., Delhi", "image_asset": "testimonial-jewellery-care.jpg" } },
+        "n5": { "type": "note", "settings": { "quote": "A few months into wearing my Panchmukhi Hanuman pendant and it still looks brand new. I was skeptical about silver holding up daily, but the anti-tarnish pouch tip actually works.", "attribution": "Anjali R., Delhi", "image_asset": "testimonial-jewellery-care.jpg" } },
         "n6": { "type": "note", "settings": { "quote": "When the package arrives looking this beautiful, it's nothing short of overwhelming.", "attribution": "Sunita Ahuja", "image": "shopify://shop_images/sunita.jpg", "image_asset": "testimonial-sunita-ahuja.jpg" } }
       },
       "block_order": ["n2", "n3", "n4", "n5", "n6"],

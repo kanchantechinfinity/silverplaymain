@@ -1104,6 +1104,64 @@
   }
 
 
+  /* Shopify's predictive search matches substrings/prefixes, not spelling
+     -- "pandent" simply never matches "Pendant" server-side, no matter
+     how many results are asked for. This corrects the query client-side
+     against the store's own product vocabulary before searching, and
+     merges results from both the typed and corrected query so a typo
+     still surfaces every match a correct spelling would have. Shared by
+     the search drawer and the full /search results page. */
+  var SEARCH_VOCAB = [
+    "pendant", "pendants", "earring", "earrings", "necklace", "necklaces",
+    "bracelet", "bracelets", "ring", "rings", "anklet", "anklets",
+    "chain", "chains", "bali", "jhumka", "jhumkas", "hoop", "hoops",
+    "rakhi", "kavach", "silver", "sterling", "gemstone", "gemstones",
+    "stone", "stones", "collection", "collections", "wedding", "festive",
+    "ganpati", "moonlight", "lakshmi", "shakti", "tiger", "eye", "agate",
+    "pyrite", "garnet", "ruby", "emerald", "amethyst", "quartz", "druzy",
+    "peacock", "feather", "butterfly", "flower", "floral", "vintage",
+    "designer", "handmade", "oxidised", "oxidized", "jewellery", "jewelry",
+    "rose", "moonstone", "labradorite", "citrine", "coral", "kundan",
+    "meenakari", "temple", "trishul", "ganesha", "lakshmi", "shiva",
+    "hanuman", "nazar", "opal", "jasper", "topaz", "sapphire", "tanzanite",
+    "larimar", "howlite", "malachite", "jade", "turquoise", "carnelian",
+    "aventurine", "sunstone", "peridot", "onyx", "scolecite", "purpurite",
+    "necklace", "mangalsutra", "nosepin", "chandbali", "choker", "cuff",
+    "bangle", "bangles", "kada", "payal", "brooch", "studs", "stud",
+    "dangle", "danglers", "drop", "drops", "minimalist", "minimal",
+    "statement", "kids", "men", "women", "gift", "gifting"
+  ];
+  function searchEditDistance(a, b) {
+    var m = a.length, n = b.length;
+    var d = [];
+    for (var i = 0; i <= m; i++) d[i] = [i];
+    for (var j = 0; j <= n; j++) d[0][j] = j;
+    for (i = 1; i <= m; i++) {
+      for (j = 1; j <= n; j++) {
+        d[i][j] = a[i - 1] === b[j - 1]
+          ? d[i - 1][j - 1]
+          : 1 + Math.min(d[i - 1][j], d[i][j - 1], d[i - 1][j - 1]);
+      }
+    }
+    return d[m][n];
+  }
+  function correctSearchQuery(q) {
+    return q.split(/\s+/).map(function (token) {
+      var lc = token.toLowerCase();
+      if (lc.length < 3) return token;
+      var exact = SEARCH_VOCAB.indexOf(lc) !== -1;
+      if (exact) return token;
+      var best = null, bestDist = Infinity;
+      SEARCH_VOCAB.forEach(function (word) {
+        if (Math.abs(word.length - lc.length) > 2) return;
+        var dist = searchEditDistance(lc, word);
+        if (dist < bestDist) { bestDist = dist; best = word; }
+      });
+      var maxAllowed = lc.length <= 5 ? 1 : 2;
+      return best && bestDist <= maxAllowed ? best : token;
+    }).join(" ");
+  }
+
   /* ------------------------------------------------------ search drawer */
   function initSearchDrawer() {
     var drawer = $("[data-search-drawer]");
@@ -1153,53 +1211,7 @@
              items.map(function (i) { return row(i, metaFor ? metaFor(i) : ""); }).join("") + "</div>";
     }
 
-    /* Shopify's predictive search matches substrings/prefixes, not spelling
-       -- "pandent" simply never matches "Pendant" server-side, no matter
-       how many results are asked for. This corrects the query client-side
-       against the store's own product vocabulary before searching, and
-       merges results from both the typed and corrected query so a typo
-       still surfaces every match a correct spelling would have. */
-    var VOCAB = [
-      "pendant", "pendants", "earring", "earrings", "necklace", "necklaces",
-      "bracelet", "bracelets", "ring", "rings", "anklet", "anklets",
-      "chain", "chains", "bali", "jhumka", "jhumkas", "hoop", "hoops",
-      "rakhi", "kavach", "silver", "sterling", "gemstone", "gemstones",
-      "stone", "stones", "collection", "collections", "wedding", "festive",
-      "ganpati", "moonlight", "lakshmi", "shakti", "tiger", "eye", "agate",
-      "pyrite", "garnet", "ruby", "emerald", "amethyst", "quartz", "druzy",
-      "peacock", "feather", "butterfly", "flower", "floral", "vintage",
-      "designer", "handmade", "oxidised", "oxidized", "jewellery", "jewelry"
-    ];
-    function editDistance(a, b) {
-      var m = a.length, n = b.length;
-      var d = [];
-      for (var i = 0; i <= m; i++) d[i] = [i];
-      for (var j = 0; j <= n; j++) d[0][j] = j;
-      for (i = 1; i <= m; i++) {
-        for (j = 1; j <= n; j++) {
-          d[i][j] = a[i - 1] === b[j - 1]
-            ? d[i - 1][j - 1]
-            : 1 + Math.min(d[i - 1][j], d[i][j - 1], d[i - 1][j - 1]);
-        }
-      }
-      return d[m][n];
-    }
-    function correctQuery(q) {
-      return q.split(/\s+/).map(function (token) {
-        var lc = token.toLowerCase();
-        if (lc.length < 3) return token;
-        var exact = VOCAB.indexOf(lc) !== -1;
-        if (exact) return token;
-        var best = null, bestDist = Infinity;
-        VOCAB.forEach(function (word) {
-          if (Math.abs(word.length - lc.length) > 2) return;
-          var dist = editDistance(lc, word);
-          if (dist < bestDist) { bestDist = dist; best = word; }
-        });
-        var maxAllowed = lc.length <= 5 ? 1 : 2;
-        return best && bestDist <= maxAllowed ? best : token;
-      }).join(" ");
-    }
+    var correctQuery = correctSearchQuery;
 
     function render(data, q) {
       var r = (data && data.resources && data.resources.results) || {};
@@ -1229,44 +1241,44 @@
                 "&resources[options][unavailable_products]=last";
       return fetch(url, signal ? { signal: signal } : undefined).then(function (res) { return res.json(); });
     }
-    function mergeResults(a, b) {
-      var ra = (a && a.resources && a.resources.results) || {};
-      var rb = (b && b.resources && b.resources.results) || {};
-      function merge(listA, listB) {
-        var seen = {}, out = [];
-        (listA || []).concat(listB || []).forEach(function (item) {
-          if (!item || seen[item.url]) return;
-          seen[item.url] = true;
-          out.push(item);
-        });
-        return out;
-      }
-      return {
-        resources: { results: {
-          products: merge(ra.products, rb.products),
-          collections: merge(ra.collections, rb.collections),
-          articles: merge(ra.articles, rb.articles),
-          pages: merge(ra.pages, rb.pages)
-        } }
-      };
+    function resultCount(data) {
+      var r = (data && data.resources && data.resources.results) || {};
+      return (r.products || []).length + (r.collections || []).length +
+             (r.articles || []).length + (r.pages || []).length;
     }
     function run(q) {
       if (controller) controller.abort();
       controller = typeof AbortController !== "undefined" ? new AbortController() : null;
       var signal = controller ? controller.signal : undefined;
       var corrected = correctQuery(q);
-      var requests = [suggest(q, signal)];
-      if (corrected !== q) requests.push(suggest(corrected, signal));
-      Promise.all(requests)
-        .then(function (all) { render(all.length > 1 ? mergeResults(all[0], all[1]) : all[0], q); })
-        .catch(function (err) {
-          if (err && err.name === "AbortError") return;
-          // network or endpoint failure: fall back to the full search page
-          results.innerHTML = '<p class="search-drawer__hint">' +
-            '<a class="link-cta" href="' + base + "?q=" + encodeURIComponent(q) + '">Search for &ldquo;' +
-            esc(q) + '&rdquo; &rarr;</a></p>';
-          if (foot) foot.hidden = true;
-        });
+      if (corrected === q) {
+        suggest(q, signal).then(function (data) { render(data, q); }).catch(handleError(q));
+        return;
+      }
+      /* A corrected spelling is a confident match against the store's own
+         vocabulary -- trust it on its own rather than merging in the raw
+         typo'd query's results too. Shopify's own fuzzy matching on the
+         uncorrected query (e.g. "wuartz") often pulls in unrelated products
+         that just happen to share a few letters, which showed up as
+         "random stones" mixed in after the real Rose Quartz matches. The
+         raw query is only used as a fallback if the correction itself
+         comes up empty. */
+      suggest(corrected, signal)
+        .then(function (correctedData) {
+          if (resultCount(correctedData) > 0) { render(correctedData, q); return; }
+          return suggest(q, signal).then(function (rawData) { render(rawData, q); });
+        })
+        .catch(handleError(q));
+    }
+    function handleError(q) {
+      return function (err) {
+        if (err && err.name === "AbortError") return;
+        // network or endpoint failure: fall back to the full search page
+        results.innerHTML = '<p class="search-drawer__hint">' +
+          '<a class="link-cta" href="' + base + "?q=" + encodeURIComponent(q) + '">Search for &ldquo;' +
+          esc(q) + '&rdquo; &rarr;</a></p>';
+        if (foot) foot.hidden = true;
+      };
     }
 
     if (input) {
@@ -1283,6 +1295,32 @@
         timer = setTimeout(function () { run(q); }, 220);
       });
     }
+  }
+
+  /* The full /search results page is plain server-rendered Liquid
+     (search.results), so a misspelling that Shopify's own backend search
+     can't stem to anything real comes back with a genuine zero-result
+     page -- there's no client-side retry happening there at all, unlike
+     the drawer above. When that happens and our own vocabulary comes up
+     with a different spelling, offer it as a "Did you mean" link rather
+     than silently redirecting, so the shopper still sees products instead
+     of a dead end, without us overriding what they actually typed. */
+  function initSearchResultsPage() {
+    var empty = $("[data-search-empty]");
+    if (!empty) return;
+    var q = empty.getAttribute("data-search-empty");
+    if (!q) return;
+    var corrected = correctSearchQuery(q);
+    if (corrected.toLowerCase() === q.toLowerCase()) return;
+    var base = (window.SilverPlay && window.SilverPlay.routes && window.SilverPlay.routes.search) || "/search";
+    var a = document.createElement("a");
+    a.className = "link-cta";
+    a.href = base + "?q=" + encodeURIComponent(corrected);
+    a.textContent = "Did you mean “" + corrected + "”?";
+    var p = document.createElement("p");
+    p.className = "mt-4";
+    p.appendChild(a);
+    empty.appendChild(p);
   }
 
   /* ------------------------------------------------------------- boot */
@@ -1310,6 +1348,7 @@
     initRecentlyViewed();
     initCart();
     initSearchDrawer();
+    initSearchResultsPage();
     initVariants();
     initSort();
     initFilters();
