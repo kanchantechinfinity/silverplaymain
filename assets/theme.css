@@ -1256,8 +1256,13 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 768px) { .pdp__media { position: sticky; top: 8rem; } }
 .pdp__media { max-width: 100%; overflow-x: hidden; }
 
+/* align-items: flex-start -- without it, flex's default "stretch" makes
+   .gallery__main match .gallery__thumbs' height instead of keeping its own
+   aspect-ratio square. A product with many thumbnails (extra info-card
+   images etc.) has a tall thumbnail column, which was stretching the main
+   image into a tall, distorted rectangle instead of a square. */
 .gallery { display: flex; flex-direction: column; gap: 1rem; }
-@media (min-width: 640px) { .gallery { flex-direction: row-reverse; gap: 1.25rem; } }
+@media (min-width: 640px) { .gallery { flex-direction: row-reverse; gap: 1.25rem; align-items: flex-start; } }
 .gallery__main { position: relative; aspect-ratio: 1; width: 100%; overflow: hidden; border-radius: var(--radius-lg); padding: 3px; background: var(--gilt); }
 @media (min-width: 640px) { .gallery__main { flex: 1; } }
 .gallery__stage { position: relative; height: 100%; width: 100%; overflow: hidden; border-radius: calc(var(--radius-lg) - 3px); background: var(--sp-bone-2); touch-action: pan-y; cursor: grab; }
@@ -1267,7 +1272,9 @@ input, textarea, select { font: inherit; color: inherit; }
 .gallery__slide.is-active { opacity: 1; transform: none; }
 .gallery__slide img { height: 100%; width: 100%; object-fit: cover; }
 .gallery__thumbs { display: flex; gap: .75rem; overflow-x: auto; }
-@media (min-width: 640px) { .gallery__thumbs { width: 5rem; flex-direction: column; overflow: visible; } }
+/* capped + scrollable so a product with many thumbnails doesn't grow the
+   column past the main image's own height */
+@media (min-width: 640px) { .gallery__thumbs { width: 5rem; flex-direction: column; overflow-x: visible; overflow-y: auto; max-height: 34rem; } }
 .gallery__thumb { position: relative; height: 4rem; width: 4rem; flex: none; overflow: hidden; border-radius: var(--radius-sm); box-shadow: 0 0 0 2px transparent; transition: box-shadow .3s; }
 @media (min-width: 640px) { .gallery__thumb { height: 5rem; width: 5rem; } }
 .gallery__thumb.is-active { box-shadow: 0 0 0 2px var(--sp-gold-deep); }
