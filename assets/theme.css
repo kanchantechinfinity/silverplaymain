@@ -872,18 +872,15 @@ input, textarea, select { font: inherit; color: inherit; }
 /* --- Home offer band ----------------------------------------------------- */
 .offer-split { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: stretch; }
 @media (min-width: 900px) { .offer-split { grid-template-columns: 1fr 1.1fr; gap: 3.5rem; } }
-.offer-split__image { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 3 / 4; background: var(--sp-ink-2); }
-@media (min-width: 900px) { .offer-split__image { aspect-ratio: auto; height: 100%; min-height: 30rem; } }
+/* two media slots (reel + photo) side by side, sharing the same row --
+   the reel keeps its native 9:16 shape (capped so it can't dwarf the
+   photo or the copy), the photo fills whatever width is left. */
+.offer-split__media { display: flex; gap: 1rem; justify-content: center; align-items: center; }
+@media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; } }
+.offer-split__image { position: relative; flex: 1 1 0; align-self: stretch; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 3 / 4; background: var(--sp-ink-2); }
 .offer-split__image img, .offer-split__image video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
-/* keep the reel in its own native 9:16 shape instead of stretching/
-   cropping it to fill a squarer box -- but capped so it doesn't run
-   tall enough to dwarf the copy beside it; width follows from the
-   capped height via the aspect-ratio instead of filling the grid
-   column, so the clip stays a normal reel size, not a full-bleed one. */
-.offer-split__image:has(video) { aspect-ratio: 9 / 16; max-height: 32rem; margin-inline: auto; }
-@media (min-width: 900px) {
-  .offer-split__image:has(video) { height: auto; min-height: 0; max-height: 28rem; width: auto; justify-self: start; }
-}
+.offer-split__image--reel { flex: 0 0 auto; align-self: center; aspect-ratio: 9 / 16; height: 24rem; width: auto; }
+@media (min-width: 900px) { .offer-split__image--reel { height: 28rem; } }
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
