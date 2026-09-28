@@ -834,7 +834,10 @@
         if (c) cartCountUpdate(c.textContent.trim());
         bindCartLines();
         bindCartClose(drawer);
-        checkCoinCelebration();
+        // celebration is triggered explicitly by the add-to-cart handler
+        // below, not here -- this same refresh also runs every time the
+        // shopper just opens the drawer to look at their cart, which isn't
+        // a purchase-crossing-the-threshold moment.
       });
   }
   function bindCartLines() {
@@ -900,7 +903,7 @@
           if (buyNow) { window.location.href = "/checkout"; return; }
           if (btn) { btn.disabled = false; btn.textContent = label; }
           if (drawer) { drawer.classList.add("is-open"); document.body.style.overflow = "hidden"; }
-          return refreshDrawer();
+          return refreshDrawer().then(checkCoinCelebration);
         })
         .catch(function () {
           if (btn) { btn.disabled = false; btn.textContent = label; }
@@ -1056,7 +1059,12 @@
         document.body.style.overflow = "";
       });
     });
-    checkCoinCelebration();
+    // no boot-time checkCoinCelebration() here -- this ran on every full
+    // page load (any page has the cart drawer, hence [data-coin-offer], in
+    // its DOM), popping the celebration on plain navigation/browsing
+    // whenever it happened to disagree with localStorage's stored tier.
+    // The celebration now only fires from the add-to-cart handler itself,
+    // right when a purchase actually crosses a ₹15k/₹30k tier.
   }
 
   /* --------------------------------------------------- reel/video modal */
