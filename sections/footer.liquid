@@ -24,7 +24,9 @@
             </a>
           {%- endif -%}
           {%- if settings.social_facebook != blank -%}
-            <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              {% render 'icon', name: 'facebook', size: 18 %}
+            </a>
           {%- endif -%}
         </div>
         {%- if section.settings.show_newsletter -%}
