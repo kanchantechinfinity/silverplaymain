@@ -261,48 +261,48 @@
           "type": "tile",
           "settings": {
             "collection": "hoops",
-            "title": "Heritage",
-            "devanagari": "विरासत"
+            "title": "Hoops",
+            "devanagari": "बाली"
           }
         },
         "h2": {
           "type": "tile",
           "settings": {
             "collection": "studs",
-            "title": "Craftsmanship",
-            "devanagari": "कारीगरी"
+            "title": "Studs",
+            "devanagari": "टॉप्स"
           }
         },
         "h3": {
           "type": "tile",
           "settings": {
             "collection": "drop-earrings-1",
-            "title": "Gemstone Heritage",
-            "devanagari": "रत्न विरासत"
+            "title": "Drop Earrings",
+            "devanagari": "बूंदे"
           }
         },
         "h4": {
           "type": "tile",
           "settings": {
             "collection": "minimalist-earrings",
-            "title": "Elegance",
-            "devanagari": "नज़ाकत"
+            "title": "Minimalist Earrings",
+            "devanagari": "सादगी"
           }
         },
         "h5": {
           "type": "tile",
           "settings": {
             "collection": "designer-statement-earrings",
-            "title": "Regal",
-            "devanagari": "शाही"
+            "title": "Designer Statement Earrings",
+            "devanagari": "शान"
           }
         },
         "h6": {
           "type": "tile",
           "settings": {
             "collection": "meenakari",
-            "title": "Lunar Glow",
-            "devanagari": "चांदनी"
+            "title": "Meenakari",
+            "devanagari": "मीनाकारी"
           }
         }
       },
