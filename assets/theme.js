@@ -851,7 +851,11 @@
         fetch("/cart/change.js", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ line: Number(line), quantity: Number(qty) })
-        }).then(function () { refreshDrawer(); if (document.body.classList.contains("template-cart")) location.reload(); });
+        }).then(function () {
+          return refreshDrawer().then(checkCoinCelebration);
+        }).then(function () {
+          if (document.body.classList.contains("template-cart")) location.reload();
+        });
       });
     });
   }
@@ -1024,14 +1028,38 @@
 
   /* -------------------------------------------- free silver coin offer */
   var COIN_TIER_KEY = "sp_coin_tier";
+  /* The "Buy X get Y" automatic discount only zeroes the coin's price if
+     it's already a line in the cart -- it never adds the coin itself.
+     This adds exactly as many as the shopper has earned (topping up, not
+     duplicating, if some are already there), so a real gift shows up
+     instead of just a banner promising one. */
+  function ensureCoinsInCart(variantId, targetQty) {
+    if (!variantId || targetQty <= 0) return Promise.resolve();
+    return fetch("/cart.js")
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        var line = cart.items.filter(function (i) { return i.variant_id === Number(variantId); })[0];
+        var have = line ? line.quantity : 0;
+        if (have >= targetQty) return null;
+        return fetch("/cart/add.js", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: [{ id: Number(variantId), quantity: targetQty - have }] })
+        });
+      });
+  }
   function checkCoinCelebration() {
     var el = $("[data-coin-offer]");
-    if (!el) return;
+    if (!el) return Promise.resolve();
     var coins = parseInt(el.getAttribute("data-coins"), 10) || 0;
+    var variantId = el.getAttribute("data-coin-variant-id");
     var prev = 0;
     try { prev = parseInt(localStorage.getItem(COIN_TIER_KEY) || "0", 10) || 0; } catch (e) {}
-    if (coins > prev) celebrateCoins(coins);
+    var justUnlocked = coins > prev;
     try { localStorage.setItem(COIN_TIER_KEY, String(coins)); } catch (e) {}
+    return ensureCoinsInCart(variantId, coins).then(function (res) {
+      if (justUnlocked) celebrateCoins(coins);
+      return res ? refreshDrawer() : undefined;
+    });
   }
   function celebrateCoins(coins) {
     var modal = $("[data-coin-modal]");

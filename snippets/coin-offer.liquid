@@ -2,16 +2,32 @@
   Tiered free-silver-coin progress banner: 1 free 5g 99.9%-purity coin per
   ₹15,000 spent (₹15,000+ = 1 coin, ₹30,000+ = 2, and so on), shown wherever
   {% render 'coin-offer' %} is placed (cart drawer, cart page). Emits a
-  data-coins attribute theme.js reads to fire the celebration pop when the
-  shopper crosses into a new tier.
+  data-coins attribute theme.js reads to fire the celebration pop and to
+  auto-add the coin product itself -- Shopify's "Buy X get Y" automatic
+  discount only makes the coin free once it's in the cart, it never adds
+  it there on its own, so the theme has to.
 {%- endcomment -%}
 {%- liquid
   assign threshold = 1500000
-  assign coins = cart.total_price | divided_by: threshold
-  assign remaining_cents = coins | plus: 1 | times: threshold | minus: cart.total_price
+  assign coin_handle = 'silver-ganesha-coin'
+  assign coin_product = all_products[coin_handle]
+  assign coin_variant_id = coin_product.selected_or_first_available_variant.id
+
+  # the coin's own (pre-discount) price must not count toward earning
+  # itself, or the tier calculation would be thrown off by the very
+  # coin the theme just added
+  assign qualifying_total = cart.total_price
+  for item in cart.items
+    if item.product.handle == coin_handle
+      assign qualifying_total = qualifying_total | minus: item.original_line_price
+    endif
+  endfor
+
+  assign coins = qualifying_total | divided_by: threshold
+  assign remaining_cents = coins | plus: 1 | times: threshold | minus: qualifying_total
   assign grams = coins | times: 5
 -%}
-<div class="coin-offer" data-coin-offer data-coins="{{ coins }}">
+<div class="coin-offer" data-coin-offer data-coins="{{ coins }}" data-coin-variant-id="{{ coin_variant_id }}">
   <span class="coin-offer__icon" aria-hidden="true">&#9679;</span>
   <div class="coin-offer__text">
     {%- if coins > 0 -%}
