@@ -877,10 +877,15 @@ input, textarea, select { font: inherit; color: inherit; }
    photo or the copy), the photo fills whatever width is left. */
 .offer-split__media { display: flex; gap: 1rem; justify-content: center; align-items: center; }
 @media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; } }
-.offer-split__image { position: relative; flex: 1 1 0; align-self: stretch; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 3 / 4; background: var(--sp-ink-2); }
+/* both media items match the reel's fixed height and derive their own
+   width from their own aspect ratio (4:5 photo, 9:16 reel) instead of
+   stretching to fill the row -- that stretch was forcing cover-crop to
+   cut off the top/bottom of the photo since its real proportions never
+   matched the box it was being squeezed into. */
+.offer-split__image { position: relative; flex: 0 0 auto; align-self: center; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; height: 24rem; width: auto; background: var(--sp-ink-2); }
 .offer-split__image img, .offer-split__image video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
-.offer-split__image--reel { flex: 0 0 auto; align-self: center; aspect-ratio: 9 / 16; height: 24rem; width: auto; }
-@media (min-width: 900px) { .offer-split__image--reel { height: 28rem; } }
+.offer-split__image--reel { aspect-ratio: 9 / 16; }
+@media (min-width: 900px) { .offer-split__image { height: 28rem; } }
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
