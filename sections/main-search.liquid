@@ -23,11 +23,12 @@
         {%- comment -%}
           Shopify's own backend search sometimes pads out weak queries with
           products that don't actually contain any of the searched words
-          (e.g. a "Tiger Eye Pendant" showing up for "rose quartz") -- this
+          (e.g. random earrings/pendants showing up for "coin", which the
+          store doesn't sell as a browsable product at all) -- this
           re-checks each product's own title against the query terms and
-          drops the ones that don't share a single word with it. Falls
-          back to the unfiltered list if that would hide every result, so
-          a genuinely broad/fuzzy query still shows something.
+          drops the ones that don't share a single word with it. If that
+          leaves nothing, a genuine "no results" is the honest answer, not
+          padding the page with unrelated products.
         {%- endcomment -%}
         {%- assign terms = search.terms | strip | split: ' ' -%}
         {%- assign shown_count = 0 -%}
@@ -61,36 +62,25 @@
             {%- endif -%}
           {%- endfor -%}
         {%- endcapture -%}
-        <div class="grid-products grid-products--3 mt-4">
-          {%- if shown_count > 0 -%}
+        {%- if shown_count > 0 -%}
+          <div class="grid-products grid-products--3 mt-4">
             {{ filtered_html }}
-          {%- else -%}
-            {%- for item in search.results -%}
-              {%- if item.object_type == 'product' -%}
-                {% render 'product-card', product: item %}
-              {%- elsif item.object_type == 'article' -%}
-                <a href="{{ item.url }}" class="jcard">
-                  <div class="jcard__media">
-                    {%- if item.image -%}<img src="{{ item.image | image_url: width: 700 }}" alt="" loading="lazy" decoding="async" width="700" height="525">{%- endif -%}
-                  </div>
-                  <h3 class="jcard__title">{{ item.title }}</h3>
-                </a>
-              {%- else -%}
-                <a href="{{ item.url }}" class="jcard"><h3 class="jcard__title">{{ item.title }}</h3></a>
-              {%- endif -%}
-            {%- endfor -%}
-          {%- endif -%}
-        </div>
+          </div>
 
-        {%- if paginate.pages > 1 -%}
-          <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
-            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr;</a>{%- endif -%}
-            {%- for part in paginate.parts -%}
-              {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
-              {%- else -%}<span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>{%- endif -%}
-            {%- endfor -%}
-            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">&rarr;</a>{%- endif -%}
-          </nav>
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+              {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr;</a>{%- endif -%}
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+                {%- else -%}<span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>{%- endif -%}
+              {%- endfor -%}
+              {%- if paginate.next -%}<a href="{{ paginate.next.url }}">&rarr;</a>{%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- else -%}
+          <div class="shop__empty" data-search-empty="{{ search.terms | escape }}">
+            <p style="font-family:var(--font-display);font-size:1.1rem">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+          </div>
         {%- endif -%}
       {%- endpaginate -%}
     {%- endif -%}
