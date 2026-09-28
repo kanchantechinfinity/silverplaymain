@@ -82,7 +82,12 @@
     <div class="coin-modal__stars" aria-hidden="true">
       {%- for i in (1..14) -%}<span class="coin-modal__star"></span>{%- endfor -%}
     </div>
-    <span class="coin-modal__medal" aria-hidden="true">&#9679;</span>
+    {%- assign coin_product = all_products['silver-ganesha-coin'] -%}
+    {%- if coin_product != blank and coin_product.featured_image != blank -%}
+      <img class="coin-modal__medal-img" src="{{ coin_product.featured_image | image_url: width: 160 }}" alt="" width="80" height="80">
+    {%- else -%}
+      <span class="coin-modal__medal" aria-hidden="true">&#9679;</span>
+    {%- endif -%}
     <p class="coin-modal__heading">Congratulations!</p>
     <p class="coin-modal__body" data-coin-modal-text></p>
     <button type="button" class="btn btn--ink mt-4" data-coin-close>Yay!</button>
