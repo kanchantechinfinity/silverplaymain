@@ -159,18 +159,11 @@
     "fresh_edit": {
       "type": "fresh-edit",
       "blocks": {
-        "t0": {
-          "type": "tab",
-          "settings": {
-            "label": "Under ₹1,500",
-            "collection": "gen-z-edit-everyday-silver"
-          }
-        },
         "t1": {
           "type": "tab",
           "settings": {
             "label": "Under ₹2,500",
-            "collection": "gen-z-edit-everyday-silver"
+            "collection": "under-rs-2500"
           }
         },
         "t2": {
@@ -189,7 +182,6 @@
         }
       },
       "block_order": [
-        "t0",
         "t1",
         "t2",
         "t3"
