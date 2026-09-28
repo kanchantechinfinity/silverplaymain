@@ -14,11 +14,44 @@
   {%- if search.performed -%}
     <p class="shop__count mt-8">{{ 'general.search.results_with_count' | t: count: search.results_count }}</p>
 
-    {%- if search.results_count == 0 -%}
+    {%- comment -%}
+      Shopify's core search object never includes collections, no matter
+      the query -- searching "sterling silver" or "925 silver" (which
+      describe the whole catalog, not any one product) found nothing,
+      even though those are real collections. This checks every
+      collection's own title against the query terms and surfaces the
+      matches above the product grid.
+    {%- endcomment -%}
+    {%- assign coll_terms = search.terms | strip | downcase | split: ' ' -%}
+    {%- assign coll_count = 0 -%}
+    {%- capture coll_html -%}
+      {%- for col in collections -%}
+        {%- assign coll_title_dc = col.title | downcase -%}
+        {%- assign coll_match = false -%}
+        {%- for t in coll_terms -%}
+          {%- if t.size >= 3 and coll_title_dc contains t -%}{%- assign coll_match = true -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if coll_match and col.products_count > 0 -%}
+          {%- assign coll_count = coll_count | plus: 1 -%}
+          <a href="{{ col.url }}" class="jcard">
+            <div class="jcard__media">
+              {%- if col.image -%}<img src="{{ col.image | image_url: width: 700 }}" alt="" loading="lazy" decoding="async" width="700" height="525">{%- endif -%}
+            </div>
+            <h3 class="jcard__title">{{ col.title }}</h3>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if coll_count > 0 -%}
+      <p class="eyebrow mt-8">Collections</p>
+      <div class="grid-products grid-products--3 mt-4">{{ coll_html }}</div>
+    {%- endif -%}
+
+    {%- if search.results_count == 0 and coll_count == 0 -%}
       <div class="shop__empty" data-search-empty="{{ search.terms | escape }}">
         <p style="font-family:var(--font-display);font-size:1.1rem">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
       </div>
-    {%- else -%}
+    {%- elsif search.results_count > 0 -%}
       {%- paginate search.results by 24 -%}
         {%- comment -%}
           Shopify's own backend search sometimes pads out weak queries with

@@ -195,9 +195,9 @@
         "t3"
       ],
       "settings": {
-        "eyebrow": "Just Landed",
-        "heading": "The Fresh Edit",
-        "lede": "The newest additions to the Silver Play line — fresh cuts, fresh stones, straight from the workshop.",
+        "eyebrow": "Start Here",
+        "heading": "Find Your Pick",
+        "lede": "From everyday affordable picks to new arrivals, earrings and pendants — browse by budget or category.",
         "count": 8,
         "bg_color": "#dbc596",
         "wash": "rgba(219,197,150,0.35)",
@@ -227,7 +227,7 @@
         "n4": {
           "type": "note",
           "settings": {
-            "quote": "I bought this for myself after a rough patch, and wearing it every day has made me feel a little more put-together.",
+            "quote": "My Tiger Eye pendant has become the one piece I reach for every single day — solid, grounding, and it goes with everything.",
             "attribution": "Meera K., Mumbai",
             "image_asset": "testimonial-wear-meaning.jpg"
           }
@@ -243,7 +243,7 @@
         "n6": {
           "type": "note",
           "settings": {
-            "quote": "When the package arrives looking this beautiful, it's nothing short of overwhelming.",
+            "quote": "The packaging alone felt so royal and giftable — like something you'd proudly hand over in person, not just ship.",
             "attribution": "Sunita Ahuja",
             "image": "shopify://shop_images/sunita.jpg",
             "image_asset": "testimonial-sunita-ahuja.jpg"
