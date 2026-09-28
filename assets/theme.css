@@ -475,18 +475,20 @@ input, textarea, select { font: inherit; color: inherit; }
   .header__burger span { width: 1.85rem !important; height: 2px !important; }
   .header__burger span:last-child { width: 1.2rem !important; }
 
-  /* solid bar on mobile always — same treatment as .header--nohero (the
-     single-product-page look) instead of the translucent hero overlay,
-     which let the photo bleed through and washed out the heading/menu */
-  .header__bar, .header.is-pinned .header__bar {
+  /* solid bar on mobile while unpinned (top of a hero page) — same
+     treatment as .header--nohero (the single-product-page look) instead
+     of the translucent hero overlay, which let the photo bleed through
+     and washed out the heading/menu. Once pinned (scrolled into the
+     rounded/circular pill state) it keeps its original white look. */
+  .header:not(.is-pinned) .header__bar {
     background: rgba(36,26,16,.97) !important;
     backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
     box-shadow: none !important; border-color: transparent !important;
   }
-  .header__link, .header.is-pinned .header__link { color: var(--sp-bone) !important; text-shadow: none; }
-  .header__icon, .header.is-pinned .header__icon { color: var(--sp-bone) !important; filter: none; }
-  .header__burger span, .header.is-pinned .header__burger span { background: var(--sp-bone) !important; }
-  .header__logo img, .header.is-pinned .header__logo img { filter: none !important; }
+  .header:not(.is-pinned) .header__link { color: var(--sp-bone) !important; text-shadow: none; }
+  .header:not(.is-pinned) .header__icon { color: var(--sp-bone) !important; filter: none; }
+  .header:not(.is-pinned) .header__burger span { background: var(--sp-bone) !important; }
+  .header:not(.is-pinned) .header__logo img { filter: none !important; }
 }
 
 /* Mobile drawer nav */
