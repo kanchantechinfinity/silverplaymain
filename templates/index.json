@@ -260,7 +260,7 @@
         "h1": {
           "type": "tile",
           "settings": {
-            "collection": "virasat",
+            "collection": "hoops",
             "title": "Heritage",
             "devanagari": "विरासत"
           }
@@ -268,7 +268,7 @@
         "h2": {
           "type": "tile",
           "settings": {
-            "collection": "drop-earrings",
+            "collection": "studs",
             "title": "Craftsmanship",
             "devanagari": "कारीगरी"
           }
@@ -276,7 +276,7 @@
         "h3": {
           "type": "tile",
           "settings": {
-            "collection": "designer-collection",
+            "collection": "drop-earrings-1",
             "title": "Gemstone Heritage",
             "devanagari": "रत्न विरासत"
           }
@@ -284,7 +284,7 @@
         "h4": {
           "type": "tile",
           "settings": {
-            "collection": "earrings",
+            "collection": "minimalist-earrings",
             "title": "Elegance",
             "devanagari": "नज़ाकत"
           }
@@ -292,7 +292,7 @@
         "h5": {
           "type": "tile",
           "settings": {
-            "collection": "classic-collection",
+            "collection": "designer-statement-earrings",
             "title": "Regal",
             "devanagari": "शाही"
           }
@@ -300,7 +300,7 @@
         "h6": {
           "type": "tile",
           "settings": {
-            "collection": "chandini",
+            "collection": "meenakari",
             "title": "Lunar Glow",
             "devanagari": "चांदनी"
           }
