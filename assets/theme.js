@@ -904,7 +904,15 @@
             alert(res.json.description || res.json.message || "Could not add to bag.");
             return;
           }
-          if (buyNow) { window.location.href = "/checkout"; return; }
+          if (buyNow) {
+            // Buy Now skips the drawer entirely and jumps to checkout, but
+            // the coin still has to be added to the cart *before* that
+            // navigation -- there's no later moment on the checkout page
+            // where the theme's JS runs again to catch it.
+            return refreshDrawer().then(checkCoinCelebration).then(function () {
+              window.location.href = "/checkout";
+            });
+          }
           if (btn) { btn.disabled = false; btn.textContent = label; }
           if (drawer) { drawer.classList.add("is-open"); document.body.style.overflow = "hidden"; }
           return refreshDrawer().then(checkCoinCelebration);
