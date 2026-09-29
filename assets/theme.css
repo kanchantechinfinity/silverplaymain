@@ -508,7 +508,7 @@ input, textarea, select { font: inherit; color: inherit; }
      cinematic hero's transparent-dark look untouched (this rule lives
      inside the mobile media query only). */
   .header--light-mobile:not(.is-pinned) .header__bar {
-    background: rgba(245,242,237,.9) !important; border-color: rgba(36,26,16,.1) !important;
+    background: var(--sp-bone) !important; border-color: transparent !important;
     backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important;
   }
   .header--light-mobile:not(.is-pinned) .header__link { color: rgba(36,26,16,.85) !important; text-shadow: none; }
