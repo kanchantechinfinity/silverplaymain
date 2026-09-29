@@ -4,7 +4,7 @@
   assign mobile_menu = linklists[section.settings.mobile_menu] | default: menu
 -%}
 
-<header class="header{% if request.page_type == 'collection' %} header--light{% endif %}" data-header role="banner">
+<header class="header{% if request.page_type == 'collection' %} header--light{% endif %}{% if request.page_type == 'index' %} header--light-mobile{% endif %}" data-header role="banner">
   <div class="header__bar">
     <button type="button" class="header__burger" data-mobile-nav-open aria-label="{{ 'accessibility.menu' | t }}">
       <span></span><span></span><span></span>

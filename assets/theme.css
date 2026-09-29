@@ -493,15 +493,28 @@ input, textarea, select { font: inherit; color: inherit; }
      of the translucent hero overlay, which let the photo bleed through
      and washed out the heading/menu. Once pinned (scrolled into the
      rounded/circular pill state) it keeps its original white look. */
-  .header:not(.is-pinned):not(.header--light) .header__bar {
+  .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__bar {
     background: rgba(36,26,16,.97) !important;
     backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
     box-shadow: none !important; border-color: transparent !important;
   }
-  .header:not(.is-pinned):not(.header--light) .header__link { color: var(--sp-bone) !important; text-shadow: none; }
-  .header:not(.is-pinned):not(.header--light) .header__icon { color: var(--sp-bone) !important; filter: none; }
-  .header:not(.is-pinned):not(.header--light) .header__burger span { background: var(--sp-bone) !important; }
-  .header:not(.is-pinned):not(.header--light) .header__logo img { filter: none !important; }
+  .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__link { color: var(--sp-bone) !important; text-shadow: none; }
+  .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__icon { color: var(--sp-bone) !important; filter: none; }
+  .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__burger span { background: var(--sp-bone) !important; }
+  .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__logo img { filter: none !important; }
+
+  /* Home page only, mobile only: light bar + dark text/icons even before
+     scrolling, matching the request for interior pages — desktop keeps the
+     cinematic hero's transparent-dark look untouched (this rule lives
+     inside the mobile media query only). */
+  .header--light-mobile:not(.is-pinned) .header__bar {
+    background: rgba(245,242,237,.9) !important; border-color: rgba(36,26,16,.1) !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important;
+  }
+  .header--light-mobile:not(.is-pinned) .header__link { color: rgba(36,26,16,.85) !important; text-shadow: none; }
+  .header--light-mobile:not(.is-pinned) .header__icon { color: rgba(36,26,16,.8) !important; filter: none; }
+  .header--light-mobile:not(.is-pinned) .header__burger span { background: var(--sp-ink) !important; }
+  .header--light-mobile:not(.is-pinned) .header__logo img { filter: invert(1) !important; }
 }
 
 /* Mobile drawer nav */
