@@ -912,15 +912,6 @@ input, textarea, select { font: inherit; color: inherit; }
    so reel<->card and card<->content read as one consistent rhythm. */
 .offer-split__media { display: flex; gap: 2.5rem; justify-content: center; align-items: center; }
 @media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; gap: 3.5rem; } }
-/* When a gift product card sits beside the reel, stretch the reel to the
-   card's own (taller, natural) height instead of the reel's usual fixed
-   height. align-self: start pulls .offer-split__media itself out of the
-   outer grid's stretch (which otherwise ties its height to the much
-   taller copy column, over-stretching the reel far past the card) so
-   its height is purely intrinsic — driven by its tallest child, the
-   card — and the reel then stretches to match THAT. */
-.offer-split__media:has(.offer-split__image--card) { align-items: stretch; align-self: start; height: auto; min-height: 0; }
-.offer-split__media:has(.offer-split__image--card) .offer-split__image:not(.offer-split__image--card) { height: auto; align-self: stretch; }
 /* both media items match the reel's fixed height and derive their own
    width from their own aspect ratio (4:5 photo, 9:16 reel) instead of
    stretching to fill the row -- that stretch was forcing cover-crop to
@@ -941,6 +932,13 @@ input, textarea, select { font: inherit; color: inherit; }
    like every other product card on the site; only its width is fixed. */
 .offer-split__image--card { aspect-ratio: auto; height: auto; width: 20rem; overflow: visible; background: none; border-radius: 0; }
 @media (min-width: 900px) { .offer-split__image { height: 28rem; } }
+/* Reel + gift card combo: a fixed shared height instead of flex-stretch
+   (stretch here fought the outer grid's own stretch, over-inflating the
+   reel to match the much-taller copy column and pushing it out of the
+   layout). 30rem lands close to the card's own natural height. */
+@media (min-width: 900px) {
+  .offer-split__media:has(.offer-split__image--card) .offer-split__image--reel { height: 30rem; }
+}
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
