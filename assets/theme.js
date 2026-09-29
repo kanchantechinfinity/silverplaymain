@@ -147,10 +147,10 @@
       var reel = media.querySelector(".offer-split__image--reel");
       if (!card || !reel) return;
       function match() {
-        /* Below the desktop breakpoint the two stack vertically (full
-           width each), so there's no shared row to match heights to —
-           only sync them once they're actually side by side. */
-        if (window.innerWidth < 900) { reel.style.height = ""; return; }
+        /* .offer-split__media is a plain flex row at every width — the
+           reel and card sit side by side all the way down to phone
+           screens, not just past the desktop breakpoint — so match
+           unconditionally rather than only above some width. */
         reel.style.height = card.getBoundingClientRect().height + "px";
       }
       match();
