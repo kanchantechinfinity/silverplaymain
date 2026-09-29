@@ -57,6 +57,7 @@
         },
         "slide_Mt8Ybe": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM.jpg",
             "image_mobile": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM_1.jpg",
@@ -547,7 +548,7 @@
       ],
       "settings": {
         "eyebrow": "As Seen & Loved",
-        "heading": "Celebs Who Love Us",
+        "heading": "Celeb Who Loves Us",
         "lede": "Real reels from the faces who wear Silver Play."
       }
     },
