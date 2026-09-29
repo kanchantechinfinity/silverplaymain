@@ -907,6 +907,12 @@ input, textarea, select { font: inherit; color: inherit; }
    so reel<->card and card<->content read as one consistent rhythm. */
 .offer-split__media { display: flex; gap: 2.5rem; justify-content: center; align-items: center; }
 @media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; gap: 3.5rem; } }
+/* When a gift product card sits beside the reel, stretch the reel to the
+   card's own (taller, natural) height instead of the reel's usual fixed
+   height — flexbox stretch does this on its own once neither item's
+   height is pinned. */
+.offer-split__media:has(.offer-split__image--card) { align-items: stretch; }
+.offer-split__media:has(.offer-split__image--card) .offer-split__image:not(.offer-split__image--card) { height: auto; align-self: stretch; }
 /* both media items match the reel's fixed height and derive their own
    width from their own aspect ratio (4:5 photo, 9:16 reel) instead of
    stretching to fill the row -- that stretch was forcing cover-crop to
