@@ -153,9 +153,22 @@
            unconditionally rather than only above some width. */
         reel.style.height = card.getBoundingClientRect().height + "px";
       }
+      /* Fonts/images finishing load after the first paint can shift the
+         card's height slightly after match() already ran once — re-measure
+         a few times over the following couple seconds as a safety net,
+         on top of the ResizeObserver (which itself won't fire for every
+         cause of a height change, e.g. a web font swap reflowing text
+         without the browser treating it as a "resize" of the element). */
       match();
+      requestAnimationFrame(function () { requestAnimationFrame(match); });
+      window.addEventListener("load", match);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(match);
+      [200, 600, 1500].forEach(function (ms) { setTimeout(match, ms); });
       window.addEventListener("resize", match);
-      if ("ResizeObserver" in window) new ResizeObserver(match).observe(card);
+      if ("ResizeObserver" in window) {
+        new ResizeObserver(match).observe(card);
+        new ResizeObserver(match).observe(media);
+      }
     });
   }
 
