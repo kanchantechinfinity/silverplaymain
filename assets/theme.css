@@ -904,7 +904,7 @@ input, textarea, select { font: inherit; color: inherit; }
    the reel keeps its native 9:16 shape (capped so it can't dwarf the
    photo or the copy), the photo fills whatever width is left. */
 .offer-split__media { display: flex; gap: 1rem; justify-content: center; align-items: center; }
-.offer-split__media:has(.offer-split__image--card) { gap: .375rem; }
+.offer-split__media:has(.offer-split__image--card) { gap: 0; }
 @media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; } }
 /* both media items match the reel's fixed height and derive their own
    width from their own aspect ratio (4:5 photo, 9:16 reel) instead of
@@ -920,8 +920,18 @@ input, textarea, select { font: inherit; color: inherit; }
    and object-fit: cover (.card__media/.card__img above); don't touch
    position/height/object-fit here or the image loses that ratio and
    grows however tall its natural aspect ratio ends up at this width. */
-.offer-split__image--card { aspect-ratio: auto; height: auto; width: 20rem; overflow: visible; background: none; border-radius: 0; }
-@media (min-width: 900px) { .offer-split__image { height: 28rem; } }
+/* Match the sibling photo's own fixed height instead of the card's
+   natural (taller) height; the card's media area flexes to fill
+   whatever's left above the title/price/button, still object-fit:
+   cover so the coin image itself doesn't distort. */
+.offer-split__image--card { aspect-ratio: auto; height: 24rem; width: 20rem; overflow: visible; background: none; border-radius: 0; }
+.offer-split__image--card .card { height: 100%; }
+.offer-split__image--card .card__mat { display: flex; flex-direction: column; flex: 1 1 auto; }
+.offer-split__image--card .card__media { aspect-ratio: auto; flex: 1 1 auto; }
+@media (min-width: 900px) {
+  .offer-split__image { height: 28rem; }
+  .offer-split__image--card { height: 28rem; }
+}
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
