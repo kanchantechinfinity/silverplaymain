@@ -1326,7 +1326,6 @@
                already-whole-rupee price by 100 again. */
             return p.price ? money(Math.round(parseFloat(p.price) * 100)) : "";
           }) +
-          group("Collections", r.collections) +
           group("Journal", r.articles) +
           group("Pages", r.pages);
       if (!html) {
@@ -1340,15 +1339,18 @@
     }
 
     function suggest(q, signal) {
+      /* No "collection" type — collections shouldn't appear in search at
+         all. limit=10 is Shopify's own hard ceiling for this endpoint (it
+         cannot return more here); "View all results" below links through
+         to the full /search page for the complete list. */
       var url = base + "/suggest.json?q=" + encodeURIComponent(q) +
-                "&resources[type]=product,collection,article,page&resources[limit]=5" +
+                "&resources[type]=product,article,page&resources[limit]=10" +
                 "&resources[options][unavailable_products]=last";
       return fetch(url, signal ? { signal: signal } : undefined).then(function (res) { return res.json(); });
     }
     function resultCount(data) {
       var r = (data && data.resources && data.resources.results) || {};
-      return (r.products || []).length + (r.collections || []).length +
-             (r.articles || []).length + (r.pages || []).length;
+      return (r.products || []).length + (r.articles || []).length + (r.pages || []).length;
     }
     function run(q) {
       if (controller) controller.abort();
