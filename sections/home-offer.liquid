@@ -17,7 +17,11 @@
                  style="object-position: {{ section.settings.side_image_focus | default: '50% 50%' }}"></video>
         </div>
       {%- endif -%}
-      {%- if section.settings.side_image != blank -%}
+      {%- if section.settings.gift_product != blank -%}
+        <div class="offer-split__image offer-split__image--card">
+          {% render 'product-card', product: section.settings.gift_product, style: 'gilt', lazy: 'lazy' %}
+        </div>
+      {%- elsif section.settings.side_image != blank -%}
         <div class="offer-split__image">
           <img src="{{ section.settings.side_image | image_url: width: 1200 }}" alt="" loading="lazy" decoding="async" width="1200" height="1500" style="object-position: {{ section.settings.side_image_2_focus | default: '50% 0%' }}">
         </div>
@@ -67,6 +71,8 @@
     { "type": "text", "id": "side_image_focus", "label": "Video focal point (CSS object-position)", "default": "50% 50%" },
     { "type": "image_picker", "id": "side_image", "label": "Left-side photo" },
     { "type": "text", "id": "side_image_2_focus", "label": "Photo focal point (CSS object-position)", "default": "50% 0%" },
+    { "type": "product", "id": "gift_product", "label": "Gift product card (replaces the photo above when set)",
+      "info": "Shows a real product card — image, title, price — for the free gift item instead of a plain photo." },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Festive Season Offer" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "A Little Silver, On Us" },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "This festive season, every order over ₹15,000 comes home with a little extra silver." },
