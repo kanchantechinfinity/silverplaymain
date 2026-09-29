@@ -205,6 +205,7 @@
           "settings": {
             "quote": "Silver Play's craftsmanship feels timeless, every piece like it was made just for me.",
             "attribution": "Ankita Lokhande",
+            "product": "badlav-shakti-pietersite-pendant",
             "image_asset": "testimonial-ankita-lokhande.jpg"
           }
         },
@@ -213,6 +214,7 @@
           "settings": {
             "quote": "I wasn't expecting to feel emotional over a pendant, but the detailing genuinely stopped me. You can tell real hands made this.",
             "attribution": "Priya S., Jaipur",
+            "product": "dhan-drishti-tiger-eye-pendant",
             "image_asset": "testimonial-atelier.jpg"
           }
         },
@@ -221,7 +223,7 @@
           "settings": {
             "quote": "This pendant has become the one piece I reach for every single day — solid, grounding, and it goes with everything.",
             "attribution": "Meera K., Mumbai",
-            "product": "shopify://shop_products/lakshmi-kavach-tiger-eye-pendant",
+            "product": "dhan-siddhi-tiger-eye-pendant",
             "image_asset": "testimonial-wear-meaning.jpg"
           }
         },
@@ -239,6 +241,7 @@
           "settings": {
             "quote": "The packaging alone felt so royal and giftable — like something you'd proudly hand over in person, not just ship.",
             "attribution": "Sunita Ahuja",
+            "product": "sterling-silver-amethyst-leaf-designer-earring",
             "image": "shopify://shop_images/sunita.jpg",
             "image_asset": "testimonial-sunita-ahuja.jpg"
           }
