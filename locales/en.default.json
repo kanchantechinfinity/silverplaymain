@@ -16,7 +16,8 @@
       "placeholder": "Search for a piece, a stone, a collection",
       "results_with_count": { "one": "{{ count }} result", "other": "{{ count }} results" },
       "no_results": "No results for “{{ terms }}”.",
-      "reset": "Clear"
+      "reset": "Clear",
+      "view_all_products": "View All Products"
     },
     "pagination": { "previous": "Previous", "next": "Next", "label": "Pagination" },
     "newsletter_form": { "email_placeholder": "Your email", "confirmation": "Thanks for subscribing.", "button_label": "Join" },
