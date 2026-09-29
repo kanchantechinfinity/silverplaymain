@@ -937,7 +937,7 @@ input, textarea, select { font: inherit; color: inherit; }
    reel to match the much-taller copy column and pushing it out of the
    layout). 30rem lands close to the card's own natural height. */
 @media (min-width: 900px) {
-  .offer-split__media:has(.offer-split__image--card) .offer-split__image--reel { height: 30rem; }
+  .offer-split__media:has(.offer-split__image--card) .offer-split__image--reel { height: 28rem; }
 }
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
