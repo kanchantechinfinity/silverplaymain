@@ -1272,7 +1272,6 @@
     if (!drawer) return;
     var input   = $("[data-search-input]", drawer);
     var results = $("[data-search-results]", drawer);
-    var foot    = $("[data-search-foot]", drawer);
     var allLink = $("[data-search-all]", drawer);
     var hint    = results ? results.innerHTML : "";
     var base    = (window.SilverPlay && window.SilverPlay.routes && window.SilverPlay.routes.search) || "/search";
@@ -1330,11 +1329,11 @@
           group("Pages", r.pages);
       if (!html) {
         results.innerHTML = '<p class="search-drawer__hint">No results for &ldquo;' + esc(q) + '&rdquo;.</p>';
-        if (foot) foot.hidden = true;
+        if (allLink) allLink.hidden = true;
         return;
       }
       results.innerHTML = html;
-      if (foot) foot.hidden = false;
+      if (allLink) allLink.hidden = false;
       if (allLink) allLink.href = base + "?q=" + encodeURIComponent(q);
     }
 
@@ -1383,7 +1382,7 @@
         results.innerHTML = '<p class="search-drawer__hint">' +
           '<a class="link-cta" href="' + base + "?q=" + encodeURIComponent(q) + '">Search for &ldquo;' +
           esc(q) + '&rdquo; &rarr;</a></p>';
-        if (foot) foot.hidden = true;
+        if (allLink) allLink.hidden = true;
       };
     }
 
@@ -1395,7 +1394,7 @@
         clearTimeout(timer);
         if (q.length < 2) {
           results.innerHTML = hint;
-          if (foot) foot.hidden = true;
+          if (allLink) allLink.hidden = true;
           return;
         }
         timer = setTimeout(function () { run(q); }, 220);
