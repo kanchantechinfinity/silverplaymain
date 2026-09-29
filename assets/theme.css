@@ -904,6 +904,7 @@ input, textarea, select { font: inherit; color: inherit; }
    the reel keeps its native 9:16 shape (capped so it can't dwarf the
    photo or the copy), the photo fills whatever width is left. */
 .offer-split__media { display: flex; gap: 1rem; justify-content: center; align-items: center; }
+.offer-split__media:has(.offer-split__image--card) { gap: .375rem; }
 @media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; } }
 /* both media items match the reel's fixed height and derive their own
    width from their own aspect ratio (4:5 photo, 9:16 reel) instead of
@@ -915,8 +916,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .offer-split__image--reel { aspect-ratio: 9 / 16; }
 /* Product card variant: let the card lay out naturally instead of the
    plain-photo treatment (absolute-fill cover, forced aspect ratio). */
+/* Width only — the product card keeps its own built-in aspect-ratio box
+   and object-fit: cover (.card__media/.card__img above); don't touch
+   position/height/object-fit here or the image loses that ratio and
+   grows however tall its natural aspect ratio ends up at this width. */
 .offer-split__image--card { aspect-ratio: auto; height: auto; width: 20rem; overflow: visible; background: none; border-radius: 0; }
-.offer-split__image--card img, .offer-split__image--card video { position: static; height: auto; width: 100%; object-fit: contain; }
 @media (min-width: 900px) { .offer-split__image { height: 28rem; } }
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
