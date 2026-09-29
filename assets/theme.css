@@ -684,6 +684,8 @@ input, textarea, select { font: inherit; color: inherit; }
   transition: background-color .5s;
 }
 .card:hover .card__buy { background: var(--sp-ink-3); }
+.card__buy--soldout { background: rgba(36,26,16,.35); }
+.card:hover .card__buy--soldout { background: rgba(36,26,16,.35); }
 
 /* Heritage (deckle) card variant used by the editorial grids */
 .card--heritage .card__frame { clip-path: var(--deckle); border-radius: 0; filter: drop-shadow(0 6px 14px rgba(26,22,20,.22)); box-shadow: none; }

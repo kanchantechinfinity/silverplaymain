@@ -41,7 +41,9 @@
         </span>
       {%- endif -%}
     </p>
-    <span class="card__buy">{{ settings.card_cta_label | default: 'Buy Now' }}</span>
+    <span class="card__buy{% unless product.available %} card__buy--soldout{% endunless %}">
+      {%- if product.available -%}{{ settings.card_cta_label | default: 'Buy Now' }}{%- else -%}Sold Out{%- endif -%}
+    </span>
   </div>
 {%- endcapture -%}
 
