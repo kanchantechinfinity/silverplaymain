@@ -117,6 +117,26 @@
         });
       }
       restart();
+
+      /* Touch swipe (mobile) — left swipe advances, right swipe goes back.
+         Only reacts to a mostly-horizontal drag past a small threshold, so
+         it doesn't hijack a vertical page scroll. */
+      var touchX = 0, touchY = 0, dragging = false;
+      var stage = root.querySelector(".cinehero__stage") || root;
+      stage.addEventListener("touchstart", function (e) {
+        var t = e.changedTouches[0];
+        touchX = t.clientX; touchY = t.clientY; dragging = true;
+      }, { passive: true });
+      stage.addEventListener("touchend", function (e) {
+        if (!dragging) return;
+        dragging = false;
+        var t = e.changedTouches[0];
+        var dx = t.clientX - touchX, dy = t.clientY - touchY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          setActive(active + (dx < 0 ? 1 : -1));
+          restart();
+        }
+      }, { passive: true });
     });
   }
 
@@ -993,13 +1013,39 @@
     if (drawer) drawer.addEventListener("click", function (e) { if (e.target === drawer) drawer.classList.remove("is-open"); });
 
     $$("[data-filter-form]").forEach(function (form) {
-      form.addEventListener("change", function () { form.submit(); });
-      var range = $('input[type="range"]', form);
-      if (range) {
-        var out = $("[data-range-output]", form);
-        range.addEventListener("input", function () {
-          if (out) out.textContent = "₹" + Number(range.value).toLocaleString("en-IN");
+      form.addEventListener("change", function (e) {
+        /* Skip the auto-submit-on-change for the price sliders themselves —
+           they submit on their own "release" handler below (after clamping
+           min/max so a crossed pair never fires an inverted, zero-result
+           filter), while every other control (checkboxes) still submits
+           immediately as before. */
+        if (e.target.getAttribute("data-range-role")) return;
+        form.submit();
+      });
+
+      var minRange = $('[data-range-role="min"]', form);
+      var maxRange = $('[data-range-role="max"]', form);
+      var minOut = $('[data-range-output="min"]', form);
+      var maxOut = $('[data-range-output="max"]', form);
+
+      function fmt(v) { return "₹" + Number(v).toLocaleString("en-IN"); }
+
+      if (minRange && maxRange) {
+        function paint() {
+          if (minOut) minOut.textContent = fmt(minRange.value);
+          if (maxOut) maxOut.textContent = fmt(maxRange.value);
+        }
+        function submitRange() { form.submit(); }
+        minRange.addEventListener("input", function () {
+          if (Number(minRange.value) > Number(maxRange.value)) maxRange.value = minRange.value;
+          paint();
         });
+        maxRange.addEventListener("input", function () {
+          if (Number(maxRange.value) < Number(minRange.value)) minRange.value = maxRange.value;
+          paint();
+        });
+        minRange.addEventListener("change", submitRange);
+        maxRange.addEventListener("change", submitRange);
       }
     });
   }

@@ -300,6 +300,19 @@ input, textarea, select { font: inherit; color: inherit; }
               backdrop-filter .6s var(--ease-silk);
 }
 .header--nohero .header__bar { background: rgba(36,26,16,.97); }
+/* Collection pages: light bar with dark text/icons from the start, not just
+   once pinned — the transparent-over-dark-photo look was unreadable against
+   the (now shorter) collection banner. */
+.header--light .header__bar { background: rgba(245,242,237,.9); border-color: rgba(36,26,16,.1); }
+.header--light .header__burger span { background: var(--sp-ink); }
+.header--light .header__logo img { filter: invert(1); }
+.header--light .header__logo-text { color: var(--sp-ink); }
+.header--light .header__link { color: rgba(36,26,16,.85); text-shadow: none; }
+.header--light .header__link:hover { color: var(--sp-ink); }
+.header--light .header__link::after { background: var(--sp-ink); }
+.header--light .header__icon { color: rgba(36,26,16,.8); filter: none; }
+.header--light .header__icon:hover { background: rgba(36,26,16,.05); color: var(--sp-ink); }
+.header--light .header__badge { background: var(--sp-ink); color: var(--sp-bone); }
 .header.is-pinned .header__bar {
   background: rgba(245,242,237,.9);
   width: calc(100% - 28px); max-width: 1500px; margin-top: 14px; border-radius: 999px;
@@ -521,12 +534,13 @@ input, textarea, select { font: inherit; color: inherit; }
 .mobile-nav__item.is-open .mobile-nav__toggle { transform: rotate(45deg); border-color: rgba(216,180,102,.6); }
 .mobile-nav__panel { overflow: hidden; max-height: 0; transition: max-height .4s var(--ease-silk); }
 .mobile-nav__item.is-open .mobile-nav__panel { max-height: 30rem; }
-.mobile-nav__sub { display: flex; flex-direction: column; gap: .1rem; padding: .25rem 0 1.1rem 1.1rem; border-left: 1px solid rgba(216,180,102,.35); margin-left: .25rem; }
+.mobile-nav__sub { display: flex; flex-direction: column; padding: .25rem 0 1.25rem 1.1rem; border-left: 1px solid rgba(216,180,102,.35); margin-left: .25rem; }
+.mobile-nav__sub li + li { border-top: 1px solid rgba(242,232,208,.1); }
 .mobile-nav__sub a {
-  display: block; padding-block: .5rem; font-family: var(--font-body); font-size: 1rem;
-  color: rgba(242,232,208,.6); transition: color .3s;
+  display: block; padding: .75rem .25rem; font-family: var(--font-body); font-size: 1.05rem;
+  color: rgba(242,232,208,.8); transition: color .3s, padding-left .3s;
 }
-.mobile-nav__sub a:hover { color: var(--sp-gold); }
+.mobile-nav__sub a:hover { color: var(--sp-gold); padding-left: .5rem; }
 
 /* --- Cinematic hero ----------------------------------------------------- */
 .cinehero { position: relative; background: var(--sp-ink); }
@@ -586,14 +600,15 @@ input, textarea, select { font: inherit; color: inherit; }
 /* --- Page hero (interior) ----------------------------------------------- */
 .pagehero {
   position: relative; display: flex; align-items: flex-end;
-  background: var(--sp-ink); padding-top: 8rem; min-height: 52vh;
+  background: var(--sp-ink); padding-top: 6rem; min-height: 52vh;
 }
+@media (min-width: 768px) { .pagehero { padding-top: 8rem; } }
 .pagehero__media { position: absolute; inset: 0; overflow: hidden; }
-.pagehero__media img { height: 100%; width: 100%; object-fit: cover; opacity: .6; }
-/* Stronger throughout (was .45/.25) — the description text sits in the
-   45-55% band, and a bright patch in some photos (e.g. a pale prop)
-   left it low-contrast even with fully light-colored text. */
-.pagehero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.72) 55%, rgba(36,26,16,.5)); }
+.pagehero__media img { height: 100%; width: 100%; object-fit: cover; opacity: .8; }
+/* Scrim eases from a readable-but-not-solid base (was fully opaque var(--sp-ink))
+   up to a lighter top, so the photo stays visible behind the text instead of
+   being blacked out where the title/description sit. */
+.pagehero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(36,26,16,.78), rgba(36,26,16,.55) 55%, rgba(36,26,16,.3)); }
 .pagehero__body { position: relative; z-index: 10; width: 100%; padding-bottom: 3.5rem; }
 @media (min-width: 768px) { .pagehero__body { padding-bottom: 5rem; } }
 .pagehero__title { margin-top: .75rem; max-width: 42rem; font-size: clamp(2.325rem, 5.5vw, 3.925rem); line-height: 1.05; color: var(--sp-bone); }
@@ -1454,7 +1469,9 @@ input, textarea, select { font: inherit; color: inherit; }
 .check input:checked ~ .check__fill { opacity: 1; }
 .check__tick { position: relative; z-index: 1; height: .75rem; width: .75rem; transform: scale(0); color: #2a1d0f; transition: transform .15s; }
 .check input:checked ~ .check__tick { transform: scale(1); }
-.filters__range { margin-top: 1rem; width: 100%; accent-color: var(--sp-gold-mid); }
+.filters__scale { margin-top: .5rem; display: flex; justify-content: space-between; font-family: var(--font-body); font-size: .8rem; color: rgba(242,232,208,.5); }
+.filters__rangelabel { margin-top: 1rem; font-family: var(--font-body); font-size: .8rem; color: rgba(242,232,208,.6); }
+.filters__range { margin-top: .4rem; width: 100%; accent-color: var(--sp-gold-mid); }
 .filters__value { margin-top: .25rem; font-family: var(--font-body); font-size: 1.075rem; color: rgba(242,232,208,.8); }
 
 .shop__drawer { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; }

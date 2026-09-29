@@ -5,11 +5,10 @@
       "type": "product-box-contents",
       "blocks": {
         "b1": { "type": "item", "settings": { "icon": "gem", "title": "Your Silver Play Piece", "copy": "Individually assayed and laser-hallmarked before it ships." } },
-        "b2": { "type": "item", "settings": { "icon": "certificate", "title": "BIS Hallmark Certificate", "copy": "A digital QR card verifying purity and provenance." } },
-        "b3": { "type": "item", "settings": { "icon": "pouch", "title": "Anti-Tarnish Pouch", "copy": "Airtight storage that keeps the shine for years." } },
-        "b4": { "type": "item", "settings": { "icon": "cloth", "title": "Silver Polishing Cloth", "copy": "For the gentle at-home clean between wears." } }
+        "b2": { "type": "item", "settings": { "icon": "certificate", "title": "Certificate Of Authenticity", "copy": "Comes with your piece's BIS certification number and purity details." } },
+        "b4": { "type": "item", "settings": { "icon": "cloth", "title": "Easy At-Home Care", "copy": "Just wipe gently with a small cloth to keep it shining." } }
       },
-      "block_order": ["b1", "b2", "b3", "b4"],
+      "block_order": ["b1", "b2", "b4"],
       "settings": { "eyebrow": "Unboxing", "heading": "What's Inside The Box" }
     },
     "paired": { "type": "product-paired-with", "settings": { "eyebrow": "Complete The Look", "heading": "Paired Well With" } },
