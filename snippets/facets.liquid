@@ -38,32 +38,26 @@
             assign max_amt = max_cents | divided_by: 100
           -%}
           <p class="filters__label">{{ 'products.facets.price_up_to' | t }}</p>
-          <p class="filters__scale">
-            <span>{{ range_min_cents | money_without_trailing_zeros }}</span>
-            <span>{{ range_max_cents | money_without_trailing_zeros }}</span>
-          </p>
-
-          <p class="filters__rangelabel">{{ 'products.facets.price_min' | t }}</p>
-          <input class="filters__range" type="range"
-                 name="{{ filter.min_value.param_name }}"
-                 min="{{ range_min }}" max="{{ range_max }}" step="1"
-                 value="{{ min_amt }}"
-                 data-range-role="min"
-                 aria-label="{{ 'products.facets.price_min' | t }}">
-          <p class="filters__value" data-range-output="min">
-            {{ min_cents | money_without_trailing_zeros }}
-          </p>
-
-          <p class="filters__rangelabel">{{ 'products.facets.price_max' | t }}</p>
-          <input class="filters__range" type="range"
-                 name="{{ filter.max_value.param_name }}"
-                 min="{{ range_min }}" max="{{ range_max }}" step="1"
-                 value="{{ max_amt }}"
-                 data-range-role="max"
-                 aria-label="{{ 'products.facets.price_max' | t }}">
-          <p class="filters__value" data-range-output="max">
-            {{ max_cents | money_without_trailing_zeros }}
-          </p>
+          <div class="price-labels">
+            <span data-range-output="min">{{ min_cents | money_without_trailing_zeros }}</span>
+            <span data-range-output="max">{{ max_cents | money_without_trailing_zeros }}</span>
+          </div>
+          <div class="price-slider" data-price-slider>
+            <div class="price-slider__track"></div>
+            <div class="price-slider__fill" data-price-fill></div>
+            <input type="range" class="price-slider__input"
+                   name="{{ filter.min_value.param_name }}"
+                   min="{{ range_min }}" max="{{ range_max }}" step="1"
+                   value="{{ min_amt }}"
+                   data-range-role="min"
+                   aria-label="{{ 'products.facets.price_min' | t }}">
+            <input type="range" class="price-slider__input"
+                   name="{{ filter.max_value.param_name }}"
+                   min="{{ range_min }}" max="{{ range_max }}" step="1"
+                   value="{{ max_amt }}"
+                   data-range-role="max"
+                   aria-label="{{ 'products.facets.price_max' | t }}">
+          </div>
 
         {%- else -%}
           <p class="filters__label">{{ filter.label }}</p>

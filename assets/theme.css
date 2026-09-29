@@ -1475,10 +1475,27 @@ input, textarea, select { font: inherit; color: inherit; }
 .check input:checked ~ .check__fill { opacity: 1; }
 .check__tick { position: relative; z-index: 1; height: .75rem; width: .75rem; transform: scale(0); color: #2a1d0f; transition: transform .15s; }
 .check input:checked ~ .check__tick { transform: scale(1); }
-.filters__scale { margin-top: .5rem; display: flex; justify-content: space-between; font-family: var(--font-body); font-size: .8rem; color: rgba(242,232,208,.5); }
-.filters__rangelabel { margin-top: 1rem; font-family: var(--font-body); font-size: .8rem; color: rgba(242,232,208,.6); }
-.filters__range { margin-top: .4rem; width: 100%; accent-color: var(--sp-gold-mid); }
-.filters__value { margin-top: .25rem; font-family: var(--font-body); font-size: 1.075rem; color: rgba(242,232,208,.8); }
+/* Price range — one track, two overlapping thumbs (the input tracks are
+   invisible/non-interactive; only each thumb itself accepts pointer
+   events, so the two sliders can share a single visual rail without one
+   input's full-width hit area blocking the other's thumb). */
+.price-labels { display: flex; justify-content: space-between; margin-top: .75rem; font-family: var(--font-body); font-size: .85rem; color: rgba(242,232,208,.8); }
+.price-slider { position: relative; height: 20px; display: flex; align-items: center; margin-top: .5rem; }
+.price-slider__track { position: absolute; left: 0; right: 0; height: 4px; background: rgba(242,232,208,.18); border-radius: 2px; }
+.price-slider__fill { position: absolute; height: 4px; background: var(--sp-gold-mid); border-radius: 2px; }
+.price-slider__input { position: absolute; left: 0; right: 0; width: 100%; margin: 0; height: 20px; background: transparent; appearance: none; pointer-events: none; }
+.price-slider__input::-webkit-slider-runnable-track { background: transparent; height: 4px; }
+.price-slider__input::-moz-range-track { background: transparent; height: 4px; }
+.price-slider__input::-webkit-slider-thumb {
+  appearance: none; width: 16px; height: 16px; border-radius: 999px;
+  background: var(--sp-gold-mid); border: 2px solid var(--sp-ink);
+  box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: pointer; pointer-events: auto;
+}
+.price-slider__input::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 999px; background: var(--sp-gold-mid);
+  border: 2px solid var(--sp-ink); box-shadow: 0 1px 4px rgba(0,0,0,.3);
+  cursor: pointer; pointer-events: auto;
+}
 
 .shop__drawer { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; }
 .shop__drawer.is-open { pointer-events: auto; visibility: visible; }

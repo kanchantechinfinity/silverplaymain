@@ -1027,13 +1027,22 @@
       var maxRange = $('[data-range-role="max"]', form);
       var minOut = $('[data-range-output="min"]', form);
       var maxOut = $('[data-range-output="max"]', form);
+      var fill = $('[data-price-fill]', form);
 
       function fmt(v) { return "₹" + Number(v).toLocaleString("en-IN"); }
 
       if (minRange && maxRange) {
+        var lo = Number(minRange.min), hi = Number(minRange.max);
+        var span = hi - lo || 1;
         function paint() {
           if (minOut) minOut.textContent = fmt(minRange.value);
           if (maxOut) maxOut.textContent = fmt(maxRange.value);
+          if (fill) {
+            var l = (Number(minRange.value) - lo) / span * 100;
+            var r = (Number(maxRange.value) - lo) / span * 100;
+            fill.style.left = l + "%";
+            fill.style.width = (r - l) + "%";
+          }
         }
         function submitRange() { form.submit(); }
         minRange.addEventListener("input", function () {
@@ -1046,6 +1055,7 @@
         });
         minRange.addEventListener("change", submitRange);
         maxRange.addEventListener("change", submitRange);
+        paint();
       }
     });
   }
