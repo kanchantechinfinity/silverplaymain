@@ -19,7 +19,7 @@
         <p style="font-family:var(--font-display);font-size:1.1rem">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
       </div>
     {%- else -%}
-      {%- paginate search.results by 24 -%}
+      {%- paginate search.results by 32 -%}
         {%- comment -%}
           Products only — Shopify's search can also match articles/pages,
           which don't belong in this grid of product cards.
