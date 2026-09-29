@@ -448,16 +448,16 @@ input, textarea, select { font: inherit; color: inherit; }
 .mbar {
   position: fixed; inset-inline: 0; bottom: 0; z-index: 55;
   display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
-  background: rgba(36,26,16,.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(242,232,208,.14);
+  background: var(--sp-bone); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(36,26,16,.14);
   padding-bottom: env(safe-area-inset-bottom);
 }
 @media (min-width: 1024px) { .mbar { display: none; } }
 .mbar__item {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem;
-  padding: .7rem .25rem .6rem; color: rgba(242,232,208,.72); transition: color .3s;
+  padding: .7rem .25rem .6rem; color: rgba(36,26,16,.75); transition: color .3s;
 }
-.mbar__item:hover, .mbar__item:focus-visible { color: var(--sp-bone); }
+.mbar__item:hover, .mbar__item:focus-visible { color: var(--sp-ink); }
 .mbar__item svg { height: 20px; width: 20px; }
 .mbar__item > span:last-child {
   font-family: var(--font-display); font-size: 0.665rem; text-transform: uppercase;
