@@ -566,8 +566,13 @@ input, textarea, select { font: inherit; color: inherit; }
    give the hero its own top padding instead of letting the fixed header
    sit across the first ~70px of the image/heading */
 @media (max-width: 1023px) {
-  .cinehero { padding-top: 4.5rem; }
-  .cinehero__stage { height: calc(100vh - var(--assurance-h) - 4.5rem); height: calc(100dvh - var(--assurance-h) - 4.5rem); }
+  /* Matches the mobile header bar's own rendered height exactly: 8px top
+     padding + 52px (3.25rem) logo + 8px bottom padding = 4.25rem. A
+     mismatch here (this used to say 4.5rem) leaves a sliver of the
+     hero's own dark background showing between the header and the
+     image/video. */
+  .cinehero { padding-top: 4.25rem; }
+  .cinehero__stage { height: calc(100vh - var(--assurance-h) - 4.25rem); height: calc(100dvh - var(--assurance-h) - 4.25rem); }
 }
 .cinehero__video, .cinehero__poster { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: 50% 22%; }
 @media (max-width: 639px) { .cinehero__video, .cinehero__poster { object-position: 42% 20%; } }
