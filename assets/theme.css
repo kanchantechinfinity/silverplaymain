@@ -903,9 +903,10 @@ input, textarea, select { font: inherit; color: inherit; }
 /* two media slots (reel + photo) side by side, sharing the same row --
    the reel keeps its native 9:16 shape (capped so it can't dwarf the
    photo or the copy), the photo fills whatever width is left. */
-.offer-split__media { display: flex; gap: 1rem; justify-content: center; align-items: center; }
-.offer-split__media:has(.offer-split__image--card) { gap: 0; }
-@media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; } }
+/* Same gap here as .offer-split's own grid gap (reel/photo <-> content),
+   so reel<->card and card<->content read as one consistent rhythm. */
+.offer-split__media { display: flex; gap: 2.5rem; justify-content: center; align-items: center; }
+@media (min-width: 900px) { .offer-split__media { height: 100%; min-height: 30rem; justify-content: flex-start; gap: 3.5rem; } }
 /* both media items match the reel's fixed height and derive their own
    width from their own aspect ratio (4:5 photo, 9:16 reel) instead of
    stretching to fill the row -- that stretch was forcing cover-crop to
@@ -920,18 +921,12 @@ input, textarea, select { font: inherit; color: inherit; }
    and object-fit: cover (.card__media/.card__img above); don't touch
    position/height/object-fit here or the image loses that ratio and
    grows however tall its natural aspect ratio ends up at this width. */
-/* Match the sibling photo's own fixed height instead of the card's
-   natural (taller) height; the card's media area flexes to fill
-   whatever's left above the title/price/button, still object-fit:
-   cover so the coin image itself doesn't distort. */
-.offer-split__image--card { aspect-ratio: auto; height: 24rem; width: 20rem; overflow: visible; background: none; border-radius: 0; }
-.offer-split__image--card .card { height: 100%; }
-.offer-split__image--card .card__mat { display: flex; flex-direction: column; flex: 1 1 auto; }
-.offer-split__image--card .card__media { aspect-ratio: auto; flex: 1 1 auto; }
-@media (min-width: 900px) {
-  .offer-split__image { height: 28rem; }
-  .offer-split__image--card { height: 28rem; }
-}
+/* Width only, height auto — forcing this to match the photo's fixed
+   height squashed the card's own image box (.card__media's normal
+   aspect-ratio: 4/5) down to a sliver. Let the card size itself exactly
+   like every other product card on the site; only its width is fixed. */
+.offer-split__image--card { aspect-ratio: auto; height: auto; width: 20rem; overflow: visible; background: none; border-radius: 0; }
+@media (min-width: 900px) { .offer-split__image { height: 28rem; } }
 .offer-split__content { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
 .offer-split__content .lede { max-width: 30rem; }
 .offer-tiers { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
