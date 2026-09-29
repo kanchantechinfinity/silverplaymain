@@ -1059,8 +1059,20 @@
         var q = btn.getAttribute("data-note-quote");
         var a = btn.getAttribute("data-note-by");
         var img = btn.getAttribute("data-note-image");
+        var productUrl = btn.getAttribute("data-note-product-url");
+        var productTitle = btn.getAttribute("data-note-product-title");
         $("[data-note-quote-out]", modal).textContent = "“" + q + "”";
         $("[data-note-by-out]", modal).textContent = a;
+        var productOut = $("[data-note-product-out]", modal);
+        if (productOut) {
+          if (productUrl && productTitle) {
+            productOut.href = productUrl;
+            productOut.textContent = "— on our " + productTitle;
+            productOut.hidden = false;
+          } else {
+            productOut.hidden = true;
+          }
+        }
         var photo = $("[data-note-photo-out]", modal);
         var mark = $("[data-note-mark-out]", modal);
         if (img) {

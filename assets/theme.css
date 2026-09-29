@@ -1133,6 +1133,9 @@ input, textarea, select { font: inherit; color: inherit; }
 .note__photo img { display: block; height: 100%; width: 100%; border-radius: 999px; object-fit: cover; }
 .note__quote { text-align: center; font-family: var(--font-body); font-weight: 600; font-size: 1.325rem; line-height: 1.35; color: #3a2c14; }
 .note__by { font-family: var(--font-display); font-size: 0.745rem; text-transform: uppercase; letter-spacing: .24em; color: var(--sp-gold-deep); }
+.note__product { display: block; margin-top: -.5rem; font-family: var(--font-body); font-style: italic; font-size: 0.85rem; color: #3a2c14; }
+.note-modal__panel a.note__product { text-decoration: underline; text-underline-offset: 3px; transition: color .3s; }
+.note-modal__panel a.note__product:hover { color: var(--sp-gold-deep); }
 .note__corner { position: absolute; font-family: var(--font-flourish); font-size: 0.825rem; color: rgba(138,106,46,.5); pointer-events: none; }
 .note__foxing-a, .note__foxing-b { position: absolute; border-radius: 999px; pointer-events: none; }
 .note__foxing-a { left: -1.5rem; top: -2rem; height: 6rem; width: 6rem; opacity: .4; background: radial-gradient(circle, #8a6a2e 0%, transparent 70%); }

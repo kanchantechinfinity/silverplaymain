@@ -60,6 +60,8 @@
                     data-note-quote="{{ block.settings.quote | escape }}"
                     data-note-by="{{ block.settings.attribution | escape }}"
                     data-note-image="{{ photo_url }}"
+                    data-note-product-url="{{ block.settings.product.url }}"
+                    data-note-product-title="{{ block.settings.product.title | escape }}"
                     aria-label="Read the full note: {{ block.settings.attribution | escape }}">
               <div class="note" style="transform: rotate({{ tilt }}deg)">
                 <div class="note__inner">
@@ -79,6 +81,9 @@
                     {%- endif -%}
                     <p class="note__quote">&ldquo;{{ block.settings.quote }}&rdquo;</p>
                     <p class="note__by">{{ block.settings.attribution }}</p>
+                    {%- if block.settings.product != blank -%}
+                      <span class="note__product">&mdash; on our {{ block.settings.product.title }}</span>
+                    {%- endif -%}
                   </div>
                 </div>
               </div>
@@ -106,6 +111,8 @@
       "settings": [
         { "type": "textarea", "id": "quote", "label": "Quote" },
         { "type": "text", "id": "attribution", "label": "Attribution" },
+        { "type": "product", "id": "product", "label": "Product mentioned (optional)",
+          "info": "Shows \"— on our [Product name]\" under the attribution, linked to the product." },
         { "type": "image_picker", "id": "image", "label": "Reviewer photo (optional)" },
         { "type": "text", "id": "image_asset", "label": "Theme asset filename (fallback if no photo above)" }
       ]
