@@ -140,6 +140,25 @@
     });
   }
 
+  /* ------------------------------------- offer band reel/card heights */
+  function initOfferReelHeight() {
+    $$(".offer-split__media").forEach(function (media) {
+      var card = media.querySelector(".offer-split__image--card");
+      var reel = media.querySelector(".offer-split__image--reel");
+      if (!card || !reel) return;
+      function match() {
+        /* Below the desktop breakpoint the two stack vertically (full
+           width each), so there's no shared row to match heights to —
+           only sync them once they're actually side by side. */
+        if (window.innerWidth < 900) { reel.style.height = ""; return; }
+        reel.style.height = card.getBoundingClientRect().height + "px";
+      }
+      match();
+      window.addEventListener("resize", match);
+      if ("ResizeObserver" in window) new ResizeObserver(match).observe(card);
+    });
+  }
+
   /* ------------------------------------------------------------- header */
   function initHeader() {
     var header = $("[data-header]");
@@ -1433,6 +1452,7 @@
     initSplit();
     initReveal();
     initHeader();
+    initOfferReelHeight();
     initCineheroSlider();
     initMarquee();
     initTabs();
