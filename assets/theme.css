@@ -203,6 +203,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .link-cta:hover { color: var(--sp-ink); }
 .on-dark .link-cta, .link-cta--bone { color: rgba(242,232,208,.6); }
 .on-dark .link-cta:hover, .link-cta--bone:hover { color: var(--sp-bone); }
+.search-drawer .link-cta { font-weight: 700; }
 .link-cta span { transition: transform .5s; display: inline-block; }
 .link-cta:hover span { transform: translateX(4px); }
 
