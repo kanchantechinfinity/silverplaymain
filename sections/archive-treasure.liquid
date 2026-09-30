@@ -84,7 +84,6 @@
                 {%- endif -%}
                 <span class="flipcard__scrim" aria-hidden="true"></span>
                 <div class="flipcard__body">
-                  <p class="flipcard__name">{{ block.settings.title | default: col.title }}</p>
                   <a href="{{ col.url | default: routes.collections_url }}" class="flipcard__btn">
                     {{ section.settings.card_cta }} <span aria-hidden="true">&rarr;</span>
                   </a>

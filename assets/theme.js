@@ -1357,10 +1357,13 @@
     function render(data, q) {
       var r = (data && data.resources && data.resources.results) || {};
       var html = group("Products", r.products, function (p) {
-            /* suggest.json's price is a decimal string in the shop's main
+            /* Fallback-search results already carry a formatted price
+               string (scraped from the rendered card); suggest.json's own
+               results instead give a decimal string in the shop's main
                currency unit (e.g. "24999.00"), not cents — money() expects
                cents, so it has to be scaled up first or it divides an
                already-whole-rupee price by 100 again. */
+            if (p._priceText) return esc(p._priceText);
             return p.price ? money(Math.round(parseFloat(p.price) * 100)) : "";
           }) +
           group("Journal", r.articles) +
@@ -1389,13 +1392,63 @@
       var r = (data && data.resources && data.resources.results) || {};
       return (r.products || []).length + (r.articles || []).length + (r.pages || []).length;
     }
+
+    /* Shopify's lightweight suggest.json (predictive search) sometimes
+       comes back completely empty for a real, single-word match that the
+       full /search page finds fine — e.g. "Rose" alone returns 0 here even
+       though "Sterling Silver Rose Quartz ... Pendant" is a real product
+       and /search?q=Rose correctly finds it. suggest.json's relevance
+       engine is a different (and evidently stricter) backend than the
+       full search page's, not something this theme can tune directly, so
+       when it comes up empty this falls back to the SAME backend the full
+       page uses (a Section Rendering API fetch of the search results
+       section) and parses the product cards out of the returned HTML. */
+    var searchSectionId = null;
+    function getSearchSectionId() {
+      if (searchSectionId) return Promise.resolve(searchSectionId);
+      return fetch(base + "?q=x")
+        .then(function (res) { return res.text(); })
+        .then(function (html) {
+          var m = html.match(/id="shopify-section-(template--\d+__main)"/);
+          searchSectionId = m ? m[1] : null;
+          return searchSectionId;
+        })
+        .catch(function () { return null; });
+    }
+    function fallbackFullSearch(q) {
+      return getSearchSectionId().then(function (sectionId) {
+        if (!sectionId) return null;
+        return fetch(base + "?q=" + encodeURIComponent(q) + "&section_id=" + sectionId)
+          .then(function (res) { return res.text(); })
+          .then(function (html) {
+            var doc = new DOMParser().parseFromString(html, "text/html");
+            var products = $$(".card[data-product-card]", doc).slice(0, 10).map(function (el) {
+              var img = $(".card__img", el);
+              var priceEl = $(".card__price span", el);
+              return {
+                title: (($(".card__title", el) || {}).textContent || "").trim(),
+                url: el.getAttribute("href"),
+                image: img ? img.getAttribute("src") : "",
+                _priceText: priceEl ? priceEl.textContent.trim() : ""
+              };
+            });
+            if (!products.length) return null;
+            return { resources: { results: { products: products, articles: [], pages: [] } } };
+          });
+      }).catch(function () { return null; });
+    }
+
     function run(q) {
       if (controller) controller.abort();
       controller = typeof AbortController !== "undefined" ? new AbortController() : null;
       var signal = controller ? controller.signal : undefined;
       var corrected = correctQuery(q);
+      function withFallback(data) {
+        if (resultCount(data) > 0) { render(data, q); return; }
+        fallbackFullSearch(q).then(function (fallbackData) { render(fallbackData || data, q); });
+      }
       if (corrected === q) {
-        suggest(q, signal).then(function (data) { render(data, q); }).catch(handleError(q));
+        suggest(q, signal).then(withFallback).catch(handleError(q));
         return;
       }
       /* A corrected spelling is a confident match against the store's own
@@ -1409,7 +1462,7 @@
       suggest(corrected, signal)
         .then(function (correctedData) {
           if (resultCount(correctedData) > 0) { render(correctedData, q); return; }
-          return suggest(q, signal).then(function (rawData) { render(rawData, q); });
+          return suggest(q, signal).then(withFallback);
         })
         .catch(handleError(q));
     }
