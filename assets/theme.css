@@ -1001,16 +1001,20 @@ input, textarea, select { font: inherit; color: inherit; }
 .flipcard__face--back { transform: rotateY(180deg) translateZ(0); background: var(--sp-ink-2); }
 .flipcard__face img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transition: transform .7s; }
 .flipcard:hover .flipcard__face--front img { transform: scale(1.05); }
-.flipcard__scrim { position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.15) 55%, transparent); }
+.flipcard__scrim { position: absolute; inset: 0; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.15) 55%, transparent); transition: background .4s; }
+/* Darken the back face's own photo further on hover — the button's
+   background is transparent now, so it leans on this scrim (not its own
+   fill) to stay legible against whatever's behind it. */
+.flipcard:hover .flipcard__face--back .flipcard__scrim { background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.6) 60%, rgba(36,26,16,.2)); }
 .flipcard__body { position: absolute; inset-inline: 0; bottom: 0; padding: 1.25rem; }
 .flipcard__deva { font-family: var(--font-deva); font-size: 1.475rem; line-height: 1; color: var(--sp-bone); }
 .flipcard__name { margin-top: .5rem; font-family: var(--font-display); font-size: 0.725rem; text-transform: uppercase; letter-spacing: .2em; color: rgba(242,232,208,.7); }
 .flipcard__btn {
   margin-top: .75rem; display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px;
-  background: var(--sp-bone); padding: .5rem 1rem; font-family: var(--font-display); font-size: 0.685rem;
-  text-transform: uppercase; letter-spacing: .18em; color: var(--sp-ink); transition: background-color .3s;
+  background: transparent; border: 1px solid var(--sp-bone); padding: .5rem 1rem; font-family: var(--font-display); font-size: 0.685rem;
+  text-transform: uppercase; letter-spacing: .18em; color: var(--sp-bone); transition: background-color .3s, color .3s, border-color .3s;
 }
-.flipcard__btn:hover { background: var(--sp-gold); }
+.flipcard__btn:hover { background: var(--sp-bone); color: var(--sp-ink); border-color: var(--sp-bone); }
 .archive__layout { display: flex; flex-direction: column; gap: 2.5rem; }
 @media (min-width: 1024px) { .archive__layout { flex-direction: row; align-items: flex-start; gap: 4rem; } }
 .archive__text { flex: none; }
