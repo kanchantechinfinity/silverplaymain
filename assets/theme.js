@@ -155,6 +155,11 @@
          frame's own rendered size is always the true visible height. */
       var cardInner = card.querySelector(".card__frame") || card;
       function match() {
+        /* Below 900px the card is hidden entirely (CSS) and the reel
+           takes the full row width on its own — nothing to match against,
+           and matching anyway would zero the reel out (a hidden element's
+           bounding rect is 0x0). */
+        if (card.offsetParent === null) { reel.style.width = ""; reel.style.height = ""; return; }
         var rect = cardInner.getBoundingClientRect();
         reel.style.width = rect.width + "px";
         reel.style.height = rect.height + "px";

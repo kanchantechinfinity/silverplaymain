@@ -923,6 +923,13 @@ input, textarea, select { font: inherit; color: inherit; }
 .offer-split__image { position: relative; flex: 0 0 auto; align-self: center; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; height: 24rem; width: auto; background: var(--sp-ink-2); }
 .offer-split__image img, .offer-split__image video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
 .offer-split__image--reel { aspect-ratio: 9 / 16; }
+/* Mobile: drop the gift product card entirely (its own product page is one
+   tap away regardless) and let the reel take the full row width instead
+   of splitting it with a now-cramped card. */
+@media (max-width: 899px) {
+  .offer-split__image--card { display: none; }
+  .offer-split__image--reel { width: 100%; max-width: 24rem; height: auto; }
+}
 /* Product card variant: let the card lay out naturally instead of the
    plain-photo treatment (absolute-fill cover, forced aspect ratio). */
 /* Width only — the product card keeps its own built-in aspect-ratio box
@@ -1209,10 +1216,13 @@ input, textarea, select { font: inherit; color: inherit; }
 .note-modal__panel .note__body { gap: 1.5rem; padding: 3rem 2.25rem; }
 
 /* --- Free silver coin offer --------------------------------------------- */
+/* Flat parchment + a thin gold rule, not the shiny --gilt gradient block —
+   that heavy metallic background read as "ugly"/busy for a small inline
+   banner inside the cart drawer. */
 .coin-offer {
   display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem;
   padding: .875rem 1rem; border-radius: var(--radius-md);
-  background: var(--gilt); color: var(--sp-ink);
+  background: var(--sp-bone-2); border: 1px solid rgba(138,106,46,.3); color: var(--sp-ink);
 }
 .coin-offer__icon {
   flex: none; display: grid; place-items: center; height: 2.25rem; width: 2.25rem; border-radius: 999px;
