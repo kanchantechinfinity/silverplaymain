@@ -1221,7 +1221,7 @@ input, textarea, select { font: inherit; color: inherit; }
    banner inside the cart drawer. */
 .coin-offer {
   display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem;
-  padding: .875rem 1rem; border-radius: var(--radius-md);
+  padding: .875rem 1rem; border-radius: 0;
   background: var(--sp-bone-2); border: 1px solid rgba(138,106,46,.3); color: var(--sp-ink);
 }
 .coin-offer__icon {
