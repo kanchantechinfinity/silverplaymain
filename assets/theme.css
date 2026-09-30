@@ -1014,7 +1014,6 @@ input, textarea, select { font: inherit; color: inherit; }
   background: transparent; padding: .5rem 1rem; font-family: var(--font-display); font-size: 0.6rem;
   text-transform: uppercase; letter-spacing: .18em; color: var(--sp-bone); transition: background-color .3s, color .3s;
 }
-.flipcard__btn:hover { background: var(--sp-bone); color: var(--sp-ink); }
 .archive__layout { display: flex; flex-direction: column; gap: 2.5rem; }
 @media (min-width: 1024px) { .archive__layout { flex-direction: row; align-items: flex-start; gap: 4rem; } }
 .archive__text { flex: none; }
