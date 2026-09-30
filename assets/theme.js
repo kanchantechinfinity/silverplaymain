@@ -146,11 +146,16 @@
       var card = media.querySelector(".offer-split__image--card");
       var reel = media.querySelector(".offer-split__image--reel");
       if (!card || !reel) return;
+      /* Measure .card__frame (the actual visible card — image + title +
+         price + button), not the outer .offer-split__image--card wrapper.
+         The wrapper can end up shorter than its own content (e.g. a CSS
+         rule elsewhere clipping it while overflow:visible lets the real
+         content spill out past that box) — matching against the wrapper
+         then silently matches the wrong, too-small number. The inner
+         frame's own rendered size is always the true visible height. */
+      var cardInner = card.querySelector(".card__frame") || card;
       function match() {
-        /* Pixel-identical rectangle to the card: both width and height are
-           read directly off the card's own rendered bounding box, so the
-           reel never extends above/below or beside it. */
-        var rect = card.getBoundingClientRect();
+        var rect = cardInner.getBoundingClientRect();
         reel.style.width = rect.width + "px";
         reel.style.height = rect.height + "px";
       }
@@ -167,7 +172,7 @@
       [200, 600, 1500].forEach(function (ms) { setTimeout(match, ms); });
       window.addEventListener("resize", match);
       if ("ResizeObserver" in window) {
-        new ResizeObserver(match).observe(card);
+        new ResizeObserver(match).observe(cardInner);
         new ResizeObserver(match).observe(media);
       }
     });

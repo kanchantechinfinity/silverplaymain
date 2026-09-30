@@ -933,7 +933,13 @@ input, textarea, select { font: inherit; color: inherit; }
    aspect-ratio: 4/5) down to a sliver. Let the card size itself exactly
    like every other product card on the site; only its width is fixed. */
 .offer-split__image--card { aspect-ratio: auto; height: auto; width: 20rem; overflow: visible; background: none; border-radius: 0; }
-@media (min-width: 900px) { .offer-split__image { height: 28rem; } }
+/* :not(.offer-split__image--card) — same specificity (one class each) as
+   the --card rule above, so without this exclusion, this rule (later in
+   the stylesheet) was winning by source order at 900px+ and clipping the
+   card wrapper back down to 28rem despite its own height:auto, while
+   overflow:visible let the real ~527px-tall content silently spill out
+   past that shortened box. */
+@media (min-width: 900px) { .offer-split__image:not(.offer-split__image--card) { height: 28rem; } }
 /* Reel + gift card combo: the reel's height is set to match the card's
    own (content-driven) height exactly, in JS (initOfferReelHeight in
    theme.js) — a fixed guess here drifts out of sync whenever the card's
