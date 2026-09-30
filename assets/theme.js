@@ -147,11 +147,12 @@
       var reel = media.querySelector(".offer-split__image--reel");
       if (!card || !reel) return;
       function match() {
-        /* .offer-split__media is a plain flex row at every width — the
-           reel and card sit side by side all the way down to phone
-           screens, not just past the desktop breakpoint — so match
-           unconditionally rather than only above some width. */
-        reel.style.height = card.getBoundingClientRect().height + "px";
+        /* Pixel-identical rectangle to the card: both width and height are
+           read directly off the card's own rendered bounding box, so the
+           reel never extends above/below or beside it. */
+        var rect = card.getBoundingClientRect();
+        reel.style.width = rect.width + "px";
+        reel.style.height = rect.height + "px";
       }
       /* Fonts/images finishing load after the first paint can shift the
          card's height slightly after match() already ran once — re-measure
