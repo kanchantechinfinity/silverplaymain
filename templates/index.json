@@ -511,7 +511,7 @@
           "type": "reel",
           "settings": {
             "video_url": "",
-            "video_asset": "celeb-reel-ankita.mp4",
+            "video_asset": "",
             "name": "Ankita"
           }
         },
@@ -519,7 +519,7 @@
           "type": "reel",
           "settings": {
             "video_url": "",
-            "video_asset": "celeb-reel-rashmi.mp4",
+            "video_asset": "",
             "name": "Rashmi"
           }
         },
@@ -527,7 +527,7 @@
           "type": "reel",
           "settings": {
             "video_url": "",
-            "video_asset": "celeb-reel-pp.mp4",
+            "video_asset": "",
             "name": ""
           }
         },
@@ -535,7 +535,7 @@
           "type": "reel",
           "settings": {
             "video_url": "",
-            "video_asset": "celeb-reel-4.mp4",
+            "video_asset": "",
             "name": ""
           }
         }
