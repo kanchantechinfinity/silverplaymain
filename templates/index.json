@@ -12,56 +12,26 @@
     "hero": {
       "type": "cinematic-hero",
       "blocks": {
-        "slide_nemViJ": {
+        "slide_pjyYkX": {
           "type": "slide",
           "settings": {
-            "image_desktop": "shopify://shop_images/01.png",
+            "image_desktop": "shopify://shop_images/Desktop_view_2.png",
             "image_mobile": "shopify://shop_images/Mobile_view_2.png",
             "link_url": "shopify://collections/earrings",
-            "image_position": "50% 0%",
-            "devanagari": "",
-            "heading": "",
-            "subtitle": "",
-            "cta_label": "",
-            "cta_url": ""
-          }
-        },
-        "slide_YbVicB": {
-          "type": "slide",
-          "settings": {
-            "image_desktop": "shopify://shop_images/04.png",
-            "image_mobile": "shopify://shop_images/Mobile_view.png",
-            "link_url": "shopify://collections/mens-collection",
-            "image_position": "50% 0%",
-            "devanagari": "",
-            "heading": "",
-            "subtitle": "",
-            "cta_label": "",
-            "cta_url": ""
-          }
-        },
-        "slide_QwGMnH": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/Banner_2_2400_x_1350_jpg.jpg",
-            "image_mobile": "shopify://shop_images/Banner_1_1080_x_1920_jpg.jpg",
-            "link_url": "",
             "image_position": "",
             "devanagari": "",
-            "heading": "Timeless Silver.",
+            "heading": "",
             "subtitle": "",
-            "cta_label": "Explore Collection",
+            "cta_label": "",
             "cta_url": ""
           }
         },
-        "slide_Mt8Ybe": {
+        "slide_r4937i": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image_desktop": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM.jpg",
-            "image_mobile": "shopify://shop_images/WhatsApp_Image_2026-09-17_at_4.19.28_PM_1.jpg",
-            "link_url": "shopify://pages/festive-season-offer",
+            "image_desktop": "shopify://shop_images/Desktop_view.png",
+            "image_mobile": "shopify://shop_images/Mobile_view.png",
+            "link_url": "shopify://collections/mens-collection",
             "image_position": "",
             "devanagari": "",
             "heading": "",
@@ -72,15 +42,11 @@
         }
       },
       "block_order": [
-        "slide_nemViJ",
-        "slide_YbVicB",
-        "slide_QwGMnH",
-        "slide_Mt8Ybe"
+        "slide_pjyYkX",
+        "slide_r4937i"
       ],
       "settings": {
         "media_type": "image",
-        "banner_desktop": "shopify://shop_images/ChatGPT_Image_Jun_24_2026_10_49_37_AM_1.webp",
-        "banner_mobile": "shopify://shop_images/Mobile_layout_430x_5190c385-dd5f-4d2a-b582-a8f9b738457a.webp",
         "video_url": "",
         "corner_vignette": true,
         "devanagari": "",
@@ -243,7 +209,6 @@
             "quote": "The packaging alone felt so royal and giftable — like something you'd proudly hand over in person, not just ship.",
             "attribution": "Sunita Ahuja",
             "product": "sterling-silver-amethyst-leaf-designer-earring",
-            "image": "shopify://shop_images/sunita.jpg",
             "image_asset": "testimonial-sunita-ahuja.jpg"
           }
         }
@@ -332,7 +297,7 @@
     "royal_simplicity": {
       "type": "scroll-deck",
       "settings": {
-        "collection": "quiet-luxury",
+        "collection": "quiet-luxury-2",
         "eyebrow": "The Edit",
         "heading": "Her Royal Simplicity",
         "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
@@ -346,8 +311,6 @@
       "disabled": true,
       "name": "Banner",
       "settings": {
-        "image_desktop": "shopify://shop_images/6f811240-15fd-4c15-8719-ab6e9dc786e7.webp",
-        "image_mobile": "shopify://shop_images/ac0e9f1e-e079-497f-93ba-027488bd2243_430x_90373068-45e8-472a-8e07-e6c36ebd7af1.webp",
         "height": 480,
         "height_mobile": 480,
         "full_width": true,
@@ -510,6 +473,7 @@
         "r1": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/Bw8fG0b0Ml8AnuOu1kjegA.mp4",
             "video_url": "",
             "video_asset": "",
             "name": "Ankita"
@@ -518,6 +482,7 @@
         "r2": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/EzQUQ21EmlImTKIaPCo3dw.mp4",
             "video_url": "",
             "video_asset": "",
             "name": "Rashmi"
@@ -526,6 +491,7 @@
         "r3": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/iHjFhMNZaGILxAoR8hcTow.mp4",
             "video_url": "",
             "video_asset": "",
             "name": ""
@@ -534,6 +500,7 @@
         "r4": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/YZmcnZE8jx3Czcmjc1PSLQ.mp4",
             "video_url": "",
             "video_asset": "",
             "name": ""
