@@ -101,7 +101,7 @@
       function next() { setActive(active + 1); }
       function restart() {
         clearInterval(timer);
-        if (!reduced) timer = setInterval(next, 6000);
+        if (!reduced) timer = setInterval(next, 3000);
       }
 
       var dots = [];
