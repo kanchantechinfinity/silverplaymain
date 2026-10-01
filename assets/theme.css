@@ -947,6 +947,16 @@ input, textarea, select { font: inherit; color: inherit; }
    whole section (heading, price pills, everything sharing its grid row)
    into horizontal overflow instead of just this one column. */
 .offer-split__image--card { aspect-ratio: auto; height: auto; width: clamp(9rem, 45vw, 20rem); overflow: visible; background: none; border-radius: 0; }
+/* Desktop: the 45vw above is sized against the whole viewport, not the
+   narrower grid column it actually sits in, so on common laptop widths
+   (~1280-1440px) reel + card together overflowed the column and
+   flex-wrap dropped the card onto its own line below the reel. Force
+   nowrap and cap the card to a width that always leaves room next to
+   the reel. */
+@media (min-width: 900px) {
+  .offer-split__media { flex-wrap: nowrap; }
+  .offer-split__image--card { width: clamp(7rem, 16vw, 13rem); }
+}
 /* :not(.offer-split__image--card) — same specificity (one class each) as
    the --card rule above, so without this exclusion, this rule (later in
    the stylesheet) was winning by source order at 900px+ and clipping the
