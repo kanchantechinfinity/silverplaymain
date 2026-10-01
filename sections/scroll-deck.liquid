@@ -47,7 +47,9 @@
               <div class="deck__label">
                 <p>{{ product.metafields.custom.tagline.value | default: product.title }}</p>
               </div>
-              <a href="{{ product.url }}" class="visually-hidden"{% if is_buffer %} tabindex="-1"{% endif %}>{{ product.title }}</a>
+              <a href="{{ product.url }}" class="deck__link"{% if is_buffer %} tabindex="-1"{% endif %}>
+                <span class="visually-hidden">{{ product.title }}</span>
+              </a>
             </div>
           {%- else -%}
             {%- for i in (1..4) -%}

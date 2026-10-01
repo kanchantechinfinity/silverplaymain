@@ -862,10 +862,14 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 .deck__card.is-active .deck__chip { opacity: 1; }
 .deck__chip span {
-  border-radius: 999px; border: 1px solid rgba(242,232,208,.3); background: rgba(36,26,16,.4);
+  border-radius: 999px; background: rgba(36,26,16,.4);
   padding: .5rem 1.25rem; font-family: var(--font-display); font-size: 1.025rem;
   letter-spacing: .1em; color: var(--sp-bone); backdrop-filter: blur(8px);
 }
+/* The chip's own ring, sitting right next to the active card's gold ring
+   (box-shadow below), read as a double border -- drop it and let the
+   backdrop blur + dark fill carry contrast on their own. */
+.deck__link { position: absolute; inset: 0; z-index: 1; }
 .deck__label { position: absolute; inset-inline: 0; bottom: 0; padding: 0 1.25rem 1.75rem; text-align: center; }
 .deck__label p { margin-inline: auto; max-width: 24ch; font-family: var(--font-body); font-size: 0.985rem; font-style: italic; line-height: 1.35; color: rgba(242,232,208,.65); }
 .deck__fade { pointer-events: none; position: absolute; inset-inline: 0; bottom: 0; height: 8rem; background: linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.7) 45%, transparent); }
