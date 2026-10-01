@@ -865,6 +865,10 @@ input, textarea, select { font: inherit; color: inherit; }
   border-radius: 999px; background: rgba(36,26,16,.4);
   padding: .5rem 1.25rem; font-family: var(--font-display); font-size: 1.025rem;
   letter-spacing: .1em; color: var(--sp-bone); backdrop-filter: blur(8px);
+  /* Safari doesn't clip backdrop-filter to border-radius on its own --
+     without this the blur bleeds past the pill into a rectangular halo,
+     reading as a second, squared-off background behind the rounded one. */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 /* The chip's own ring, sitting right next to the active card's gold ring
    (box-shadow below), read as a double border -- drop it and let the
