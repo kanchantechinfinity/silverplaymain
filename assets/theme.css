@@ -951,11 +951,14 @@ input, textarea, select { font: inherit; color: inherit; }
    narrower grid column it actually sits in, so on common laptop widths
    (~1280-1440px) reel + card together overflowed the column and
    flex-wrap dropped the card onto its own line below the reel. Force
-   nowrap and cap the card to a width that always leaves room next to
-   the reel. */
+   nowrap so it can never wrap, and let both items flex-shrink together
+   (instead of capping the card to a smaller fixed size) so they keep
+   their full ~320px / matched-height look whenever there's room, and
+   only shrink in step on the tighter laptop widths that need it. */
 @media (min-width: 900px) {
   .offer-split__media { flex-wrap: nowrap; }
-  .offer-split__image--card { width: clamp(7rem, 16vw, 13rem); }
+  .offer-split__image--reel { flex: 1 1 auto; min-width: 0; }
+  .offer-split__image--card { flex: 1 1 20rem; min-width: 0; max-width: 20rem; width: auto; }
 }
 /* :not(.offer-split__image--card) — same specificity (one class each) as
    the --card rule above, so without this exclusion, this rule (later in
