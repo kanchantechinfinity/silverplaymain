@@ -39,13 +39,13 @@
           {%- endfor -%}
           <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:.5rem">
             <span class="qty">
-              <button type="button" data-cart-change="{{ item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="Decrease">−</button>
+              <button type="button" data-cart-change="{{ item.quantity | minus: 1 }}" data-line="{{ item.key }}" aria-label="Decrease">−</button>
               <input type="text" value="{{ item.quantity }}" readonly aria-label="{{ 'cart.general.quantity' | t }}">
-              <button type="button" data-cart-change="{{ item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" aria-label="Increase">+</button>
+              <button type="button" data-cart-change="{{ item.quantity | plus: 1 }}" data-line="{{ item.key }}" aria-label="Increase">+</button>
             </span>
             <span style="font-family:var(--font-display);font-size:.95rem;font-weight:700">{{ item.final_line_price | money }}</span>
           </div>
-          <button type="button" class="link-cta mt-2" data-cart-change="0" data-line="{{ forloop.index }}">{{ 'cart.general.remove' | t }}</button>
+          <button type="button" class="link-cta mt-2" data-cart-change="0" data-line="{{ item.key }}">{{ 'cart.general.remove' | t }}</button>
         </div>
       </div>
     {%- endfor -%}

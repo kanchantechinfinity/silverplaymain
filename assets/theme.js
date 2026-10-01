@@ -909,11 +909,11 @@
       el.dataset.bound = "1";
       el.addEventListener("click", function (e) {
         e.preventDefault();
-        var line = el.getAttribute("data-line");
+        var key = el.getAttribute("data-line");
         var qty = el.getAttribute("data-cart-change");
         fetch("/cart/change.js", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ line: Number(line), quantity: Number(qty) })
+          body: JSON.stringify({ id: key, quantity: Number(qty) })
         }).then(function () {
           return refreshDrawer().then(checkCoinCelebration);
         }).then(function () {

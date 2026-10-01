@@ -45,11 +45,11 @@
               </td>
               <td>
                 <span class="qty">
-                  <button type="button" data-cart-change="{{ item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="Decrease">&minus;</button>
+                  <button type="button" data-cart-change="{{ item.quantity | minus: 1 }}" data-line="{{ item.key }}" aria-label="Decrease">&minus;</button>
                   <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'cart.general.quantity' | t }}">
-                  <button type="button" data-cart-change="{{ item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" aria-label="Increase">+</button>
+                  <button type="button" data-cart-change="{{ item.quantity | plus: 1 }}" data-line="{{ item.key }}" aria-label="Increase">+</button>
                 </span>
-                <button type="button" class="link-cta mt-2" data-cart-change="0" data-line="{{ forloop.index }}">{{ 'cart.general.remove' | t }}</button>
+                <button type="button" class="link-cta mt-2" data-cart-change="0" data-line="{{ item.key }}">{{ 'cart.general.remove' | t }}</button>
               </td>
               <td style="text-align:right;font-family:var(--font-display)">{{ item.final_line_price | money }}</td>
             </tr>
