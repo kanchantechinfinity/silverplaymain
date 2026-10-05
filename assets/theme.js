@@ -1063,6 +1063,20 @@ function bindCartLines() {
            filter), while every other control (checkboxes) still submits
            immediately as before. */
         if (e.target.getAttribute("data-range-role")) return;
+        /* A checkbox can stand for several merged filter values (see
+           data-also in snippets/facets.liquid) -- add the extras as hidden
+           inputs so the whole group is applied, and clear any stale ones. */
+        $$("input[data-extra]", form).forEach(function (n) { n.remove(); });
+        $$("input[data-also]:checked", form).forEach(function (cb) {
+          cb.getAttribute("data-also").split("~~").forEach(function (pair) {
+            var i = pair.indexOf("=");
+            if (i < 1) return;
+            var h = document.createElement("input");
+            h.type = "hidden"; h.name = pair.slice(0, i); h.value = pair.slice(i + 1);
+            h.setAttribute("data-extra", "1");
+            form.appendChild(h);
+          });
+        });
         form.submit();
       });
 

@@ -61,17 +61,54 @@
 
         {%- else -%}
           <p class="filters__label">{{ filter.label }}</p>
+          {%- comment -%}
+            Values that only differ by case/typo (e.g. "Emerald Green",
+            "emereld green", "Green") collapse into one checkbox. The first
+            member's name/value is the checkbox itself; the rest ride along in
+            data-also and are added as hidden inputs on submit (theme.js).
+          {%- endcomment -%}
+          {%- assign is_color = false -%}
+          {%- assign flabel = filter.label | downcase -%}
+          {%- if flabel contains 'colo' -%}{%- assign is_color = true -%}{%- endif -%}
           <div class="filters__list">
+            {%- assign seen = '' -%}
             {%- for value in filter.values -%}
-              <label class="check">
-                <span class="check__box">
-                  <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value | escape }}"
-                         {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
-                  <span class="check__fill" aria-hidden="true"></span>
-                  <svg class="check__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.2 6.2 11.4 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                {{ value.label }} ({{ value.count }})
-              </label>
+              {%- assign key = value.label | strip | downcase -%}
+              {%- if is_color and key == 'emereld green' or is_color and key == 'green' -%}
+                {%- assign key = 'emerald green' -%}
+              {%- endif -%}
+              {%- assign marker = '|' | append: key | append: '|' -%}
+              {%- unless seen contains marker -%}
+                {%- assign seen = seen | append: marker -%}
+                {%- assign total = 0 -%}
+                {%- assign any_active = false -%}
+                {%- assign extras = '' -%}
+                {%- for v2 in filter.values -%}
+                  {%- assign k2 = v2.label | strip | downcase -%}
+                  {%- if is_color and k2 == 'emereld green' or is_color and k2 == 'green' -%}
+                    {%- assign k2 = 'emerald green' -%}
+                  {%- endif -%}
+                  {%- if k2 == key -%}
+                    {%- assign total = total | plus: v2.count -%}
+                    {%- if v2.active -%}{%- assign any_active = true -%}{%- endif -%}
+                    {%- unless v2.value == value.value -%}
+                      {%- assign extras = extras | append: v2.param_name | append: '=' | append: v2.value | append: '~~' -%}
+                    {%- endunless -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- assign shown = value.label -%}
+                {%- if key == 'emerald green' -%}{%- assign shown = 'Emerald Green' -%}{%- endif -%}
+                <label class="check">
+                  <span class="check__box">
+                    <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value | escape }}"
+                           {% if extras != blank %}data-also="{{ extras | escape }}"{% endif %}
+                           {% if any_active %}checked{% endif %} {% if total == 0 and any_active == false %}disabled{% endif %}>
+                    <span class="check__fill" aria-hidden="true"></span>
+                    <svg class="check__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.2 6.2 11.4 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {{ shown }} ({{ total }})
+                </label>
+              {%- endunless -%}
             {%- endfor -%}
           </div>
       {%- endcase -%}
