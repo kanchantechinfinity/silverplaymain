@@ -74,7 +74,7 @@
             {%- assign seen = '' -%}
             {%- for value in filter.values -%}
               {%- assign key = value.label | strip | downcase -%}
-              {%- if is_color and key == 'emereld green' or is_color and key == 'green' -%}
+              {%- if is_color and key == 'emereld green' or is_color and key == 'green' or is_color and key contains '(emerald green)' -%}
                 {%- assign key = 'emerald green' -%}
               {%- endif -%}
               {%- assign marker = '|' | append: key | append: '|' -%}
@@ -85,7 +85,7 @@
                 {%- assign extras = '' -%}
                 {%- for v2 in filter.values -%}
                   {%- assign k2 = v2.label | strip | downcase -%}
-                  {%- if is_color and k2 == 'emereld green' or is_color and k2 == 'green' -%}
+                  {%- if is_color and k2 == 'emereld green' or is_color and k2 == 'green' or is_color and k2 contains '(emerald green)' -%}
                     {%- assign k2 = 'emerald green' -%}
                   {%- endif -%}
                   {%- if k2 == key -%}
