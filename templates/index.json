@@ -129,7 +129,7 @@
         "t1": {
           "type": "tab",
           "settings": {
-            "label": "Under ₹2,500",
+            "label": "Under ₹5000",
             "collection": "under-rs-5000"
           }
         },
