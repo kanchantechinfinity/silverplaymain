@@ -13,7 +13,7 @@
 
   /* ---------------------------------------------------------------- money */
   var money = function (cents) {
-    var f = (window.SilverPlay && window.SilverPlay.moneyFormat) || "₹{{amount_no_decimals}}";
+    var f = ((window.SilverPlay && window.SilverPlay.moneyFormat) || "₹{{amount_no_decimals}}").replace(/<[^>]*>/g, "");
     var amount = cents / 100;
     var noDec = Math.round(amount).toLocaleString("en-IN");
     var withDec = amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
