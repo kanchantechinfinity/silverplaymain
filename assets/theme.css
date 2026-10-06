@@ -350,7 +350,7 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .header__logo-label { display: none; }
 @media (max-width: 1023px) {
-  .header__logo { display: flex !important; flex-direction: column; align-items: center; gap: .15rem; }
+  .header__logo { display: flex !important; flex-direction: column; align-items: center; gap: .1rem; margin-top: -.6rem !important; }
   .header__logo-label {
     display: block; font-family: var(--font-display); font-size: .68rem; line-height: 1; font-weight: 600;
     letter-spacing: .2em; text-transform: uppercase; color: var(--sp-ink);
@@ -495,7 +495,7 @@ input, textarea, select { font: inherit; color: inherit; }
                   order: 1 !important; margin-right: auto !important; flex: none !important; }
   /* the merchant's --logo-h setting is tuned for the tall hero header, not
      this slim mobile bar — cap it so the bar itself stays compact */
-  .header__logo img, .header__logo svg { height: 3.25rem !important; }
+  .header__logo img, .header__logo svg { height: 3rem !important; }
   .header__burger { order: 2 !important; gap: 6px !important; padding-block: .25rem !important; }
   .header__burger span { width: 1.85rem !important; height: 2px !important; }
   .header__burger span:last-child { width: 1.2rem !important; }
