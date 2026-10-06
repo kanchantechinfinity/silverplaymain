@@ -247,7 +247,7 @@
         "h3": {
           "type": "tile",
           "settings": {
-            "collection": "drop-earrings-1",
+            "collection": "drop-earrings",
             "title": "Drop Earrings",
             "devanagari": "बूंदे"
           }
