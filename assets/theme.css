@@ -514,6 +514,7 @@ input, textarea, select { font: inherit; color: inherit; }
   .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__icon { color: var(--sp-bone) !important; filter: none; }
   .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__burger span { background: var(--sp-bone) !important; }
   .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__logo img { filter: none !important; }
+  .header:not(.is-pinned):not(.header--light):not(.header--light-mobile) .header__logo-label { color: var(--sp-bone); }
 
   /* Home page only, mobile only: light bar + dark text/icons even before
      scrolling, matching the request for interior pages — desktop keeps the
