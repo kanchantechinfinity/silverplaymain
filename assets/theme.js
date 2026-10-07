@@ -1560,11 +1560,23 @@ function bindCartLines() {
         });
         if (!products.length) return false;
         results.innerHTML = group(col.title, products, function (p) { return esc(p._priceText); });
-        if (allLink) { allLink.hidden = false; allLink.href = "/collections/" + col.handle; }
+        currentCol = col;
+        if (allLink) {
+          allLink.hidden = false; allLink.href = "/collections/" + col.handle;
+          allLink.innerHTML = "View " + esc(col.title) + ' <span class="btn__arrow">&rarr;</span>';
+        }
         return true;
       }).catch(function () { return false; });
     }
+    var currentCol = null;
+    var allLinkDefault = allLink ? allLink.innerHTML : "";
+    var drawerForm = input ? input.closest("form") : null;
+    if (drawerForm) drawerForm.addEventListener("submit", function (e) {
+      if (currentCol) { e.preventDefault(); location.href = "/collections/" + currentCol.handle; }
+    });
     function run(q) {
+      currentCol = null;
+      if (allLink) allLink.innerHTML = allLinkDefault;
       collectionMatch(q).then(function (col) {
         if (!col) return runSearch(q);
         return renderCollection(col).then(function (ok) { if (!ok) runSearch(q); });
