@@ -1665,16 +1665,51 @@ function bindCartLines() {
         }).catch(function () {});
       }
     }
+    /* A collection-named search ("jhumka") shows that collection's products
+       right here on the search page (no redirect): its cards are fetched
+       from the collection's own pages and swapped into the results grid. */
+    var showingCollection = false;
+    function showCollection(col) {
+      var all = [];
+      function pull(n) {
+        return fetch("/collections/" + col.handle + "?page=" + n).then(function (r) { return r.text(); }).then(function (html) {
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          var found = $$(".grid-products [data-product-card]", doc);
+          found.forEach(function (c) { all.push(document.importNode(c, true)); });
+          return found.length && doc.querySelector(".pagination a[href*='page=" + (n + 1) + "']") ? pull(n + 1) : null;
+        });
+      }
+      return pull(1).then(function () {
+        if (!all.length) return false;
+        showingCollection = true;
+        var wrap = $(".search-page__form").parentNode;
+        $$(".grid-products, .pagination, .shop__empty", wrap).forEach(function (n) { n.remove(); });
+        var cnt = $(".shop__count", wrap);
+        if (!cnt) {
+          cnt = document.createElement("p"); cnt.className = "shop__count mt-8";
+          wrap.appendChild(cnt);
+        }
+        cnt.textContent = all.length + (all.length === 1 ? " result" : " results") + " in " + col.title;
+        var grid = document.createElement("div");
+        grid.className = "grid-products grid-products--3 mt-4";
+        all.forEach(function (c) { grid.appendChild(c); });
+        wrap.appendChild(grid);
+        initReveal(grid);
+        initWishlist();
+        return true;
+      }).catch(function () { return false; });
+    }
     if (rawTerm && !params.get("page")) {
       collectionMatch(rawTerm).then(function (col) {
-        if (col) location.replace("/collections/" + col.handle);
-        else exactRedirect();
+        if (!col) { exactRedirect(); return; }
+        showCollection(col).then(function (ok) { if (!ok) exactRedirect(); });
       });
     }
     var cards = $$(".grid-products [data-product-card]");
     if (cards.length > 1 && params.get("q")) {
       var qWords = params.get("q").replace(/"/g, "").trim().toLowerCase().split(/\s+/).filter(Boolean);
       loadHay().then(function (hay) {
+        if (showingCollection) return;
         function handleOf(c) { return (c.getAttribute("href") || "").split("?")[0].split("/").pop(); }
         var matching = cards.filter(function (c) {
           var h = hay[handleOf(c)] || ((($(".card__title", c) || {}).textContent) || "").toLowerCase();
