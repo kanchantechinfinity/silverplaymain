@@ -1323,6 +1323,25 @@ function bindCartLines() {
     }).join(" ");
   }
 
+  /* Shopify also matches words inside product descriptions, so a short
+     query like "coin" drags in every earring whose copy mentions a "coin
+     stud". When some products carry the query in their own title / type /
+     tags, keep only those; if none do (typos, description-only terms) the
+     list is left untouched. */
+  function productHaystack(p) {
+    var tags = Array.isArray(p.tags) ? p.tags.join(" ") : (p.tags || "");
+    return ((p.title || "") + " " + (p.type || p.product_type || "") + " " + tags).toLowerCase();
+  }
+  function preferTitleMatches(products, q) {
+    var words = String(q || "").toLowerCase().replace(/"/g, "").split(/\s+/).filter(Boolean);
+    if (!words.length || !products || products.length < 2) return products;
+    var hits = products.filter(function (p) {
+      var h = productHaystack(p);
+      return words.every(function (w) { return h.indexOf(w) !== -1; });
+    });
+    return hits.length ? hits : products;
+  }
+
   /* ------------------------------------------------------ search drawer */
   function initSearchDrawer() {
     var drawer = $("[data-search-drawer]");
@@ -1375,6 +1394,7 @@ function bindCartLines() {
 
     function render(data, q) {
       var r = (data && data.resources && data.resources.results) || {};
+      r = { products: preferTitleMatches(r.products, q), articles: r.articles, pages: r.pages };
       var html = group("Products", r.products, function (p) {
             /* Fallback-search results already carry a formatted price
                string (scraped from the rendered card); suggest.json's own
@@ -1536,6 +1556,18 @@ function bindCartLines() {
         var doc = new DOMParser().parseFromString(html, "text/html");
         if (doc.querySelector("[data-product-card]")) location.replace(quoted);
       }).catch(function () {});
+    }
+    var cards = $$(".grid-products [data-product-card]");
+    if (cards.length > 1 && params.get("q")) {
+      var qt = params.get("q").replace(/"/g, "").trim().toLowerCase();
+      var matching = cards.filter(function (c) {
+        return (($(".card__title", c) || {}).textContent || "").toLowerCase().indexOf(qt) !== -1;
+      });
+      if (matching.length && matching.length < cards.length) {
+        cards.forEach(function (c) { if (matching.indexOf(c) === -1) c.remove(); });
+        var cnt = $(".shop__count");
+        if (cnt) cnt.textContent = matching.length + (matching.length === 1 ? " result" : " results");
+      }
     }
     var empty = $("[data-search-empty]");
     if (!empty) return;
