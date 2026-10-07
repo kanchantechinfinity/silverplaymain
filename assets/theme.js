@@ -1328,6 +1328,47 @@ function bindCartLines() {
      stud". When some products carry the query in their own title / type /
      tags, keep only those; if none do (typos, description-only terms) the
      list is left untouched. */
+  /* A search that names a collection ("jhumka", "minimal") should land on
+     that collection's products. Collection titles are matched word-prefix
+     style; broad catch-all collections (>100 products) are ignored so
+     "earring" / "silver" still run a normal search. */
+  var SP_COLS = null;
+  function loadCollections() {
+    if (SP_COLS) return Promise.resolve(SP_COLS);
+    try {
+      var c = JSON.parse(sessionStorage.getItem("sp-cols") || "null");
+      if (c && Date.now() - c.t < 36e5) { SP_COLS = c.l; return Promise.resolve(SP_COLS); }
+    } catch (e) {}
+    var list = [];
+    function page(n) {
+      return fetch("/collections.json?limit=250&page=" + n).then(function (r) { return r.json(); }).then(function (j) {
+        var cs = (j && j.collections) || [];
+        cs.forEach(function (x) { list.push({ handle: x.handle, title: x.title, count: x.products_count }); });
+        return cs.length === 250 ? page(n + 1) : null;
+      });
+    }
+    return page(1).then(function () {
+      SP_COLS = list;
+      try { sessionStorage.setItem("sp-cols", JSON.stringify({ t: Date.now(), l: list })); } catch (e) {}
+      return list;
+    }).catch(function () { return []; });
+  }
+  function collectionMatch(q) {
+    var words = String(q || "").toLowerCase().replace(/"/g, "").split(/\s+/).filter(Boolean);
+    if (!words.length || words.join("").length < 3) return Promise.resolve(null);
+    return loadCollections().then(function (list) {
+      var best = null;
+      list.forEach(function (c) {
+        if (!c.count || c.count > 100) return;
+        var tw = c.title.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+        var ok = words.every(function (w) {
+          return tw.some(function (t) { return t.indexOf(w) === 0; });
+        });
+        if (ok && (!best || c.count > best.count)) best = c;
+      });
+      return best;
+    });
+  }
   var SP_HAY = null, SP_HAY_P = null;
   /* handle -> lowercase "title type tags option-values" for the whole
      catalog, so colour words ("green") match products by their Color
@@ -1511,7 +1552,25 @@ function bindCartLines() {
       }).catch(function () { return null; });
     }
 
+    function renderCollection(col) {
+      return fetch("/collections/" + col.handle + "/products.json?limit=10").then(function (r) { return r.json(); }).then(function (j) {
+        var products = ((j && j.products) || []).map(function (p) {
+          return { title: p.title, url: "/products/" + p.handle, image: p.images && p.images[0] ? p.images[0].src : "",
+                   _priceText: p.variants && p.variants[0] ? money(Math.round(parseFloat(p.variants[0].price) * 100)) : "" };
+        });
+        if (!products.length) return false;
+        results.innerHTML = group(col.title, products, function (p) { return esc(p._priceText); });
+        if (allLink) { allLink.hidden = false; allLink.href = "/collections/" + col.handle; }
+        return true;
+      }).catch(function () { return false; });
+    }
     function run(q) {
+      collectionMatch(q).then(function (col) {
+        if (!col) return runSearch(q);
+        return renderCollection(col).then(function (ok) { if (!ok) runSearch(q); });
+      });
+    }
+    function runSearch(q) {
       if (controller) controller.abort();
       controller = typeof AbortController !== "undefined" ? new AbortController() : null;
       var signal = controller ? controller.signal : undefined;
@@ -1583,13 +1642,22 @@ function bindCartLines() {
        results alone so partial words like "ros" still work. */
     var params = new URLSearchParams(location.search);
     var term = (params.get("q") || "").trim();
-    if (/^[^\s"]{3,}$/.test(term) && !params.get("page")) {
-      var sbase = (window.SilverPlay && window.SilverPlay.routes && window.SilverPlay.routes.search) || "/search";
-      var quoted = sbase + "?q=" + encodeURIComponent('"' + term + '"') + "&options%5Bprefix%5D=last";
-      fetch(quoted, { credentials: "same-origin" }).then(function (r) { return r.text(); }).then(function (html) {
-        var doc = new DOMParser().parseFromString(html, "text/html");
-        if (doc.querySelector("[data-product-card]")) location.replace(quoted);
-      }).catch(function () {});
+    var rawTerm = term.replace(/"/g, "").trim();
+    function exactRedirect() {
+      if (/^[^\s"]{3,}$/.test(term) && !params.get("page")) {
+        var sbase = (window.SilverPlay && window.SilverPlay.routes && window.SilverPlay.routes.search) || "/search";
+        var quoted = sbase + "?q=" + encodeURIComponent('"' + term + '"') + "&options%5Bprefix%5D=last";
+        fetch(quoted, { credentials: "same-origin" }).then(function (r) { return r.text(); }).then(function (html) {
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          if (doc.querySelector("[data-product-card]")) location.replace(quoted);
+        }).catch(function () {});
+      }
+    }
+    if (rawTerm && !params.get("page")) {
+      collectionMatch(rawTerm).then(function (col) {
+        if (col) location.replace("/collections/" + col.handle);
+        else exactRedirect();
+      });
     }
     var cards = $$(".grid-products [data-product-card]");
     if (cards.length > 1 && params.get("q")) {
