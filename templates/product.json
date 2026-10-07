@@ -22,7 +22,58 @@
     },
     "paired": { "type": "product-paired-with", "settings": { "eyebrow": "Complete The Look", "heading": "Paired Well With" } },
     "reviews": { "type": "product-reviews", "settings": {} },
-    "reels": { "type": "product-reels", "settings": { "eyebrow": "In The Wild", "heading": "Loved By Creators" } },
+    "celeb_love": {
+      "type": "celeb-love",
+      "blocks": {
+        "r1": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Bw8fG0b0Ml8AnuOu1kjegA.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": "Ankita"
+          }
+        },
+        "r2": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/EzQUQ21EmlImTKIaPCo3dw.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": "Rashmi"
+          }
+        },
+        "r3": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/iHjFhMNZaGILxAoR8hcTow.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": ""
+          }
+        },
+        "r4": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/YZmcnZE8jx3Czcmjc1PSLQ.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": ""
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "eyebrow": "As Seen & Loved",
+        "heading": "Celebs Who Love Us",
+        "lede": "Real reels from the faces who wear Silver Play."
+      }
+    },
     "related": { "type": "related-products", "settings": { "heading": "Similar Products", "count": 5 } },
     "recent": { "type": "recently-viewed", "settings": { "heading": "Recently Viewed" } },
     "faq": {
@@ -37,5 +88,5 @@
       "settings": { "eyebrow": "Good To Know", "heading": "Frequently Asked" }
     }
   },
-  "order": ["main", "box_contents", "paired", "reviews", "reels", "related", "recent", "faq"]
+  "order": ["main", "box_contents", "paired", "reviews", "celeb_love", "related", "recent", "faq"]
 }
