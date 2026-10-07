@@ -1328,7 +1328,38 @@ function bindCartLines() {
      stud". When some products carry the query in their own title / type /
      tags, keep only those; if none do (typos, description-only terms) the
      list is left untouched. */
+  var SP_HAY = null, SP_HAY_P = null;
+  /* handle -> lowercase "title type tags option-values" for the whole
+     catalog, so colour words ("green") match products by their Color
+     option / stone tags too, not just what suggest.json returns. */
+  function loadHay() {
+    if (SP_HAY) return Promise.resolve(SP_HAY);
+    if (SP_HAY_P) return SP_HAY_P;
+    try {
+      var c = JSON.parse(sessionStorage.getItem("sp-hay") || "null");
+      if (c && Date.now() - c.t < 36e5) { SP_HAY = c.m; return Promise.resolve(SP_HAY); }
+    } catch (e) {}
+    var map = {};
+    function page(n) {
+      return fetch("/products.json?limit=250&page=" + n).then(function (r) { return r.json(); }).then(function (j) {
+        var list = (j && j.products) || [];
+        list.forEach(function (x) {
+          var opts = (x.options || []).map(function (o) { return (o.values || []).join(" "); }).join(" ");
+          var tags = Array.isArray(x.tags) ? x.tags.join(" ") : (x.tags || "");
+          map[x.handle] = (x.title + " " + (x.product_type || "") + " " + tags + " " + opts).toLowerCase();
+        });
+        return list.length === 250 ? page(n + 1) : null;
+      });
+    }
+    SP_HAY_P = page(1).then(function () {
+      SP_HAY = map;
+      try { sessionStorage.setItem("sp-hay", JSON.stringify({ t: Date.now(), m: map })); } catch (e) {}
+      return map;
+    }).catch(function () { SP_HAY_P = null; return {}; });
+    return SP_HAY_P;
+  }
   function productHaystack(p) {
+    if (SP_HAY && p.handle && SP_HAY[p.handle]) return SP_HAY[p.handle];
     var tags = Array.isArray(p.tags) ? p.tags.join(" ") : (p.tags || "");
     return ((p.title || "") + " " + (p.type || p.product_type || "") + " " + tags).toLowerCase();
   }
@@ -1393,6 +1424,9 @@ function bindCartLines() {
     var correctQuery = correctSearchQuery;
 
     function render(data, q) {
+      loadHay().then(function () { doRender(data, q); });
+    }
+    function doRender(data, q) {
       var r = (data && data.resources && data.resources.results) || {};
       r = { products: preferTitleMatches(r.products, q), articles: r.articles, pages: r.pages };
       var html = group("Products", r.products, function (p) {
@@ -1559,15 +1593,19 @@ function bindCartLines() {
     }
     var cards = $$(".grid-products [data-product-card]");
     if (cards.length > 1 && params.get("q")) {
-      var qt = params.get("q").replace(/"/g, "").trim().toLowerCase();
-      var matching = cards.filter(function (c) {
-        return (($(".card__title", c) || {}).textContent || "").toLowerCase().indexOf(qt) !== -1;
+      var qWords = params.get("q").replace(/"/g, "").trim().toLowerCase().split(/\s+/).filter(Boolean);
+      loadHay().then(function (hay) {
+        function handleOf(c) { return (c.getAttribute("href") || "").split("?")[0].split("/").pop(); }
+        var matching = cards.filter(function (c) {
+          var h = hay[handleOf(c)] || ((($(".card__title", c) || {}).textContent) || "").toLowerCase();
+          return qWords.every(function (w) { return h.indexOf(w) !== -1; });
+        });
+        if (matching.length && matching.length < cards.length) {
+          cards.forEach(function (c) { if (matching.indexOf(c) === -1) c.remove(); });
+          var cnt = $(".shop__count");
+          if (cnt) cnt.textContent = matching.length + (matching.length === 1 ? " result" : " results");
+        }
       });
-      if (matching.length && matching.length < cards.length) {
-        cards.forEach(function (c) { if (matching.indexOf(c) === -1) c.remove(); });
-        var cnt = $(".shop__count");
-        if (cnt) cnt.textContent = matching.length + (matching.length === 1 ? " result" : " results");
-      }
     }
     var empty = $("[data-search-empty]");
     if (!empty) return;
