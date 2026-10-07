@@ -1521,6 +1521,22 @@ function bindCartLines() {
      than silently redirecting, so the shopper still sees products instead
      of a dead end, without us overriding what they actually typed. */
   function initSearchResultsPage() {
+    var input = $(".search-page__form input[name=q]");
+    if (input) input.value = input.value.replace(/^"(.*)"$/, "$1");
+    /* Shopify's loose matching pads a one-word search with weak matches
+       (e.g. "coin" -> 176 results, mostly earrings). When the exact quoted
+       word has hits of its own, show only those; otherwise leave the loose
+       results alone so partial words like "ros" still work. */
+    var params = new URLSearchParams(location.search);
+    var term = (params.get("q") || "").trim();
+    if (/^[^\s"]{3,}$/.test(term) && !params.get("page")) {
+      var sbase = (window.SilverPlay && window.SilverPlay.routes && window.SilverPlay.routes.search) || "/search";
+      var quoted = sbase + "?q=" + encodeURIComponent('"' + term + '"') + "&options%5Bprefix%5D=last";
+      fetch(quoted, { credentials: "same-origin" }).then(function (r) { return r.text(); }).then(function (html) {
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        if (doc.querySelector("[data-product-card]")) location.replace(quoted);
+      }).catch(function () {});
+    }
     var empty = $("[data-search-empty]");
     if (!empty) return;
     var q = empty.getAttribute("data-search-empty");
