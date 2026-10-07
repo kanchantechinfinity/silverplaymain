@@ -28,10 +28,27 @@
       {%- endif -%}
     </div>
 
+    {%- assign post_count = 0 -%}
+    {%- assign app_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}{%- assign app_count = app_count | plus: 1 -%}{%- else -%}{%- assign post_count = post_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Live-feed app blocks (e.g. Instafeed) render themselves, full width, in place of the sample tiles. {%- endcomment -%}
+    {%- if app_count > 0 -%}
+      <div class="ig__app">
+        {%- for block in section.blocks -%}
+          {%- if block.type == '@app' -%}{% render block %}{%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if app_count == 0 or post_count > 0 -%}
     <div class="ig__viewport">
       <div class="ig__rail" data-drag-rail>
-        {%- if section.blocks.size > 0 -%}
+        {%- if post_count > 0 -%}
           {%- for block in section.blocks -%}
+            {%- if block.type == '@app' -%}{%- continue -%}{%- endif -%}
             <a href="{{ block.settings.link | default: profile }}" target="_blank" rel="noopener noreferrer"
                class="ig__tile" {{ block.shopify_attributes }}>
               <span class="ig__inner">
@@ -73,6 +90,7 @@
         {%- endif -%}
       </div>
     </div>
+    {%- endif -%}
   </div>
 </section>
 

@@ -1138,6 +1138,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .ig__rail { display: flex; gap: 1.25rem; width: max-content; cursor: grab; }
 @media (min-width: 768px) { .ig__rail { gap: 1.5rem; } }
 .ig__rail.is-dragging { cursor: grabbing; }
+.ig__app { margin-top: 2.5rem; width: 100%; }
 .ig__viewport { margin-top: 2.5rem; width: 100%; overflow: hidden; }
 @media (min-width: 768px) { .ig__viewport { margin-top: 3.5rem; } }
 .ig__tile { position: relative; display: block; width: 12rem; flex: none; overflow: hidden; border-radius: var(--radius-md); padding: 3px; background: var(--gilt); }
