@@ -1842,8 +1842,50 @@ function bindCartLines() {
     empty.appendChild(p);
   }
 
+  /* A page whose admin text uses h2 / h3 / h4 (title, group, question) --
+     the FAQs page -- is turned into centred, collapsible question cards. */
+  function initRteFaq() {
+    var rte = $(".article__body .rte");
+    if (!rte || !$("h4", rte) || !$("h3", rte)) return;
+    var wrap = document.createElement("div");
+    wrap.className = "faqx";
+    var group = null, item = null;
+    Array.prototype.slice.call(rte.childNodes).forEach(function (n) {
+      if (n.nodeType !== 1) return;
+      var tag = n.tagName.toLowerCase();
+      if (tag === "h2") {
+        n.className = "faqx__title"; wrap.appendChild(n); group = null; item = null;
+      } else if (tag === "h3") {
+        group = document.createElement("section"); group.className = "faqx__group";
+        n.className = "faqx__group-title"; group.appendChild(n); wrap.appendChild(group); item = null;
+      } else if (tag === "h4") {
+        item = document.createElement("details"); item.className = "faqx__item";
+        var sum = document.createElement("summary"); sum.textContent = n.textContent;
+        var body = document.createElement("div"); body.className = "faqx__body";
+        item.appendChild(sum); item.appendChild(body);
+        (group || wrap).appendChild(item);
+      } else if (item) {
+        item.lastChild.appendChild(n);
+      } else {
+        (group || wrap).appendChild(n);
+      }
+    });
+    rte.textContent = "";
+    rte.appendChild(wrap);
+    rte.classList.add("rte--faq");
+    var hero = $("[data-page-hero]");
+    if (hero) hero.classList.add("pagehero--center");
+    $$(".faqx__item", rte).forEach(function (d) {
+      d.addEventListener("toggle", function () {
+        if (!d.open) return;
+        $$(".faqx__item[open]", rte).forEach(function (o) { if (o !== d) o.removeAttribute("open"); });
+      });
+    });
+  }
+
   /* ------------------------------------------------------------- boot */
   function boot() {
+    initRteFaq();
     initSplit();
     initReveal();
     initHeader();

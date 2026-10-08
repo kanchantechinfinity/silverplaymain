@@ -1979,3 +1979,33 @@ input, textarea, select { font: inherit; color: inherit; }
 .js .search-page--pending .shop__count,
 .js .search-page--pending .shop__empty,
 .js .search-page--pending .pagination { visibility: hidden; }
+
+/* FAQs page: centred hero + question cards (built by initRteFaq in theme.js). */
+.pagehero--center .pagehero__body { text-align: center; }
+.pagehero--center .pagehero__title, .pagehero--center .pagehero__desc { margin-inline: auto; }
+.rte--faq { max-width: 52rem; margin-inline: auto; margin-top: 0; }
+.faqx__title { margin: 0 0 2.5rem; text-align: center; font-size: clamp(1.9rem, 3.6vw, 2.7rem); color: var(--sp-ink); }
+.faqx__group { margin-top: 3rem; }
+.faqx__group-title {
+  margin: 0 0 1.25rem; text-align: center; font-family: var(--font-display); font-size: .95rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--sp-gold-deep);
+}
+.faqx__group-title::after { content: ""; display: block; width: 3rem; height: 1px; margin: .9rem auto 0; background: var(--sp-gold-deep); opacity: .6; }
+.faqx__item {
+  margin-bottom: .75rem; border: 1px solid rgba(36,26,16,.14); border-radius: var(--radius-md, 14px);
+  background: rgba(255,255,255,.4); transition: background .3s, border-color .3s, box-shadow .3s;
+}
+.faqx__item[open] { background: rgba(217,182,108,.18); border-color: rgba(168,128,48,.55); box-shadow: 0 10px 24px -18px rgba(36,26,16,.5); }
+.faqx__item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style: none;
+  padding: 1.1rem 1.4rem; font-family: var(--font-display); font-size: 1.05rem; line-height: 1.4; color: var(--sp-ink);
+}
+.faqx__item summary::-webkit-details-marker { display: none; }
+.faqx__item summary::after {
+  content: "+"; flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 999px;
+  border: 1px solid rgba(36,26,16,.25); font-size: 1.2rem; line-height: 1; transition: transform .3s, background .3s;
+}
+.faqx__item[open] summary::after { content: "\2212"; background: var(--sp-ink); color: var(--sp-bone); border-color: var(--sp-ink); }
+.faqx__body { padding: 0 1.4rem 1.3rem; font-size: 1.075rem; line-height: 1.75; color: rgba(36,26,16,.78); }
+.faqx__body p + p { margin-top: .9rem; }
+@media (max-width: 767px) { .faqx__item summary { font-size: .98rem; padding: 1rem 1.1rem; } .faqx__body { padding: 0 1.1rem 1.1rem; } }
