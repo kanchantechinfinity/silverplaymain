@@ -2016,3 +2016,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .faqx__list { display: grid; grid-template-columns: 1fr; gap: .75rem 1.25rem; align-items: start; }
 @media (min-width: 900px) { .faqx__list { grid-template-columns: 1fr 1fr; } }
 .faqx__item { margin-bottom: 0; }
+
+.faqx__chips { justify-content: center; margin-bottom: 2.25rem; }
+.faqx--single .faqx__group-title { display: none; }
+.faqx--single .faqx__group { margin-top: 0; }
+.faqx__group[hidden] { display: none; }

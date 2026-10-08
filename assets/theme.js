@@ -1874,6 +1874,30 @@ function bindCartLines() {
       }
     });
     rte.textContent = "";
+    /* Group titles double as filter chips (same look as the blog page);
+       "All" shows every group, a chip shows only its own questions. */
+    var groups = $$(".faqx__group", wrap);
+    if (groups.length > 1) {
+      var chips = document.createElement("div");
+      chips.className = "chips faqx__chips";
+      var all = [];
+      function setChip(active) {
+        all.forEach(function (c) { c.el.setAttribute("aria-current", String(c.el === active.el)); });
+        wrap.classList.toggle("faqx--single", active.group !== null);
+        groups.forEach(function (g) { g.hidden = active.group !== null && g !== active.group; });
+      }
+      var allChip = { el: document.createElement("button"), group: null };
+      allChip.el.type = "button"; allChip.el.className = "chip"; allChip.el.textContent = "All";
+      all.push(allChip);
+      groups.forEach(function (g) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "chip"; b.textContent = $(".faqx__group-title", g).textContent;
+        all.push({ el: b, group: g });
+      });
+      all.forEach(function (c) { c.el.addEventListener("click", function () { setChip(c); }); chips.appendChild(c.el); });
+      setChip(allChip);
+      rte.appendChild(chips);
+    }
     rte.appendChild(wrap);
     rte.classList.add("rte--faq");
     var body = rte.closest(".article__body");
