@@ -21,14 +21,22 @@
   {%- for filter in results.filters -%}
     {%- assign is_tag_filter = false -%}
     {%- if filter.param_name contains 'p.tag' -%}{%- assign is_tag_filter = true -%}{%- endif -%}
+    {%- comment -%} The variant-based Color filter is replaced by the "Color: ..." tag list below. {%- endcomment -%}
+    {%- if filter.param_name contains 'option.color' -%}{%- continue -%}{%- endif -%}
     {%- assign tag_hits = 0 -%}
+    {%- assign color_hits = 0 -%}
     {%- if is_tag_filter -%}
       {%- for value in filter.values -%}
         {%- assign vl = value.label | strip | downcase -%}
-        {%- if tag_allow contains vl -%}{%- assign tag_hits = tag_hits | plus: 1 -%}{%- endif -%}
+        {%- assign vstart = vl | slice: 0, 6 -%}
+        {%- if vstart == 'color:' -%}
+          {%- assign color_hits = color_hits | plus: 1 -%}
+        {%- elsif tag_allow contains vl -%}
+          {%- assign tag_hits = tag_hits | plus: 1 -%}
+        {%- endif -%}
       {%- endfor -%}
     {%- endif -%}
-    {%- if is_tag_filter and tag_hits == 0 -%}{%- continue -%}{%- endif -%}
+    {%- if is_tag_filter and tag_hits == 0 and color_hits == 0 -%}{%- continue -%}{%- endif -%}
     <div class="filters__group">
       {%- case filter.type -%}
         {%- when 'price_range' -%}
@@ -77,6 +85,30 @@
           </div>
 
         {%- else -%}
+          {%- if is_tag_filter and color_hits > 0 -%}
+            <p class="filters__label">Color</p>
+            <div class="filters__list">
+              {%- for value in filter.values -%}
+                {%- assign vl = value.label | strip | downcase -%}
+                {%- assign vstart = vl | slice: 0, 6 -%}
+                {%- if vstart != 'color:' -%}{%- continue -%}{%- endif -%}
+                {%- assign color_name = value.label | split: ':' | last | strip -%}
+                <label class="check">
+                  <span class="check__box">
+                    <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value | escape }}"
+                           {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                    <span class="check__fill" aria-hidden="true"></span>
+                    <svg class="check__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.2 6.2 11.4 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  {{ color_name }} ({{ value.count }})
+                </label>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          {%- if is_tag_filter == false or tag_hits > 0 -%}
+          {%- if is_tag_filter and color_hits > 0 -%}
+            <div class="filters__divider" aria-hidden="true"><span></span><span class="filters__diamond"></span><span></span></div>
+          {%- endif -%}
           <p class="filters__label">{{ filter.label }}</p>
           {%- comment -%}
             Values that only differ by case/typo (e.g. "Emerald Green",
@@ -133,6 +165,7 @@
               {%- endunless -%}
             {%- endfor -%}
           </div>
+          {%- endif -%}
       {%- endcase -%}
     </div>
 
