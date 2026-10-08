@@ -2021,3 +2021,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .faqx--single .faqx__group-title { display: none; }
 .faqx--single .faqx__group { margin-top: 0; }
 .faqx__group[hidden] { display: none; }
+.faqx--chips .faqx__group-title { display: none; }
+.faqx--chips .faqx__group { margin-top: 1.5rem; }
+.faqx--chips .faqx__group:first-child { margin-top: 0; }

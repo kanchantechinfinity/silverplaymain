@@ -1896,6 +1896,7 @@ function bindCartLines() {
       });
       all.forEach(function (c) { c.el.addEventListener("click", function () { setChip(c); }); chips.appendChild(c.el); });
       setChip(allChip);
+      wrap.classList.add("faqx--chips");
       rte.appendChild(chips);
     }
     rte.appendChild(wrap);
