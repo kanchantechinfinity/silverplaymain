@@ -1,0 +1,413 @@
+{%- comment -%}
+  Meta titles + descriptions for the home page, collections, pages, stone
+  guides and the journal (from the SEO sheet). Included from layout/theme.liquid
+  with {% include %} so the assigned page_title / page_description reach the
+  <title>, meta description and og/twitter tags. Products use Shopify's own SEO
+  fields. Keyed by request.path (no query string).
+{%- endcomment -%}
+{%- liquid
+  case request.path
+  when '/'
+    assign page_title = "Buy Handcrafted 925 Sterling Silver Jewellery in India"
+    assign page_description = "Shop handcrafted 925 sterling silver jewellery online at Silver Play. Explore earrings, pendants, gemstone jewellery and timeless designs crafted in India."
+  when '/collections/all'
+    assign page_title = "All Handcrafted Jewellery in 925 Sterling Silver Online"
+    assign page_description = "Every handcrafted jewellery design we make: jhumkas, studs, hoops, drops and natural gemstone pendants for women and men. Shop online today. Made in India."
+  when '/collections/all-products'
+    assign page_title = "Handmade Silver Jewellery Collection, 220+ Designs Online"
+    assign page_description = "Explore solid silver handmade jewellery: 220+ earrings, gemstone pendants and coins hand-finished in 925 silver, from ₹1,399. Explore the full range. Shop now."
+  when '/collections/amazonite'
+    assign page_title = "Amazonite Jewellery in Silver: Meaning and Designs Online"
+    assign page_description = "The teal stone of courage and truth. Explore Amazonite jewellery hand-set in 925 silver and learn its meaning. Made by Jaipur karigars. Find your perfect piece."
+  when '/collections/baali-collection'
+    assign page_title = "Silver Bali Earrings: Bead, Ball and Seven-Bead Balis Online"
+    assign page_description = "Silver bali earrings in 925 sterling silver: bead balis, ball hoops and seven-bead designs for daily and festive wear. Explore the collection. Order online."
+  when '/collections/bali-earring'
+    assign page_title = "Jhumka Bali Earrings in Sterling Silver, Heritage Style"
+    assign page_description = "The bali, reimagined the Indian way: jhumka balis and heritage hoops with granulation and dangling charms in 925 silver. Find your perfect piece. Order online."
+  when '/collections/best-seller'
+    assign page_title = "Best Selling Silver Earrings Loved by Customers Across India"
+    assign page_description = "Our most-loved silver earrings, jhumkas and studs chosen by customers. Buy silver earrings online, from ₹1,399. Handcrafted in Jaipur. A gift she will love."
+  when '/collections/black-banded-agate'
+    assign page_title = "Black Banded Agate Jewellery in Silver: Meaning and Designs"
+    assign page_description = "A striped black stone of protection. Explore Black Banded Agate jewellery hand-set in 925 silver and learn its meaning. Explore the full range. Made in India."
+  when '/collections/black-moonstone'
+    assign page_title = "Black Moonstone Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A dark stone of new beginnings. Explore Black Moonstone jewellery hand-set in 925 silver and learn its meaning. Made to last for years. Explore the collection."
+  when '/collections/blue-opal'
+    assign page_title = "Blue Opal Jewellery in Silver: Meaning and Designs Online"
+    assign page_description = "A sky-blue stone of calm communication. Explore Blue Opal jewellery hand-set in 925 silver and learn its meaning. Handcrafted in Jaipur. Explore the collection."
+  when '/collections/blue-opal-eye'
+    assign page_title = "Blue Opal Eye Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A rare blue stone of intuition. Explore Blue Opal Eye jewellery hand-set in 925 silver and learn its meaning. Made to last for years. Explore the collection."
+  when '/collections/chandini'
+    assign page_title = "Silver Jhumka Earrings Online: Oxidised Chandini Jhumkas"
+    assign page_description = "Shop silver jhumka earrings online: ghungroo domes, cage jhumkas and crescent studs with an oxidised finish, from ₹4,299. Wear it every day. Made in 925 silver."
+  when '/collections/chevron-amethyst'
+    assign page_title = "Chevron Amethyst Jewellery in Silver: Meaning and Designs"
+    assign page_description = "A banded purple stone of calm. Explore Chevron Amethyst jewellery hand-set in 925 silver and learn its meaning. Made by Jaipur karigars. A gift she will love."
+  when '/collections/classic-collection'
+    assign page_title = "Classic Silver Earrings in Timeless 925 Silver Shapes Online"
+    assign page_description = "Classic silver earrings that never ask to be noticed yet always are: timeless shapes you will still wear in ten years. Shop the edit online. Wear it every day."
+  when '/collections/designer-collection'
+    assign page_title = "Designer Silver Earrings Handcrafted by Jaipur Karigars"
+    assign page_description = "Designer silver earrings where karigars get room to play: intricate statement pairs that take longer to make and forget. Crafted to be treasured. Shop now."
+  when '/collections/designer-statement-earrings'
+    assign page_title = "Silver Statement Earrings and Bold Designer Pendants Online"
+    assign page_description = "Silver statement earrings made to be noticed: Baroque cherubs, gothic spiders and pyrite medallions in 925 silver. Shop online today. Crafted to be treasured."
+  when '/collections/dragon-blood'
+    assign page_title = "Dragon Blood Jasper Jewellery in Silver: Meaning and Designs"
+    assign page_description = "The green-and-red Australian stone of courage. Explore Dragon Blood Jasper jewellery hand-set in 925 silver and learn its meaning. Find your perfect piece."
+  when '/collections/drop-earrings'
+    assign page_title = "Silver Drop Earrings: Chain, Pearl and Crescent Drops Online"
+    assign page_description = "Drop earrings that move with you: chain drops, pearl drops and crescent drops in 92.5 silver for office and parties. Shop online today. Each piece made by hand."
+  when '/collections/earrings'
+    assign page_title = "Buy Sterling Silver Earrings for Women & Girls Online"
+    assign page_description = "Shop 925 sterling silver earrings for women online at Silver Play. Explore handcrafted studs, hoops, jhumkas, drops and statement earrings for every occasion."
+  when '/collections/ethnic-bohemian-collection'
+    assign page_title = "Ethnic and Boho Silver Earrings with Tribal Textures Online"
+    assign page_description = "Tribal textures, oxidised silver and earthy stones for the free spirit: boho earrings that look gathered from travels. Shop the edit online. Made in 925 silver."
+  when '/collections/everyday-elegance'
+    assign page_title = "Silver Earrings for Daily Wear, Light and Comfortable Online"
+    assign page_description = "Silver earrings for daily wear you forget you have on: light studs, cage jhumkas and tribal drops, from ₹2,199. Explore the full range. Made by Jaipur karigars."
+  when '/collections/festive-wedding-collection'
+    assign page_title = "Silver Earrings for Wedding and Festive Occasions Online"
+    assign page_description = "From mehndi to vidaai: statement silver jhumkas and drops with heirloom weight, made to photograph beautifully. Shop online today. Find your favourite pair."
+  when '/collections/floral-collection'
+    assign page_title = "Flower Earrings in Silver: Rose and Petal Designs Online"
+    assign page_description = "Flower earrings, jewellery's favourite muse: rose earrings, spiral flowers and petal designs shaped by hand in 925 silver. Made in India. Wear it every day."
+  when '/collections/floral-leaf-collection'
+    assign page_title = "Silver Leaf Earrings and Floral Leaf Designs in 925 Silver"
+    assign page_description = "Leaf earrings and florals entwined in 925 silver: organic silver leaf earrings for women who love a touch of nature. New designs added often. Shop online today."
+  when '/collections/for-the-special-bond'
+    assign page_title = "Silver Gifts for Sister on Raksha Bandhan, Made to Last"
+    assign page_description = "For the bond that lasts a lifetime: handcrafted 92.5 silver earrings to gift your sister this Rakhi season. Shop the edit online. Find your favourite pair."
+  when '/collections/ganpati-collection'
+    assign page_title = "Silver Ganesh Pendant, Earrings and 5g Ganesha Coin Online"
+    assign page_description = "Celebrate Ganpati with a silver Ganesh pendant, temple earrings or a 5g Ganesha coin for gifting and pooja, from ₹1,850. Shop now. New designs added often."
+  when '/collections/gemstone-jewellery'
+    assign page_title = "Gemstone Earrings and Jewellery in 925 Sterling Silver India"
+    assign page_description = "Gemstone earrings with real stories: each natural stone chosen for its origin, colour and meaning, then set in silver. Discover more online. Made in India."
+  when '/collections/gen-z'
+    assign page_title = "Pure Silver Earrings for Girls, Quirky Gen Z Designs Online"
+    assign page_description = "Quirky pure silver earrings for girls: sparrows, butterflies, bees and ear jackets for college and weekends, from ₹1,399. Order online. Loved across India."
+  when '/collections/gen-z-edit-everyday-silver'
+    assign page_title = "Real Silver Earrings Under ₹4000, Gen-Z Everyday Edit Online"
+    assign page_description = "Real 92.5 silver made by hand, all under ₹4,000: butterflies, bows, ear jackets and hooks you will actually wear. New designs added often. Loved across India."
+  when '/collections/gift-collection'
+    assign page_title = "Silver Gifting Ideas for Every Milestone and Moment Online"
+    assign page_description = "Silver gifts that mark a moment: a first job, a new chapter, a thank you. Pieces that stay long after flowers fade. Made in 925 silver. Find your perfect piece."
+  when '/collections/gift-for-her'
+    assign page_title = "Silver Gifts for Her: Handcrafted Earrings She Will Love"
+    assign page_description = "Thoughtful silver gifts for her: handcrafted 925 silver earrings for birthdays, anniversaries and small wins, from ₹2,199. Explore the collection. Shop now."
+  when '/collections/gulabi-noor-love-softness-healing'
+    assign page_title = "Silver Pendant for Women with Rose Quartz and Pink Agate"
+    assign page_description = "A silver pendant for women with soft love stones: rose quartz and pink lace agate, linked with warmth and gentle healing. Shop now. Crafted to be treasured."
+  when '/collections/hoop-earrings'
+    assign page_title = "Sterling Silver Hoop Earrings: Large and Classic Hoop Styles"
+    assign page_description = "Large silver hoop earrings and classic sterling silver hoops polished to catch the light, from office days to evenings out. Pure 925 sterling silver. Shop now."
+  when '/collections/hoops'
+    assign page_title = "Silver Hoop Earrings for Women, Small to Statement Online"
+    assign page_description = "Silver hoops for every mood: small silver hoop earrings for daily wear to bold lovebird, mosaic and string hoops in 925 silver. Made for everyday elegance."
+  when '/collections/jhumka-earrings'
+    assign page_title = "Silver Jhumka Earrings: Traditional Jhumka Designs Online"
+    assign page_description = "Explore silver jhumka design ideas, from temple and Maharani jhumkas to jhumka hoops, handcrafted for weddings and sarees. Find your perfect piece. Shop now."
+  when '/collections/karigari-1'
+    assign page_title = "Oxidised Silver Earrings with Antique Handwork Finish Online"
+    assign page_description = "Oxidised silver earrings and antique silver earrings by our karigars: filigree conch shells, bird jhumkas, chandbali studs. Shop now. Crafted to be treasured."
+  when '/collections/kavach'
+    assign page_title = "Gemstone Kavach Pendants in Silver for Protection Online"
+    assign page_description = "A kavach is a talisman worn close to the heart: gemstone pendants in silver with Lakshmi, Trinetra and Trishul designs. Shop now. Pure 925 sterling silver."
+  when '/collections/lace-agate'
+    assign page_title = "Lace Agate Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A soft banded stone of peace. Explore Lace Agate jewellery hand-set in 925 silver and learn its meaning. New designs added often. Made for everyday elegance."
+  when '/collections/lakshmi-ratna-wealth-prosperity-abundance'
+    assign page_title = "Lakshmi Ratna Pendants for Wealth and Prosperity Online"
+    assign page_description = "Stones of the goddess of wealth: tiger eye, green onyx and seven horses pendants, revered for prosperity and focus. Each piece made by hand. Loved across India."
+  when '/collections/long-earrings'
+    assign page_title = "Long Earrings in Silver: Chain and Cascade Designs Online"
+    assign page_description = "Long earrings for evenings that deserve them: cascading chain earrings and gemstone drops that lengthen the neckline. Explore the full range. Wear it every day."
+  when '/collections/maligano-jasper'
+    assign page_title = "Maligano Jasper Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "Indonesia's swirling stone of grounding. Explore Maligano Jasper jewellery hand-set in 925 silver and learn its meaning. Shop online today. Loved across India."
+  when '/collections/mann-shanti-calm-clarity-spiritual-balance'
+    assign page_title = "Mahadev Pendant Silver and Calming Stone Talismans Online"
+    assign page_description = "Mahadev pendant silver designs: Trishul on amethyst, Trinetra aventurine. Seeking an om trishul pendant? Silver Shiva talismans. A gift she will love. Shop now."
+  when '/collections/meenakari'
+    assign page_title = "Silver Meenakari Earrings with Rajasthani Enamel Work Online"
+    assign page_description = "Silver meenakari earrings in blue Mughal, Phiroza baali and Thewa designs, hand-fired with Rajasthani enamel on 925 silver. Shop now. Find your favourite pair."
+  when '/collections/mens-collection'
+    assign page_title = "Buy Silver Pendant for Men: 925 Devotional and Stone Designs"
+    assign page_description = "The 925 silver pendant men reach for: Hanuman gada, Panchmukhi and the trishul pendant for men, plus tiger eye and onyx. Made in India. Shop the edit online."
+  when '/collections/minimalist-collection'
+    assign page_title = "Minimal Silver Jewellery with Clean, Timeless Lines Online"
+    assign page_description = "Minimalism is exactly enough: clean 925 silver lines and barely-there stones for women whose style speaks softly. Shop online today. Made by Jaipur karigars."
+  when '/collections/minimalist-earrings'
+    assign page_title = "Lightweight Silver Earrings, Minimal Everyday Styles Online"
+    assign page_description = "Lightweight silver earrings for all-day wear: ear jackets, slim hooks and fine chain drops in 925 silver from ₹1,399. Explore the collection. Made in India."
+  when '/collections/moonlit-sparkle'
+    assign page_title = "Moonlit Sparkle Silver Earrings for Evening Light Online"
+    assign page_description = "Silver drops, crescents and swirls that catch evening light, made for nights out and festive dinners, from ₹3,799. Find your favourite pair. Shop online today."
+  when '/collections/mother-of-pearl'
+    assign page_title = "Mother of Pearl Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A luminous stone of softness and calm. Explore Mother of Pearl jewellery hand-set in 925 silver and learn its meaning. Find your perfect piece. Made in India."
+  when '/collections/multicolor-jewellery'
+    assign page_title = "Fancy Earrings in Multicolour Stones and Sterling Silver"
+    assign page_description = "Fancy earrings for days you refuse to choose: pinks, blues, greens and golds gathered onto one pair of 925 silver. Explore the collection. Loved across India."
+  when '/collections/nayi-shuruaat-new-beginnings-transformation'
+    assign page_title = "Nayi Shuruaat Gemstones for New Beginnings in Silver Online"
+    assign page_description = "Stones for fresh starts: labradorite, pietersite and phoenix designs in 925 silver for the courage to begin again. Discover more online. Explore the collection."
+  when '/collections/nazakat-1'
+    assign page_title = "Delicate Silver Earrings: Nazakat Studs and Hoops Online"
+    assign page_description = "Nazakat means grace: delicate studs and hoops with lovebirds, mosaic tiles and fan details for daily wear, from ₹2,499. Shop now. Designed in Jaipur, India."
+  when '/collections/nellite'
+    assign page_title = "Nellite Jewellery in 925 Silver: Meaning and Designs Online"
+    assign page_description = "A rare Australian stone of strength. Explore Nellite jewellery hand-set in 925 silver and learn its meaning. Made by Jaipur karigars. A gift she will love."
+  when '/collections/new-arrivals'
+    assign page_title = "New Silver Earrings Design and Pendants This Month Online"
+    assign page_description = "The latest silver earrings design drops and gemstone pendants from our Jaipur atelier, new styles every month, from ₹2,699. Explore the collection. Shop now."
+  when '/collections/noreena-jasper'
+    assign page_title = "Noreena Jasper Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "Pilbara's ancient stone of grounding. Explore Noreena Jasper jewellery hand-set in 925 silver and learn its meaning. Shop online today. Made by Jaipur karigars."
+  when '/collections/ocean-jasper'
+    assign page_title = "Ocean Jasper Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "The orbicular stone of calm from Madagascar. Explore Ocean Jasper jewellery hand-set in 925 silver and learn its meaning. Explore all designs online today."
+  when '/collections/office-muse'
+    assign page_title = "Silver Earrings for Office Wear: Desk-to-Dinner Designs"
+    assign page_description = "Silver earrings for office wear that look polished, not loud: ladder drops, chakra discs and subtle studs from ₹2,699. Crafted to be treasured. Order online."
+  when '/collections/party-wear'
+    assign page_title = "Silver Earrings for Party Wear and Evening Looks, Buy Online"
+    assign page_description = "Party earrings that shine after dark: mother of pearl, spiral and berry pod drops, silver earrings for party wear from ₹3,499. Discover more online. Shop now."
+  when '/collections/pendants'
+    assign page_title = "Silver Pendant Designs with Natural Gemstones in 925 Silver"
+    assign page_description = "Explore silver pendant designs: tiger eye, rose quartz, pyrite and onyx talismans plus devotional kavach styles in 925 silver. Handcrafted in Jaipur. Shop now."
+  when '/collections/petrified-wood-jasper'
+    assign page_title = "Petrified Wood Jasper Silver Jewellery: Meaning and Designs"
+    assign page_description = "Fossil wood, the stone of patience. Explore Petrified Wood Jasper jewellery hand-set in 925 silver and learn its meaning. Each piece made by hand. Order online."
+  when '/collections/pinolith-jasper'
+    assign page_title = "Pinolith Jasper Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A graphic stone of transformation. Explore Pinolith Jasper jewellery hand-set in 925 silver and learn its meaning. Made to last for years. Wear it every day."
+  when '/collections/premium-collection'
+    assign page_title = "Premium Sterling Silver Earrings, Collectible Designs Online"
+    assign page_description = "Heavier silver, rarer stones and pieces our karigars sign with pride: premium earrings for the days that matter most. Shop the edit online. Loved across India."
+  when '/collections/purpurite'
+    assign page_title = "Purpurite Jewellery in Silver: Meaning and Designs Online"
+    assign page_description = "A vivid purple stone of clarity. Explore Purpurite jewellery hand-set in 925 silver and learn its meaning. Made to last for years. Each pair is made by hand."
+  when '/collections/pyrite'
+    assign page_title = "Pyrite Pendant in Silver: Golden Stone of Wealth, Buy Online"
+    assign page_description = "The golden stone of wealth and abundance. Explore Pyrite jewellery hand-set in 925 silver and learn its meaning. Made by Jaipur karigars. A gift she will love."
+  when '/collections/quiet-luxury'
+    assign page_title = "Western Earrings in Silver, Quiet Luxury Edit, Shop Online"
+    assign page_description = "Western earrings with refined silhouettes: minimal silver pairs for blazers, linen, dresses and dinner looks, from ₹3,399. Shop now. Designed in Jaipur, India."
+  when '/collections/raajsi-shahi'
+    assign page_title = "Silver Chandbali Earrings with Royal Rawa Work in 925 Silver"
+    assign page_description = "Silver chandbali earrings inspired by royal courts: rawa-work crescents, ghungroo fringes and ruby-green loops in 925 silver. Loved across India. Order online."
+  when '/collections/rakhi'
+    assign page_title = "Silver Rakhi Gifts for Sister: Sterling Silver Earrings"
+    assign page_description = "Raksha Bandhan gift ideas: handpicked 92.5 silver earrings for your sister, handcrafted and made to stay long after. Crafted to be treasured. Made in India."
+  when '/collections/ratna-virasat-1'
+    assign page_title = "Ratna Virasat Gemstone Silver Earrings for Work and Evenings"
+    assign page_description = "Heritage-inspired earrings with soft stone accents, from rose drops to soiree pairs, for office days and evenings. New designs added often. Made in 925 silver."
+  when '/collections/red-jasper'
+    assign page_title = "Red Jasper Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "The earthy red stone of strength. Explore Red Jasper jewellery hand-set in 925 silver and learn its meaning. Handcrafted in Jaipur. Made for everyday elegance."
+  when '/collections/rose-quartz'
+    assign page_title = "Rose Quartz Pendant and Earrings in 925 Silver, Shop Online"
+    assign page_description = "The stone of love and gentle healing. Explore Rose Quartz jewellery hand-set in 925 silver and learn its meaning. Handcrafted in Jaipur. Made to last for years."
+  when '/collections/ruby-jewellery'
+    assign page_title = "Ruby Red Silver Earrings in Designer Drop Styles Online"
+    assign page_description = "Ruby red, the colour of passion, balanced by cool sterling silver: ruby-toned designer drops and flower earrings. Explore the full range. Shop online today."
+  when '/collections/sankalp-shakti-willpower-determination'
+    assign page_title = "Sankalp Shakti Pendants for Willpower and Courage Online"
+    assign page_description = "Stones for willpower: dragon blood, red carnelian and black onyx pendants in 925 silver, made to keep you going. Find your perfect piece. Discover more online."
+  when '/collections/sankat-mochan-ratna-protection-problem-solving'
+    assign page_title = "Hanuman Pendant Silver and Protection Talismans, Shop Online"
+    assign page_description = "Hanuman pendant silver designs, Hanuman gada, Shani and Trishul pendants on natural stones, worn for protection. Find your favourite pair. Made in 925 silver."
+  when '/collections/scolecite'
+    assign page_title = "Scolecite Jewellery in Silver: Meaning and Designs Online"
+    assign page_description = "A snow-white stone of deep peace. Explore Scolecite jewellery hand-set in 925 silver and learn its meaning. Handcrafted in Jaipur. Made for everyday elegance."
+  when '/collections/shakti-kavach-protection-strength-grounding'
+    assign page_title = "Shakti Kavach Stone Pendants for Strength and Grounding"
+    assign page_description = "Earthy stones for strength and quiet power: tiger eye, black banded agate and blood stone pendants in 925 silver. New designs added often. Loved across India."
+  when '/collections/shattuckite'
+    assign page_title = "Shattuckite Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A rare blue copper stone of clarity. Explore Shattuckite jewellery hand-set in 925 silver and learn its meaning. Handcrafted in Jaipur. Loved across India."
+  when '/collections/spotlight-glam'
+    assign page_title = "Silver Tassel Earrings and Bold Glam Statement Styles Online"
+    assign page_description = "Camera-ready silver: trishul ghungroo tassel earrings, hammered blossoms and string hoops for parties, from ₹2,999. New designs added often. Made in 925 silver."
+  when '/collections/sterling-silver'
+    assign page_title = "Sterling Silver Jewellery: Earrings, Pendants, Coins Online"
+    assign page_description = "190+ sterling silver pieces made by hand in Jaipur: everyday earrings, natural gemstone pendants and silver coins, from ₹1,399. Discover more online. Shop now."
+  when '/collections/sterling-silver-jewellery'
+    assign page_title = "Sterling Silver Jewellery Designs by Jaipur Karigars Online"
+    assign page_description = "Designer cascades, drops and statement pairs made only in 925 sterling silver, skin-friendly and built to be handed down. Handcrafted in Jaipur. Made in India."
+  when '/collections/stud-earrings-tops'
+    assign page_title = "Silver Tops and Small Stud Earrings for Everyday Wear Online"
+    assign page_description = "Close-to-ear stud earrings and silver tops in 925 silver that survive a full workday and still look polished at dinner. New designs added often. Made in India."
+  when '/collections/studs'
+    assign page_title = "Silver Stud Earrings for Women, Flower and Dome Studs Online"
+    assign page_description = "Silver stud earrings and flower stud earrings, peacock domes and crescent studs that sit close to the ear, from ₹3,399. Find your perfect piece. Made in India."
+  when '/collections/the-rare-ratna-edit-collector-stones'
+    assign page_title = "Rare Gemstone Silver Jewellery for Serious Collectors Online"
+    assign page_description = "Collector stones like purpurite, wild horse, dragon blood and Noreena jasper in 925 silver. Limited, one-of-a-kind. Loved across India. Each piece made by hand."
+  when '/collections/tiger-eye'
+    assign page_title = "Tiger Eye Jewellery in Silver: Meaning and Designs Online"
+    assign page_description = "The golden stone of focus and confidence. Explore Tiger Eye jewellery hand-set in 925 silver and learn its meaning. Handcrafted in Jaipur. A gift she will love."
+  when '/collections/under-rs-5000'
+    assign page_title = "Silver Earrings with Price Under ₹5000, From ₹1,399 Online"
+    assign page_description = "Compare 60 handcrafted 925 silver earrings with price under ₹5,000: studs, drops, hoops and jhumkas for gifting and daily wear. Wear it every day. Order online."
+  when '/collections/vintage-collection'
+    assign page_title = "Vintage Earrings and Antique Silver Jewellery Styles Online"
+    assign page_description = "Vintage earrings and antique earrings with oxidised edges and old-world motifs, made to look like they have a past. Explore the full range. Wear it every day."
+  when '/collections/virasat'
+    assign page_title = "Ethnic Silver Earrings for Saree, Virasat Heritage Edit"
+    assign page_description = "Ethnic silver earrings rooted in tradition: temple motifs, Thewa work and ancestral jhumkas, the ideal silver earrings for saree. Each pair is made by hand."
+  when '/collections/wild-horse-magnesite'
+    assign page_title = "Wild Horse Magnesite Silver Jewellery: Meaning and Designs"
+    assign page_description = "A calming stone with ink-like markings. Explore Wild Horse Magnesite jewellery hand-set in 925 silver and learn its meaning. Each piece made by hand. Shop now."
+  when '/collections/women-collection'
+    assign page_title = "Silver Jewellery for Women: Earrings and Pendants Online"
+    assign page_description = "Everyday earrings to a silver pendant necklace for women with natural stones. 200+ handcrafted 925 designs from ₹1,399. Shop online today. A gift she will love."
+  when '/collections/zebra-jasper'
+    assign page_title = "Zebra Jasper Jewellery in 925 Silver: Meaning and Designs"
+    assign page_description = "A striped stone of balance. Explore Zebra Jasper jewellery hand-set in 925 silver and learn its meaning. New designs added often. Designed in Jaipur, India."
+  when '/pages/about'
+    assign page_title = "About Silver Play: Handcrafted 925 Silver Jewellery, Jaipur"
+    assign page_description = "The Silver Play story: handcrafted jewellery in 925 sterling silver, coaxed from wire and natural stone by Jaipur karigars and made to be worn with meaning."
+  when '/pages/contact'
+    assign page_title = "Contact Silver Play for Orders and Jewellery Help, Explained"
+    assign page_description = "Questions about an order, a stone or the right piece to gift? Email info@silverplay.in. We reply within 24 hours on business days, Monday to Saturday. Read on."
+  when '/pages/faqs'
+    assign page_title = "Silver Jewellery FAQs: 925 Silver, Stones, Care and Delivery"
+    assign page_description = "Answers on 925 sterling silver purity, genuine natural gemstones, tarnish, delivery times, prepaid orders and returns. Everything to know before you buy silver."
+  when '/pages/festive-season-offer'
+    assign page_title = "Festive Season Offers on Silver Jewellery and Silver Gifts"
+    assign page_description = "Celebrate the festive season with offers on handcrafted 925 sterling silver earrings, pendants and gifts, made by Jaipur karigars for puja and celebrations."
+  when '/pages/jewellery-care'
+    assign page_title = "How to Clean and Care for Your 925 Silver Jewellery at Home"
+    assign page_description = "Keep 925 sterling silver and natural stones bright for years: daily habits, safe cleaning, tarnish removal and storage tips for each type of stone. Read on."
+  when '/pages/privacy-policy'
+    assign page_title = "Privacy Policy: How Silver Play Protects Your Personal Data"
+    assign page_description = "How Silver Play collects, uses and protects your personal data when you browse silverplay.in or place an order, and the rights you have over that data. Read on."
+  when '/pages/returns'
+    assign page_title = "Returns and Refunds Policy for Your Silver Play Jewellery"
+    assign page_description = "Returns are accepted only for items damaged in transit, defective or materially different from your order. Read how to raise a claim within the window. Read on."
+  when '/pages/shipping'
+    assign page_title = "Shipping Policy: Free Shipping and Delivery Times India"
+    assign page_description = "Free shipping on all prepaid orders across India. In-stock pieces dispatch in 2–4 business days and reach you in 3–7 days. We also ship worldwide. Read on."
+  when '/pages/stone-guide'
+    assign page_title = "Gemstone Meanings Guide: 24 Natural Stones for Silver Lovers"
+    assign page_description = "Meanings, origins and properties of 24 natural gemstones, from rose quartz to tiger eye, and how to choose and wear each one in silver jewellery. Know more."
+  when '/pages/terms-of-service'
+    assign page_title = "Terms of Service for Buying Silver Jewellery Online, India"
+    assign page_description = "Terms for using silverplay.in and buying handcrafted 925 sterling silver jewellery: orders, pricing, payments and natural stone variation explained. Read on."
+  when '/pages/stone-guide-amazonite'
+    assign page_title = "Amazonite Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Amazonite meaning, healing properties, origin and care: the teal stone of courage and truth. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-black-banded-agate'
+    assign page_title = "Black Banded Agate Stone Meaning, Benefits and Properties"
+    assign page_description = "Black Banded Agate meaning, healing properties, origin and care: a striped black stone of protection. Learn how to wear it in silver jewellery. Read our guide."
+  when '/pages/stone-guide-black-moonstone'
+    assign page_title = "Black Moonstone Meaning, Benefits and Healing Properties"
+    assign page_description = "Black Moonstone meaning, healing properties, origin and care: a dark stone of new beginnings. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-blue-opal'
+    assign page_title = "Blue Opal Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Blue Opal meaning, healing properties, origin and care: a sky-blue stone of calm communication. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-blue-opal-eye'
+    assign page_title = "Blue Opal Eye Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Blue Opal Eye meaning, healing properties, origin and care: a rare blue stone of intuition. Learn how to wear it in sterling silver jewellery. Read our guide."
+  when '/pages/stone-guide-chevron-amethyst'
+    assign page_title = "Chevron Amethyst Stone Meaning, Benefits and Properties"
+    assign page_description = "Chevron Amethyst meaning, healing properties, origin and care: a banded purple stone of calm. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-dragon-blood'
+    assign page_title = "Dragon Blood Jasper Stone Meaning, Benefits and Properties"
+    assign page_description = "Dragon Blood Jasper meaning, properties, origin and care: the green-and-red Australian stone of courage. Learn how to wear it in silver jewellery. Read on."
+  when '/pages/stone-guide-lace-agate'
+    assign page_title = "Lace Agate Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Lace Agate meaning, healing properties, origin and care: a soft banded stone of peace. Learn how to wear it in silver jewellery. Read the Silver Play guide."
+  when '/pages/stone-guide-maligano-jasper'
+    assign page_title = "Maligano Jasper Meaning, Benefits and Healing Properties"
+    assign page_description = "Maligano Jasper meaning, healing properties, origin and care: Indonesia's swirling stone of grounding. Learn how to wear it in silver jewellery. Read our guide."
+  when '/pages/stone-guide-mother-of-pearl'
+    assign page_title = "Mother of Pearl Meaning, Benefits and Healing Properties"
+    assign page_description = "Mother of Pearl meaning, healing properties, origin and care: a luminous stone of softness and calm. Learn how to wear it in silver jewellery. Read our guide."
+  when '/pages/stone-guide-nellite'
+    assign page_title = "Nellite Stone Meaning, Benefits and Properties, Explained"
+    assign page_description = "Nellite meaning, healing properties, origin and care: a rare Australian stone of strength. Learn how to wear it in silver jewellery. Read the Silver Play guide."
+  when '/pages/stone-guide-noreena-jasper'
+    assign page_title = "Noreena Jasper Meaning, Benefits and Healing Properties"
+    assign page_description = "Noreena Jasper meaning, healing properties, origin and care: Pilbara's ancient stone of grounding. Learn how to wear it in silver jewellery. Read our guide."
+  when '/pages/stone-guide-ocean-jasper'
+    assign page_title = "Ocean Jasper Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Ocean Jasper meaning, healing properties, origin and care: the orbicular stone of calm from Madagascar. Learn how to wear it in silver jewellery. Know more."
+  when '/pages/stone-guide-petrified-wood-jasper'
+    assign page_title = "Petrified Wood Jasper Stone Meaning, Benefits and Properties"
+    assign page_description = "Petrified Wood Jasper meaning, healing properties, origin and care: fossil wood, the stone of patience. Learn how to wear it in silver jewellery. Know more."
+  when '/pages/stone-guide-pinolith-jasper'
+    assign page_title = "Pinolith Jasper Meaning, Benefits and Healing Properties"
+    assign page_description = "Pinolith Jasper meaning, healing properties, origin and care: a graphic stone of transformation. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-purpurite'
+    assign page_title = "Purpurite Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Purpurite meaning, healing properties, origin and care: a vivid purple stone of clarity. Learn how to wear it in silver jewellery. Read the Silver Play guide."
+  when '/pages/stone-guide-pyrite'
+    assign page_title = "Pyrite Stone Meaning, Benefits and Properties by Silver Play"
+    assign page_description = "Pyrite meaning, healing properties, origin and care: the golden stone of wealth and abundance. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-red-jasper'
+    assign page_title = "Red Jasper Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Red Jasper meaning, healing properties, origin and care: the earthy red stone of strength. Learn how to wear it in silver jewellery. Read the Silver Play guide."
+  when '/pages/stone-guide-rose-quartz'
+    assign page_title = "Rose Quartz Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Rose Quartz meaning, healing properties, origin and care: the stone of love and gentle healing. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-scolecite'
+    assign page_title = "Scolecite Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Scolecite meaning, healing properties, origin and care: a snow-white stone of deep peace. Learn how to wear it in silver jewellery. Read the Silver Play guide."
+  when '/pages/stone-guide-shattuckite'
+    assign page_title = "Shattuckite Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Shattuckite meaning, healing properties, origin and care: a rare blue copper stone of clarity. Learn how to wear it in silver jewellery. Read the full guide."
+  when '/pages/stone-guide-tiger-eye'
+    assign page_title = "Tiger Eye Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Tiger Eye meaning, healing properties, origin and care: the golden stone of focus and confidence. Learn how to wear it in silver jewellery. Read our guide."
+  when '/pages/stone-guide-wild-horse-magnesite'
+    assign page_title = "Wild Horse Magnesite Stone Meaning, Benefits and Properties"
+    assign page_description = "Wild Horse Magnesite meaning, healing properties, origin and care: a calming stone with ink-like markings. Learn how to wear it in silver jewellery. Read on."
+  when '/pages/stone-guide-zebra-jasper'
+    assign page_title = "Zebra Jasper Stone Meaning, Benefits and Healing Properties"
+    assign page_description = "Zebra Jasper meaning, healing properties, origin and care: a striped stone of balance. Learn how to wear it in silver jewellery. Read the Silver Play guide."
+  when '/blogs/journal'
+    assign page_title = "Silver Jewellery Blog: Buying Guides, Trends and Our Craft"
+    assign page_description = "Guides to 925 silver, gemstone meanings, festive jewellery trends and stories from our Jaipur, India atelier. Learn everything before you buy silver jewellery."
+  when '/blogs/journal/925-sterling-silver-vs-pure-silver-key-differences'
+    assign page_title = "925 Sterling Silver vs Pure Silver: Differences Explained"
+    assign page_description = "Sterling vs pure silver compared on purity, durability, price, tarnish and care, so you know whether 925 or pure silver earrings suit you better. Know more."
+  when '/blogs/journal/a-map-of-stones'
+    assign page_title = "Where Gemstones Come From: A World Map of Natural Stones"
+    assign page_description = "Trace where natural gemstones form, from Madagascar ocean jasper to Australian dragon blood, plus the meanings behind the stones in silver jewellery. Read on."
+  when '/blogs/journal/how-to-identify-real-925-silver-jewellery-a-complete-buyers-guide'
+    assign page_title = "How to Identify Real Silver and Hallmarked Earrings at Home"
+    assign page_description = "Spot real silver earrings before you buy: how to check hallmarked silver earrings, magnet, ice and acid tests, and the warning signs of fake 925. Know more."
+  when '/blogs/journal/how-to-wear-meaning'
+    assign page_title = "How to Choose Gemstone Jewellery by Its Meaning, Explained"
+    assign page_description = "Choose gemstone jewellery by intention: stones for love, calm, courage, new beginnings and prosperity, and how to wear each one in sterling silver. Read on."
+  when '/blogs/journal/inside-the-jaipur-atelier'
+    assign page_title = "Inside a Jaipur Workshop Making Handmade Silver Jewellery"
+    assign page_description = "Meet the karigars who make handmade silver jewellery in our Jaipur atelier: the tools, the stages and a craft inherited across generations of families. Read on."
+  when '/blogs/journal/navratri-jewellery-trends-2026-silver-earrings-pendants'
+    assign page_title = "Navratri Jewellery Trends 2026: Silver Earrings Style Ideas"
+    assign page_description = "Navratri 2026 jewellery trends: oxidised silver earrings for Garba, gemstone pendants and festive silver styling ideas for all nine nights. Read our guide."
+  when '/blogs/journal/raksha-bandhan-2026-silver-gifts-guide'
+    assign page_title = "Raksha Bandhan 2026: Best Silver Gift Ideas for Your Sister"
+    assign page_description = "Rakhi 2026 gift ideas in 92.5 sterling silver: earrings for your sister, Kavach pendants and silver rakhis, all handcrafted in Jaipur for the day. Read on."
+  when '/blogs/journal/tagged/craft'
+    assign page_title = "Silver Jewellery Craft Stories from Our Jaipur Karigars"
+    assign page_description = "How Jaipur karigars handcraft 925 sterling silver jewellery by hand: the tools, techniques and traditions passed down through generations of families. Read on."
+  when '/blogs/journal/tagged/origins'
+    assign page_title = "Gemstone Origin Stories Behind Our Handcrafted Jewellery"
+    assign page_description = "Where our gemstones come from: the origins, meanings and stories behind the natural stones set in handcrafted 925 sterling silver jewellery. Read our guide."
+  when '/blogs/journal/the-quiet-power-of-925-silver'
+    assign page_title = "Why 925 Sterling Silver Lasts: Key Benefits and Care Tips"
+    assign page_description = "Why 925 sterling silver endures: its trusted purity standard, skin-friendly comfort, a patina that ages well and simple care tips to keep it bright for decades."
+  when '/blogs/journal/what-is-925-sterling-silver-a-complete-beginner-s-guide'
+    assign page_title = "What Is 925 Sterling Silver? A Beginner's Guide, Explained"
+    assign page_description = "What 925 sterling silver means, how it differs from pure silver, why it suits everyday jewellery and how to care for 925 silver earrings and pendants. Read on."
+  endcase
+-%}
