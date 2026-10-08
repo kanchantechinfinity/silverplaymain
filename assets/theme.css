@@ -2025,3 +2025,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .faqx--chips .faqx__group { margin-top: 1.5rem; }
 .faqx--chips .faqx__group:first-child { margin-top: 0; }
 /* faq chips: section titles hidden when chips are shown */
+.faqx__chips ~ .faqx .faqx__group-title { display: none; }
+.faqx__chips ~ .faqx .faqx__group { margin-top: 1.5rem; }
+.faqx__chips ~ .faqx .faqx__group:first-child { margin-top: 0; }
