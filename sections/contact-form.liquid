@@ -39,7 +39,6 @@
           </div>
         </div>
       </div>
-      {%- if page.content != blank -%}<div class="rte mt-8">{{ page.content }}</div>{%- endif -%}
     </div>
 
     <div data-reveal="right" data-delay="0.1">
@@ -80,6 +79,10 @@
       </div>
     </div>
   </div>
+
+  {%- if page.content != blank -%}
+    <div class="contact__more rte" data-contact-more>{{ page.content }}</div>
+  {%- endif -%}
 </div>
 
 {% schema %}

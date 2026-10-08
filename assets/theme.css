@@ -2025,3 +2025,20 @@ input, textarea, select { font: inherit; color: inherit; }
 .faqx--chips .faqx__group { margin-top: 1.5rem; }
 .faqx--chips .faqx__group:first-child { margin-top: 0; }
 /* faq chips: section titles hidden when chips are shown */
+
+/* Contact page: admin text as cards under the form. */
+.contact__more { margin-top: 4.5rem; }
+.contact__intro { max-width: 46rem; margin: 0 auto 2.5rem; text-align: center; }
+.contact__cards { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .contact__cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .contact__cards { grid-template-columns: repeat(3, 1fr); } }
+.contact__card {
+  padding: 1.6rem 1.7rem; border: 1px solid rgba(36,26,16,.14); border-radius: var(--radius-md);
+  background: rgba(255,255,255,.4);
+}
+.contact__card h3 {
+  margin: 0 0 .7rem; font-family: var(--font-display); font-size: .95rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--sp-gold-deep);
+}
+.contact__card p { font-size: 1.05rem; line-height: 1.7; }
+.contact__card p + p { margin-top: .8rem; }

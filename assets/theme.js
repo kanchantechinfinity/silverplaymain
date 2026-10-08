@@ -1842,6 +1842,33 @@ function bindCartLines() {
     empty.appendChild(p);
   }
 
+  /* Contact page: the long admin text (h3 headings + paragraphs) becomes a
+     grid of small cards under the form instead of one long column. */
+  function initContactMore() {
+    var box = $("[data-contact-more]");
+    if (!box || !$("h3", box)) return;
+    var intro = document.createElement("div"); intro.className = "contact__intro";
+    var grid = document.createElement("div"); grid.className = "contact__cards";
+    var card = null;
+    Array.prototype.slice.call(box.childNodes).forEach(function (n) {
+      if (n.nodeType !== 1) return;
+      var tag = n.tagName.toLowerCase();
+      if (tag === "h2") return;
+      if (tag === "h3") {
+        card = document.createElement("div"); card.className = "contact__card";
+        card.appendChild(n); grid.appendChild(card);
+      } else if (card) {
+        card.appendChild(n);
+      } else {
+        intro.appendChild(n);
+      }
+    });
+    box.textContent = "";
+    if (intro.children.length) box.appendChild(intro);
+    box.appendChild(grid);
+    box.classList.add("contact__more--ready");
+  }
+
   /* A page whose admin text uses h2 / h3 / h4 (title, group, question) --
      the FAQs page -- is turned into centred, collapsible question cards. */
   function initRteFaq() {
@@ -1915,6 +1942,7 @@ function bindCartLines() {
   /* ------------------------------------------------------------- boot */
   function boot() {
     initRteFaq();
+    initContactMore();
     initSplit();
     initReveal();
     initHeader();
