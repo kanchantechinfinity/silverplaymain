@@ -1380,6 +1380,56 @@ function bindCartLines() {
     var w = String(q || "").toLowerCase().replace(/"/g, "").trim();
     return SP_COLOURS[w] ? { name: SP_COLOURS[w], tag: "Color: " + SP_COLOURS[w] } : null;
   }
+  /* Words in a Color variant name that count as each filter colour. */
+  var SP_COLOUR_WORDS = {
+    Black: /black/, Blue: /blue|navy|turquoise|sapphire/, Brown: /brown/, Gold: /gold|yellow|amber/,
+    Green: /green|emerald/, Multicolor: /multi/, Pink: /pink/, Purple: /purple|violet|amethyst/,
+    Red: /\bred\b|ruby|maroon/, White: /white|crystal|clear|pearl/
+  };
+  /* A product sold in several colour variants (say Green and Blue): when the
+     shopper is looking at one colour, return the variant of that colour so
+     its card can link to it and show its photo. Null when there is none. */
+  function colourVariant(product, colourName) {
+    var re = SP_COLOUR_WORDS[colourName];
+    if (!re || !product || !product.variants || product.variants.length < 2) return null;
+    var idx = -1;
+    (product.options || []).forEach(function (o, i) { if (/colou?r/i.test(o.name)) idx = i; });
+    if (idx < 0) return null;
+    var key = "option" + (idx + 1);
+    for (var i = 0; i < product.variants.length; i++) {
+      var v = product.variants[i];
+      if (re.test(String(v[key] || "").toLowerCase())) return v;
+    }
+    return null;
+  }
+  function applyColourVariants(scope, colourNames) {
+    if (!colourNames || !colourNames.length) return;
+    loadCatalog().then(function (cat) {
+      var byHandle = {};
+      cat.forEach(function (p) { byHandle[p.handle] = p; });
+      $$("[data-product-card]", scope).forEach(function (card) {
+        var href = (card.getAttribute("href") || "").split("?")[0];
+        var p = byHandle[href.split("/").pop()];
+        if (!p) return;
+        var v = null;
+        for (var i = 0; i < colourNames.length && !v; i++) v = colourVariant(p, colourNames[i]);
+        if (!v) return;
+        card.setAttribute("href", href + "?variant=" + v.id);
+        var src = v.featured_image && v.featured_image.src;
+        var img = $(".card__img--main", card);
+        if (src && img) { img.setAttribute("src", src + (src.indexOf("?") > -1 ? "&" : "?") + "width=800"); img.removeAttribute("srcset"); }
+      });
+    });
+  }
+  /* Collection / search pages filtered by a "Color: X" tag. */
+  function initColourVariantCards() {
+    var params = new URLSearchParams(location.search);
+    var names = [];
+    params.forEach(function (val, key) {
+      if (key.indexOf("filter.p.tag") === 0 && /^color:/i.test(val)) names.push(val.replace(/^color:\s*/i, "").trim());
+    });
+    applyColourVariants(document, names);
+  }
   var SP_CAT_P = null;
   function loadCatalog() {
     if (SP_CAT_P) return SP_CAT_P;
@@ -1597,7 +1647,14 @@ function bindCartLines() {
         var hits = cat.filter(function (p) {
           var tags = Array.isArray(p.tags) ? p.tags : String(p.tags || "").split(",");
           return tags.some(function (t) { return t.trim().toLowerCase() === c.tag.toLowerCase(); });
-        }).map(cardProduct);
+        }).map(function (p) {
+          var item = cardProduct(p), v = colourVariant(p, c.name);
+          if (v) {
+            item.url = "/products/" + p.handle + "?variant=" + v.id;
+            if (v.featured_image && v.featured_image.src) item.image = v.featured_image.src;
+          }
+          return item;
+        });
         return showInDrawer(c.name, hits, q);
       }).catch(function () { return false; });
     }
@@ -1698,7 +1755,7 @@ function bindCartLines() {
        right here on the search page (no redirect): its cards are fetched
        from the collection's own pages and swapped into the results grid. */
     var showingCollection = false;
-    function showListing(url, label) {
+    function showListing(url, label, colourNames) {
       var all = [];
       function pull(n) {
         return fetch(url + (url.indexOf("?") > -1 ? "&" : "?") + "page=" + n).then(function (r) { return r.text(); }).then(function (html) {
@@ -1725,6 +1782,7 @@ function bindCartLines() {
         wrap.appendChild(grid);
         initReveal(grid);
         initWishlist();
+        if (colourNames) applyColourVariants(grid, colourNames);
         return true;
       }).catch(function () { return false; });
     }
@@ -1732,7 +1790,7 @@ function bindCartLines() {
       var fixedTerm = correctSearchQuery(rawTerm);
       var colourHit = colourMatch(fixedTerm);
       if (colourHit) {
-        showListing("/collections/all?filter.p.tag=" + encodeURIComponent(colourHit.tag), colourHit.name).then(function (ok) { if (!ok) exactRedirect(); });
+        showListing("/collections/all?filter.p.tag=" + encodeURIComponent(colourHit.tag), colourHit.name, [colourHit.name]).then(function (ok) { if (!ok) exactRedirect(); });
       } else {
         collectionMatch(fixedTerm).then(function (col) {
           if (!col) { exactRedirect(); return; }
@@ -1801,6 +1859,7 @@ function bindCartLines() {
     initCart();
     initSearchDrawer();
     initSearchResultsPage();
+    initColourVariantCards();
     initVariants();
     initSort();
     initFilters();
