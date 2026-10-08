@@ -11,7 +11,24 @@
 
   <p class="eyebrow" style="margin-bottom:1.5rem;color:var(--sp-gold-mid)">{{ 'products.facets.filter_and_sort' | t }}</p>
 
+  {%- comment -%}
+    "More filters" is Shopify's product-tag filter and would otherwise list
+    every tag on every product. Only the tags named here are shown (matched
+    case-insensitively, comma separated). To add or remove one, edit this line.
+  {%- endcomment -%}
+  {%- assign tag_allow = 'minimalistic and delicate,drop and dangle,semi precious gemstone,huggies and hoop,stud,designer statement' | split: ',' -%}
+
   {%- for filter in results.filters -%}
+    {%- assign is_tag_filter = false -%}
+    {%- if filter.param_name contains 'p.tag' -%}{%- assign is_tag_filter = true -%}{%- endif -%}
+    {%- assign tag_hits = 0 -%}
+    {%- if is_tag_filter -%}
+      {%- for value in filter.values -%}
+        {%- assign vl = value.label | strip | downcase -%}
+        {%- if tag_allow contains vl -%}{%- assign tag_hits = tag_hits | plus: 1 -%}{%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if is_tag_filter and tag_hits == 0 -%}{%- continue -%}{%- endif -%}
     <div class="filters__group">
       {%- case filter.type -%}
         {%- when 'price_range' -%}
@@ -74,6 +91,11 @@
             {%- assign seen = '' -%}
             {%- for value in filter.values -%}
               {%- assign key = value.label | strip | downcase -%}
+              {%- assign keep_value = true -%}
+              {%- if is_tag_filter -%}
+                {%- unless tag_allow contains key -%}{%- assign keep_value = false -%}{%- endunless -%}
+              {%- endif -%}
+              {%- if keep_value == false -%}{%- continue -%}{%- endif -%}
               {%- if is_color and key == 'emereld green' or is_color and key == 'green' or is_color and key contains '(emerald green)' -%}
                 {%- assign key = 'emerald green' -%}
               {%- endif -%}
