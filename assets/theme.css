@@ -2009,3 +2009,9 @@ input, textarea, select { font: inherit; color: inherit; }
 .faqx__body { padding: 0 1.4rem 1.3rem; font-size: 1.075rem; line-height: 1.75; color: rgba(36,26,16,.78); }
 .faqx__body p + p { margin-top: .9rem; }
 @media (max-width: 767px) { .faqx__item summary { font-size: .98rem; padding: 1rem 1.1rem; } .faqx__body { padding: 0 1.1rem 1.1rem; } }
+
+/* two columns of question cards on wider screens */
+.rte--faq { max-width: 70rem; }
+.faqx__list { display: grid; grid-template-columns: 1fr; gap: .75rem 1.25rem; align-items: start; }
+@media (min-width: 900px) { .faqx__list { grid-template-columns: 1fr 1fr; } }
+.faqx__item { margin-bottom: 0; }

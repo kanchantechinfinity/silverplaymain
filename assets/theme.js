@@ -1849,21 +1849,24 @@ function bindCartLines() {
     if (!rte || !$("h4", rte) || !$("h3", rte)) return;
     var wrap = document.createElement("div");
     wrap.className = "faqx";
-    var group = null, item = null;
+    var group = null, item = null, list = null;
     Array.prototype.slice.call(rte.childNodes).forEach(function (n) {
       if (n.nodeType !== 1) return;
       var tag = n.tagName.toLowerCase();
       if (tag === "h2") {
-        n.className = "faqx__title"; wrap.appendChild(n); group = null; item = null;
+        /* the page banner already carries the page title -- drop this repeat */
+        group = null; item = null; list = null;
       } else if (tag === "h3") {
         group = document.createElement("section"); group.className = "faqx__group";
         n.className = "faqx__group-title"; group.appendChild(n); wrap.appendChild(group); item = null;
+        list = document.createElement("div"); list.className = "faqx__list"; group.appendChild(list);
       } else if (tag === "h4") {
         item = document.createElement("details"); item.className = "faqx__item";
         var sum = document.createElement("summary"); sum.textContent = n.textContent;
         var body = document.createElement("div"); body.className = "faqx__body";
         item.appendChild(sum); item.appendChild(body);
-        (group || wrap).appendChild(item);
+        if (!list) { list = document.createElement("div"); list.className = "faqx__list"; wrap.appendChild(list); }
+        list.appendChild(item);
       } else if (item) {
         item.lastChild.appendChild(n);
       } else {
