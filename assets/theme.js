@@ -1356,20 +1356,15 @@ function bindCartLines() {
       return list;
     }).catch(function () { return []; });
   }
-  function collectionMatch(q) {
+  function collectionMatches(q) {
     var words = String(q || "").toLowerCase().replace(/"/g, "").split(/\s+/).filter(Boolean);
-    if (!words.length || words.join("").length < 3) return Promise.resolve(null);
+    if (!words.length || words.join("").length < 3) return Promise.resolve([]);
     return loadCollections().then(function (list) {
-      var best = null;
-      list.forEach(function (c) {
-        if (!c.count || c.count > 100) return;
+      return list.filter(function (c) {
+        if (!c.count || c.count > 100) return false;
         var tw = c.title.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
-        var ok = words.every(function (w) {
-          return tw.some(function (t) { return t.indexOf(w) === 0; });
-        });
-        if (ok && (!best || c.count > best.count)) best = c;
-      });
-      return best;
+        return words.every(function (w) { return tw.some(function (t) { return t.indexOf(w) === 0; }); });
+      }).sort(function (a, b) { return b.count - a.count; });
     });
   }
   /* Colour words -> the "Color: X" product tag they filter on. */
@@ -1637,10 +1632,15 @@ function bindCartLines() {
       if (allLink) { allLink.hidden = false; allLink.href = base + "?q=" + encodeURIComponent(q); }
       return true;
     }
-    function renderCollection(col, q) {
-      return fetch("/collections/" + col.handle + "/products.json?limit=10").then(function (r) { return r.json(); }).then(function (j) {
-        return showInDrawer(col.title, ((j && j.products) || []).map(cardProduct), q);
-      }).catch(function () { return false; });
+    function renderCollections(cols, q) {
+      return Promise.all(cols.map(function (col) {
+        return fetch("/collections/" + col.handle + "/products.json?limit=10").then(function (r) { return r.json(); })
+          .then(function (j) { return (j && j.products) || []; }).catch(function () { return []; });
+      })).then(function (lists) {
+        var seen = {}, items = [];
+        lists.forEach(function (l) { l.forEach(function (p) { if (!seen[p.handle]) { seen[p.handle] = 1; items.push(cardProduct(p)); } }); });
+        return showInDrawer(cols.map(function (c) { return c.title; }).join(" + "), items, q);
+      });
     }
     function renderColour(c, q) {
       return loadCatalog().then(function (cat) {
@@ -1663,8 +1663,8 @@ function bindCartLines() {
          a colour or collection name then lists its products right here. */
       var fixed = correctQuery(q);
       var colour = colourMatch(fixed);
-      var chain = colour ? renderColour(colour, q) : collectionMatch(fixed).then(function (col) {
-        return col ? renderCollection(col, q) : false;
+      var chain = colour ? renderColour(colour, q) : collectionMatches(fixed).then(function (cols) {
+        return cols.length ? renderCollections(cols, q) : false;
       });
       chain.then(function (ok) { if (!ok) runSearch(q); });
     }
@@ -1747,28 +1747,36 @@ function bindCartLines() {
         var quoted = sbase + "?q=" + encodeURIComponent('"' + term + '"') + "&options%5Bprefix%5D=last";
         fetch(quoted, { credentials: "same-origin" }).then(function (r) { return r.text(); }).then(function (html) {
           var doc = new DOMParser().parseFromString(html, "text/html");
-          if (doc.querySelector("[data-product-card]")) location.replace(quoted);
-        }).catch(function () {});
-      }
+          if (doc.querySelector("[data-product-card]")) location.replace(quoted); else reveal();
+        }).catch(function () { reveal(); });
+      } else { reveal(); }
     }
     /* A collection-named search ("jhumka") shows that collection's products
        right here on the search page (no redirect): its cards are fetched
        from the collection's own pages and swapped into the results grid. */
     var showingCollection = false;
-    function showListing(url, label, colourNames) {
-      var all = [];
-      function pull(n) {
+    var wrapEl = $(".search-page__form") ? $(".search-page__form").parentNode : null;
+    function reveal() { if (wrapEl) wrapEl.classList.remove("search-page--pending"); }
+    setTimeout(reveal, 4000);
+    function showListing(sources, colourNames) {
+      var all = [], seen = {};
+      function pull(url, n) {
         return fetch(url + (url.indexOf("?") > -1 ? "&" : "?") + "page=" + n).then(function (r) { return r.text(); }).then(function (html) {
           var doc = new DOMParser().parseFromString(html, "text/html");
           var found = $$(".grid-products [data-product-card]", doc);
-          found.forEach(function (c) { all.push(document.importNode(c, true)); });
-          return found.length && doc.querySelector(".pagination a[href*='page=" + (n + 1) + "']") ? pull(n + 1) : null;
+          found.forEach(function (c) {
+            var h = (c.getAttribute("href") || "").split("?")[0];
+            if (seen[h]) return;
+            seen[h] = 1; all.push(document.importNode(c, true));
+          });
+          return found.length && doc.querySelector(".pagination a[href*='page=" + (n + 1) + "']") ? pull(url, n + 1) : null;
         });
       }
-      return pull(1).then(function () {
+      var label = sources.map(function (x) { return x.label; }).join(" + ");
+      return Promise.all(sources.map(function (x) { return pull(x.url, 1); })).then(function () {
         if (!all.length) return false;
         showingCollection = true;
-        var wrap = $(".search-page__form").parentNode;
+        var wrap = wrapEl;
         $$(".grid-products, .pagination, .shop__empty", wrap).forEach(function (n) { n.remove(); });
         var cnt = $(".shop__count", wrap);
         if (!cnt) {
@@ -1790,14 +1798,16 @@ function bindCartLines() {
       var fixedTerm = correctSearchQuery(rawTerm);
       var colourHit = colourMatch(fixedTerm);
       if (colourHit) {
-        showListing("/collections/all?filter.p.tag=" + encodeURIComponent(colourHit.tag), colourHit.name, [colourHit.name]).then(function (ok) { if (!ok) exactRedirect(); });
+        showListing([{ url: "/collections/all?filter.p.tag=" + encodeURIComponent(colourHit.tag), label: colourHit.name }], [colourHit.name])
+          .then(function (ok) { if (ok) reveal(); else exactRedirect(); });
       } else {
-        collectionMatch(fixedTerm).then(function (col) {
-          if (!col) { exactRedirect(); return; }
-          showListing("/collections/" + col.handle, col.title).then(function (ok) { if (!ok) exactRedirect(); });
+        collectionMatches(fixedTerm).then(function (cols) {
+          if (!cols.length) { exactRedirect(); return; }
+          showListing(cols.map(function (c) { return { url: "/collections/" + c.handle, label: c.title }; }))
+            .then(function (ok) { if (ok) reveal(); else exactRedirect(); });
         });
       }
-    }
+    } else { reveal(); }
     var cards = $$(".grid-products [data-product-card]");
     if (cards.length > 1 && params.get("q")) {
       var qWords = params.get("q").replace(/"/g, "").trim().toLowerCase().split(/\s+/).filter(Boolean);

@@ -1972,3 +1972,10 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* Quick-view modal body is injected at runtime */
 .modal__grid:empty { min-height: 12rem; }
+
+/* Search results stay hidden until theme.js has decided which products to
+   show, so the shopper never sees one set flash and then swap for another. */
+.js .search-page--pending .grid-products,
+.js .search-page--pending .shop__count,
+.js .search-page--pending .shop__empty,
+.js .search-page--pending .pagination { visibility: hidden; }
