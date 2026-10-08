@@ -1876,6 +1876,8 @@ function bindCartLines() {
     rte.textContent = "";
     rte.appendChild(wrap);
     rte.classList.add("rte--faq");
+    var body = rte.closest(".article__body");
+    if (body) body.classList.add("article__body--wide");
     var hero = $("[data-page-hero]");
     if (hero) hero.classList.add("pagehero--center");
     $$(".faqx__item", rte).forEach(function (d) {

@@ -1983,7 +1983,7 @@ input, textarea, select { font: inherit; color: inherit; }
 /* FAQs page: centred hero + question cards (built by initRteFaq in theme.js). */
 .pagehero--center .pagehero__body { text-align: center; }
 .pagehero--center .pagehero__title, .pagehero--center .pagehero__desc { margin-inline: auto; }
-.rte--faq { max-width: 52rem; margin-inline: auto; margin-top: 0; }
+.rte--faq { margin-inline: auto; margin-top: 0; }
 .faqx__title { margin: 0 0 2.5rem; text-align: center; font-size: clamp(1.9rem, 3.6vw, 2.7rem); color: var(--sp-ink); }
 .faqx__group { margin-top: 3rem; }
 .faqx__group-title {
@@ -2011,7 +2011,8 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (max-width: 767px) { .faqx__item summary { font-size: .98rem; padding: 1rem 1.1rem; } .faqx__body { padding: 0 1.1rem 1.1rem; } }
 
 /* two columns of question cards on wider screens */
-.rte--faq { max-width: 70rem; }
+.rte--faq { max-width: none; width: 100%; }
+.article__body.article__body--wide { max-width: var(--page-max); }
 .faqx__list { display: grid; grid-template-columns: 1fr; gap: .75rem 1.25rem; align-items: start; }
 @media (min-width: 900px) { .faqx__list { grid-template-columns: 1fr 1fr; } }
 .faqx__item { margin-bottom: 0; }
