@@ -1185,19 +1185,20 @@ function bindCartLines() {
     if (!el) return Promise.resolve();
     var coins = parseInt(el.getAttribute("data-coins"), 10) || 0;
     var variantId = el.getAttribute("data-coin-variant-id");
+    var gramsEach = parseFloat(el.getAttribute("data-coin-grams")) || 5;
     var prev = 0;
     try { prev = parseInt(localStorage.getItem(COIN_TIER_KEY) || "0", 10) || 0; } catch (e) {}
     var justUnlocked = coins > prev;
     try { localStorage.setItem(COIN_TIER_KEY, String(coins)); } catch (e) {}
     return ensureCoinsInCart(variantId, coins).then(function (res) {
-      if (justUnlocked) celebrateCoins(coins);
+      if (justUnlocked) celebrateCoins(coins, gramsEach);
       return res ? refreshDrawer() : undefined;
     });
   }
-  function celebrateCoins(coins) {
+  function celebrateCoins(coins, gramsEach) {
     var modal = $("[data-coin-modal]");
     if (!modal) return;
-    var grams = coins * 5;
+    var grams = coins * (gramsEach || 5);
     var text = $("[data-coin-modal-text]", modal);
     if (text) {
       var label = coins > 1 ? "silver coins" : "a silver coin";

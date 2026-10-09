@@ -1,43 +1,58 @@
 {%- comment -%}
-  Tiered free-silver-coin progress banner: 1 free 5g 99.9%-purity coin per
-  ₹15,000 spent (₹15,000+ = 1 coin, ₹30,000+ = 2, and so on), shown wherever
-  {% render 'coin-offer' %} is placed (cart drawer, cart page). Emits a
-  data-coins attribute theme.js reads to fire the celebration pop and to
-  auto-add the coin product itself -- Shopify's "Buy X get Y" automatic
-  discount only makes the coin free once it's in the cart, it never adds
-  it there on its own, so the theme has to.
-{%- endcomment -%}
-{%- liquid
-  assign threshold = 1500000
-  assign coin_handle = 'silver-ganesha-coin'
-  assign coin_product = all_products[coin_handle]
-  assign coin_variant_id = coin_product.selected_or_first_available_variant.id
+  Cart offer banner, driven by snippets/campaign-data.liquid.
 
-  # the coin's own (pre-discount) price must not count toward earning
-  # itself, or the tier calculation would be thrown off by the very
-  # coin the theme just added
+  Live campaign with a free-coin rule (Navratri: 2 coins above ₹15,000,
+  Dhanteras: 2 coins above ₹12,000): shows progress and emits
+  data-coins / data-coin-variant-id / data-coin-grams, which theme.js uses to
+  fire the celebration and to auto-add the coin itself -- Shopify's
+  automatic discount only makes the coin free once it is in the cart; it
+  never adds it. Live campaign without a coin rule (Karwa Chauth): shows the
+  campaign promise instead. Outside a live campaign: renders nothing.
+{%- endcomment -%}
+{%- include 'campaign-data' -%}
+{%- liquid
+  assign coin_product = all_products[camp_coin_handle]
+  assign coin_variant_id = coin_product.selected_or_first_available_variant.id
+  assign coin_ok = false
+  if camp_status == 'live' and camp_coin_qty > 0 and coin_product != blank
+    assign coin_ok = true
+  endif
+
   assign qualifying_total = cart.total_price
   for item in cart.items
-    if item.product.handle == coin_handle
+    if item.product.handle == camp_coin_handle
       assign qualifying_total = qualifying_total | minus: item.original_line_price
     endif
   endfor
 
-  assign coins = qualifying_total | divided_by: threshold
-  assign remaining_cents = coins | plus: 1 | times: threshold | minus: qualifying_total
-  assign grams = coins | times: 5
+  assign coins = 0
+  if coin_ok and qualifying_total > camp_coin_threshold
+    assign coins = camp_coin_qty
+  endif
+  assign remaining_cents = camp_coin_threshold | minus: qualifying_total | plus: 100
+  assign total_grams = coins | times: camp_coin_grams
 -%}
-<div class="coin-offer" data-coin-offer data-coins="{{ coins }}" data-coin-variant-id="{{ coin_variant_id }}">
-  <span class="coin-offer__icon" aria-hidden="true">&#9679;</span>
-  <div class="coin-offer__text">
-    {%- if coins > 0 -%}
-      <p class="coin-offer__headline">
-        You've unlocked {{ coins }} free silver coin{% if coins > 1 %}s{% endif %} &mdash; {{ grams }}g, 99.9% purity!
-      </p>
-      <p class="coin-offer__sub">Add {{ remaining_cents | money }} more for another free coin.</p>
-    {%- else -%}
-      <p class="coin-offer__headline">Free silver coin on orders ₹15,000+</p>
-      <p class="coin-offer__sub">Add {{ remaining_cents | money }} more to unlock a free 5g, 99.9%-purity silver coin.</p>
-    {%- endif -%}
-  </div>
-</div>
+{%- if camp_status == 'live' -%}
+  {%- if coin_ok -%}
+    <div class="coin-offer" data-coin-offer data-coins="{{ coins }}" data-coin-variant-id="{{ coin_variant_id }}" data-coin-grams="{{ camp_coin_grams }}">
+      <span class="coin-offer__icon" aria-hidden="true">&#9679;</span>
+      <div class="coin-offer__text">
+        {%- if coins > 0 -%}
+          <p class="coin-offer__headline">You've unlocked {{ coins }} free silver coins &mdash; {{ total_grams }}g, 99.9% purity!</p>
+          <p class="coin-offer__sub">{{ camp_name }} offer applied. Added to your bag automatically.</p>
+        {%- else -%}
+          <p class="coin-offer__headline">{{ camp_tier2_gift }} on orders above {{ camp_coin_threshold | money_without_trailing_zeros }}</p>
+          <p class="coin-offer__sub">Add {{ remaining_cents | money_without_trailing_zeros }} more to unlock {{ camp_name }}'s free coins.</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="coin-offer">
+      <span class="coin-offer__icon" aria-hidden="true">&#9679;</span>
+      <div class="coin-offer__text">
+        <p class="coin-offer__headline">{{ camp_title }}: {{ camp_tier1_gift }}</p>
+        <p class="coin-offer__sub">{{ camp_tier1_amt }} &middot; {{ camp_tier2_gift }}</p>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

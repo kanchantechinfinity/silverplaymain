@@ -1,0 +1,123 @@
+{%- comment -%}
+  Festive campaign engine. Included (not rendered) so the variables below
+  are available to the caller: {% include 'campaign-data' %}.
+
+  Picks the campaign that is live right now (IST), or the next one when it
+  starts within 5 days (camp_status 'soon'). Nothing is set outside those
+  windows, so sections that use it simply hide.
+
+  To change dates, copy or offers, edit the blocks below. Dates are IST.
+{%- endcomment -%}
+{%- liquid
+  assign camp = ''
+  assign camp_status = ''
+  assign camp_name = ''
+  assign camp_title = ''
+  assign camp_tagline = ''
+  assign camp_lede = ''
+  assign camp_note = ''
+  assign camp_dates = ''
+  assign camp_start_s = 0
+  assign camp_end_s = 0
+  assign camp_cta_label = 'Shop The Offer'
+  assign camp_collection = 'all-products'
+  assign camp_tier1_amt = ''
+  assign camp_tier1_gift = ''
+  assign camp_tier2_amt = ''
+  assign camp_tier2_gift = ''
+  assign camp_tier3_amt = ''
+  assign camp_tier3_gift = ''
+  assign camp_coin_threshold = 0
+  assign camp_coin_qty = 0
+  assign camp_coin_grams = 2
+  assign camp_coin_handle = 'lakshmi-silver-coin-in-gift-booklet'
+  assign camp_end_label = ''
+
+  assign now_s = 'now' | date: '%s' | plus: 0
+
+  assign nav_start = '2026-10-11 00:00:00 +0530' | date: '%s' | plus: 0
+  assign nav_end = '2026-10-20 23:59:59 +0530' | date: '%s' | plus: 0
+  assign kar_start = '2026-10-21 00:00:00 +0530' | date: '%s' | plus: 0
+  assign kar_end = '2026-10-29 23:59:59 +0530' | date: '%s' | plus: 0
+  assign dhan_start = '2026-10-30 00:00:00 +0530' | date: '%s' | plus: 0
+  assign dhan_end = '2026-11-10 23:59:59 +0530' | date: '%s' | plus: 0
+  assign lead_s = 432000
+
+  assign nav_soon = nav_start | minus: lead_s
+
+  if now_s >= nav_soon and now_s <= nav_end
+    assign camp = 'navratri'
+    assign camp_start_s = nav_start
+    assign camp_end_s = nav_end
+  elsif now_s > nav_end and now_s <= kar_end
+    assign camp = 'karwa'
+    assign camp_start_s = kar_start
+    assign camp_end_s = kar_end
+  elsif now_s > kar_end and now_s <= dhan_end
+    assign camp = 'dhanteras'
+    assign camp_start_s = dhan_start
+    assign camp_end_s = dhan_end
+  endif
+
+  if camp != ''
+    if now_s < camp_start_s
+      assign camp_status = 'soon'
+    else
+      assign camp_status = 'live'
+    endif
+  endif
+
+  if camp == 'navratri'
+    assign camp_name = 'Navratri & Dussehra'
+    assign camp_title = 'Garba Ready'
+    assign camp_tagline = 'Garba & statement style'
+    assign camp_lede = 'Dress for the nine nights in silver that moves with you.'
+    assign camp_dates = 'Oct 11 – Oct 20, 2026'
+    assign camp_end_label = 'Ends midnight, Oct 20'
+    assign camp_note = 'Offer valid Oct 11 – Oct 20, 2026. Free coins are 99.9% pure silver and are added to your bag automatically. No code needed.'
+    assign camp_collection = 'designer-statement-earrings'
+    assign camp_cta_label = 'Shop Garba Statement Earrings'
+    assign camp_tier1_amt = 'Orders under ₹4,999'
+    assign camp_tier1_gift = 'Flat 10% off'
+    assign camp_tier2_amt = 'Orders above ₹15,000'
+    assign camp_tier2_gift = '2 Free Silver Coins (2g, 99.9%)'
+    assign camp_tier3_amt = 'Buy 2 Designer Statement Earrings'
+    assign camp_tier3_gift = 'Extra 10% off'
+    assign camp_coin_threshold = 1500000
+    assign camp_coin_qty = 2
+  elsif camp == 'karwa'
+    assign camp_name = 'Karwa Chauth'
+    assign camp_title = 'Symbols of Love'
+    assign camp_tagline = 'For the one you do it all for'
+    assign camp_lede = 'Silver that says what words cannot, delivered in time for the moon.'
+    assign camp_dates = 'Oct 21 – Oct 29, 2026'
+    assign camp_end_label = 'Ends midnight, Oct 29'
+    assign camp_note = 'Offer valid Oct 21 – Oct 29, 2026. Order by Oct 27 for delivery before Karwa Chauth.'
+    assign camp_collection = 'pendants'
+    assign camp_cta_label = 'Shop Symbols of Love'
+    assign camp_tier1_amt = 'Mangalsutras, Pendants & Collections'
+    assign camp_tier1_gift = 'Flat 10% off'
+    assign camp_tier2_amt = 'Every order'
+    assign camp_tier2_gift = 'Complimentary Premium Express Shipping'
+    assign camp_tier3_amt = 'Order by Oct 27'
+    assign camp_tier3_gift = 'Delivered before Karwa Chauth'
+  elsif camp == 'dhanteras'
+    assign camp_name = 'Dhanteras & Diwali'
+    assign camp_title = 'Shubh Dhanteras'
+    assign camp_tagline = 'Bring home prosperity'
+    assign camp_lede = 'The most auspicious day to buy silver, with an offer to match.'
+    assign camp_dates = 'Oct 30 – Nov 10, 2026'
+    assign camp_end_label = 'Ends Nov 10 (covers Bhai Dooj)'
+    assign camp_note = 'Offer valid Oct 30 – Nov 10, 2026. Dhanteras orders placed before Nov 3 are guaranteed delivery. Free coins are 99.9% pure silver, added to your bag automatically.'
+    assign camp_collection = 'best-seller'
+    assign camp_cta_label = 'Shop Dhanteras Silver'
+    assign camp_tier1_amt = 'Site-wide'
+    assign camp_tier1_gift = 'Flat 10% off'
+    assign camp_tier2_amt = 'Or orders above ₹12,000'
+    assign camp_tier2_gift = '2 Free Silver Coins (2g, 99.9%)'
+    assign camp_tier3_amt = 'Order before Nov 3'
+    assign camp_tier3_gift = 'Guaranteed Dhanteras delivery'
+    assign camp_coin_threshold = 1200000
+    assign camp_coin_qty = 2
+  endif
+-%}

@@ -3,6 +3,17 @@
   match the content column's height), copy right. CTA-focused, no
   validity/fine-print line below the button.
 {%- endcomment -%}
+{%- include 'campaign-data' -%}
+{%- liquid
+  if camp != ''
+    if camp_coin_qty > 0
+      assign gift_card_product = all_products[camp_coin_handle]
+    endif
+    assign camp_col = collections[camp_collection]
+    assign cta_link = camp_col.url
+  endif
+-%}
+{%- if camp != '' -%}
 <section class="heritage-sec sec on-dark" style="background: {{ section.settings.bg_color | default: '#241a10' }}">
   {% render 'heritage-bg',
     image: section.settings.bg_image,
@@ -17,9 +28,9 @@
                  style="object-position: {{ section.settings.side_image_focus | default: '50% 50%' }}"></video>
         </div>
       {%- endif -%}
-      {%- if section.settings.gift_product != blank -%}
+      {%- if gift_card_product != blank -%}
         <div class="offer-split__image offer-split__image--card">
-          {% render 'product-card', product: section.settings.gift_product, style: 'gilt', lazy: 'lazy' %}
+          {% render 'product-card', product: gift_card_product, style: 'gilt', lazy: 'lazy' %}
         </div>
       {%- elsif section.settings.side_image != blank -%}
         <div class="offer-split__image">
@@ -29,38 +40,47 @@
     </div>
 
     <div class="offer-split__content">
-      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
-      <h2 class="h-sec mt-4" data-split data-reveal="none">{{ section.settings.heading }}</h2>
-      {%- if section.settings.lede != blank -%}
-        <p class="lede mt-4" data-reveal data-delay="0.1">{{ section.settings.lede }}</p>
-      {%- endif -%}
+      <p class="eyebrow" data-reveal>{{ camp_name }}{% if camp_status == 'soon' %} &middot; Starts {{ camp_start_s | date: '%b %-d' }}{% else %} &middot; Live now{% endif %}</p>
+      <h2 class="h-sec mt-4" data-split data-reveal="none">{{ camp_title }}</h2>
+      <p class="lede mt-4" data-reveal data-delay="0.1">{{ camp_lede }}</p>
 
-      {%- if section.blocks.size > 0 -%}
-        <div class="offer-tiers offer-tiers--left mt-8" data-reveal data-delay="0.16">
-          {%- for block in section.blocks -%}
-            <div class="offer-tiers__item" {{ block.shopify_attributes }}>
-              <span class="offer-tiers__amt">{{ block.settings.amount }}</span>
+      <div class="offer-tiers offer-tiers--left mt-8" data-reveal data-delay="0.16">
+        {%- for n in (1..3) -%}
+          {%- liquid
+            case n
+              when 1
+                assign t_amt = camp_tier1_amt
+                assign t_gift = camp_tier1_gift
+              when 2
+                assign t_amt = camp_tier2_amt
+                assign t_gift = camp_tier2_gift
+              when 3
+                assign t_amt = camp_tier3_amt
+                assign t_gift = camp_tier3_gift
+            endcase
+          -%}
+          {%- if t_amt != blank -%}
+            <div class="offer-tiers__item">
+              <span class="offer-tiers__amt">{{ t_amt }}</span>
               <span class="offer-tiers__arrow" aria-hidden="true">&rarr;</span>
-              <span class="offer-tiers__gift">{{ block.settings.gift }}</span>
+              <span class="offer-tiers__gift">{{ t_gift }}</span>
             </div>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
 
-      {%- if section.settings.note != blank -%}
-        <p class="mt-6" style="font-size:.92rem;color:rgba(242,232,208,.55)">{{ section.settings.note }}</p>
-      {%- endif -%}
+      <p class="mt-6" style="font-size:.92rem;color:rgba(242,232,208,.55)">{{ camp_dates }} &middot; {{ camp_end_label }}</p>
 
-      {%- if section.settings.cta_label != blank -%}
-        <div class="mt-8" data-reveal data-delay="0.22">
-          <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg">
-            {{ section.settings.cta_label }} <span class="btn__arrow">&rarr;</span>
-          </a>
-        </div>
-      {%- endif -%}
+      <div class="mt-8" data-reveal data-delay="0.22">
+        <a href="{{ cta_link | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg">
+          {{ camp_cta_label }} <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="/pages/festive-season-offer" class="link-cta link-cta--bone" style="margin-left:1rem">Offer details <span>&rarr;</span></a>
+      </div>
     </div>
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

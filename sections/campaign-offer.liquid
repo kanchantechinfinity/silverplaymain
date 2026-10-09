@@ -1,0 +1,145 @@
+{%- comment -%}
+  Festive offer page body, driven by snippets/campaign-data.liquid (the
+  live or upcoming campaign, by IST date). Shows hero + countdown, the
+  offer cards, a product grid from the campaign's collection, and the
+  full schedule of all three campaigns.
+{%- endcomment -%}
+{%- include 'campaign-data' -%}
+{%- liquid
+  assign camp_col = collections[camp_collection]
+  if camp_coin_qty > 0
+    assign gift_product = all_products[camp_coin_handle]
+  endif
+  if camp_status == 'soon'
+    assign countdown_to = camp_start_s
+  else
+    assign countdown_to = camp_end_s
+  endif
+-%}
+
+<section class="campaign-hero on-dark" data-page-hero>
+  <div class="wrap campaign-hero__inner">
+    {%- if camp != '' -%}
+      <p class="eyebrow" data-reveal>{{ camp_name }} &middot; {% if camp_status == 'soon' %}Starts {{ camp_start_s | date: '%b %-d' }}{% else %}Live now{% endif %}</p>
+      <h1 class="campaign-hero__title" data-split data-reveal="none">{{ camp_title }}</h1>
+      <p class="campaign-hero__tag" data-reveal data-delay="0.08">{{ camp_tagline }}</p>
+      <p class="campaign-hero__lede" data-reveal data-delay="0.12">{{ camp_lede }}</p>
+
+      <div class="campaign-countdown" data-countdown="{{ countdown_to }}" data-reveal data-delay="0.16">
+        <p class="campaign-countdown__label">{% if camp_status == 'soon' %}Starts in{% else %}Ends in{% endif %}</p>
+        <div class="campaign-countdown__cells">
+          <span><b data-cd="d">--</b><i>Days</i></span>
+          <span><b data-cd="h">--</b><i>Hrs</i></span>
+          <span><b data-cd="m">--</b><i>Min</i></span>
+          <span><b data-cd="s">--</b><i>Sec</i></span>
+        </div>
+      </div>
+
+      <div class="mt-8" data-reveal data-delay="0.2">
+        <a href="{{ camp_col.url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg">{{ camp_cta_label }} <span class="btn__arrow">&rarr;</span></a>
+      </div>
+      <p class="campaign-hero__dates">{{ camp_dates }} &middot; {{ camp_end_label }}</p>
+    {%- else -%}
+      <p class="eyebrow" data-reveal>Festive Season</p>
+      <h1 class="campaign-hero__title" data-split data-reveal="none">Festive Offers</h1>
+      <p class="campaign-hero__lede" data-reveal data-delay="0.1">Our next festive offer is coming soon. Browse the season's schedule below.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- if camp != '' -%}
+<section class="sec" style="background:var(--sp-bone)">
+  <div class="wrap">
+    <div class="campaign-cards">
+      {%- for n in (1..3) -%}
+        {%- liquid
+          case n
+            when 1
+              assign t_amt = camp_tier1_amt
+              assign t_gift = camp_tier1_gift
+            when 2
+              assign t_amt = camp_tier2_amt
+              assign t_gift = camp_tier2_gift
+            when 3
+              assign t_amt = camp_tier3_amt
+              assign t_gift = camp_tier3_gift
+          endcase
+        -%}
+        {%- if t_amt != blank -%}
+          <div class="campaign-card" data-reveal data-delay="{{ n | times: 0.06 }}">
+            <p class="campaign-card__amt">{{ t_amt }}</p>
+            <p class="campaign-card__gift">{{ t_gift }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <p class="campaign-note">{{ camp_note }}</p>
+  </div>
+</section>
+
+{%- if camp_col != blank and camp_col.products.size > 0 -%}
+<section class="sec" style="background:var(--sp-bone);padding-top:0">
+  <div class="wrap">
+    <h2 class="h-sec text-center" style="font-size:clamp(1.6rem,3vw,2.3rem)">{{ camp_col.title }}</h2>
+    <div class="grid-products grid-products--3 mt-8">
+      {%- for product in camp_col.products limit: 8 -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+    <div class="text-center mt-8">
+      <a href="{{ camp_col.url }}" class="btn btn--ink">View all <span class="btn__arrow">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- endif -%}
+
+<section class="sec" style="background:var(--sp-ink);color:var(--sp-bone)">
+  <div class="wrap">
+    <p class="eyebrow text-center" style="color:var(--sp-gold-mid)">The Festive Calendar</p>
+    <div class="campaign-timeline">
+      <div class="campaign-timeline__item">
+        <p class="campaign-timeline__dates">Oct 11 &ndash; Oct 20</p>
+        <h3>Navratri &amp; Dussehra &middot; Garba Ready</h3>
+        <p>Flat 10% off orders under ₹4,999. Free 2 silver coins (2g) on orders above ₹15,000. Buy 2 Designer Statement Earrings, extra 10% off.</p>
+      </div>
+      <div class="campaign-timeline__item">
+        <p class="campaign-timeline__dates">Oct 21 &ndash; Oct 29</p>
+        <h3>Karwa Chauth &middot; Symbols of Love</h3>
+        <p>Flat 10% off Mangalsutras, Pendants &amp; Collections. Complimentary Premium Express Shipping. Order by Oct 27 for delivery before the festival.</p>
+      </div>
+      <div class="campaign-timeline__item">
+        <p class="campaign-timeline__dates">Oct 30 &ndash; Nov 10</p>
+        <h3>Dhanteras &amp; Diwali &middot; Shubh Dhanteras</h3>
+        <p>Flat 10% off site-wide, or 2 free silver coins (2g) on orders above ₹12,000. Dhanteras orders before Nov 3 are guaranteed delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var el = document.querySelector('[data-countdown]');
+    if (!el) return;
+    var target = Number(el.getAttribute('data-countdown')) * 1000;
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
+    function tick() {
+      var diff = Math.max(0, target - Date.now()) / 1000;
+      var d = Math.floor(diff / 86400), h = Math.floor(diff % 86400 / 3600), m = Math.floor(diff % 3600 / 60), s = Math.floor(diff % 60);
+      var set = function (k, v) { var n = el.querySelector('[data-cd="' + k + '"]'); if (n) n.textContent = v; };
+      set('d', d); set('h', pad(h)); set('m', pad(m)); set('s', pad(s));
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Campaign offer",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Content is driven by the festive calendar in snippets/campaign-data.liquid." }
+  ],
+  "presets": [{ "name": "Campaign offer" }]
+}
+{% endschema %}
