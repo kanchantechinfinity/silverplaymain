@@ -12,7 +12,7 @@
     "campaign": {
       "type": "campaign-offer",
       "settings": {
-        "extra_collection": "ganpati-collection",
+        "extra_collection": "navratri-collection",
         "extra_heading": "Navratri Collection",
         "extra_limit": 8
       }
