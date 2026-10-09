@@ -1368,6 +1368,66 @@ function bindCartLines() {
       }).sort(function (a, b) { return b.count - a.count; });
     });
   }
+  /* Intent keywords -> related collections and/or words found in product
+     title / tags. t = phrases a shopper might type (typos tolerated),
+     c = collection handles, w = words matched in title/tags, l = label. */
+  var SP_ALL = "all";
+  var SP_ALIASES = [
+    { l: "Jhumka", t: ["jhumka", "jhumkas", "jhumki", "jumka"], c: ["jhumka-earrings", "chandini"], w: ["jhumka"] },
+    { l: "Bali", t: ["bali", "balis", "baali"], c: ["bali-earring", "baali-collection"], w: ["bali"] },
+    { l: "Minimal", t: ["minimal", "minimalistic", "minimalist", "minimal earring", "minimalistic earring", "delicate"], c: ["minimalistic-and-delicate", "minimalist-earrings", "minimalist-collection"], w: ["minimal"] },
+    { l: "Everyday Wear", t: ["everyday", "every day", "everyday wear", "daily wear", "daily"], c: ["everyday-elegance", "gen-z-edit-everyday-silver"], w: [] },
+    { l: "Office Wear", t: ["office", "officu", "office use", "office wear", "work wear"], c: ["office-muse"], w: [] },
+    { l: "Designer", t: ["designer wear", "designer earring", "designer earrings", "designer"], c: ["designer-collection", "designer-statement-earrings"], w: ["designer"] },
+    { l: "Heavy & Statement", t: ["heavy", "heavy earring", "statement", "statement earring", "big earring", "big earrings", "big"], c: ["designer-statement-earrings", "premium-collection", "spotlight-glam"], w: [] },
+    { l: "Small & Delicate", t: ["small", "small earring", "small earrings", "tiny"], c: ["studs", "huggies-and-hoop", "minimalistic-and-delicate"], w: [] },
+    { l: "Festive", t: ["festive", "festival", "festive wear", "festival wear", "diwali", "navratri"], c: ["festive-wedding-collection", "party-wear"], w: [] },
+    { l: "Wedding", t: ["wedding", "bridal", "shaadi"], c: ["festive-wedding-collection"], w: [] },
+    { l: "Party & Cocktail", t: ["cocktail", "kitty party", "kitty", "party", "party wear"], c: ["party-wear", "spotlight-glam"], w: [] },
+    { l: "Glamour", t: ["spotlight", "glamour", "glamourous", "glam", "glamorous"], c: ["spotlight-glam"], w: [] },
+    { l: "Traditional", t: ["traditional", "ethnic", "heritage"], c: ["virasat", "meenakari", "ethnic-bohemian-collection"], w: [] },
+    { l: "Modern", t: ["modern", "contemporary"], c: ["minimalist-collection", "gen-z"], w: [] },
+    { l: "Western & Indo-Western", t: ["western", "indo western", "indo-western", "indowestern"], c: ["quiet-luxury"], w: ["western"] },
+    { l: "Classic", t: ["classic", "classy", "timeless"], c: ["classic-collection", "vintage-collection"], w: [] },
+    { l: "Sterling Silver", t: ["sterling silver", "925 silver", "925 sterling silver"], c: [SP_ALL], w: [] },
+    { l: "99.9 Silver Coins", t: ["99.9 silver", "99.9", "999 silver", "silver coin", "pure silver", "coin"], c: [], w: ["coin"] },
+    { l: "Spiritual", t: ["spiritual", "spirituality", "healing stone", "healing stones", "healing", "positive energy stone", "positive gem stone", "positive crystal", "positive energy"], c: ["kavach", "shakti-kavach-protection-strength-grounding", "mann-shanti-calm-clarity-spiritual-balance", "lakshmi-ratna-wealth-prosperity-abundance"], w: [] },
+    { l: "Gemstones", t: ["gems", "gem", "gemstone", "gemstones", "crystals", "crystal", "semi precious", "semi-precious", "stones", "stone"], c: ["gemstone-jewellery", "semi-precious-gemstone-earings", "the-rare-ratna-edit-collector-stones"], w: [] },
+    { l: "Lucky & Abundance", t: ["vastu", "lucky", "luck", "abundance", "money attract", "money magnet", "money", "laxmi magnet", "laxmi abundance", "lucky stone", "lucky gem", "lucky crystal", "diwali laxmi lucky", "wealth"], c: ["lakshmi-ratna-wealth-prosperity-abundance"], w: ["pyrite", "laxmi", "lakshmi", "yantra"] },
+    { l: "Laxmi Yantra", t: ["laxmi yantra", "lakshmi yantra", "laxmi", "lakshmi", "yantra"], c: ["lakshmi-ratna-wealth-prosperity-abundance"], w: ["laxmi", "lakshmi", "yantra"] },
+    { l: "Zodiac & Birthstone", t: ["zodiac", "birth stone", "birthstone", "birth gem", "rashi"], c: ["gemstone-jewellery", "the-rare-ratna-edit-collector-stones"], w: [] },
+    { l: "Nazar & Evil Eye", t: ["nazar", "evil eye", "nazaria", "drishti"], c: [], w: ["nazar", "evil eye", "drishti"] },
+    { l: "Shri Ram", t: ["shri ram", "shree ram", "ram", "rama", "jai shri ram"], c: [], w: ["ram", "rama"] },
+    { l: "Hanuman", t: ["hanuman", "hanuman ji", "panchmukhi", "panchmukhi hanuman", "bajrang"], c: ["sankat-mochan-ratna-protection-problem-solving"], w: ["hanuman", "panchmukhi"] },
+    { l: "Shiva & Trinetra", t: ["shiva", "shiv", "shivji", "shiv eye", "trinetra", "trishul", "mahadev"], c: [], w: ["shiva", "shiv", "trinetra", "trishul", "mahadev"] },
+    { l: "Phoenix", t: ["phoenix"], c: [], w: ["phoenix"] },
+    { l: "Buddha & Peace", t: ["budha", "buddha", "peace", "calm"], c: ["mann-shanti-calm-clarity-spiritual-balance"], w: ["buddha", "budha"] },
+    { l: "Lotus", t: ["lotus", "kamal"], c: [], w: ["lotus"] },
+    { l: "Horse", t: ["horse", "lucky horse"], c: [], w: ["horse"] },
+    { l: "Feather & Peacock", t: ["feather", "peacock", "peacock feather", "mor pankh"], c: [], w: ["feather", "peacock"] },
+    { l: "Krishna & Radha", t: ["krishna", "krishn", "radha krishn", "radha krishna", "radha", "bansuri", "basuri", "flute"], c: [], w: ["krishna", "radha", "bansuri", "flute"] },
+    { l: "Griffin", t: ["griffin", "dragon"], c: [], w: ["griffin", "dragon"] },
+    { l: "Yin Yang", t: ["yin yan", "yin yang", "yinyang"], c: [], w: ["yin yang"] },
+    { l: "Feng Shui & Lucky Charms", t: ["chinese luck", "feng shui", "fen shui", "fengshui", "koi", "tortoise"], c: [], w: ["koi", "fish", "yin yang", "horse", "tortoise"] }
+  ];
+  function normQ(q) { return String(q || "").toLowerCase().replace(/[^a-z0-9. ]+/g, " ").replace(/\s+/g, " ").trim(); }
+  function aliasMatch(q) {
+    var n = normQ(q);
+    if (n.length < 3) return null;
+    var best = null;
+    SP_ALIASES.forEach(function (a) {
+      a.t.forEach(function (term) {
+        var d = n === term ? 0 : Math.abs(n.length - term.length) > 2 ? 99 : searchEditDistance(n, term);
+        var max = term.length >= 8 ? 2 : term.length >= 5 ? 1 : 0;
+        if (d <= max && (!best || d < best.d)) best = { a: a, d: d };
+      });
+    });
+    return best ? best.a : null;
+  }
+  function hayHasWord(hay, words) {
+    return words.some(function (w) { return new RegExp("\\b" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).test(hay || ""); });
+  }
+
   /* Colour words -> the "Color: X" product tag they filter on. */
   var SP_COLOURS = { black: "Black", blue: "Blue", brown: "Brown", gold: "Gold", golden: "Gold",
     green: "Green", multicolor: "Multicolor", multicolour: "Multicolor", pink: "Pink",
@@ -1643,6 +1703,23 @@ function bindCartLines() {
         return showInDrawer(cols.map(function (c) { return c.title; }).join(" + "), items, q);
       });
     }
+    function renderAlias(a, q) {
+      var colFetches = a.c.map(function (h) {
+        var u = h === SP_ALL ? "/collections/all/products.json?limit=10" : "/collections/" + h + "/products.json?limit=10";
+        return fetch(u).then(function (r) { return r.json(); }).then(function (j) { return (j && j.products) || []; }).catch(function () { return []; });
+      });
+      var catP = a.w.length ? Promise.all([loadCatalog(), loadHay()]) : Promise.resolve(null);
+      return Promise.all([Promise.all(colFetches), catP]).then(function (res) {
+        var seen = {}, items = [];
+        function add(p) { if (!seen[p.handle]) { seen[p.handle] = 1; items.push(cardProduct(p)); } }
+        res[0].forEach(function (list) { list.forEach(add); });
+        if (res[1]) {
+          var cat = res[1][0], hay = res[1][1];
+          cat.forEach(function (p) { if (hayHasWord(hay[p.handle] || "", a.w)) add(p); });
+        }
+        return showInDrawer(a.l, items, q);
+      }).catch(function () { return false; });
+    }
     function renderColour(c, q) {
       return loadCatalog().then(function (cat) {
         var hits = cat.filter(function (p) {
@@ -1664,7 +1741,8 @@ function bindCartLines() {
          a colour or collection name then lists its products right here. */
       var fixed = correctQuery(q);
       var colour = colourMatch(fixed);
-      var chain = colour ? renderColour(colour, q) : collectionMatches(fixed).then(function (cols) {
+      var alias = colour ? null : (aliasMatch(q) || aliasMatch(fixed));
+      var chain = colour ? renderColour(colour, q) : alias ? renderAlias(alias, q) : collectionMatches(fixed).then(function (cols) {
         return cols.length ? renderCollections(cols, q) : false;
       });
       chain.then(function (ok) { if (!ok) runSearch(q); });
@@ -1761,20 +1839,22 @@ function bindCartLines() {
     setTimeout(reveal, 4000);
     function showListing(sources, colourNames) {
       var all = [], seen = {};
-      function pull(url, n) {
+      function pull(src, n) {
+        var url = src.url;
         return fetch(url + (url.indexOf("?") > -1 ? "&" : "?") + "page=" + n).then(function (r) { return r.text(); }).then(function (html) {
           var doc = new DOMParser().parseFromString(html, "text/html");
           var found = $$(".grid-products [data-product-card]", doc);
           found.forEach(function (c) {
             var h = (c.getAttribute("href") || "").split("?")[0];
             if (seen[h]) return;
+            if (src.words && !hayHasWord((src.hay || {})[h.split("/").pop()] || "", src.words)) return;
             seen[h] = 1; all.push(document.importNode(c, true));
           });
-          return found.length && doc.querySelector(".pagination a[href*='page=" + (n + 1) + "']") ? pull(url, n + 1) : null;
+          return found.length && doc.querySelector(".pagination a[href*='page=" + (n + 1) + "']") && n < (url === "/collections/all" ? 12 : 4) ? pull(src, n + 1) : null;
         });
       }
-      var label = sources.map(function (x) { return x.label; }).join(" + ");
-      return Promise.all(sources.map(function (x) { return pull(x.url, 1); })).then(function () {
+      var label = (sources.label) || sources.map(function (x) { return x.label; }).join(" + ");
+      return Promise.all(sources.map(function (x) { return pull(x, 1); })).then(function () {
         if (!all.length) return false;
         showingCollection = true;
         var wrap = wrapEl;
@@ -1801,6 +1881,14 @@ function bindCartLines() {
       if (colourHit) {
         showListing([{ url: "/collections/all?filter.p.tag=" + encodeURIComponent(colourHit.tag), label: colourHit.name }], [colourHit.name])
           .then(function (ok) { if (ok) reveal(); else exactRedirect(); });
+      } else if (aliasMatch(rawTerm) || aliasMatch(fixedTerm)) {
+        var al = aliasMatch(rawTerm) || aliasMatch(fixedTerm);
+        loadHay().then(function (hay) {
+          var src = al.c.map(function (h) { return { url: h === SP_ALL ? "/collections/all" : "/collections/" + h, label: h }; });
+          al.w.forEach(function (w) { src.push({ url: "/search?q=" + encodeURIComponent(w) + "&type=product&options%5Bprefix%5D=last", label: w, words: [w], hay: hay }); });
+          src.label = al.l;
+          return showListing(src);
+        }).then(function (ok) { if (ok) reveal(); else exactRedirect(); });
       } else {
         collectionMatches(fixedTerm).then(function (cols) {
           if (!cols.length) { exactRedirect(); return; }
