@@ -101,6 +101,34 @@
 {%- endif -%}
 {%- endif -%}
 
+{%- liquid
+  assign extra_col = section.settings.extra_collection
+  assign extra_limit = section.settings.extra_limit | default: 8
+-%}
+{%- if extra_col != blank and extra_col.products.size > 0 -%}
+<section class="sec" style="background:var(--sp-bone);padding-top:0">
+  <div class="wrap">
+    <h2 class="h-sec text-center" style="font-size:clamp(1.6rem,3vw,2.3rem)">{{ section.settings.extra_heading | default: extra_col.title }}</h2>
+    <div class="grid-products grid-products--3 mt-8">
+      {%- for product in extra_col.products limit: extra_limit -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+    <div class="text-center mt-8">
+      <a href="{{ extra_col.url }}" class="btn btn--ink">View all <span class="btn__arrow">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+{%- elsif request.design_mode -%}
+<section class="sec" style="background:var(--sp-bone);padding-top:0">
+  <div class="wrap text-center">
+    <p class="lede" style="border:1px dashed rgba(36,26,16,.3);border-radius:var(--radius-md);padding:2.5rem 1rem">
+      Extra collection placeholder. Pick a collection in this section's settings to show its products here.
+    </p>
+  </div>
+</section>
+{%- endif -%}
+
 <section class="sec" style="background:var(--sp-ink);color:var(--sp-bone)">
   <div class="wrap">
     <p class="eyebrow text-center" style="color:var(--sp-gold-mid)">The Festive Calendar</p>
@@ -145,7 +173,11 @@
   "name": "Campaign offer",
   "tag": "section",
   "settings": [
-    { "type": "paragraph", "content": "Content is driven by the festive calendar in snippets/campaign-data.liquid." }
+    { "type": "paragraph", "content": "Content is driven by the festive calendar in snippets/campaign-data.liquid." },
+    { "type": "header", "content": "Extra collection (optional)" },
+    { "type": "collection", "id": "extra_collection", "label": "Collection to show below the offer products" },
+    { "type": "text", "id": "extra_heading", "label": "Heading (defaults to the collection name)" },
+    { "type": "range", "id": "extra_limit", "min": 4, "max": 24, "step": 4, "label": "Products to show", "default": 8 }
   ],
   "presets": [{ "name": "Campaign offer" }]
 }
