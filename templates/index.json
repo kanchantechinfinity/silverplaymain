@@ -12,6 +12,20 @@
     "hero": {
       "type": "cinematic-hero",
       "blocks": {
+        "slide_3eJNw3": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Website_banner.png",
+            "image_mobile": "shopify://shop_images/Mobile_banner.png",
+            "link_url": "shopify://collections/earrings",
+            "image_position": "",
+            "devanagari": "",
+            "heading": "",
+            "subtitle": "",
+            "cta_label": "",
+            "cta_url": ""
+          }
+        },
         "slide_pjyYkX": {
           "type": "slide",
           "settings": {
@@ -42,6 +56,7 @@
         }
       },
       "block_order": [
+        "slide_3eJNw3",
         "slide_pjyYkX",
         "slide_r4937i"
       ],

@@ -10,7 +10,8 @@
 {
   "sections": {
     "campaign": {
-      "type": "campaign-offer"
+      "type": "campaign-offer",
+      "settings": {}
     },
     "trust": {
       "type": "icon-features",
