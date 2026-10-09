@@ -2069,3 +2069,14 @@ input, textarea, select { font: inherit; color: inherit; }
 .campaign-timeline__dates { font-family: var(--font-display); font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sp-gold-mid); }
 .campaign-timeline__item h3 { margin: .6rem 0; font-size: 1.15rem; color: var(--sp-bone); }
 .campaign-timeline__item p:last-child { font-family: var(--font-body); font-size: 1rem; line-height: 1.65; color: rgba(242,232,208,.7); }
+
+/* Campaign hero with an image beside the text */
+.campaign-hero__media { margin-top: 2.5rem; }
+.campaign-hero__media img { width: 100%; height: 100%; max-height: 34rem; object-fit: cover; border-radius: var(--radius-xl); border: 1px solid rgba(217,182,108,.4); box-shadow: 0 24px 60px -28px rgba(0,0,0,.7); }
+@media (min-width: 900px) {
+  .campaign-hero--split { text-align: left; }
+  .campaign-hero--split .campaign-hero__inner { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; }
+  .campaign-hero--split .campaign-hero__title, .campaign-hero--split .campaign-hero__lede { margin-inline: 0; }
+  .campaign-hero--split .campaign-countdown__cells { justify-content: flex-start; }
+  .campaign-hero__media { margin-top: 0; }
+}

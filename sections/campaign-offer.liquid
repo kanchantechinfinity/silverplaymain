@@ -17,9 +17,10 @@
   endif
 -%}
 
-<section class="campaign-hero on-dark" data-page-hero>
+<section class="campaign-hero on-dark{% if camp_image != blank %} campaign-hero--split{% endif %}" data-page-hero>
   <div class="wrap campaign-hero__inner">
     {%- if camp != '' -%}
+    <div class="campaign-hero__text">
       <p class="eyebrow" data-reveal>{{ camp_name }} &middot; {% if camp_status == 'soon' %}Starts {{ camp_start_s | date: '%b %-d' }}{% else %}Live now{% endif %}</p>
       <h1 class="campaign-hero__title" data-split data-reveal="none">{{ camp_title }}</h1>
       <p class="campaign-hero__tag" data-reveal data-delay="0.08">{{ camp_tagline }}</p>
@@ -39,6 +40,12 @@
         <a href="{{ camp_col.url | default: routes.all_products_collection_url }}" class="btn btn--bone btn--lg">{{ camp_cta_label }} <span class="btn__arrow">&rarr;</span></a>
       </div>
       <p class="campaign-hero__dates">{{ camp_dates }} &middot; {{ camp_end_label }}</p>
+    </div>
+    {%- if camp_image != blank -%}
+      <div class="campaign-hero__media" data-reveal data-delay="0.12">
+        <img src="{{ camp_image | asset_url }}" alt="{{ camp_name }}" width="1200" height="800" loading="eager" decoding="async">
+      </div>
+    {%- endif -%}
     {%- else -%}
       <p class="eyebrow" data-reveal>Festive Season</p>
       <h1 class="campaign-hero__title" data-split data-reveal="none">Festive Offers</h1>
