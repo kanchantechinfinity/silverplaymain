@@ -907,20 +907,27 @@
      drawer and on the cart page, so it keeps working however the markup is
      re-rendered. data-line is the cart line's stable key. */
   var cartChanging = false;
-  function cartChange(key, qty) {
+  function cartChange(el, qty) {
     function post(body) {
       return fetch("/cart/change.js", {
         method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(body)
       });
     }
-    return post({ id: key, quantity: qty }).then(function (r) {
-      if (r.ok) return r;
-      return fetch("/cart.js").then(function (c) { return c.json(); }).then(function (cart) {
-        var idx = -1;
-        cart.items.forEach(function (it, i) { if (it.key === key) idx = i; });
-        return idx < 0 ? r : post({ line: idx + 1, quantity: qty });
-      });
+    /* Work out the line from where the button sits on screen (row N of the
+       list), then look up that line's real key in the live cart -- this does
+       not depend on what data-line holds, so stale or old markup still works. */
+    var rows = $$(".cart-line, .cart-table tbody tr");
+    var row = el.closest(".cart-line, .cart-table tbody tr");
+    var idx = row ? rows.indexOf(row) : -1;
+    var attr = el.getAttribute("data-line") || "";
+    return fetch("/cart.js").then(function (c) { return c.json(); }).then(function (cart) {
+      var item = null;
+      if (attr.indexOf(":") > -1) item = cart.items.filter(function (it) { return it.key === attr; })[0];
+      if (!item && idx > -1) item = cart.items[idx];
+      if (!item && /^\d+$/.test(attr)) item = cart.items[Number(attr) - 1];
+      if (!item) return { ok: false, json: function () { return Promise.resolve({ description: "That item is no longer in your bag." }); } };
+      return post({ id: item.key, quantity: qty });
     }).then(function (r) {
       if (r.ok) return null;
       return r.json().then(function (j) { return (j && (j.description || j.message)) || "Could not update your bag."; }, function () { return "Could not update your bag."; });
@@ -934,11 +941,10 @@
       if (!el) return;
       e.preventDefault();
       if (cartChanging) return;
-      var key = el.getAttribute("data-line");
       var qty = Number(el.getAttribute("data-cart-change"));
-      if (!key || isNaN(qty)) return;
+      if (isNaN(qty)) return;
       cartChanging = true;
-      cartChange(key, qty).then(function (msg) {
+      cartChange(el, qty).then(function (msg) {
         if (msg) alert(msg);
         return refreshDrawer().then(checkCoinCelebration).catch(function () {});
       }).catch(function () {}).then(function () {
