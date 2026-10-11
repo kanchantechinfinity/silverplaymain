@@ -903,25 +903,50 @@
         // a purchase-crossing-the-threshold moment.
       });
   }
-function bindCartLines() {
-  $$("[data-cart-change]").forEach(function (el) {
-    if (el.dataset.bound) return;
-    el.dataset.bound = "1";
-    el.addEventListener("click", function (e) {
+  /* One delegated listener for every quantity / remove button, in the cart
+     drawer and on the cart page, so it keeps working however the markup is
+     re-rendered. data-line is the cart line's stable key. */
+  var cartChanging = false;
+  function cartChange(key, qty) {
+    function post(body) {
+      return fetch("/cart/change.js", {
+        method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(body)
+      });
+    }
+    return post({ id: key, quantity: qty }).then(function (r) {
+      if (r.ok) return r;
+      return fetch("/cart.js").then(function (c) { return c.json(); }).then(function (cart) {
+        var idx = -1;
+        cart.items.forEach(function (it, i) { if (it.key === key) idx = i; });
+        return idx < 0 ? r : post({ line: idx + 1, quantity: qty });
+      });
+    }).then(function (r) {
+      if (r.ok) return null;
+      return r.json().then(function (j) { return (j && (j.description || j.message)) || "Could not update your bag."; }, function () { return "Could not update your bag."; });
+    });
+  }
+  function bindCartLines() {
+    if (bindCartLines.done) return;
+    bindCartLines.done = true;
+    document.addEventListener("click", function (e) {
+      var el = e.target.closest && e.target.closest("[data-cart-change]");
+      if (!el) return;
       e.preventDefault();
+      if (cartChanging) return;
       var key = el.getAttribute("data-line");
-      var qty = el.getAttribute("data-cart-change");
-      fetch("/cart/change.js", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: key, quantity: Number(qty) })
-      }).then(function () {
-        return refreshDrawer().then(checkCoinCelebration);
-      }).then(function () {
+      var qty = Number(el.getAttribute("data-cart-change"));
+      if (!key || isNaN(qty)) return;
+      cartChanging = true;
+      cartChange(key, qty).then(function (msg) {
+        if (msg) alert(msg);
+        return refreshDrawer().then(checkCoinCelebration).catch(function () {});
+      }).catch(function () {}).then(function () {
+        cartChanging = false;
         if (document.body.classList.contains("template-cart")) location.reload();
       });
     });
-  });
-}
+  }
   function bindCartClose(drawer) {
     // refreshDrawer() replaces [data-cart-drawer-inner]'s whole innerHTML
     // (to pull fresh totals) every time the cart opens, which destroys and
