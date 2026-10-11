@@ -161,12 +161,20 @@
             "label": "Pendants",
             "collection": "pendants"
           }
+        },
+        "t4": {
+          "type": "tab",
+          "settings": {
+            "label": "New Tab",
+            "collection": ""
+          }
         }
       },
       "block_order": [
         "t1",
         "t2",
-        "t3"
+        "t3",
+        "t4"
       ],
       "settings": {
         "eyebrow": "Start Here",

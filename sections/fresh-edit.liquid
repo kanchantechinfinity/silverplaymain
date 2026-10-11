@@ -28,6 +28,7 @@
             endif
           -%}
           {%- for block in section.blocks -%}
+            {%- if block.settings.collection == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
             {%- assign tab_col = collections[block.settings.collection] -%}
             {%- assign tab_cta_label = cta_prefix | append: ' ' | append: block.settings.label -%}
             <button type="button" class="tabs__btn" role="tab"
@@ -44,6 +45,7 @@
     {%- endif -%}
 
     {%- for block in section.blocks -%}
+      {%- if block.settings.collection == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
       {%- assign col = collections[block.settings.collection] -%}
       <div class="grid-products mt-14" role="tabpanel" data-tab-panel="{{ block.id }}"
            {% unless forloop.first %}hidden{% endunless %}>
