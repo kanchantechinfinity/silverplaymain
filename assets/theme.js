@@ -1325,7 +1325,8 @@
     "statement", "kids", "men", "women", "gift", "gifting",
     "huggies", "huggie", "semi", "precious", "delicate", "minimalistic",
     "green", "red", "blue", "black", "white", "pink", "purple", "brown",
-    "gold", "golden", "multicolor", "multicolour", "colour", "color"
+    "gold", "golden", "multicolor", "multicolour", "colour", "color",
+    "charan", "paduka", "padukas", "padukaa", "kuber", "nanak", "fish", "tortoise", "yantra", "coins"
   ];
   function searchEditDistance(a, b) {
     var m = a.length, n = b.length;
