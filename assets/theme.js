@@ -1027,7 +1027,8 @@
       var idInput = form ? $('[name="id"]', form) : null;
       var priceEl = $("[data-variant-price]");
       var wasEl = $("[data-variant-compare]");
-      var btn = form ? $('[type="submit"]', form) : null;
+      var btn = form ? ($('[data-label-add]', form) || $('[type="submit"]:not([data-buy-now])', form)) : null;
+      var buyBtn = form ? $('[data-buy-now]', form) : null;
 
       function selected() {
         return $$('input[type="radio"]:checked', root).map(function (i) { return i.value; });
@@ -1051,8 +1052,10 @@
         }
         if (btn) {
           btn.disabled = !match.available;
-          btn.textContent = match.available ? btn.getAttribute("data-label-add") : btn.getAttribute("data-label-sold");
+          var lbl = match.available ? btn.getAttribute("data-label-add") : btn.getAttribute("data-label-sold");
+          if (lbl) btn.textContent = lbl;
         }
+        if (buyBtn) buyBtn.disabled = !match.available;
         if (history.replaceState) {
           var url = new URL(window.location.href);
           url.searchParams.set("variant", match.id);
