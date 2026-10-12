@@ -2080,3 +2080,8 @@ input, textarea, select { font: inherit; color: inherit; }
   .campaign-hero--split .campaign-countdown__cells { justify-content: flex-start; }
   .campaign-hero__media { margin-top: 0; }
 }
+
+/* Shopify Inbox chat bubble: keep it clear of the mobile bottom bar. */
+@media (max-width: 1023px) {
+  #ShopifyChat { bottom: calc(4.9rem + env(safe-area-inset-bottom)) !important; }
+}
