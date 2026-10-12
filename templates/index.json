@@ -166,7 +166,8 @@
           "type": "tab",
           "settings": {
             "label": "99.9% COIN & SHAGUN",
-            "collection": "navratri-collection"
+            "collection": "navratri-collection",
+            "hide_pendants": true
           }
         }
       },
