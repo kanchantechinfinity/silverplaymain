@@ -99,6 +99,7 @@
 
 {%- if section.settings.hamper_label != blank -%}
   {%- assign hamper_product = section.settings.hamper_product -%}
+  {%- if hamper_product == blank -%}{%- assign hamper_product = all_products['diwali-hamper'] -%}{%- endif -%}
   <div class="hamper" data-hamper aria-hidden="true" hidden>
     <div class="hamper__scrim" data-hamper-close></div>
     <div class="hamper__panel" role="dialog" aria-modal="true" aria-label="{{ section.settings.hamper_label | escape }}">
