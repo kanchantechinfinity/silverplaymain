@@ -195,7 +195,7 @@
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (!chosen) return;
-        var props = { 'Hamper': chosen.name, 'Includes': chosen.content };
+        var props = { '_Includes': chosen.content };
         form.querySelectorAll('input[type=radio]:checked').forEach(function (r) { props[r.name] = r.value; });
         if (!variants.length) { window.location.href = '/pages/contact'; return; }
         var v = variants.filter(function (x) { return x.title.trim().toLowerCase() === chosen.name.trim().toLowerCase(); })[0];
