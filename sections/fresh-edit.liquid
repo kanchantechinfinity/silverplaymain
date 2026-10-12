@@ -143,7 +143,8 @@
     .hamper__msg { min-height: 1.2rem; margin: .75rem 0; font-size: .95rem; color: #8a2f2f; }
   </style>
   <script>
-    (function () {
+    {% raw %}
+(function () {
       var root = document.querySelector('[data-hamper]');
       if (!root || root.dataset.ready) return;
       root.dataset.ready = '1';
@@ -213,7 +214,8 @@
           }).catch(function () { submit.disabled = false; msg.textContent = 'Something went wrong. Please try again.'; });
       });
     })();
-  </script>
+  
+{% endraw %}</script>
 {%- endif -%}
 
 {% schema %}
