@@ -2094,3 +2094,12 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (max-width: 1023px) {
   #ShopifyChat { bottom: calc(4.9rem + env(safe-area-inset-bottom)) !important; }
 }
+
+/* --- WhatsApp floating button --- */
+.wa-fab { position: fixed; right: 1.1rem; bottom: 6.2rem; z-index: 60; display: inline-flex; align-items: center; gap: .55rem;
+  padding: .75rem .9rem; border-radius: 999px; background: var(--sp-bone); color: #1f6b3a; border: 1px solid var(--sp-gold-mid);
+  box-shadow: 0 10px 28px -10px rgba(36,26,16,.45); text-decoration: none; transition: transform .3s var(--ease-silk), box-shadow .3s; }
+.wa-fab:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -10px rgba(36,26,16,.55); }
+.wa-fab svg { color: #1f9d55; flex: none; display: block; }
+.wa-fab__txt { font-family: var(--font-display); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sp-ink); }
+@media (max-width: 1023px) { .wa-fab { bottom: calc(9.2rem + env(safe-area-inset-bottom)); padding: .7rem; } .wa-fab__txt { display: none; } }
