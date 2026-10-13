@@ -304,7 +304,7 @@ input, textarea, select { font: inherit; color: inherit; }
 /* Collection pages: light bar with dark text/icons from the start, not just
    once pinned — the transparent-over-dark-photo look was unreadable against
    the (now shorter) collection banner. */
-.header--light .header__bar { background: rgba(245,242,237,.9); border-color: rgba(36,26,16,.1); }
+.header--light .header__bar { background: var(--sp-bone); border-color: rgba(36,26,16,.1); }
 .header--light .header__burger span { background: var(--sp-ink); }
 .header--light .header__logo img { filter: invert(1); }
 .header--light .header__logo-text { color: var(--sp-ink); }
@@ -315,7 +315,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .header--light .header__icon:hover { background: rgba(36,26,16,.05); color: var(--sp-ink); }
 .header--light .header__badge { background: var(--sp-ink); color: var(--sp-bone); }
 .header.is-pinned .header__bar {
-  background: rgba(245,242,237,.9);
+  background: var(--sp-bone);
   width: calc(100% - 28px); max-width: 1500px; margin-top: 14px; border-radius: 999px;
   border-color: rgba(36,26,16,.1); box-shadow: 0 10px 40px -18px rgba(26,22,20,.35);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
