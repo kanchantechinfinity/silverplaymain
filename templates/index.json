@@ -145,21 +145,24 @@
           "type": "tab",
           "settings": {
             "label": "Under ₹5000",
-            "collection": "under-rs-5000"
+            "collection": "under-rs-5000",
+            "hide_pendants": false
           }
         },
         "t2": {
           "type": "tab",
           "settings": {
             "label": "Earrings",
-            "collection": "earrings"
+            "collection": "earrings",
+            "hide_pendants": false
           }
         },
         "t3": {
           "type": "tab",
           "settings": {
             "label": "Pendants",
-            "collection": "pendants"
+            "collection": "pendants",
+            "hide_pendants": false
           }
         },
         "t4": {
@@ -185,7 +188,9 @@
         "bg_color": "#dbc596",
         "wash": "rgba(219,197,150,0.35)",
         "cta_label": "Shop",
-        "cta_url": ""
+        "cta_url": "",
+        "hamper_label": "Customise Your Diwali Hamper",
+        "hamper_product": ""
       }
     },
     "royal_simplicity": {
@@ -389,7 +394,7 @@
         "t2"
       ],
       "settings": {
-        "side_video_url": "https://cdn.shopify.com/videos/c/o/v/afd36294ff5441d9adae0cf2f8749d88.mp4",
+        "side_video_url": "https://cdn.shopify.com/videos/c/o/v/e8f3fd020ac942ddaeac266ef52abd75.mp4",
         "side_image_focus": "50% 35%",
         "side_image_2_focus": "50% 0%",
         "gift_product": "silver-ganesha-coin",
