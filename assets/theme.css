@@ -1004,6 +1004,14 @@ input, textarea, select { font: inherit; color: inherit; }
   .offer-tiers { flex-direction: column; align-items: stretch; }
   .offer-tiers__item { justify-content: center; }
 }
+/* Long campaign wording must wrap inside the screen, never push past it. */
+.offer-split > *, .offer-split__content { min-width: 0; }
+@media (max-width: 1100px) {
+  .offer-tiers__item { flex-wrap: wrap; justify-content: center; text-align: center; max-width: 100%; border-radius: 1.5rem; padding: .9rem 1.25rem; row-gap: .15rem; }
+  .offer-tiers__amt, .offer-tiers__gift { white-space: normal; }
+  .offer-tiers__arrow { display: none; }
+  .offer-tiers__amt::after { content: ":"; }
+}
 
 /* --- Archive treasure (flip collage) ------------------------------------ */
 /* Keeps its original fixed-column grid (2 cols mobile, 3 cols desktop) so
