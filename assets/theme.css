@@ -2094,21 +2094,3 @@ input, textarea, select { font: inherit; color: inherit; }
 @media (max-width: 1023px) {
   #ShopifyChat { bottom: calc(4.9rem + env(safe-area-inset-bottom)) !important; }
 }
-
-/* --- Festive strip (shown only during a campaign; see snippets/festive-strip) --- */
-.has-festive { --fd-h: 34px; }
-.has-festive [data-header] { top: var(--fd-h); }
-@media (min-width: 1024px) { .has-festive [data-header] { top: calc(var(--fd-h) + 6px); } }
-.fm-strip { position: fixed; top: 0; left: 0; right: 0; height: var(--fd-h); z-index: 70; overflow: hidden;
-  background: linear-gradient(90deg, #33100c, #4b1d17 50%, #33100c); border-bottom: 1px solid #9a6b22;
-  box-shadow: inset 0 -3px 0 #33100c, inset 0 -4px 0 rgba(217,178,95,.35); }
-.fm-track { display: flex; align-items: center; height: 100%; width: max-content; animation: fm-m 80s linear infinite; }
-.fm-grp { display: flex; align-items: center; gap: 1.6rem; padding-right: 1.6rem; flex: none; }
-.fm-txt { font-family: var(--font-display); font-size: .68rem; letter-spacing: .32em; text-transform: uppercase; white-space: nowrap; color: #f1dba0; }
-.fm-o { color: #d9b25f; font-size: .8rem; }
-.fm-g { flex: none; display: block; }
-.fm-diya { width: 1.5rem; height: 1.5rem; }
-.fm-dand { width: 3.4rem; height: 1.2rem; }
-@keyframes fm-m { to { transform: translateX(-50%); } }
-@media (max-width: 640px) { .fm-txt { font-size: .58rem; letter-spacing: .2em; } .fm-grp { gap: 1.1rem; padding-right: 1.1rem; } }
-@media (prefers-reduced-motion: reduce) { .fm-track { animation: none; } }
