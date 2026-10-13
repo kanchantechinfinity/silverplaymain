@@ -1944,7 +1944,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .tilt-stage { position: relative; width: min(60vh, 460px); aspect-ratio: 4 / 5; max-height: 82vh; cursor: zoom-in; overflow: hidden; border-radius: var(--radius-lg); }
 .tilt-stage.is-zoomed { cursor: zoom-out; }
 .tilt-stage__inner { position: relative; height: 100%; width: 100%; box-shadow: 0 40px 100px -20px rgba(0,0,0,.6); transition: transform .3s ease-out; }
-.tilt-stage img { height: 100%; width: 100%; object-fit: cover; }
+.tilt-stage img { height: 100%; width: 100%; object-fit: contain; }
+.tilt-stage { background: rgba(20,14,8,.35); }
 
 /* --- Misc --------------------------------------------------------------- */
 .divider-flourish { display: flex; align-items: center; gap: .75rem; opacity: .6; }
