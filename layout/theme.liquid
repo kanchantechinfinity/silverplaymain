@@ -55,7 +55,42 @@
 <body class="template-{{ template.name | handle }}{% if camp != '' %} has-festive{% endif %} {% if template.suffix %}template-suffix-{{ template.suffix | handle }}{% endif %}">
   <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
 
-  {%- if camp != '' -%}{%- render 'festive-strip', camp: camp -%}{%- endif -%}
+  {%- if camp != '' -%}
+{%- case camp
+  when 'navratri'
+    assign t1 = 'Shubh Navratri'
+    assign t2 = 'Happy Dussehra'
+  when 'karwa'
+    assign t1 = 'Happy Karwa Chauth'
+    assign t2 = 'Shubh Deepavali'
+  else
+    assign t1 = 'Shubh Dhanteras'
+    assign t2 = 'Shubh Deepavali'
+endcase -%}
+{%- capture fs_group -%}
+<div class="fm-grp">
+  <svg class="fm-g fm-diya" viewBox="0 0 48 48" aria-hidden="true"><use href="#fm-diya"/></svg>
+  <svg class="fm-g fm-dand" viewBox="0 0 120 40" aria-hidden="true"><use href="#fm-dand"/></svg>
+  <svg class="fm-g fm-diya" viewBox="0 0 48 48" aria-hidden="true"><use href="#fm-diya"/></svg>
+  <span class="fm-txt">{{ t1 }}</span><span class="fm-o" aria-hidden="true">&#10070;</span>
+  <svg class="fm-g fm-diya" viewBox="0 0 48 48" aria-hidden="true"><use href="#fm-diya"/></svg>
+  <svg class="fm-g fm-dand" viewBox="0 0 120 40" aria-hidden="true"><use href="#fm-dand"/></svg>
+  <svg class="fm-g fm-diya" viewBox="0 0 48 48" aria-hidden="true"><use href="#fm-diya"/></svg>
+  <span class="fm-txt">{{ t2 }}</span><span class="fm-o" aria-hidden="true">&#10070;</span>
+</div>
+{%- endcapture -%}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="fm-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e2a6"/><stop offset=".45" stop-color="#d9b25f"/><stop offset="1" stop-color="#8a5c1a"/></linearGradient>
+    <symbol id="fm-diya" viewBox="0 0 48 48"><path class="fl" d="M24 3c5 7 7 11 7 16a7 7 0 0 1-14 0c0-5 2-9 7-16z" fill="#f5b942"/><path d="M3 25h42c0 10-9 17-21 17S3 35 3 25z" fill="url(#fm-gold)"/><path d="M3 25h42" stroke="#6b4512" stroke-width="1.2"/><path d="M14 42h20l-2 4H16z" fill="#8a5c1a"/></symbol>
+    <symbol id="fm-dand" viewBox="0 0 120 40"><g transform="rotate(-16 60 20)"><rect x="4" y="15" width="112" height="10" rx="5" fill="url(#fm-gold)"/><rect x="20" y="15" width="6" height="10" fill="#7a1f1c"/><rect x="94" y="15" width="6" height="10" fill="#7a1f1c"/></g><g transform="rotate(16 60 20)"><rect x="4" y="15" width="112" height="10" rx="5" fill="url(#fm-gold)"/><rect x="20" y="15" width="6" height="10" fill="#1f4d3a"/><rect x="94" y="15" width="6" height="10" fill="#1f4d3a"/></g></symbol>
+  </defs>
+</svg>
+<div class="fm-strip" role="note" aria-label="Festive greeting">
+  <div class="fm-track" aria-hidden="true">{{ fs_group }}{{ fs_group }}{{ fs_group }}{{ fs_group }}</div>
+</div>
+
+{%- endif -%}
   {% section 'header' %}
 
   <main id="MainContent" role="main">
