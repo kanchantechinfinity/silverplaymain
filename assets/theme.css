@@ -2104,3 +2104,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .wa-fab__txt { font-family: var(--font-display); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sp-ink); }
 @media (max-width: 1023px) { .wa-fab { right: 1rem; bottom: calc(9.2rem + env(safe-area-inset-bottom)); padding: 0; } .wa-fab__txt { display: none; } }
 .cinehero__scrim-a, .cinehero__scrim-b { display: none; }
+
+/* Festive assurance marquee: diya / dandiya separators (campaign dates only) */
+.marquee__sep--fest { display: inline-flex; align-items: center; line-height: 0; }
+.marquee__sep--fest svg { display: block; }

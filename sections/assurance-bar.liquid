@@ -1,4 +1,5 @@
 {%- comment -%}Seamless CSS marquee of trust claims. Track rendered twice, translated -50%.{%- endcomment -%}
+{%- include 'campaign-data' -%}
 <div class="assurance">
   <div class="marquee" data-marquee="{{ section.settings.speed }}">
     <div class="marquee__rail">
@@ -7,7 +8,18 @@
           {%- for block in section.blocks -%}
             <span class="marquee__item" {{ block.shopify_attributes }}>
               <span class="assurance__item">{{ block.settings.text }}</span>
-              <span class="marquee__sep">{{ section.settings.separator }}</span>
+              {%- if camp != '' -%}
+                {%- assign sep_odd = forloop.index | modulo: 2 -%}
+                <span class="marquee__sep marquee__sep--fest" aria-hidden="true">
+                  {%- if sep_odd == 1 -%}
+                    <svg viewBox="0 0 48 48" width="22" height="22"><path d="M24 3c5 7 7 11 7 16a7 7 0 0 1-14 0c0-5 2-9 7-16z" fill="#e8a53a"/><path d="M3 25h42c0 10-9 17-21 17S3 35 3 25z" fill="#b8862d"/><path d="M3 25h42" stroke="#6b4512" stroke-width="1.4"/><path d="M14 42h20l-2 4H16z" fill="#8a5c1a"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 120 40" width="48" height="16"><g transform="rotate(-16 60 20)"><rect x="4" y="15" width="112" height="10" rx="5" fill="#b8862d"/><rect x="20" y="15" width="6" height="10" fill="#7a1f1c"/><rect x="94" y="15" width="6" height="10" fill="#7a1f1c"/></g><g transform="rotate(16 60 20)"><rect x="4" y="15" width="112" height="10" rx="5" fill="#b8862d"/><rect x="20" y="15" width="6" height="10" fill="#1f4d3a"/><rect x="94" y="15" width="6" height="10" fill="#1f4d3a"/></g></svg>
+                  {%- endif -%}
+                </span>
+              {%- else -%}
+                <span class="marquee__sep">{{ section.settings.separator }}</span>
+              {%- endif -%}
             </span>
           {%- endfor -%}
         </div>
