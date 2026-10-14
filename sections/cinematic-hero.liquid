@@ -42,8 +42,11 @@
                 <img class="cinehero__video" src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" width="1600" height="1000" loading="lazy">
               {%- endif -%}
             </picture>
-            <span class="cinehero__scrim-a" aria-hidden="true"></span>
-            <span class="cinehero__scrim-b" aria-hidden="true"></span>
+            {%- comment -%} Image-only banners (no heading/subtitle/button) have their text baked in, so no dark scrim: it only dulls the artwork. {%- endcomment -%}
+            {%- if block.settings.heading != blank or block.settings.subtitle != blank or block.settings.cta_label != blank -%}
+              <span class="cinehero__scrim-a" aria-hidden="true"></span>
+              <span class="cinehero__scrim-b" aria-hidden="true"></span>
+            {%- endif -%}
 
             {%- if block.settings.link_url != blank -%}
               {%- comment -%} Covers the whole slide so clicking anywhere on the banner navigates — sits below the button (a sibling, not nested inside it) so the button's own link still takes priority where the two overlap. {%- endcomment -%}
