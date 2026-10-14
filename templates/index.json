@@ -186,6 +186,7 @@
         "lede": "From everyday affordable picks to new arrivals, earrings and pendants — browse by budget or category.",
         "count": 4,
         "bg_color": "#dbc596",
+        "bg_image": "shopify://shop_images/Elegant_Navratri_Dandiya_Glow.png",
         "wash": "rgba(219,197,150,0.35)",
         "cta_label": "Shop",
         "cta_url": "",
