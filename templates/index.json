@@ -203,6 +203,7 @@
         "lede": "For the woman who loves jewellery that feels effortless, personal and quietly beautiful.",
         "cta_label": "Shop The Collection",
         "bg_color": "#241a10",
+        "bg_image": "shopify://shop_images/a7ceda84-31b5-4159-aa9a-721c075284d4.png",
         "wash": "rgba(36,26,16,0.72)"
       }
     },
@@ -272,6 +273,7 @@
         "cta_label": "Shop The Collection",
         "cta_url": "",
         "card_cta": "Shop The Collection",
+        "bg_image": "shopify://shop_images/0f6202b4-0c3d-4d96-88e3-5e4411f1f304.png",
         "wash": "rgba(242,232,208,0.35)"
       }
     },
@@ -406,6 +408,7 @@
         "cta_label": "Shop The Collection",
         "cta_url": "",
         "bg_color": "#241a10",
+        "bg_image": "shopify://shop_images/a7ceda84-31b5-4159-aa9a-721c075284d4.png",
         "wash": "rgba(36,26,16,0.82)"
       }
     },
@@ -580,7 +583,8 @@
         "article_count": 6,
         "eyebrow": "From The Journal",
         "heading": "Stories, Worn as Silver",
-        "cta_label": "Read The Journal"
+        "cta_label": "Read The Journal",
+        "bg_image": "shopify://shop_images/7cdc12f0-33c5-44ae-bc90-cb7ae83e8940.png"
       }
     },
     "faq": {
