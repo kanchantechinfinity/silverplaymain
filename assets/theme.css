@@ -2103,3 +2103,4 @@ input, textarea, select { font: inherit; color: inherit; }
 .wa-fab svg { color: #1f9d55; flex: none; display: block; }
 .wa-fab__txt { font-family: var(--font-display); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sp-ink); }
 @media (max-width: 1023px) { .wa-fab { right: 1rem; bottom: calc(9.2rem + env(safe-area-inset-bottom)); padding: 0; } .wa-fab__txt { display: none; } }
+.cinehero__scrim-a, .cinehero__scrim-b { display: none; }
