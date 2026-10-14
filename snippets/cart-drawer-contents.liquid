@@ -33,7 +33,8 @@
             <p class="cart-line__variant">{{ item.selling_plan_allocation.selling_plan.name }}</p>
           {%- endif -%}
           {%- for prop in item.properties -%}
-            {%- unless prop.last == blank or prop.first[0] == '_' -%}
+            {%- assign prop_key = prop.first | slice: 0 -%}
+            {%- unless prop.last == blank or prop_key == '_' or item.properties['_Includes'] != blank -%}
               <p class="cart-line__variant">{{ prop.first }}: {{ prop.last }}</p>
             {%- endunless -%}
           {%- endfor -%}
