@@ -2108,3 +2108,6 @@ input, textarea, select { font: inherit; color: inherit; }
 /* Festive assurance marquee: diya / dandiya separators (campaign dates only) */
 .marquee__sep--fest { display: inline-flex; align-items: center; line-height: 0; }
 .marquee__sep--fest svg { display: block; }
+
+/* Section background photos on phones: show the right-hand edge/corner, not the centre crop */
+@media (max-width: 767px) { .heritage-sec__bg { object-position: 100% 100%; } }
