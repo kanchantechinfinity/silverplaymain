@@ -2106,5 +2106,5 @@ input, textarea, select { font: inherit; color: inherit; }
 .cinehero__scrim-a, .cinehero__scrim-b { display: none; }
 
 /* Festive assurance marquee: diya / dandiya separators (campaign dates only) */
-.marquee__sep--fest { display: inline-flex; align-items: center; line-height: 0; }
+.marquee__sep--fest { display: inline-flex; align-items: center; gap: .6rem; line-height: 0; }
 .marquee__sep--fest svg { display: block; }
