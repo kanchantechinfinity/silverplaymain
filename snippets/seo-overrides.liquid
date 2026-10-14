@@ -2,8 +2,8 @@
   Meta titles + descriptions for the home page, collections, pages, stone
   guides and the journal (from the SEO sheet). Included from layout/theme.liquid
   with {% include %} so the assigned page_title / page_description reach the
-  <title>, meta description and og/twitter tags. Products use Shopify's own SEO
-  fields. Keyed by request.path (no query string).
+  <title>, meta description and og/twitter tags. Product entries come from the
+  second SEO sheet. Keyed by request.path (no query string).
 {%- endcomment -%}
 {%- liquid
   case request.path
@@ -421,5 +421,311 @@
   when '/collections/minimalistic-and-delicate'
     assign page_title = "Lightweight Silver Earrings, Minimal Everyday Styles Online"
     assign page_description = "Lightweight silver earrings for all-day wear: ear jackets, slim hooks and fine chain drops in 925 silver from ₹1,399. Explore the collection. Made in India."
+  when '/products/silver-ganesha-coin'
+    assign page_title = "Buy 5g Silver Ganesha Coin for Pooja in 925 Sterling Silver"
+    assign page_description = "Buy a 5g Silver Ganesha Coin in 925 sterling silver with a temple border and wooden keepsake box, ideal for Ganpati pooja and Diwali gifting to your loved ones."
+  when '/products/sterling-silver-royal-medallion-pyrite-pendant'
+    assign page_title = "Shop Royal Medallion Pyrite Silver Pendant for Wealth"
+    assign page_description = "Invite wealth and abundance into your day with the Royal Medallion Pyrite Silver Pendant, a pyrite pendant made by hand in Jaipur for daily wear or gifting."
+  when '/products/sterling-silver-twin-pearl-chain-drop-earrings'
+    assign page_title = "Twin Chain Drop Silver and Pearl Earrings for Women"
+    assign page_description = "Give your day-to-evening looks a graceful finish with Twin Chain Drop Silver and Pearl Earrings, a pair of silver and pearl earrings crafted by Jaipur artisans."
+  when '/products/sterling-silver-peacock-kundan-jhumka-earrings'
+    assign page_title = "Handcrafted Peacock Jhumka Silver Kundan Earrings for Women"
+    assign page_description = "Shop Peacock Jhumka Silver Kundan Earrings, a pair of silver jhumka earrings handcrafted in Jaipur to complete your festive looks for you or someone you love."
+  when '/products/sterling-silver-baroque-cherub-drop-earrings'
+    assign page_title = "Baroque Cherub Drop Silver Earrings for Women in 925 Silver"
+    assign page_description = "Complete your party and evening looks with Baroque Cherub Drop Earrings, a pair of sterling silver drop earrings made by hand in Jaipur you can wear for years."
+  when '/products/sterling-silver-trishul-naga-amethyst-pendant'
+    assign page_title = "Shop Amethyst Trishul Silver Pendant Online by Silver Play"
+    assign page_description = "Wear your devotion with the Amethyst Trishul Silver Pendant, a silver trishul pendant handcrafted in 925 sterling silver in Jaipur for daily wear and gifting."
+  when '/products/sterling-silver-rose-quartz-teardrop-filigree-pendant'
+    assign page_title = "Filigree Rose Quartz Silver Pendant for Love by Silver Play"
+    assign page_description = "Buy the Filigree Rose Quartz Silver Pendant for love and emotional healing, a rose quartz silver pendant crafted by Jaipur artisans for daily wear and gifting."
+  when '/products/sterling-silver-bumblebee-enamel-stud-earrings'
+    assign page_title = "Bumblebee Silver Stud Earrings for Women in 925 Silver"
+    assign page_description = "Add charm to your everyday and office looks with Bumblebee Silver Stud Earrings, a pair of sterling silver stud earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-peacock-crescent-earrings'
+    assign page_title = "Crescent Silver Peacock Earrings for Women in 925 Silver"
+    assign page_description = "Complete your festive looks with Crescent Silver Peacock Earrings, a pair of silver peacock earrings crafted by Jaipur artisans for you or someone you love."
+  when '/products/sterling-silver-strings-hoop-earrings'
+    assign page_title = "Shop Strings Silver Hoop Earrings for Women by Silver Play"
+    assign page_description = "Shop Strings Silver Hoop Earrings in an oxidised finish, a pair of sterling silver hoop earrings made by hand in Jaipur to complete your day-to-evening looks."
+  when '/products/sterling-silver-bird-jhumka-cascade-earrings'
+    assign page_title = "Handcrafted Bird Cascade Silver Jhumka Earrings for Women"
+    assign page_description = "Add charm to your festive looks with Bird Cascade Silver Jhumka Earrings, a pair of silver jhumka earrings made by hand in Jaipur for you or someone you love."
+  when '/products/sterling-silver-crescent-disc-drop-earrings'
+    assign page_title = "Crescent Disc Drop Silver Earrings for Women by Silver Play"
+    assign page_description = "Add charm to your office-to-dinner looks with Crescent Disc Drop Earrings, a pair of crescent moon earrings made by hand in Jaipur for you or someone you love."
+  when '/products/sterling-silver-kite-spiral-stud-earrings'
+    assign page_title = "Kite Spiral Silver Stud Earrings for Women by Silver Play"
+    assign page_description = "Buy Kite Spiral Silver Stud Earrings in an oxidised finish for your everyday and office looks, a pair of sterling silver stud earrings made by hand in Jaipur."
+  when '/products/sterling-silver-floral-filigree-hoop-earrings'
+    assign page_title = "Shop Floral Filigree Silver Hoop Earrings for Women"
+    assign page_description = "Add charm to your day-to-evening looks with Floral Filigree Silver Hoop Earrings, a pair of sterling silver hoop earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-triple-rosette-drop-earrings'
+    assign page_title = "Buy Triple Rosette Drop Rose Silver Earrings for Women"
+    assign page_description = "Add charm to your day-to-evening looks with Triple Rosette Drop Rose Earrings, a pair of flower drop earrings handcrafted in Jaipur as a lovely gift for her."
+  when '/products/sterling-silver-mosaic-trio-hoop-earrings'
+    assign page_title = "Mosaic Trio Silver Hoop Earrings in 925 Sterling Silver"
+    assign page_description = "Shop Mosaic Trio Silver Hoop Earrings in an oxidised finish for your day-to-evening looks, a pair of sterling silver hoop earrings crafted by Jaipur artisans."
+  when '/products/sterling-silver-lovebird-hoop-earrings'
+    assign page_title = "Lovebird Silver Hoop Earrings for Women by Silver Play"
+    assign page_description = "Complete your day-to-evening looks with Lovebird Silver Hoop Earrings, a pair of sterling silver hoop earrings made by hand in Jaipur you can wear for years."
+  when '/products/sterling-silver-blossom-jhumka-earrings'
+    assign page_title = "Shop Blossom Silver Jhumka Earrings for Women by Silver Play"
+    assign page_description = "Give your festive looks a graceful finish with Blossom Silver Jhumka Earrings, a pair of silver jhumka earrings made by hand in Jaipur that lasts for years."
+  when '/products/sterling-silver-crescent-ray-stud-earrings'
+    assign page_title = "Buy Crescent Ray Silver Stud Earrings in 925 Sterling Silver"
+    assign page_description = "Buy Crescent Ray Silver Stud Earrings for your everyday and office looks, a pair of sterling silver stud earrings made by hand in Jaipur to treasure for years."
+  when '/products/sterling-silver-paan-leaf-drop-earrings'
+    assign page_title = "Paan Drop Silver Leaf Earrings in 925 Sterling Silver"
+    assign page_description = "Complete your day-to-evening looks with Paan Drop Silver Leaf Earrings, a pair of silver leaf earrings crafted by Jaipur artisans for you or someone you love."
+  when '/products/sterling-silver-teardrop-fan-stud-earrings'
+    assign page_title = "Teardrop Fan Silver Stud Earrings in 925 Sterling Silver"
+    assign page_description = "Add charm to your everyday and office looks with Teardrop Fan Silver Stud Earrings, a pair of sterling silver stud earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-berry-pod-duo-drop-earrings'
+    assign page_title = "Shop Berry Pod Duo Drop Silver Earrings for Women"
+    assign page_description = "Shop Berry Pod Duo Drop Earrings for your day-to-evening looks, a pair of sterling silver drop earrings crafted by Jaipur artisans as a lovely gift for her."
+  when '/products/sterling-silver-trishul-ghungroo-tassel-earrings'
+    assign page_title = "Buy Trishul Ghungroo Silver Tassel Earrings for Women"
+    assign page_description = "Complete your festive looks with Trishul Ghungroo Silver Tassel Earrings, a pair of silver tassel earrings crafted by Jaipur artisans to treasure for years."
+  when '/products/sterling-silver-rising-phoenix-red-onyx-pendant'
+    assign page_title = "Rising Phoenix Red Carnelian Silver Pendant for Protection"
+    assign page_description = "Wear the Rising Phoenix Red Carnelian Silver Pendant close to your heart for protection and grounding, a carnelian pendant handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-lord-rama-red-onyx-pendant'
+    assign page_title = "Red Jasper Lord Rama Silver Pendant for Men and Women"
+    assign page_description = "Buy the Red Jasper Lord Rama Silver Pendant to keep your faith close, a Lord Rama pendant handcrafted in 925 sterling silver in Jaipur and a meaningful gift."
+  when '/products/sterling-silver-rawa-crescent-chandbali-earrings'
+    assign page_title = "Shop Rawa Crescent Silver Chandbali Earrings for Women"
+    assign page_description = "Complete your festive looks with Rawa Crescent Silver Chandbali Earrings, a pair of silver chandbali earrings crafted by Jaipur artisans that lasts for years."
+  when '/products/sterling-silver-ganesh-feather-rose-quartz-pendant'
+    assign page_title = "Feather Rose Quartz Ganesh Silver Pendant for Men and Women"
+    assign page_description = "Wear your devotion with the Feather Rose Quartz Ganesh Silver Pendant, a Ganesh pendant handcrafted in 925 sterling silver in Jaipur and a meaningful gift."
+  when '/products/sterling-silver-green-onyx-statement-pendant'
+    assign page_title = "Verdant Aura Green Onyx Silver Pendant for Balance"
+    assign page_description = "Shop the Verdant Aura Green Onyx Silver Pendant for balance and calm, a green onyx pendant handcrafted in 925 sterling silver in Jaipur and a meaningful gift."
+  when '/products/sterling-silver-hanuman-gada-pendant'
+    assign page_title = "Hanuman Gada Silver Pendant for Protection by Silver Play"
+    assign page_description = "Wear the Hanuman Gada Silver Pendant for protection and inner strength, a Hanuman Gada pendant handcrafted in 925 sterling silver in Jaipur for everyday wear."
+  when '/products/sterling-silver-green-onyx-statement-pendant-vi'
+    assign page_title = "Shop Evergreen Glow Green Onyx Silver Pendant for Balance"
+    assign page_description = "Wear the Evergreen Glow Green Onyx Silver Pendant close to your heart for balance and calm, a green onyx pendant crafted by Jaipur artisans for everyday wear."
+  when '/products/sterling-silver-green-onyx-statement-pendant-v'
+    assign page_title = "Tranquil Tide Green Onyx Silver Pendant for Balance"
+    assign page_description = "Buy the Tranquil Tide Green Onyx Silver Pendant for balance and calm, a green onyx pendant handcrafted in 925 sterling silver in Jaipur and a meaningful gift."
+  when '/products/sterling-silver-green-onyx-statement-pendant-iv'
+    assign page_title = "Misty Meadow Green Onyx Silver Pendant for Balance"
+    assign page_description = "Wear the Misty Meadow Green Onyx Silver Pendant for balance and calm, a green onyx pendant handcrafted in 925 silver in Jaipur to wear close to your heart."
+  when '/products/sterling-silver-marigold-bloom-drop-earrings'
+    assign page_title = "Marigold Bloom Flower Drop Silver Earrings for Women"
+    assign page_description = "Give your saree, lehenga and festive looks a graceful finish with Marigold Bloom Flower Drop Earrings, a pair of flower drop earrings made by hand in Jaipur."
+  when '/products/sterling-silver-crystal-butterfly-wing-earrings'
+    assign page_title = "Shop Crystal Wing Silver Butterfly Earrings for Women"
+    assign page_description = "Shop Crystal Wing Silver Butterfly Earrings for your day-to-evening looks, a pair of silver butterfly earrings crafted by Jaipur artisans that lasts for years."
+  when '/products/sterling-silver-mandala-dangle-earrings'
+    assign page_title = "Mandala Dangle Drop Silver Earrings for Women by Silver Play"
+    assign page_description = "Complete your day-to-evening looks with Mandala Dangle Drop Earrings, a pair of silver dangle earrings handcrafted in 925 silver in Jaipur that lasts for years."
+  when '/products/sterling-silver-emerald-oasis-onyx-earring'
+    assign page_title = "Emerald Green Onyx Drop Gemstone Silver Earrings for Women"
+    assign page_description = "Add charm to your everyday looks with Emerald Green Onyx Drop Gemstone Earrings, a pair of green onyx earrings crafted by Jaipur artisans that lasts for years."
+  when '/products/dhan-siddhi-tiger-eye-pendant'
+    assign page_title = "Dhan Siddhi Tiger Eye Silver Pendant for Wealth"
+    assign page_description = "Buy the Dhan Siddhi Tiger Eye Silver Pendant for wealth and prosperity, a natural stone pendant handcrafted in 925 silver in Jaipur for daily wear and gifting."
+  when '/products/nayi-disha-labradorite-pendant'
+    assign page_title = "Nayi Disha Labradorite Gemstone Silver Pendant"
+    assign page_description = "Wear the Nayi Disha Labradorite Gemstone Silver Pendant close to your heart for new beginnings and change, a natural stone pendant crafted by Jaipur artisans."
+  when '/products/raj-lakshmi-tiger-eye-pendant'
+    assign page_title = "Raj Lakshmi Tiger Eye Silver Pendant for Wealth"
+    assign page_description = "Wear the Raj Lakshmi Tiger Eye Silver Pendant close to your heart for wealth and prosperity, a natural stone pendant made by hand in Jaipur for everyday wear."
+  when '/products/sampann-shakti-tiger-eye-pendant'
+    assign page_title = "Sampann Shakti Tiger Eye Silver Pendant for Wealth"
+    assign page_description = "Shop the Sampann Shakti Tiger Eye Silver Pendant for wealth and prosperity, a natural stone pendant handcrafted in 925 silver in Jaipur and a meaningful gift."
+  when '/products/sterling-silver-beautiful-mother-of-pearl-party-western-earring'
+    assign page_title = "Mother of Pearl Western Silver Earrings for Women"
+    assign page_description = "Complete your party and evening looks with Mother of Pearl Western Earrings, a pair of silver and pearl earrings made by hand in Jaipur to treasure for years."
+  when '/products/sterling-silver-mughal-floral-baali-earrings'
+    assign page_title = "Shop Mughal Floral Baali Silver Bali Earrings for Women"
+    assign page_description = "Complete your everyday looks with Mughal Floral Baali Silver Bali Earrings, a pair of silver bali earrings crafted by Jaipur artisans you can wear for years."
+  when '/products/sterling-silver-thewa-meenakari-heritage-earrings'
+    assign page_title = "Thewa Silver Meenakari Earrings in 925 Sterling Silver"
+    assign page_description = "Buy Thewa Silver Meenakari Earrings for your saree, lehenga and festive looks, a pair of silver meenakari earrings handcrafted in Jaipur you can wear for years."
+  when '/products/sterling-silver-blue-meenakari-earrings'
+    assign page_title = "Blue Silver Meenakari Earrings for Women in 925 Silver"
+    assign page_description = "Give your saree, lehenga and festive looks a graceful finish with Blue Silver Meenakari Earrings, a pair of silver meenakari earrings handcrafted in Jaipur."
+  when '/products/sterling-silver-tribal-heritage-earrings'
+    assign page_title = "Tribal Heritage Ethnic Silver Earrings for Women"
+    assign page_description = "Add charm to your festive looks with Tribal Heritage Ethnic Silver Earrings, a pair of ethnic silver earrings made by hand in Jaipur you can wear for years."
+  when '/products/sterling-silver-phiroza-meenakari-baali-earrings-1'
+    assign page_title = "Shop Phiroza Baali Silver Meenakari Earrings for Women"
+    assign page_description = "Shop Phiroza Baali Silver Meenakari Earrings for your festive looks, a pair of silver meenakari earrings handcrafted in Jaipur for you or someone you love."
+  when '/products/sterling-silver-floral-meenakari-dangle-earrings'
+    assign page_title = "Floral Dangle Flower Silver Earrings for Women in 925 Silver"
+    assign page_description = "Add charm to your day-to-evening looks with Floral Dangle Flower Earrings, a pair of silver flower earrings handcrafted in Jaipur for you or someone you love."
+  when '/products/sterling-silver-antique-meenakari-drop-earrings'
+    assign page_title = "Antique Silver Meenakari Earrings for Women in 925 Silver"
+    assign page_description = "Add charm to your festive looks with Antique Silver Meenakari Earrings, a pair of silver meenakari earrings made by hand in Jaipur as a lovely gift for her."
+  when '/products/sterling-silver-red-green-loop-earrings'
+    assign page_title = "Red Green Loop Sterling Silver Earrings for Women"
+    assign page_description = "Buy Red Green Loop Sterling Silver Earrings for your day-to-evening looks, a pair of sterling silver earrings crafted by Jaipur artisans to treasure for years."
+  when '/products/sterling-silver-jhumka-heritage-earrings'
+    assign page_title = "Shop Heritage Silver Jhumka Earrings for Women"
+    assign page_description = "Add charm to your saree, lehenga and festive looks with Heritage Silver Jhumka Earrings, a pair of silver jhumka earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-sparrow-hoop-earrings'
+    assign page_title = "Sparrow Silver Hoop Earrings for Women by Silver Play"
+    assign page_description = "Add charm to your day-to-evening looks with Sparrow Silver Hoop Earrings, a pair of sterling silver hoop earrings handcrafted in Jaipur you can wear for years."
+  when '/products/sterling-silver-chandbali-jhumka-earrings'
+    assign page_title = "Jhumka Silver Chandbali Earrings in 925 Sterling Silver"
+    assign page_description = "Shop Jhumka Silver Chandbali Earrings for your saree, lehenga and festive looks, a pair of silver jhumka earrings made by hand in Jaipur you can wear for years."
+  when '/products/sterling-silver-twin-peacock-heritage-earrings'
+    assign page_title = "Handcrafted Twin Heritage Silver Peacock Earrings for Women"
+    assign page_description = "Add charm to your festive looks with Twin Heritage Silver Peacock Earrings, a pair of silver peacock earrings handcrafted in Jaipur as a lovely gift for her."
+  when '/products/sterling-silver-butterfly-flutter-earrings'
+    assign page_title = "Shop Flutter Silver Butterfly Earrings for Women"
+    assign page_description = "Complete your day-to-evening looks with Flutter Silver Butterfly Earrings, a pair of silver butterfly earrings made by hand in Jaipur you can wear for years."
+  when '/products/sterling-silver-plumed-sparrow-earrings'
+    assign page_title = "Buy Plumed Sparrow Sterling Silver Earrings for Women"
+    assign page_description = "Buy Plumed Sparrow Sterling Silver Earrings for your day-to-evening looks, a pair of sterling silver earrings crafted by Jaipur artisans you can wear for years."
+  when '/products/sterling-silver-dragonfly-whisper-earrings'
+    assign page_title = "Dragonfly Whisper Sterling Silver Earrings for Women"
+    assign page_description = "Give your day-to-evening looks a graceful finish with Dragonfly Whisper Sterling Silver Earrings, a pair of sterling silver earrings handcrafted in Jaipur."
+  when '/products/sterling-silver-u-curve-statement-earrings'
+    assign page_title = "U-Curve Silver Statement Earrings in 925 Sterling Silver"
+    assign page_description = "Complete your party and evening looks with U-Curve Silver Statement Earrings, a pair of silver statement earrings handcrafted in Jaipur that lasts for years."
+  when '/products/sterling-silver-green-onyx-evil-eye-earrings'
+    assign page_title = "Shop Green Onyx Silver Evil Eye Earrings for Women"
+    assign page_description = "Shop Green Onyx Silver Evil Eye Earrings for your day-to-evening looks, a pair of silver evil eye earrings handcrafted in Jaipur for you or someone you love."
+  when '/products/sterling-silver-sparrow-grace-drop-earrings'
+    assign page_title = "Sparrow Grace Drop Silver Earrings in 925 Sterling Silver"
+    assign page_description = "Complete your day-to-evening looks with Sparrow Grace Drop Earrings, a pair of sterling silver drop earrings made by hand in Jaipur for you or someone you love."
+  when '/products/sterling-silver-radiant-illusion-tiger-eye-charm-pendant'
+    assign page_title = "Radiant Illusion Tiger Eye Silver Pendant for Protection"
+    assign page_description = "Wear the Radiant Illusion Tiger Eye Silver Pendant for protection and grounding, a natural stone pendant made by hand in Jaipur for daily wear and gifting."
+  when '/products/sterling-silver-dragons-tear-handcraft-pendant'
+    assign page_title = "Dragon's Tear Gemstone Silver Pendant for Protection"
+    assign page_description = "Buy the Dragon's Tear Gemstone Silver Pendant for protection and grounding, a natural stone pendant crafted by Jaipur artisans to wear close to your heart."
+  when '/products/sterling-silver-fiery-whirlwind-designer-pendant'
+    assign page_title = "Buy Whirlwind Dragon Blood Gemstone Silver Pendant"
+    assign page_description = "Wear the Whirlwind Dragon Blood Gemstone Silver Pendant for protection and grounding, a natural stone pendant crafted by Jaipur artisans for everyday wear."
+  when '/products/sterling-silver-tree-of-life-pendant'
+    assign page_title = "Shop Small Tree of Life Silver Pendant for Protection"
+    assign page_description = "Wear the Small Tree of Life Silver Pendant close to your heart for protection and grounding, a tree of life pendant handcrafted in Jaipur and a meaningful gift."
+  when '/products/sterling-silver-eternal-roots-heart-pendant'
+    assign page_title = "Buy Big Tree of Life Silver Pendant for Protection"
+    assign page_description = "Shop the Big Tree of Life Silver Pendant for protection and grounding, a tree of life pendant handcrafted in 925 sterling silver in Jaipur for everyday wear."
+  when '/products/sterling-silver-amethyst-twilight-elegance-earring'
+    assign page_title = "Twilight Elegance Amethyst Silver Earrings for Women"
+    assign page_description = "Complete your day-to-evening looks with Twilight Elegance Amethyst Silver Earrings, a pair of amethyst earrings handcrafted in 925 sterling silver in Jaipur."
+  when '/products/sterling-silver-noir-elegance-tops'
+    assign page_title = "Shop Noir Elegance Silver Stud Earrings for Women"
+    assign page_description = "Complete your everyday and office looks with Noir Elegance Silver Stud Earrings, a pair of sterling silver stud earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-verdant-grace-drops-earring'
+    assign page_title = "Handcrafted Verdant Grace Green Drop Silver Earrings"
+    assign page_description = "Buy Verdant Grace Green Drop Earrings for your day-to-evening looks, a pair of sterling silver drop earrings made by hand in Jaipur as a lovely gift for her."
+  when '/products/sterling-silver-emerald-enchantment-studs'
+    assign page_title = "Emerald Enchantment Silver Stud Earrings for Women"
+    assign page_description = "Add charm to your everyday and office looks with Emerald Enchantment Silver Stud Earrings, a pair of sterling silver stud earrings crafted by Jaipur artisans."
+  when '/products/sterling-silver-prairie-rose-office-earring'
+    assign page_title = "Prairie Two-Drop Office Rose Silver Earrings for Women"
+    assign page_description = "Give your office-to-dinner looks a graceful finish with Prairie Two-Drop Office Rose Earrings, a pair of silver earrings for office wear handcrafted in Jaipur."
+  when '/products/sterling-silver-gourmet-designer-earring'
+    assign page_title = "Shop Gourmet Pink Designer Rose Silver Earrings for Women"
+    assign page_description = "Shop Gourmet Pink Designer Rose Earrings for your day-to-evening looks, a pair of silver flower earrings handcrafted in Jaipur for you or someone you love."
+  when '/products/sterling-silver-crimson-elegance-drops-earring-pink'
+    assign page_title = "Crimson Elegance Pink Drop Silver Earrings for Women"
+    assign page_description = "Add charm to your day-to-evening looks with Crimson Elegance Pink Drop Earrings, a pair of pink drop earrings handcrafted in Jaipur for you or someone you love."
+  when '/products/sterling-silver-midnight-petals-designer-earring'
+    assign page_title = "Midnight Petals Navy Blue Flower Silver Earrings for Women"
+    assign page_description = "Complete your party and evening looks with Midnight Petals Navy Blue Flower Earrings, a pair of silver flower earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-eclipse-ball-hoops'
+    assign page_title = "Eclipse Ball Small Silver Hoop Earrings for Women"
+    assign page_description = "Buy Eclipse Ball Small Silver Hoop Earrings for your day-to-evening looks, a pair of small silver hoop earrings handcrafted in Jaipur you can wear for years."
+  when '/products/sterling-silver-sparkle-cluster-hoops'
+    assign page_title = "Shop Sparkle Cluster Small Silver Hoop Earrings for Women"
+    assign page_description = "Give your day-to-evening looks a graceful finish with Sparkle Cluster Small Silver Hoop Earrings, a pair of small silver hoop earrings handcrafted in Jaipur."
+  when '/products/sterling-silver-luna-sphere-earrings'
+    assign page_title = "Luna Sphere Silver Drop Earrings in 925 Sterling Silver"
+    assign page_description = "Complete your office-to-dinner looks with Luna Sphere Silver Drop Earrings, a pair of silver ball earrings crafted by Jaipur artisans to treasure for years."
+  when '/products/sterling-silver-double-disc-long-earrings'
+    assign page_title = "Buy Double Disc Drop Long Silver Earrings for Women"
+    assign page_description = "Shop Double Disc Drop Long Earrings for your office-to-dinner looks, a pair of long silver earrings handcrafted in 925 silver in Jaipur to treasure for years."
+  when '/products/sterling-silver-eternal-love-earrings'
+    assign page_title = "Buy Eternal Love Heart Drop Silver Earrings for Women"
+    assign page_description = "Add charm to your day-to-evening looks with Eternal Love Heart Drop Earrings, a pair of silver drop earrings made by hand in Jaipur for you or someone you love."
+  when '/products/sterling-silver-hexagon-sparkle-earrings'
+    assign page_title = "Shop Sparkle Geometric Sterling Silver Earrings for Women"
+    assign page_description = "Give your office-to-dinner looks a graceful finish with Sparkle Geometric Sterling Silver Earrings, a pair of sterling silver earrings handcrafted in Jaipur."
+  when '/products/sterling-silver-trisculpt-drop-earrings'
+    assign page_title = "Trisculpt Three-Tier Drop Silver Earrings for Women"
+    assign page_description = "Buy Trisculpt Three-Tier Drop Earrings for your office-to-dinner looks, a pair of sterling silver drop earrings handcrafted in Jaipur to treasure for years."
+  when '/products/sterling-silver-disc-delight-earring'
+    assign page_title = "Disc Delight Polished Sterling Silver Earrings for Women"
+    assign page_description = "Add charm to your office-to-dinner looks with Disc Delight Polished Sterling Silver Earrings, a pair of sterling silver earrings crafted by Jaipur artisans."
+  when '/products/sterling-silver-filigree-dangle'
+    assign page_title = "Handcrafted Filigree Dangle Drop Silver Earrings for Women"
+    assign page_description = "Complete your day-to-evening looks with Filigree Dangle Drop Earrings, a pair of filigree earrings handcrafted in 925 silver in Jaipur as a lovely gift for her."
+  when '/products/sterling-silver-oval-oasis-earrings'
+    assign page_title = "Shop Oval Oasis Silver Drop Earrings for Women"
+    assign page_description = "Shop Oval Oasis Silver Drop Earrings for your office-to-dinner looks, a pair of sterling silver drop earrings made by hand in Jaipur you can wear for years."
+  when '/products/sterling-silver-swirl-designer-earrings-big'
+    assign page_title = "Swirl Drop Designer Silver Earrings for Women in 925 Silver"
+    assign page_description = "Add charm to your day-to-evening looks with Swirl Drop Designer Silver Earrings, a pair of spiral earrings crafted by Jaipur artisans as a lovely gift for her."
+  when '/products/sterling-silver-leaf-whisper-earrings'
+    assign page_title = "Whisper Nature Drop Silver Leaf Earrings for Women"
+    assign page_description = "Complete your day-to-evening looks with Whisper Nature Drop Silver Leaf Earrings, a pair of silver leaf earrings made by hand in Jaipur that lasts for years."
+  when '/products/sterling-silver-trinova-designer-earring'
+    assign page_title = "TriNova Triangular Designer Silver Earrings for Women"
+    assign page_description = "Buy TriNova Triangular Designer Silver Earrings for your office-to-dinner looks, a pair of designer silver earrings made by hand in Jaipur that lasts for years."
+  when '/products/sterling-silver-serene-cuffs-earring'
+    assign page_title = "Shop Serene Ear Cuff Lightweight Silver Earrings for Women"
+    assign page_description = "Give your everyday looks a graceful finish with Serene Ear Cuff Lightweight Silver Earrings, a silver ear cuff crafted by Jaipur artisans that lasts for years."
+  when '/products/sterling-silver-artemis-hoops'
+    assign page_title = "Artemis Sleek Small Silver Hoop Earrings for Women"
+    assign page_description = "Give your day-to-evening looks a graceful finish with Artemis Sleek Small Silver Hoop Earrings, a pair of small silver hoop earrings made by hand in Jaipur."
+  when '/products/sterling-silver-chroma-hoops-earring'
+    assign page_title = "Handcrafted Chroma Multicolor Gem Silver Hoop Earrings"
+    assign page_description = "Shop Chroma Multicolor Gem Silver Hoop Earrings for your day-to-evening looks, a pair of sterling silver hoop earrings handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-rainbow-gem-bali-earrings'
+    assign page_title = "Buy Rainbow Gem Hoop Silver Bali Earrings for Women"
+    assign page_description = "Complete your everyday and office looks with Rainbow Gem Hoop Silver Bali Earrings, a pair of silver bali earrings made by hand in Jaipur to treasure for years."
+  when '/products/sterling-silver-office-wear-ruby-aura-earring'
+    assign page_title = "Shop Ruby Aura Silver Earrings for Office Wear"
+    assign page_description = "Add charm to your office-to-dinner looks with Ruby Aura Silver Earrings for Office Wear, a pair of silver earrings for office wear crafted by Jaipur artisans."
+  when '/products/sterling-silver-green-western-dangler-green-onyx-earring'
+    assign page_title = "Green Onyx Dangler Western Silver Earrings for Women"
+    assign page_description = "Buy Green Onyx Dangler Western Earrings, a pair of green onyx earrings handcrafted in Jaipur to complete your day-to-evening looks for you or someone you love."
+  when '/products/sterling-silver-amber-cascade-earring'
+    assign page_title = "Amber Cascade Drop Gemstone Silver Earrings for Women"
+    assign page_description = "Give your everyday looks a graceful finish with Amber Cascade Drop Gemstone Earrings, a pair of gemstone earrings handcrafted in Jaipur that lasts for years."
+  when '/products/sterling-siver-cubic-drop-party-earring'
+    assign page_title = "Cubic Drop Silver Earrings for Party Wear by Silver Play"
+    assign page_description = "Add charm to your party and evening looks with Cubic Drop Silver Earrings for Party Wear, a pair of silver earrings for party wear crafted by Jaipur artisans."
+  when '/products/sterling-silver-smoky-quartz'
+    assign page_title = "Shop Black Smoky Quartz Drop Gemstone Silver Earrings"
+    assign page_description = "Shop Black Smoky Quartz Drop Gemstone Earrings for your day-to-evening looks, a pair of gemstone earrings crafted by Jaipur artisans to treasure for years."
+  when '/products/sterling-silver-triangular-jhumka-heritage-earring'
+    assign page_title = "Buy Handcrafted Triangular Heritage Silver Jhumka Earrings"
+    assign page_description = "Complete your festive looks with Triangular Heritage Silver Jhumka Earrings, a pair of silver jhumka earrings crafted by Jaipur artisans you can wear for years."
+  when '/products/sterling-silver-celestial-gem-cascade-earring'
+    assign page_title = "Celestial Gem Cascade Sterling Silver Earrings for Women"
+    assign page_description = "Complete your day-to-evening looks with Celestial Gem Cascade Sterling Silver Earrings, a pair of gemstone earrings made by hand in Jaipur that lasts for years."
+  when '/products/sterling-silver-elysian-maharani-jhumka-dangles-earring'
+    assign page_title = "Elysian Maharani Dangle Silver Jhumka Earrings for Women"
+    assign page_description = "Buy Elysian Maharani Dangle Silver Jhumka Earrings for your festive looks, a pair of silver jhumka earrings handcrafted in Jaipur for you or someone you love."
+  when '/products/sterling-silver-rose-quartz-designer-party-earrings'
+    assign page_title = "Shop Designer Party Rose Quartz Silver Earrings for Women"
+    assign page_description = "Add charm to your party and evening looks with Designer Party Rose Quartz Earrings, a pair of rose quartz earrings handcrafted in Jaipur you can wear for years."
+  when '/products/sterling-silver-emerald-sunburst-jewel-earring'
+    assign page_title = "Emerald Sunburst Jewel Gemstone Silver Earrings for Women"
+    assign page_description = "Complete your day-to-evening looks with Emerald Sunburst Jewel Gemstone Earrings, a pair of gemstone earrings made by hand in Jaipur to treasure for years."
+  when '/products/sterling-silver-radiant-soiree-earrings'
+    assign page_title = "Soiree Drop Silver Earrings for Party Wear by Silver Play"
+    assign page_description = "Shop Soiree Drop Silver Earrings for Party Wear for your party and evening looks, a pair of silver earrings for party wear handcrafted in 925 silver in Jaipur."
+  when '/products/sterling-silver-spiral-flower-designer-earrings'
+    assign page_title = "Spiral Designer Flower Drop Silver Earrings for Women"
+    assign page_description = "Add charm to your day-to-evening looks with Spiral Designer Flower Drop Earrings, a pair of flower drop earrings handcrafted in Jaipur to treasure for years."
+  when '/products/sterling-silver-heritage-anarkali-rani-style-earring-with-self-antique-design'
+    assign page_title = "Shop Heritage Anarkali Rani Antique Silver Earrings"
+    assign page_description = "Complete your festive looks with Heritage Anarkali Rani Antique Silver Earrings, a pair of antique silver earrings handcrafted in 925 sterling silver in Jaipur."
   endcase
 -%}
