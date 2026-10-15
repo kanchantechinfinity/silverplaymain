@@ -12,7 +12,7 @@
     "campaign": {
       "type": "campaign-offer",
       "settings": {
-        "extra_collection": "navratri-collection",
+        "extra_collection": "99-9-coin-shagun",
         "extra_heading": "Navratri Collection",
         "extra_limit": 8
       }
