@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "hampers": {
+      "type": "hamper-builder",
+      "settings": {}
+    }
+  },
+  "order": ["hampers"]
+}
