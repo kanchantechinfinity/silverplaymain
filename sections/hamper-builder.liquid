@@ -6,6 +6,13 @@
 {%- assign hamper_product = section.settings.hamper_product -%}
 {%- if hamper_product == blank -%}{%- assign hamper_product = all_products['diwali-hamper'] -%}{%- endif -%}
 
+{% render 'page-hero',
+  eyebrow: 'Diwali Hampers',
+  heading: 'Choose your hamper',
+  image: section.settings.banner_image,
+  description: 'Pick a hamper to see what is inside and choose your diya and coin.',
+  min_height: '40vh' %}
+
 <section class="heritage-sec sec hb" style="background: {{ section.settings.bg_color }}">
   {% render 'heritage-bg',
     image: section.settings.bg_image,
@@ -48,7 +55,7 @@
   .hb__item--txt em { display: none; }
   .hb__opt span img { width: 1.6rem; height: 1.6rem; border-radius: 50%; object-fit: cover; vertical-align: middle; margin: -.2rem .5rem -.2rem -.45rem; }
   .hb__bar { text-align: center; margin-bottom: 2rem; }
-  .hb { padding-top: clamp(6.5rem, 12vw, 8.5rem); }
+  .hb { padding-top: 2.5rem; }
   .hb__h1 { font-size: clamp(1.3rem, 6.2vw, 2.6rem); white-space: nowrap; }
   .hb__tab .short { display: none; }
   .hb__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
@@ -140,7 +147,7 @@
   }
   function boxIndex(box) { var bx = []; HAMPERS.forEach(function (x) { if (bx.indexOf(x.box) < 0) bx.push(x.box); }); return Math.max(0, bx.indexOf(box)); }
   function renderList() {
-    var html = '<div class="hb__bar"><p class="eyebrow">Diwali Hampers</p><h1 class="h-sec hb__h1">Choose your hamper</h1><p class="lede" style="margin-top:.6rem">Pick a hamper to see what is inside and choose your diya and coin.</p></div><div class="hb__grid">';
+    var html = '<div class="hb__grid">';
     var boxes = []; HAMPERS.forEach(function (h) { if (boxes.indexOf(h.box) < 0) boxes.push(h.box); });
     var t = Number(new URLSearchParams(window.location.search).get('t')); if (!(t >= 0 && t < boxes.length)) t = 0;
     html = html.replace('<div class="hb__grid">', '') + '<div class="hb__tabs" role="tablist">';
@@ -222,6 +229,7 @@
   "settings": [
     { "type": "product", "id": "hamper_product", "label": "Hamper product",
       "info": "One variant per hamper, named exactly like the hamper. Give each variant its own photo to show it on the hamper cards. Defaults to the product with handle diwali-hamper." },
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image (top of the page)" },
     { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#dbc596" },
     { "type": "image_picker", "id": "bg_image", "label": "Background photo" },
     { "type": "color_background", "id": "wash", "label": "Background wash", "default": "rgba(219,197,150,0.35)" },
