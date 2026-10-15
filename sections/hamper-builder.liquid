@@ -6,7 +6,11 @@
 {%- assign hamper_product = section.settings.hamper_product -%}
 {%- if hamper_product == blank -%}{%- assign hamper_product = all_products['diwali-hamper'] -%}{%- endif -%}
 
-<section class="sec hb" style="background:var(--sp-bone)">
+<section class="heritage-sec sec hb" style="background: {{ section.settings.bg_color }}">
+  {% render 'heritage-bg',
+    image: section.settings.bg_image,
+    fallback: 'heritage-mandala-corner.jpg',
+    wash: section.settings.wash %}
   <div class="wrap">
     <div data-hb-root></div>
   </div>
@@ -201,6 +205,9 @@
   "settings": [
     { "type": "product", "id": "hamper_product", "label": "Hamper product",
       "info": "One variant per hamper, named exactly like the hamper. Give each variant its own photo to show it on the hamper cards. Defaults to the product with handle diwali-hamper." },
+    { "type": "color", "id": "bg_color", "label": "Background colour", "default": "#dbc596" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" },
+    { "type": "color_background", "id": "wash", "label": "Background wash", "default": "rgba(219,197,150,0.35)" },
     { "type": "header", "content": "Photos of the items inside a hamper" },
     { "type": "image_picker", "id": "img_fish", "label": "Fish" },
     { "type": "image_picker", "id": "img_tortoise", "label": "Tortoise" },
