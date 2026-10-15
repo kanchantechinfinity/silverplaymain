@@ -44,7 +44,13 @@
   .hb__item--txt em { display: none; }
   .hb__opt span img { width: 1.6rem; height: 1.6rem; border-radius: 50%; object-fit: cover; vertical-align: middle; margin: -.2rem .5rem -.2rem -.45rem; }
   .hb__bar { text-align: center; margin-bottom: 2rem; }
-  .hb__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1.25rem; }
+  .hb__grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.25rem; }
+  @media (min-width: 520px) { .hb__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 860px) { .hb__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1150px) { .hb__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .hb__tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin: 0 auto 1.75rem; }
+  .hb__tab { padding: .65rem 1.4rem; border: 1px solid rgba(36,26,16,.25); border-radius: 999px; font-family: var(--font-display); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sp-ink); text-decoration: none; transition: all .2s; }
+  .hb__tab.is-on { background: var(--sp-ink); color: var(--sp-bone); border-color: var(--sp-ink); }
   .hb__boxname { grid-column: 1 / -1; margin: 1rem 0 0; font-family: var(--font-display); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sp-gold-deep); }
   .hb__card { display: flex; flex-direction: column; border: 1.5px solid var(--sp-gold-mid, #c9a35c); border-radius: var(--radius-lg, 1.25rem); background: rgba(255,255,255,.35); overflow: hidden; text-decoration: none; color: var(--sp-ink); transition: transform .3s, box-shadow .3s; }
   .hb__card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -18px rgba(36,26,16,.5); }
@@ -111,11 +117,16 @@
     if (n === null || n === '' || isNaN(Number(n))) return -1;
     n = Number(n); return HAMPERS[n] ? n : -1;
   }
+  function boxIndex(box) { var bx = []; HAMPERS.forEach(function (x) { if (bx.indexOf(x.box) < 0) bx.push(x.box); }); return Math.max(0, bx.indexOf(box)); }
   function renderList() {
     var html = '<div class="hb__bar"><p class="eyebrow">Diwali Hampers</p><h1 class="h-sec" style="font-size:clamp(1.8rem,3.4vw,2.6rem)">Choose your hamper</h1><p class="lede" style="margin-top:.6rem">Pick a hamper to see what is inside and choose your diya and coin.</p></div><div class="hb__grid">';
-    var last = '';
+    var boxes = []; HAMPERS.forEach(function (h) { if (boxes.indexOf(h.box) < 0) boxes.push(h.box); });
+    var t = Number(new URLSearchParams(window.location.search).get('t')); if (!(t >= 0 && t < boxes.length)) t = 0;
+    html = html.replace('<div class="hb__grid">', '') + '<div class="hb__tabs" role="tablist">';
+    boxes.forEach(function (b, n) { html += '<a href="?t=' + n + '" role="tab" aria-selected="' + (n === t) + '" class="hb__tab' + (n === t ? ' is-on' : '') + '" data-hb-tab="' + n + '">' + esc(b) + '</a>'; });
+    html += '</div><div class="hb__grid">';
     HAMPERS.forEach(function (h, i) {
-      if (h.box !== last) { last = h.box; html += '<p class="hb__boxname">' + esc(h.box) + '</p>'; }
+      if (h.box !== boxes[t]) return;
       var src = imgFor(h);
       html += '<a class="hb__card" href="?h=' + i + '" data-hb-open="' + i + '"><div class="hb__ph">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '" loading="lazy">' : '') + '</div><div class="hb__body"><span class="hb__name">' + esc(h.name) + '</span><span class="hb__content">' + esc(h.content) + '</span><span class="hb__price">' + money(h.price) + '</span><span class="hb__cta">Customise &rarr;</span></div></a>';
     });
@@ -137,7 +148,7 @@
       c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + esc(v) + '</span></label>'; });
       opts += '</div></fieldset>';
     });
-    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__hero">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + ' <small>Inclusive of all taxes</small></p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
+    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__hero">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + ' <small>Inclusive of all taxes</small></p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
     var form = root.querySelector('[data-hb-form]'), msg = root.querySelector('[data-hb-msg]'), btn = form.querySelector('button[type=submit]');
     form.addEventListener('change', function (e) {
       var r = e.target; if (!r || r.type !== 'radio') return;
@@ -172,7 +183,7 @@
   }
   function render() { var i = current(); if (i < 0) renderList(); else renderDetail(i); }
   root.addEventListener('click', function (e) {
-    var a = e.target.closest('[data-hb-open], [data-hb-back]'); if (!a) return;
+    var a = e.target.closest('[data-hb-open], [data-hb-back], [data-hb-tab]'); if (!a) return;
     e.preventDefault();
     history.pushState({}, '', a.getAttribute('href'));
     render(); window.scrollTo({ top: 0, behavior: 'smooth' });
