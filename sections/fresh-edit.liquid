@@ -19,9 +19,9 @@
 
     {%- if section.settings.hamper_label != blank -%}
       <div class="hamper-cta" data-reveal data-delay="0.1">
-        <a href="{{ routes.root_url }}pages/diwali-hamper" class="btn btn--ink">
+        <button type="button" class="btn btn--ink" data-hamper-open>
           {{ section.settings.hamper_label }} <span class="btn__arrow" aria-hidden="true">&rarr;</span>
-        </a>
+        </button>
       </div>
     {%- endif -%}
 
@@ -97,6 +97,175 @@
   </div>
 </section>
 
+{%- if section.settings.hamper_label != blank -%}
+  {%- assign hamper_product = section.settings.hamper_product -%}
+  {%- if hamper_product == blank -%}{%- assign hamper_product = all_products['diwali-hamper'] -%}{%- endif -%}
+  <div class="hamper" data-hamper aria-hidden="true" hidden>
+    <div class="hamper__scrim" data-hamper-close></div>
+    <div class="hamper__panel" role="dialog" aria-modal="true" aria-label="{{ section.settings.hamper_label | escape }}">
+      <button type="button" class="hamper__x" data-hamper-close aria-label="Close">&times;</button>
+      <p class="eyebrow">Diwali Hamper</p>
+      <h3 class="hamper__title">Customise your hamper</h3>
+      <p class="hamper__lede">Pick a hamper below. Your diya and coin choices appear here at the top.</p>
+      <form data-hamper-form>
+        <div data-hamper-inside></div>
+        <div data-hamper-opts></div>
+        <div data-hamper-list class="hamper__list"></div>
+        <div class="hamper__foot">
+          <p class="hamper__msg" data-hamper-msg role="status"></p>
+          <button type="submit" class="btn btn--ink btn--block btn--lg" data-hamper-submit disabled>Choose a hamper</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script type="application/json" data-hamper-variants>
+    {%- if hamper_product != blank -%}
+      [{%- for v in hamper_product.variants -%}{"id":{{ v.id }},"title":{{ v.title | json }},"price":{{ v.price }},"available":{{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+    {%- else -%}[]{%- endif -%}
+  </script>
+  <script type="application/json" data-hamper-imgs>
+    {
+      {%- assign hk = 'coin,diya,fish,tortoise,yantra,ganesha,laxmi_paduka,vishnu_paduka' | split: ',' -%}
+      {%- for k in hk -%}
+        {%- assign sid = 'hamper_img_' | append: k -%}
+        {%- assign im = section.settings[sid] -%}
+        "{{ k }}": {% if im != blank %}{{ im | image_url: width: 300 | json }}{% else %}""{% endif %}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    }
+  </script>
+  <style>
+    .hamper__foot { position: sticky; bottom: -2rem; margin: 1rem -1.75rem -2rem; padding: .75rem 1.75rem 1.25rem; background: var(--sp-bone, #f2e8d0); border-top: 1px solid rgba(36,26,16,.12); }
+    .hamper__inside { margin: .25rem 0 .5rem; }
+    .hamper__inside h4 { margin: 0 0 .6rem; font-family: var(--font-display); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-gold-deep); }
+    .hamper__items { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: .6rem; }
+    .hamper__item { text-align: center; }
+    .hamper__item span.ph { display: block; aspect-ratio: 1/1; border-radius: var(--radius-sm, .75rem); overflow: hidden; background: rgba(36,26,16,.06); border: 1px solid rgba(36,26,16,.12); }
+    .hamper__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hamper__item em { display: block; margin-top: .3rem; font-style: normal; font-family: var(--font-body); font-size: .85rem; line-height: 1.25; color: var(--sp-ink); }
+    .hamper-cta { text-align: center; margin-top: 1.5rem; }
+    .hamper { position: fixed; inset: 0; z-index: 400; display: grid; place-items: center; padding: 1rem; }
+    .hamper[hidden] { display: none; }
+    .hamper__scrim { position: absolute; inset: 0; background: rgba(20,14,8,.6); }
+    .hamper__panel { position: relative; width: min(38rem, 100%); max-height: 92vh; overflow: auto; padding: 2rem 1.75rem; border-radius: var(--radius-xl, 1.5rem); background: var(--sp-bone, #f2e8d0); border: 1px solid rgba(168,128,48,.5); box-shadow: 0 30px 80px -20px rgba(0,0,0,.6); }
+    .hamper__x { position: absolute; top: .6rem; right: .9rem; font-size: 1.8rem; line-height: 1; color: var(--sp-ink); }
+    .hamper__title { margin-top: .4rem; font-size: 1.7rem; color: var(--sp-ink); }
+    .hamper__lede { margin: .4rem 0 1.25rem; font-family: var(--font-body); color: rgba(36,26,16,.7); }
+    .hamper__boxname { margin: 1rem 0 .5rem; font-family: var(--font-display); font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--sp-gold-deep); }
+    .hamper__h { display: block; width: 100%; text-align: left; margin-bottom: .5rem; padding: .75rem 1rem; border: 1px solid rgba(36,26,16,.2); border-radius: var(--radius-md, 1rem); background: rgba(255,255,255,.4); cursor: pointer; transition: all .2s; }
+    .hamper__h b { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-display); font-size: .95rem; color: var(--sp-ink); }
+    .hamper__h i { display: block; margin-top: .25rem; font-style: normal; font-family: var(--font-body); font-size: .92rem; color: rgba(36,26,16,.65); }
+    .hamper__h[aria-pressed="true"] { border-color: var(--sp-ink); background: rgba(217,182,108,.25); box-shadow: 0 0 0 1px var(--sp-ink); }
+    .hamper__group { border: 0; margin: 1.1rem 0 0; padding: 0; }
+    .hamper__group legend { margin-bottom: .5rem; font-family: var(--font-display); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-gold-deep); }
+    .hamper__opts { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .hamper__opt input { position: absolute; opacity: 0; pointer-events: none; }
+    .hamper__opt span { display: inline-block; padding: .5rem 1rem; border: 1px solid rgba(36,26,16,.25); border-radius: 999px; font-family: var(--font-display); font-size: .78rem; letter-spacing: .06em; color: var(--sp-ink); cursor: pointer; transition: all .2s; }
+    .hamper__opt input:checked + span { background: var(--sp-ink); color: var(--sp-bone); border-color: var(--sp-ink); }
+    .hamper__opt input:focus-visible + span { outline: 2px solid var(--sp-gold-deep); outline-offset: 2px; }
+    .hamper__msg { min-height: 1.2rem; margin: .75rem 0; font-size: .95rem; color: #8a2f2f; }
+  </style>
+  <script>
+    {% raw %}
+(function () {
+      var root = document.querySelector('[data-hamper]');
+      if (!root || root.dataset.ready) return;
+      root.dataset.ready = '1';
+      var HAMPERS = [{"box": "Medium Box", "name": "Shubh Shagun", "content": "SS Coin (5g) + Raw stone diya", "price": 3499, "opts": ["diya", "coin5"]}, {"box": "Medium Box", "name": "Dhan Laxmi Shagun - I", "content": "Fish (5g) + Diya", "price": 4100, "opts": ["diya"]}, {"box": "Medium Box", "name": "Dhan Laxmi Shagun - II", "content": "Tortoise (5g) + Diya", "price": 4100, "opts": ["diya"]}, {"box": "Medium Box", "name": "Dhan Vriddhi", "content": "SS Coin (5g) + Diya + Laxmi Yantra", "price": 4700, "opts": ["diya", "coin5"]}, {"box": "Medium Box", "name": "Shri Samriddhi", "content": "SS Coin (5g) + Stone Ganpati", "price": 4100, "opts": ["ganesha", "coin5"]}, {"box": "Medium Box", "name": "Samriddhi Shree Charan Blessings - II", "content": "Charan Paduka on Chowki + Stone Ganesha", "price": 3700, "opts": ["ganesha"]}, {"box": "Medium Box", "name": "Samriddhi Shree Charan Blessings - I", "content": "Charan Paduka on Chowki + Stone Ganesha", "price": 3100, "opts": ["ganesha"]}, {"box": "Premium Hamper League (Large Box)", "name": "Laxmi Kripa Hamper", "content": "SS Coin (10g) + Fish (5g) + Laxmi Yantra", "price": 6999, "opts": ["coin10"]}, {"box": "Premium Hamper League (Large Box)", "name": "Raajsi Diwali Hamper", "content": "SS Coin (10g) + Tortoise (5g) + Laxmi Yantra", "price": 6999, "opts": ["coin10"]}, {"box": "Premium Hamper League (Large Box)", "name": "Shubh Samriddhi Hamper", "content": "SS Coin (10g) + Charan Paduka + Tortoise (5g)", "price": 9999, "opts": ["coin10"]}, {"box": "Premium Hamper League (Large Box)", "name": "Dhan Samriddhi Hamper", "content": "SS Coin (10g) + Fish (5g) + Tortoise (5g) + Laxmi Yantra + Diya", "price": 9999, "opts": ["coin10", "diya"]}, {"box": "Premium Hamper League (Large Box)", "name": "The Royal Shagun Hamper", "content": "Laxmi Charan Paduka + Vishnu Charan Paduka + Fish (5g) + Tortoise (5g) + Diya", "price": 19000, "opts": ["diya"]}, {"box": "Premium Hamper League (Large Box)", "name": "Shree Samriddhi Diwali Hamper", "content": "SS Coin (10g) + Laxmi Charan Paduka + Vishnu Charan Paduka + Fish (10g) + Tortoise (10g) + Diya + Laxmi Yantra (2 wooden boxes)", "price": 24999, "opts": ["coin10", "diya"]}];
+      var CATS = {"diya": {"label": "Diya", "values": ["Amethyst", "Tiger Eye", "Rose Quartz"]}, "ganesha": {"label": "Stone Ganesha", "values": ["Amethyst", "Rose Quartz", "Tiger's Eye", "Labradorite"]}, "coin5": {"label": "5 gm Silver Coin", "values": ["Ganesh Ji", "Laxmi Ji", "Laxmi-Ganesha", "Kuber Ji"]}, "coin10": {"label": "10 gm Silver Coin", "values": ["Laxmi Ji", "Laxmi-Ganesha", "Kuber Ji"]}};
+      var variants = [];
+      try { variants = JSON.parse(root.parentNode.querySelector('[data-hamper-variants]').textContent || '[]'); } catch (e) {}
+      var form = root.querySelector('[data-hamper-form]');
+      var list = root.querySelector('[data-hamper-list]');
+      var optsBox = root.querySelector('[data-hamper-opts]');
+      var msg = root.querySelector('[data-hamper-msg]');
+      var submit = root.querySelector('[data-hamper-submit]');
+      var chosen = null;
+      function money(n) { return '\u20B9' + Number(n).toLocaleString('en-IN'); }
+      function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      var lastBox = '';
+      HAMPERS.forEach(function (h, i) {
+        if (h.box !== lastBox) { lastBox = h.box; var t = document.createElement('p'); t.className = 'hamper__boxname'; t.textContent = h.box; list.appendChild(t); }
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'hamper__h'; b.setAttribute('aria-pressed', 'false'); b.dataset.i = i;
+        b.innerHTML = '<b><span>' + esc(h.name) + '</span><span>' + money(h.price) + '</span></b><i>' + esc(h.content) + '</i>';
+        list.appendChild(b);
+      });
+      var IMGS = {};
+      try { IMGS = JSON.parse(root.parentNode.querySelector('[data-hamper-imgs]').textContent || '{}'); } catch (e) {}
+      var insideBox = root.querySelector('[data-hamper-inside]');
+      function itemKey(t) {
+        var s = t.toLowerCase();
+        if (s.indexOf('vishnu') > -1) return 'vishnu_paduka';
+        if (s.indexOf('paduka') > -1) return 'laxmi_paduka';
+        if (s.indexOf('coin') > -1) return 'coin';
+        if (s.indexOf('diya') > -1) return 'diya';
+        if (s.indexOf('fish') > -1) return 'fish';
+        if (s.indexOf('tortoise') > -1) return 'tortoise';
+        if (s.indexOf('yantra') > -1) return 'yantra';
+        if (s.indexOf('ganesh') > -1 || s.indexOf('ganpati') > -1) return 'ganesha';
+        return '';
+      }
+      function renderInside() {
+        insideBox.innerHTML = '';
+        if (!chosen) return;
+        var html = '<div class="hamper__inside"><h4>What’s inside · ' + esc(chosen.name) + '</h4><div class="hamper__items">';
+        chosen.content.split(' + ').forEach(function (part) {
+          var label = part.replace(/\s*\(2 wooden boxes\)/i, ''); var k = itemKey(label); var src = k && IMGS[k];
+          html += '<div class="hamper__item"><span class="ph">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(label) + '" loading="lazy">' : '') + '</span><em>' + esc(label) + '</em></div>';
+        });
+        insideBox.innerHTML = html + '</div></div>';
+      }
+      function renderOpts() {
+        optsBox.innerHTML = '';
+        renderInside();
+        if (!chosen) return;
+        chosen.opts.forEach(function (key) {
+          var c = CATS[key]; var fs = document.createElement('fieldset'); fs.className = 'hamper__group';
+          var html = '<legend>' + esc(c.label) + '</legend><div class="hamper__opts">';
+          c.values.forEach(function (v) { html += '<label class="hamper__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" required><span>' + esc(v) + '</span></label>'; });
+          fs.innerHTML = html + '</div>'; optsBox.appendChild(fs);
+        });
+      }
+      list.addEventListener('click', function (e) {
+        var b = e.target.closest('.hamper__h'); if (!b) return;
+        list.querySelectorAll('.hamper__h').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true'); chosen = HAMPERS[Number(b.dataset.i)];
+        msg.textContent = ''; renderOpts();
+        var panel = root.querySelector('.hamper__panel'); if (panel && panel.scrollTo) panel.scrollTo({ top: 0, behavior: 'smooth' });
+        submit.disabled = false; submit.textContent = variants.length ? 'Add hamper to bag \u00B7 ' + money(chosen.price) : 'Enquire about this hamper';
+      });
+      function open() { root.hidden = false; root.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+      function close() { root.hidden = true; root.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-hamper-open]')) { e.preventDefault(); open(); }
+        else if (e.target.closest('[data-hamper-close]')) { close(); }
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !root.hidden) close(); });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!chosen) return;
+        var props = { '_Includes': chosen.content };
+        form.querySelectorAll('input[type=radio]:checked').forEach(function (r) { props[r.name] = r.value; });
+        if (!variants.length) { window.location.href = '/pages/contact'; return; }
+        var v = variants.filter(function (x) { return x.title.trim().toLowerCase() === chosen.name.trim().toLowerCase(); })[0];
+        if (!v) { msg.textContent = 'This hamper is not available to order online yet. Please contact us.'; return; }
+        if (!v.available) { msg.textContent = 'This hamper is sold out.'; return; }
+        msg.textContent = ''; submit.disabled = true;
+        fetch('/cart/add.js', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: [{ id: v.id, quantity: 1, properties: props }] })
+        }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (res) {
+            submit.disabled = false;
+            if (!res.ok) { msg.textContent = res.j.description || res.j.message || 'Could not add the hamper.'; return; }
+            close();
+            var opener = document.querySelector('[data-cart-open]');
+            if (opener) opener.click(); else window.location.href = '/cart';
+          }).catch(function () { submit.disabled = false; msg.textContent = 'Something went wrong. Please try again.'; });
+      });
+    })();
+  
+{% endraw %}</script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -113,7 +282,18 @@
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop New Arrivals" },
     { "type": "url", "id": "cta_url", "label": "Button link" },
     { "type": "header", "content": "Diwali hamper customiser" },
-    { "type": "text", "id": "hamper_label", "label": "Button label (leave empty to hide)", "default": "Customise Your Diwali Hamper" }
+    { "type": "text", "id": "hamper_label", "label": "Button label (leave empty to hide)", "default": "Customise Your Diwali Hamper" },
+    { "type": "paragraph", "content": "Photos shown in the hamper popup, one per item inside a hamper (square photos work best)." },
+    { "type": "image_picker", "id": "hamper_img_coin", "label": "Image: Silver coin" },
+    { "type": "image_picker", "id": "hamper_img_diya", "label": "Image: Diya" },
+    { "type": "image_picker", "id": "hamper_img_fish", "label": "Image: Fish" },
+    { "type": "image_picker", "id": "hamper_img_tortoise", "label": "Image: Tortoise" },
+    { "type": "image_picker", "id": "hamper_img_yantra", "label": "Image: Laxmi Yantra" },
+    { "type": "image_picker", "id": "hamper_img_ganesha", "label": "Image: Stone Ganesha" },
+    { "type": "image_picker", "id": "hamper_img_laxmi_paduka", "label": "Image: Laxmi Charan Paduka" },
+    { "type": "image_picker", "id": "hamper_img_vishnu_paduka", "label": "Image: Vishnu Charan Paduka" },
+    { "type": "product", "id": "hamper_product", "label": "Hamper product added to the bag",
+      "info": "A product with one variant per hamper, each named exactly like the hamper (see the import file). Chosen options are saved on the cart line. Without it the button becomes an enquiry link." }
   ],
   "blocks": [
     {
