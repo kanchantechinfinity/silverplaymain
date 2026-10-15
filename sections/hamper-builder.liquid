@@ -60,11 +60,12 @@
   .hb__card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -18px rgba(36,26,16,.5); }
   .hb__ph { aspect-ratio: 4/3; background: var(--sp-bone-2, #e8d8b3); }
   .hb__ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .hb__body { padding: 1rem 1.1rem 1.25rem; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
+  .hb__body { padding: 1rem 1.1rem 1.25rem; display: flex; flex-direction: column; gap: .3rem; flex: 1; }
   .hb__name { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.25; }
-  .hb__content { font-family: var(--font-body); font-size: .95rem; color: rgba(36,26,16,.7); flex: 1; }
+  .hb__content { font-family: var(--font-body); font-size: .95rem; color: rgba(36,26,16,.7); }
+  .hb__row { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-top: auto; }
   .hb__price { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; }
-  .hb__cta { margin-top: .5rem; font-family: var(--font-display); font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--sp-gold-deep); }
+  .hb__cta { font-family: var(--font-display); font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--sp-gold-deep); }
   .hb__back { display: inline-block; margin-bottom: 1.25rem; font-family: var(--font-display); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--sp-gold-deep); text-decoration: none; }
   .hb__detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
   @media (min-width: 900px) { .hb__detail { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: start; } }
@@ -132,7 +133,7 @@
     HAMPERS.forEach(function (h, i) {
       if (h.box !== boxes[t]) return;
       var src = imgFor(h);
-      html += '<a class="hb__card" href="?h=' + i + '" data-hb-open="' + i + '"><div class="hb__ph">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '" loading="lazy">' : '') + '</div><div class="hb__body"><span class="hb__name">' + esc(h.name) + '</span><span class="hb__content">' + esc(h.content) + '</span><span class="hb__price">' + money(h.price) + '</span><span class="hb__cta">Customise &rarr;</span></div></a>';
+      html += '<a class="hb__card" href="?h=' + i + '" data-hb-open="' + i + '"><div class="hb__ph">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '" loading="lazy">' : '') + '</div><div class="hb__body"><span class="hb__name">' + esc(h.name) + '</span><span class="hb__content">' + esc(h.content) + '</span><span class="hb__row"><span class="hb__price">' + money(h.price) + '</span><span class="hb__cta">Customise &rarr;</span></span></div></a>';
     });
     root.innerHTML = html + '</div>';
   }
