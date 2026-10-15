@@ -1046,7 +1046,7 @@
         if (idInput) idInput.value = match.id;
         if (priceEl) priceEl.textContent = money(match.price);
         if (wasEl) {
-          if (match.compare_at_price && match.compare_at_price > match.price) {
+          if (false && match.compare_at_price > match.price) {
             wasEl.textContent = money(match.compare_at_price); wasEl.hidden = false;
           } else { wasEl.hidden = true; }
         }

@@ -33,7 +33,7 @@
           <h3 class="mt-2" style="font-size:1.2rem">{{ pair.title }}</h3>
           <span class="buybox__price" style="margin-top:.5rem;font-size:1.05rem;justify-content:center">
             <span>{{ pair.price | money }}</span>
-            {%- if pair.compare_at_price > pair.price -%}<span class="buybox__was">{{ pair.compare_at_price | money }}</span>{%- endif -%}
+            {%- if false and pair.compare_at_price > pair.price -%}<span class="buybox__was">{{ pair.compare_at_price | money }}</span>{%- endif -%}
           </span>
           <span class="btn btn--outline-gold mt-5">View The Pair <span class="btn__arrow">&rarr;</span></span>
         </span>

@@ -106,12 +106,15 @@
       <button type="button" class="hamper__x" data-hamper-close aria-label="Close">&times;</button>
       <p class="eyebrow">Diwali Hamper</p>
       <h3 class="hamper__title">Customise your hamper</h3>
-      <p class="hamper__lede">Pick a hamper, then choose one option from each category it includes.</p>
+      <p class="hamper__lede">Pick a hamper below. Your diya and coin choices appear here at the top.</p>
       <form data-hamper-form>
-        <div data-hamper-list class="hamper__list"></div>
+        <div data-hamper-inside></div>
         <div data-hamper-opts></div>
-        <p class="hamper__msg" data-hamper-msg role="status"></p>
-        <button type="submit" class="btn btn--ink btn--block btn--lg" data-hamper-submit disabled>Choose a hamper</button>
+        <div data-hamper-list class="hamper__list"></div>
+        <div class="hamper__foot">
+          <p class="hamper__msg" data-hamper-msg role="status"></p>
+          <button type="submit" class="btn btn--ink btn--block btn--lg" data-hamper-submit disabled>Choose a hamper</button>
+        </div>
       </form>
     </div>
   </div>
@@ -120,7 +123,25 @@
       [{%- for v in hamper_product.variants -%}{"id":{{ v.id }},"title":{{ v.title | json }},"price":{{ v.price }},"available":{{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
     {%- else -%}[]{%- endif -%}
   </script>
+  <script type="application/json" data-hamper-imgs>
+    {
+      {%- assign hk = 'coin,diya,fish,tortoise,yantra,ganesha,laxmi_paduka,vishnu_paduka' | split: ',' -%}
+      {%- for k in hk -%}
+        {%- assign sid = 'hamper_img_' | append: k -%}
+        {%- assign im = section.settings[sid] -%}
+        "{{ k }}": {% if im != blank %}{{ im | image_url: width: 300 | json }}{% else %}""{% endif %}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    }
+  </script>
   <style>
+    .hamper__foot { position: sticky; bottom: -2rem; margin: 1rem -1.75rem -2rem; padding: .75rem 1.75rem 1.25rem; background: var(--sp-bone, #f2e8d0); border-top: 1px solid rgba(36,26,16,.12); }
+    .hamper__inside { margin: .25rem 0 .5rem; }
+    .hamper__inside h4 { margin: 0 0 .6rem; font-family: var(--font-display); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-gold-deep); }
+    .hamper__items { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: .6rem; }
+    .hamper__item { text-align: center; }
+    .hamper__item span.ph { display: block; aspect-ratio: 1/1; border-radius: var(--radius-sm, .75rem); overflow: hidden; background: rgba(36,26,16,.06); border: 1px solid rgba(36,26,16,.12); }
+    .hamper__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hamper__item em { display: block; margin-top: .3rem; font-style: normal; font-family: var(--font-body); font-size: .85rem; line-height: 1.25; color: var(--sp-ink); }
     .hamper-cta { text-align: center; margin-top: 1.5rem; }
     .hamper { position: fixed; inset: 0; z-index: 400; display: grid; place-items: center; padding: 1rem; }
     .hamper[hidden] { display: none; }
@@ -168,8 +189,34 @@
         b.innerHTML = '<b><span>' + esc(h.name) + '</span><span>' + money(h.price) + '</span></b><i>' + esc(h.content) + '</i>';
         list.appendChild(b);
       });
+      var IMGS = {};
+      try { IMGS = JSON.parse(root.parentNode.querySelector('[data-hamper-imgs]').textContent || '{}'); } catch (e) {}
+      var insideBox = root.querySelector('[data-hamper-inside]');
+      function itemKey(t) {
+        var s = t.toLowerCase();
+        if (s.indexOf('vishnu') > -1) return 'vishnu_paduka';
+        if (s.indexOf('paduka') > -1) return 'laxmi_paduka';
+        if (s.indexOf('coin') > -1) return 'coin';
+        if (s.indexOf('diya') > -1) return 'diya';
+        if (s.indexOf('fish') > -1) return 'fish';
+        if (s.indexOf('tortoise') > -1) return 'tortoise';
+        if (s.indexOf('yantra') > -1) return 'yantra';
+        if (s.indexOf('ganesh') > -1 || s.indexOf('ganpati') > -1) return 'ganesha';
+        return '';
+      }
+      function renderInside() {
+        insideBox.innerHTML = '';
+        if (!chosen) return;
+        var html = '<div class="hamper__inside"><h4>What’s inside · ' + esc(chosen.name) + '</h4><div class="hamper__items">';
+        chosen.content.split(' + ').forEach(function (part) {
+          var label = part.replace(/\s*\(2 wooden boxes\)/i, ''); var k = itemKey(label); var src = k && IMGS[k];
+          html += '<div class="hamper__item"><span class="ph">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(label) + '" loading="lazy">' : '') + '</span><em>' + esc(label) + '</em></div>';
+        });
+        insideBox.innerHTML = html + '</div></div>';
+      }
       function renderOpts() {
         optsBox.innerHTML = '';
+        renderInside();
         if (!chosen) return;
         chosen.opts.forEach(function (key) {
           var c = CATS[key]; var fs = document.createElement('fieldset'); fs.className = 'hamper__group';
@@ -183,6 +230,7 @@
         list.querySelectorAll('.hamper__h').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
         b.setAttribute('aria-pressed', 'true'); chosen = HAMPERS[Number(b.dataset.i)];
         msg.textContent = ''; renderOpts();
+        var panel = root.querySelector('.hamper__panel'); if (panel && panel.scrollTo) panel.scrollTo({ top: 0, behavior: 'smooth' });
         submit.disabled = false; submit.textContent = variants.length ? 'Add hamper to bag \u00B7 ' + money(chosen.price) : 'Enquire about this hamper';
       });
       function open() { root.hidden = false; root.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
@@ -235,6 +283,15 @@
     { "type": "url", "id": "cta_url", "label": "Button link" },
     { "type": "header", "content": "Diwali hamper customiser" },
     { "type": "text", "id": "hamper_label", "label": "Button label (leave empty to hide)", "default": "Customise Your Diwali Hamper" },
+    { "type": "paragraph", "content": "Photos shown in the hamper popup, one per item inside a hamper (square photos work best)." },
+    { "type": "image_picker", "id": "hamper_img_coin", "label": "Image: Silver coin" },
+    { "type": "image_picker", "id": "hamper_img_diya", "label": "Image: Diya" },
+    { "type": "image_picker", "id": "hamper_img_fish", "label": "Image: Fish" },
+    { "type": "image_picker", "id": "hamper_img_tortoise", "label": "Image: Tortoise" },
+    { "type": "image_picker", "id": "hamper_img_yantra", "label": "Image: Laxmi Yantra" },
+    { "type": "image_picker", "id": "hamper_img_ganesha", "label": "Image: Stone Ganesha" },
+    { "type": "image_picker", "id": "hamper_img_laxmi_paduka", "label": "Image: Laxmi Charan Paduka" },
+    { "type": "image_picker", "id": "hamper_img_vishnu_paduka", "label": "Image: Vishnu Charan Paduka" },
     { "type": "product", "id": "hamper_product", "label": "Hamper product added to the bag",
       "info": "A product with one variant per hamper, each named exactly like the hamper (see the import file). Chosen options are saved on the cart line. Without it the button becomes an enquiry link." }
   ],

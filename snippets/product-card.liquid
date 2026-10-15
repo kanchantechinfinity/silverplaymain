@@ -20,7 +20,7 @@
   endif
   assign on_sale = false
   if product.compare_at_price > product.price
-    assign on_sale = true
+    assign on_sale = false
     assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
   endif
   assign rating_value = product.metafields.reviews.rating.value.rating | default: 0

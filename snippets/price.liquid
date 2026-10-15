@@ -10,7 +10,7 @@
   assign compare = target.compare_at_price
 -%}
 <span data-variant-price>{{ price | money }}</span>
-{%- if compare > price -%}
+{%- if false and compare > price -%}
   <span class="card__was" data-variant-compare>{{ compare | money }}</span>
 {%- else -%}
   <span class="card__was" data-variant-compare hidden></span>

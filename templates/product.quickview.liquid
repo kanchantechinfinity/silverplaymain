@@ -9,7 +9,7 @@
   assign rating_count = product.metafields.reviews.rating_count.value | default: 0
   assign on_sale = false
   if v.compare_at_price > v.price
-    assign on_sale = true
+    assign on_sale = false
     assign discount = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
   endif
 -%}
