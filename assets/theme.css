@@ -2111,3 +2111,5 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* Section background photos on phones: show the right-hand edge/corner, not the centre crop */
 @media (max-width: 767px) { .heritage-sec__bg { object-position: 100% 100%; } }
+
+.hamper-cta { text-align: center; margin: 1.5rem 0 0; }
