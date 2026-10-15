@@ -133,7 +133,7 @@
     h.opts.forEach(function (key) {
       var c = CATS[key], ok = key.replace(/\d+$/, '');
       opts += '<fieldset class="hb__group"><legend>Choose your ' + esc(c.label) + '</legend><div class="hb__opts">';
-      c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + (th ? '<img src="' + esc(th) + '" alt="">' : '') + esc(v) + '</span></label>'; });
+      c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + esc(v) + '</span></label>'; });
       opts += '</div></fieldset>';
     });
     root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__hero">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + '</p><p class="lede" style="font-size:1rem">Inclusive of all taxes</p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
