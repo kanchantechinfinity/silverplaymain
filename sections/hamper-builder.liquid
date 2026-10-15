@@ -62,8 +62,9 @@
   .hb__hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hb__title { margin: .3rem 0 .4rem; font-size: clamp(1.7rem, 3vw, 2.4rem); }
   .hb__dprice { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: .5rem; }
-  .hb__h4 { margin: 1.4rem 0 .6rem; font-family: var(--font-display); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-gold-deep); }
-  .hb__items { display: grid; grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr)); gap: .6rem; }
+  .hb__h4 { margin: .6rem 0 .6rem; font-family: var(--font-display); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-gold-deep); }
+  .hb__dprice small { margin-left: .6rem; font-family: var(--font-body); font-size: 1rem; font-weight: 400; color: rgba(36,26,16,.65); }
+  .hb__items { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: .8rem; }
   .hb__item { text-align: center; }
   .hb__item span.ph { display: block; aspect-ratio: 1/1; border-radius: var(--radius-sm, .75rem); overflow: hidden; background: rgba(36,26,16,.06); border: 1px solid rgba(36,26,16,.12); }
   .hb__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -136,7 +137,7 @@
       c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + esc(v) + '</span></label>'; });
       opts += '</div></fieldset>';
     });
-    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__hero">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + '</p><p class="lede" style="font-size:1rem">Inclusive of all taxes</p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
+    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__hero">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + ' <small>Inclusive of all taxes</small></p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
     var form = root.querySelector('[data-hb-form]'), msg = root.querySelector('[data-hb-msg]'), btn = form.querySelector('button[type=submit]');
     form.addEventListener('change', function (e) {
       var r = e.target; if (!r || r.type !== 'radio') return;
