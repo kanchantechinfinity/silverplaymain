@@ -2114,6 +2114,6 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .hamper-cta { text-align: center; margin: 1.5rem 0 0; }
 
-/* Optional header background image (header section settings) */
-html body .header.header--bgimg .header__bar { background-image: var(--hbg-d) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
-@media (max-width: 767px) { html body .header.header--bgimg .header__bar { background-image: var(--hbg-m) !important; } }
+/* Optional header background image (header section settings): cream wash keeps the logo and menu readable */
+html body .header.header--bgimg .header__bar { background-image: linear-gradient(rgba(242,232,208,.55), rgba(242,232,208,.55)), var(--hbg-d) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; padding-inline: 2.25rem !important; }
+@media (max-width: 767px) { html body .header.header--bgimg .header__bar { background-image: linear-gradient(rgba(242,232,208,.55), rgba(242,232,208,.55)), var(--hbg-m) !important; padding-inline: 1.5rem !important; } }
