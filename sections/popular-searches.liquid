@@ -1,0 +1,270 @@
+{%- comment -%}
+  Popular searches: groups of links to collections, shown above the footer.
+  Each group is a heading plus one "Link text | collection-handle" per line,
+  editable in the theme editor. Links always point at /collections/handle.
+{%- endcomment -%}
+<section class="psearch" aria-labelledby="psearch-h">
+  <div class="wrap">
+    <h2 class="psearch__h" id="psearch-h">{{ section.settings.heading }}</h2>
+    <div class="psearch__grid">
+      {%- assign t = section.settings.g1_title -%}
+      {%- assign lines = section.settings.g1_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+      {%- assign t = section.settings.g2_title -%}
+      {%- assign lines = section.settings.g2_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+      {%- assign t = section.settings.g3_title -%}
+      {%- assign lines = section.settings.g3_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+      {%- assign t = section.settings.g4_title -%}
+      {%- assign lines = section.settings.g4_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+      {%- assign t = section.settings.g5_title -%}
+      {%- assign lines = section.settings.g5_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+      {%- assign t = section.settings.g6_title -%}
+      {%- assign lines = section.settings.g6_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+      {%- assign t = section.settings.g7_title -%}
+      {%- assign lines = section.settings.g7_links | newline_to_br | strip_newlines | split: '<br />' -%}
+      {%- if t != blank and lines.size > 0 -%}
+        <div class="psearch__group">
+          <h3>{{ t }}</h3>
+          <p>
+            {%- for line in lines -%}
+              {%- assign pair = line | split: '|' -%}
+              {%- assign label = pair[0] | strip -%}
+              {%- assign handle = pair[1] | strip -%}
+              {%- if label != blank and handle != blank -%}<a href="{{ routes.root_url }}collections/{{ handle }}">{{ label }}</a>{%- endif -%}
+            {%- endfor -%}
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .psearch { background: var(--sp-bone, #f2e8d0); border-top: 1px solid rgba(168,128,48,.35); padding: 3rem 0 2.5rem; }
+  .psearch__h { font-family: var(--font-display); font-size: clamp(1.15rem, 2.4vw, 1.5rem); letter-spacing: .06em; text-transform: uppercase; color: var(--sp-ink, #241a10); margin: 0 0 .35rem; }
+  .psearch__h::after { content: ""; display: block; width: 3.2rem; height: 2px; margin-top: .7rem; background: var(--sp-gold-mid, #c9a35c); }
+  .psearch__grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 1.25rem; }
+  .psearch__group { padding: 1rem 0; border-bottom: 1px solid rgba(36,26,16,.12); }
+  .psearch__group:last-child { border-bottom: 0; }
+  .psearch__group h3 { margin: 0 0 .45rem; font-family: var(--font-display); font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--sp-gold-deep, #8a6a2e); font-weight: 600; }
+  .psearch__group p { margin: 0; display: flex; flex-wrap: wrap; font-family: var(--font-body); font-size: 1.02rem; line-height: 1.5; }
+  .psearch__group a { color: rgba(36,26,16,.78); text-decoration: none; padding: .15rem .8rem .15rem 0; margin-right: .8rem; border-right: 1px solid rgba(168,128,48,.4); transition: color .2s; }
+  .psearch__group a:last-child { border-right: 0; margin-right: 0; }
+  .psearch__group a:hover { color: var(--sp-ink, #241a10); text-decoration: underline; text-decoration-color: var(--sp-gold-mid, #c9a35c); text-underline-offset: 3px; }
+  @media (max-width: 639px) { .psearch { padding: 2.2rem 0 1.8rem; } .psearch__group p { font-size: .95rem; } .psearch__group a { padding-right: .6rem; margin-right: .6rem; } }
+</style>
+
+{% schema %}
+{
+  "name": "Popular searches",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Popular Searches"
+    },
+    {
+      "type": "header",
+      "content": "Group 1"
+    },
+    {
+      "type": "text",
+      "id": "g1_title",
+      "label": "Heading",
+      "default": "Shop Silver Jewellery"
+    },
+    {
+      "type": "textarea",
+      "id": "g1_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "925 Sterling Silver Jewellery | sterling-silver\nSilver Jewellery for Women | women-collection\nSilver Jewellery for Men | mens-collection\nNew Arrivals | new-arrivals\nBest Sellers | best-seller\nSilver Jewellery Under 5000 | under-rs-5000"
+    },
+    {
+      "type": "header",
+      "content": "Group 2"
+    },
+    {
+      "type": "text",
+      "id": "g2_title",
+      "label": "Heading",
+      "default": "Silver Earrings"
+    },
+    {
+      "type": "textarea",
+      "id": "g2_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "Silver Earrings for Women | earrings\nSilver Jhumka Earrings | jhumka-earrings\nSilver Hoop Earrings | huggies-and-hoop\nSilver Stud Earrings | studs\nSilver Drop & Dangle Earrings | drop-and-dangle-earings\nSilver Statement Earrings | designer-statement-earrings\nSilver Meenakari Earrings | meenakari\nSilver Bali Earrings | bali-collection\nGemstone Earrings | semi-precious-gemstone-earings"
+    },
+    {
+      "type": "header",
+      "content": "Group 3"
+    },
+    {
+      "type": "text",
+      "id": "g3_title",
+      "label": "Heading",
+      "default": "Silver Pendants"
+    },
+    {
+      "type": "textarea",
+      "id": "g3_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "Silver Pendants | pendants\nPendants for Wealth & Prosperity | lakshmi-ratna-wealth-prosperity-abundance\nPendants for Protection | shakti-kavach-protection-strength-grounding\nPendants for Calm & Balance | mann-shanti-calm-clarity-spiritual-balance\nPendants for New Beginnings | nayi-shuruaat-new-beginnings-transformation\nPendants for Love & Healing | gulabi-noor-love-softness-healing\nPendants for Willpower | sankalp-shakti-willpower-determination\nSankat Mochan Pendants | sankat-mochan-ratna-protection-problem-solving\nKavach Pendants | kavach\nRare Gemstone Pendants | the-rare-ratna-edit-collector-stones"
+    },
+    {
+      "type": "header",
+      "content": "Group 4"
+    },
+    {
+      "type": "text",
+      "id": "g4_title",
+      "label": "Heading",
+      "default": "Shop by Gemstone"
+    },
+    {
+      "type": "textarea",
+      "id": "g4_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "Rose Quartz Jewellery | rose-quartz\nTiger Eye Jewellery | tiger-eye\nDragon Blood Jewellery | dragon-blood\nBlue Opal Jewellery | blue-opal\nOcean Jasper Jewellery | ocean-jasper\nBlack Banded Agate Jewellery | black-banded-agate"
+    },
+    {
+      "type": "header",
+      "content": "Group 5"
+    },
+    {
+      "type": "text",
+      "id": "g5_title",
+      "label": "Heading",
+      "default": "Shop by Occasion & Style"
+    },
+    {
+      "type": "textarea",
+      "id": "g5_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "Everyday Silver Jewellery | everyday-elegance\nOffice Wear Jewellery | office-muse\nParty Wear Jewellery | party-wear\nFestive & Wedding Jewellery | festive-wedding-collection\nNavratri Jewellery | navratri-collection\nMinimalist Silver Jewellery | minimalistic-and-delicate\nGen-Z Everyday Silver | gen-z-edit-everyday-silver\nQuiet Luxury | quiet-luxury\nSpotlight Glam | spotlight-glam\nMoonlight Sparkle | moonlit-sparkle"
+    },
+    {
+      "type": "header",
+      "content": "Group 6"
+    },
+    {
+      "type": "text",
+      "id": "g6_title",
+      "label": "Heading",
+      "default": "Signature Collections"
+    },
+    {
+      "type": "textarea",
+      "id": "g6_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "Karigari | karigari\nVirasat | virasat\nNazakat | nazakat-1\nShahi | raajsi-shahi\nChandini | chandini\nDesigner Collection | designer-collection"
+    },
+    {
+      "type": "header",
+      "content": "Group 7"
+    },
+    {
+      "type": "text",
+      "id": "g7_title",
+      "label": "Heading",
+      "default": "Silver Gifts"
+    },
+    {
+      "type": "textarea",
+      "id": "g7_links",
+      "label": "Collection links",
+      "info": "One per line: Link text | collection-handle",
+      "default": "Silver Gifts for Her | gift-for-her\nGifts for the Special Bond | for-the-special-bond\nSilver Rakhi | rakhi"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popular searches"
+    }
+  ]
+}
+{% endschema %}
