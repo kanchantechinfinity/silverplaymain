@@ -2117,7 +2117,7 @@ input, textarea, select { font: inherit; color: inherit; }
 /* Optional header background images (header section settings): light cream wash, dark logo / menu on top.
    Desktop and mobile images apply only on their own screen size. */
 @media (min-width: 768px) {
-  html body .header.header--bgd .header__bar { background-image: linear-gradient(rgba(242,232,208,.55), rgba(242,232,208,.55)), var(--hbg-d) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; border-color: transparent !important; }
+  html body .header.header--bgd .header__bar { background-image: var(--hbg-d) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; border-color: transparent !important; }
   html body .header.header--bgd .header__link { color: rgba(36,26,16,.9) !important; text-shadow: none; }
   html body .header.header--bgd .header__icon { color: rgba(36,26,16,.85) !important; filter: none !important; }
   html body .header.header--bgd .header__burger span { background: var(--sp-ink) !important; }
@@ -2126,7 +2126,7 @@ input, textarea, select { font: inherit; color: inherit; }
   html body .header.header--bgd .header__bar { padding-inline: 2.25rem !important; }
 }
 @media (max-width: 767px) {
-  html body .header.header--bgm .header__bar { background-image: linear-gradient(rgba(242,232,208,.55), rgba(242,232,208,.55)), var(--hbg-m) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; border-color: transparent !important; }
+  html body .header.header--bgm .header__bar { background-image: var(--hbg-m) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; border-color: transparent !important; }
   html body .header.header--bgm .header__link { color: rgba(36,26,16,.9) !important; text-shadow: none; }
   html body .header.header--bgm .header__icon { color: rgba(36,26,16,.85) !important; filter: none !important; }
   html body .header.header--bgm .header__burger span { background: var(--sp-ink) !important; }
