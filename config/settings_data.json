@@ -122,6 +122,20 @@
           "promo_cta_url": "",
           "promo_cta_label": "Discover Now"
         }
+      },
+      "offer-popup": {
+        "type": "offer-popup",
+        "settings": {
+          "enabled": true,
+          "always": false,
+          "image_desktop": "shopify://shop_images/b6fd34fc-2cbb-4e88-90ac-4c8a78a0d683.png",
+          "heading": "Diwali Offers",
+          "text": "Festive silver, gifting hampers and offers, made for Diwali.",
+          "button_label": "Shop the offer",
+          "button_url": "shopify://collections/99-9-coin-shagun",
+          "delay": 3,
+          "frequency": "day"
+        }
       }
     },
     "content_for_index": []
