@@ -1033,7 +1033,9 @@
       function selected() {
         return $$('input[type="radio"]:checked', root).map(function (i) { return i.value; });
       }
-      function update() {
+      var optMedia = {};
+      data.forEach(function (v) { if (v.media && v.options[0] && !optMedia[v.options[0]]) optMedia[v.options[0]] = v.media; });
+      function update(changedVal) {
         var opts = selected();
         var match = null;
         for (var i = 0; i < data.length; i++) {
@@ -1056,12 +1058,13 @@
           if (lbl) btn.textContent = lbl;
         }
         if (buyBtn) buyBtn.disabled = !match.available;
-        if (match.media) {
+        var showMedia = (typeof changedVal === "string" && optMedia[changedVal]) || match.media;
+        if (showMedia) {
           var gal = $("[data-gallery]");
           if (gal) {
             var gthumbs = $$("[data-gallery-thumb]", gal);
             for (var gi = 0; gi < gthumbs.length; gi++) {
-              if (gthumbs[gi].getAttribute("data-media-id") === String(match.media)) { gthumbs[gi].click(); break; }
+              if (gthumbs[gi].getAttribute("data-media-id") === String(showMedia)) { gthumbs[gi].click(); break; }
             }
           }
         }
@@ -1071,7 +1074,7 @@
           history.replaceState({}, "", url.toString());
         }
       }
-      $$('input[type="radio"]', root).forEach(function (i) { i.addEventListener("change", update); });
+      $$('input[type="radio"]', root).forEach(function (i) { i.addEventListener("change", function () { update(i.value); }); });
       update();
     });
   }
