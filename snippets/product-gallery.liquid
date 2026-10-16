@@ -4,7 +4,7 @@
     <div class="gallery__stage" data-gallery-stage>
       {%- if product.media.size > 0 -%}
         {%- for media in product.media -%}
-          <div class="gallery__slide{% if forloop.first %} is-active{% endif %}" data-gallery-slide>
+          <div class="gallery__slide{% if forloop.first %} is-active{% endif %}" data-gallery-slide data-media-id="{{ media.id }}">
             <img src="{{ media.preview_image | image_url: width: 1200 }}"
                  srcset="{{ media.preview_image | image_url: width: 600 }} 600w, {{ media.preview_image | image_url: width: 1200 }} 1200w"
                  sizes="(max-width: 640px) 100vw, 44vw"
@@ -29,7 +29,7 @@
     <div class="gallery__thumbs">
       {%- for media in product.media -%}
         <button type="button" class="gallery__thumb{% if forloop.first %} is-active{% endif %}"
-                data-gallery-thumb aria-label="View image {{ forloop.index }}">
+                data-gallery-thumb data-media-id="{{ media.id }}" aria-label="View image {{ forloop.index }}">
           <img src="{{ media.preview_image | image_url: width: 200 }}" alt="" loading="lazy" decoding="async" width="200" height="200">
         </button>
       {%- endfor -%}

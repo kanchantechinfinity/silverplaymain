@@ -1056,6 +1056,15 @@
           if (lbl) btn.textContent = lbl;
         }
         if (buyBtn) buyBtn.disabled = !match.available;
+        if (match.media) {
+          var gal = $("[data-gallery]");
+          if (gal) {
+            var gthumbs = $$("[data-gallery-thumb]", gal);
+            for (var gi = 0; gi < gthumbs.length; gi++) {
+              if (gthumbs[gi].getAttribute("data-media-id") === String(match.media)) { gthumbs[gi].click(); break; }
+            }
+          }
+        }
         if (history.replaceState) {
           var url = new URL(window.location.href);
           url.searchParams.set("variant", match.id);
