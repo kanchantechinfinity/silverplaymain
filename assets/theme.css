@@ -2115,7 +2115,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .hamper-cta { text-align: center; margin: 1.5rem 0 0; }
 
 /* Haiku marquee at the top of the header (diyas, lanterns, marigold, rangoli); folds away once the header turns into the round pill */
-.header__haiku { pointer-events: auto; margin: 0; padding: 7px 0; background: var(--sp-ink); color: var(--sp-bone); overflow: hidden; max-height: 3.5rem; transition: max-height .45s var(--ease-silk), padding .45s var(--ease-silk), opacity .3s; }
+.header__haiku { pointer-events: auto; margin: 0; padding: 7px 0; background: linear-gradient(90deg, #2a0f0b, #3a1410 50%, #2a0f0b); border-bottom: 1px solid rgba(201,163,92,.55); color: var(--sp-bone); overflow: hidden; max-height: 3.5rem; transition: max-height .45s var(--ease-silk), padding .45s var(--ease-silk), opacity .3s; }
 .hz-track { display: flex; align-items: center; width: max-content; animation: hz-m 60s linear infinite; }
 .hz-group { display: flex; align-items: center; gap: 1.1rem; padding-right: 1.1rem; flex: none; }
 .hz-txt { font-family: var(--font-display); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; color: #f1dba0; }
