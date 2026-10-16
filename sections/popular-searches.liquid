@@ -113,6 +113,7 @@
         </div>
       {%- endif -%}
     </div>
+    <button type="button" class="psearch__more" data-psearch-more aria-expanded="false">View all</button>
   </div>
 </section>
 
@@ -125,8 +126,34 @@
   .psearch__group a { font-family: var(--font-display); font-size: .95rem; font-weight: 500; line-height: 1.5; color: rgba(138,106,46,.92); text-decoration: none; padding: .1rem .75rem .1rem 0; margin-right: .75rem; border-right: 1px solid rgba(168,128,48,.35); white-space: nowrap; transition: color .2s; }
   .psearch__group:last-child a:last-child { border-right: 0; }
   .psearch__group a:hover { color: var(--sp-ink, #241a10); }
-  @media (max-width: 639px) { .psearch { padding: 1.3rem 0 1.1rem; } .psearch__group a { font-size: .85rem; padding-right: .55rem; margin-right: .55rem; } }
+  .psearch__more { display: none; }
+  @media (max-width: 639px) {
+    .psearch { padding: 1.3rem 0 1.2rem; }
+    .psearch__h { font-size: .85rem; margin-bottom: .55rem; }
+    .psearch__grid { max-height: 7.2rem; overflow: hidden; position: relative; row-gap: .1rem; }
+    .psearch.is-open .psearch__grid { max-height: none; }
+    .psearch:not(.is-open) .psearch__grid::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2.4rem; background: linear-gradient(to bottom, rgba(242,232,208,0), var(--sp-bone, #f2e8d0)); pointer-events: none; }
+    .psearch__group a { font-size: .8rem; line-height: 1.45; padding: .1rem .5rem .1rem 0; margin-right: .5rem; white-space: normal; }
+    .psearch__more { display: block; margin: .6rem 0 0; padding: .4rem 0; font-family: var(--font-display); font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--sp-gold-deep, #8a6a2e); text-decoration: underline; text-underline-offset: 4px; }
+  }
 </style>
+
+<script>
+{% raw %}
+(function () {
+  var root = document.querySelector('.psearch');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = '1';
+  var btn = root.querySelector('[data-psearch-more]');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var open = root.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Show less' : 'View all';
+  });
+})();
+{% endraw %}
+</script>
 
 {% schema %}
 {
