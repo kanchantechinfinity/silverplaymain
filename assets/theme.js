@@ -184,6 +184,20 @@
   }
 
   /* ------------------------------------------------------------- header */
+  /* Publish the header's real height (incl. the festive marquee strip) so the home hero image starts exactly under it on phones/tablets. */
+  function initHeaderHeight() {
+    var header = $("[data-header]");
+    if (!header) return;
+    function set() {
+      if (header.classList.contains("is-pinned")) return;
+      document.documentElement.style.setProperty("--hdr-h", Math.round(header.getBoundingClientRect().height) + "px");
+    }
+    set();
+    window.addEventListener("load", set);
+    window.addEventListener("resize", set);
+    if (window.ResizeObserver) new ResizeObserver(set).observe(header);
+  }
+
   function initHeader() {
     var header = $("[data-header]");
     if (!header) return;
@@ -2078,7 +2092,7 @@
   /* ------------------------------------------------------------- boot */
   function boot() {
     /* each init is isolated: one failing must not stop the rest (cart buttons, search ...) */
-    var steps = [initRteFaq, initContactMore, initSplit, initReveal, initHeader, initOfferReelHeight, initCineheroSlider, initMarquee, initTabs, initCineHero, initDeck, initFlip, initArc, initDisclosures, initDragRails, initKavach, initElegance, initStones, initGallery, initModals, initQuickView, initWishlist, initWishlistPage, initRecentlyViewed, initCart, initSearchDrawer, initSearchResultsPage, initColourVariantCards, initVariants, initSort, initFilters, initNotes, initReels, initPin, initGift, initCoinOffer];
+    var steps = [initRteFaq, initContactMore, initSplit, initReveal, initHeader, initHeaderHeight, initOfferReelHeight, initCineheroSlider, initMarquee, initTabs, initCineHero, initDeck, initFlip, initArc, initDisclosures, initDragRails, initKavach, initElegance, initStones, initGallery, initModals, initQuickView, initWishlist, initWishlistPage, initRecentlyViewed, initCart, initSearchDrawer, initSearchResultsPage, initColourVariantCards, initVariants, initSort, initFilters, initNotes, initReels, initPin, initGift, initCoinOffer];
     steps.forEach(function (fn) {
       try { fn(); } catch (err) { if (window.console) console.error("[theme] " + (fn.name || "init") + " failed:", err); }
     });
