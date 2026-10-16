@@ -4,6 +4,18 @@
   assign mobile_menu = linklists[section.settings.mobile_menu] | default: menu
 -%}
 
+{%- assign tb_d = section.settings.top_banner_desktop -%}
+{%- assign tb_m = section.settings.top_banner_mobile | default: tb_d -%}
+{%- assign tb_d = tb_d | default: tb_m -%}
+{%- if tb_d != blank -%}
+  {%- if section.settings.top_banner_link != blank -%}<a href="{{ section.settings.top_banner_link }}" class="topbanner" data-topbanner>{%- else -%}<div class="topbanner" data-topbanner>{%- endif -%}
+    <picture>
+      <source media="(max-width: 767px)" srcset="{{ tb_m | image_url: width: 900 }} 900w, {{ tb_m | image_url: width: 1500 }} 1500w" sizes="100vw">
+      <img src="{{ tb_d | image_url: width: 2400 }}" srcset="{{ tb_d | image_url: width: 1200 }} 1200w, {{ tb_d | image_url: width: 2400 }} 2400w" sizes="100vw" alt="{{ section.settings.top_banner_alt | escape }}" width="{{ tb_d.width }}" height="{{ tb_d.height }}" loading="eager">
+    </picture>
+  {%- if section.settings.top_banner_link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+{%- endif -%}
+
 <header class="header{% if request.page_type == 'collection' %} header--light{% endif %}{% if request.page_type == 'index' %} header--light-mobile{% endif %}" data-header role="banner">
   <div class="header__bar">
     <button type="button" class="header__burger" data-mobile-nav-open aria-label="{{ 'accessibility.menu' | t }}">
@@ -126,6 +138,11 @@
 {
   "name": "Header",
   "settings": [
+    { "type": "header", "content": "Banner above the header (optional)" },
+    { "type": "image_picker", "id": "top_banner_desktop", "label": "Banner image — desktop", "info": "Wide, short strip, e.g. 2400 × 160 px. Leave both empty to show the normal header only." },
+    { "type": "image_picker", "id": "top_banner_mobile", "label": "Banner image — mobile", "info": "e.g. 1080 × 160 px. Falls back to the desktop image if empty." },
+    { "type": "url", "id": "top_banner_link", "label": "Banner link (optional)" },
+    { "type": "text", "id": "top_banner_alt", "label": "Banner alt text" },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
     { "type": "link_list", "id": "mobile_menu", "label": "Mobile menu",
       "info": "Used for the mobile drawer (the ☰ icon below 1024px). Leave blank to reuse the menu above." },
