@@ -4,10 +4,10 @@
   assign mobile_menu = linklists[section.settings.mobile_menu] | default: menu
 -%}
 
-{%- assign hbg_d = section.settings.header_bg_desktop -%}
-{%- assign hbg_m = section.settings.header_bg_mobile -%}
-
-<header class="header{% if hbg_d != blank %} header--bgd{% endif %}{% if hbg_m != blank %} header--bgm{% endif %}{% if request.page_type == 'collection' %} header--light{% endif %}{% if request.page_type == 'index' %} header--light-mobile{% endif %}" data-header role="banner"{% if hbg_d != blank or hbg_m != blank %} style="{% if hbg_d != blank %}--hbg-d: url({{ hbg_d | image_url: width: 2400 }});{% endif %}{% if hbg_m != blank %} --hbg-m: url({{ hbg_m | image_url: width: 1200 }});{% endif %}"{% endif %}>
+<header class="header{% if request.page_type == 'collection' %} header--light{% endif %}{% if request.page_type == 'index' %} header--light-mobile{% endif %}" data-header role="banner">
+  {%- if section.settings.haiku != blank -%}
+    <p class="header__haiku" data-header-haiku>{{ section.settings.haiku | escape | replace: ' / ', '<span aria-hidden="true"> &middot; </span>' }}</p>
+  {%- endif -%}
   <div class="header__bar">
     <button type="button" class="header__burger" data-mobile-nav-open aria-label="{{ 'accessibility.menu' | t }}">
       <span></span><span></span><span></span>
@@ -129,9 +129,9 @@
 {
   "name": "Header",
   "settings": [
-    { "type": "header", "content": "Header background image (optional)" },
-    { "type": "image_picker", "id": "header_bg_desktop", "label": "Background image — desktop", "info": "Shown on screens 768px and wider. Wide strip behind the logo and menu, e.g. 2400 × 300 px. Leave empty for the normal desktop header." },
-    { "type": "image_picker", "id": "header_bg_mobile", "label": "Background image — mobile", "info": "Shown below 768px. e.g. 1080 × 300 px. Leave empty for the normal mobile header." },
+    { "type": "header", "content": "Haiku line (optional)" },
+    { "type": "text", "id": "haiku", "label": "Haiku", "default": "Handmade silver glows / gemstones hold the festive light / heritage, worn home",
+      "info": "Shown in a thin line at the top of the header. Separate the three lines with ' / '. It hides when the visitor scrolls and the header turns into the round pill. Leave empty to hide it." },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
     { "type": "link_list", "id": "mobile_menu", "label": "Mobile menu",
       "info": "Used for the mobile drawer (the ☰ icon below 1024px). Leave blank to reuse the menu above." },

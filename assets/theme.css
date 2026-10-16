@@ -2114,23 +2114,8 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .hamper-cta { text-align: center; margin: 1.5rem 0 0; }
 
-/* Optional header background images (header section settings): light cream wash, dark logo / menu on top.
-   Desktop and mobile images apply only on their own screen size. */
-@media (min-width: 768px) {
-  html body .header.header--bgd .header__bar { background-image: var(--hbg-d) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; border-color: transparent !important; }
-  html body .header.header--bgd .header__link { color: rgba(36,26,16,.9) !important; text-shadow: none; }
-  html body .header.header--bgd .header__icon { color: rgba(36,26,16,.85) !important; filter: none !important; }
-  html body .header.header--bgd .header__burger span { background: var(--sp-ink) !important; }
-  html body .header.header--bgd .header__logo img { filter: invert(1) !important; }
-  html body .header.header--bgd .header__logo-label, html body .header.header--bgd .header__logo-text { color: var(--sp-ink) !important; }
-  html body .header.header--bgd .header__bar { padding-inline: 2.25rem !important; }
-}
-@media (max-width: 767px) {
-  html body .header.header--bgm .header__bar { background-image: var(--hbg-m) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; border-color: transparent !important; }
-  html body .header.header--bgm .header__link { color: rgba(36,26,16,.9) !important; text-shadow: none; }
-  html body .header.header--bgm .header__icon { color: rgba(36,26,16,.85) !important; filter: none !important; }
-  html body .header.header--bgm .header__burger span { background: var(--sp-ink) !important; }
-  html body .header.header--bgm .header__logo img { filter: invert(1) !important; }
-  html body .header.header--bgm .header__logo-label, html body .header.header--bgm .header__logo-text { color: var(--sp-ink) !important; }
-  html body .header.header--bgm .header__bar { padding-inline: 1.5rem !important; }
-}
+/* Haiku line at the top of the header; folds away once the header turns into the round pill */
+.header__haiku { pointer-events: auto; margin: 0; padding: 6px 12px; text-align: center; background: var(--sp-ink); color: var(--sp-bone); font-family: var(--font-display); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; line-height: 1.4; max-height: 3.5rem; overflow: hidden; transition: max-height .45s var(--ease-silk), padding .45s var(--ease-silk), opacity .3s; }
+.header__haiku span { color: var(--sp-gold-mid); padding: 0 .35em; }
+@media (min-width: 768px) { .header__haiku { font-size: .68rem; letter-spacing: .24em; padding: 8px 16px; } }
+.header.is-pinned .header__haiku { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; }
