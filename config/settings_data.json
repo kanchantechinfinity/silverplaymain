@@ -101,6 +101,7 @@
           "header-2"
         ],
         "settings": {
+          "header_bg_mobile": "shopify://shop_images/sp_header.png",
           "menu": "silver-play-menu",
           "mobile_menu": "responsive-mobile-menu",
           "mega_menu_trigger": "Women",
