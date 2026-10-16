@@ -6,7 +6,26 @@
 
 <header class="header{% if request.page_type == 'collection' %} header--light{% endif %}{% if request.page_type == 'index' %} header--light-mobile{% endif %}" data-header role="banner">
   {%- if section.settings.haiku != blank -%}
-    <p class="header__haiku" data-header-haiku>{{ section.settings.haiku | escape | replace: ' / ', '<span aria-hidden="true"> &middot; </span>' }}</p>
+    {%- assign hz_parts = section.settings.haiku | split: ' / ' -%}
+    {%- capture hz_diya -%}<svg class="hz-ic hz-diya" viewBox="0 0 48 48" width="22" height="22" aria-hidden="true"><path class="hz-flame" d="M24 2c5 7 7 11 7 16a7 7 0 0 1-14 0c0-5 2-9 7-16z" fill="#f5b942"/><path d="M24 9c2.500 4 3.500 6 3.500 8.500a3.500 3.500 0 0 1-7 0c0-2.500 1-4.500 3.500-8.500z" fill="#fff1bd"/><path d="M3 25h42c0 10-9 17-21 17S3 35 3 25z" fill="#d9b25f"/><path d="M3 25h42" stroke="#7a521a" stroke-width="1.4"/><path d="M14 42h20l-2 4H16z" fill="#8a5c1a"/></svg>{%- endcapture -%}
+    {%- capture hz_lantern -%}<svg class="hz-ic hz-lantern" viewBox="0 0 40 60" width="16" height="24" aria-hidden="true"><line x1="20" y1="0" x2="20" y2="7" stroke="#d9b25f" stroke-width="1.500"/><path d="M20 7c5 3 9 5 9 9H11c0-4 4-6 9-9z" fill="#d9b25f"/><path d="M10 16h20l2 24-12 8-12-8z" fill="#8a2018" stroke="#d9b25f" stroke-width="1.500"/><ellipse class="hz-flame" cx="20" cy="29" rx="5" ry="8" fill="#f5b942" opacity=".9"/><path d="M16 48h8l-1 5h-6z" fill="#d9b25f"/><path d="M18 53v6M20 53v7M22 53v6" stroke="#d9b25f" stroke-width="1.200"/></svg>{%- endcapture -%}
+    {%- capture hz_marigold -%}<svg class="hz-ic hz-marigold" viewBox="0 0 40 40" width="20" height="20" aria-hidden="true"><g fill="#e8a53a"><circle cx="20" cy="9" r="7"/><circle cx="31" cy="20" r="7"/><circle cx="20" cy="31" r="7"/><circle cx="9" cy="20" r="7"/><circle cx="28" cy="12" r="6"/><circle cx="28" cy="28" r="6"/><circle cx="12" cy="28" r="6"/><circle cx="12" cy="12" r="6"/></g><circle cx="20" cy="20" r="6" fill="#b8650f"/></svg>{%- endcapture -%}
+    {%- capture hz_rangoli -%}<svg class="hz-ic hz-rangoli" viewBox="0 0 40 40" width="22" height="22" aria-hidden="true"><g fill="none" stroke="#d9b25f" stroke-width="1.400"><path d="M20 3l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/><circle cx="20" cy="20" r="3.500" fill="#d9b25f"/><circle cx="20" cy="20" r="14" stroke-dasharray="1.500 3"/></g></svg>{%- endcapture -%}
+    {%- capture hz_lotus -%}<svg class="hz-ic hz-lotus" viewBox="0 0 48 32" width="26" height="18" aria-hidden="true"><g fill="#e9c4cf" stroke="#d9b25f" stroke-width="1"><path d="M24 2c5 6 6 14 0 24-6-10-5-18 0-24z"/><path d="M12 8c7 2 11 9 12 18-8-2-13-8-12-18z"/><path d="M36 8c-7 2-11 9-12 18 8-2 13-8 12-18z"/></g><path d="M4 28h40" stroke="#d9b25f" stroke-width="1.500"/></svg>{%- endcapture -%}
+    {%- capture hz_star -%}<svg class="hz-ic hz-star" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 1l2 8 8 3-8 3-2 8-2-8-8-3 8-3z" fill="#f1dba0"/></svg>{%- endcapture -%}
+    {%- capture hz_group -%}
+      <div class="hz-group">
+        {{ hz_diya }}
+        {%- for part in hz_parts -%}
+          <span class="hz-txt">{{ part | escape }}</span>
+          {%- cycle 'g': hz_lantern, hz_marigold, hz_lotus -%}
+          {{ hz_rangoli }}{{ hz_diya }}{{ hz_star }}
+        {%- endfor -%}
+      </div>
+    {%- endcapture -%}
+    <div class="header__haiku" data-header-haiku role="note" aria-label="{{ section.settings.haiku | escape }}">
+      <div class="hz-track" aria-hidden="true">{{ hz_group }}{{ hz_group }}{{ hz_group }}{{ hz_group }}</div>
+    </div>
   {%- endif -%}
   <div class="header__bar">
     <button type="button" class="header__burger" data-mobile-nav-open aria-label="{{ 'accessibility.menu' | t }}">

@@ -2114,8 +2114,18 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .hamper-cta { text-align: center; margin: 1.5rem 0 0; }
 
-/* Haiku line at the top of the header; folds away once the header turns into the round pill */
-.header__haiku { pointer-events: auto; margin: 0; padding: 6px 12px; text-align: center; background: var(--sp-ink); color: var(--sp-bone); font-family: var(--font-display); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; line-height: 1.4; max-height: 3.5rem; overflow: hidden; transition: max-height .45s var(--ease-silk), padding .45s var(--ease-silk), opacity .3s; }
-.header__haiku span { color: var(--sp-gold-mid); padding: 0 .35em; }
-@media (min-width: 768px) { .header__haiku { font-size: .68rem; letter-spacing: .24em; padding: 8px 16px; } }
+/* Haiku marquee at the top of the header (diyas, lanterns, marigold, rangoli); folds away once the header turns into the round pill */
+.header__haiku { pointer-events: auto; margin: 0; padding: 7px 0; background: var(--sp-ink); color: var(--sp-bone); overflow: hidden; max-height: 3.5rem; transition: max-height .45s var(--ease-silk), padding .45s var(--ease-silk), opacity .3s; }
+.hz-track { display: flex; align-items: center; width: max-content; animation: hz-m 60s linear infinite; }
+.hz-group { display: flex; align-items: center; gap: 1.1rem; padding-right: 1.1rem; flex: none; }
+.hz-txt { font-family: var(--font-display); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; color: #f1dba0; }
+@media (min-width: 768px) { .hz-txt { font-size: .7rem; letter-spacing: .26em; } .hz-group { gap: 1.5rem; padding-right: 1.5rem; } }
+.hz-ic { flex: none; display: block; }
+.hz-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: hz-flick 1.8s ease-in-out infinite; }
+.hz-lantern .hz-flame { animation-duration: 2.4s; animation-delay: -.7s; }
+.hz-diya { filter: drop-shadow(0 0 4px rgba(245,185,66,.55)); animation: hz-glow 2.6s ease-in-out infinite; }
+@keyframes hz-m { to { transform: translateX(-50%); } }
+@keyframes hz-flick { 0%, 100% { transform: scale(1, 1); opacity: 1; } 25% { transform: scale(.92, 1.08) rotate(-2deg); opacity: .92; } 55% { transform: scale(1.05, .95) rotate(2deg); opacity: 1; } 80% { transform: scale(.96, 1.05); opacity: .9; } }
+@keyframes hz-glow { 0%, 100% { filter: drop-shadow(0 0 3px rgba(245,185,66,.4)); } 50% { filter: drop-shadow(0 0 7px rgba(245,185,66,.8)); } }
+@media (prefers-reduced-motion: reduce) { .hz-track, .hz-flame, .hz-diya { animation: none; } }
 .header.is-pinned .header__haiku { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; }
