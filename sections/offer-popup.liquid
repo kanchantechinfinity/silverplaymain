@@ -23,33 +23,28 @@
       {%- if img_d != blank -%}
         <a href="{{ pop_url }}" class="opop__media">
           <picture>
-            <source media="(max-width: 639px)" srcset="{{ img_m | image_url: width: 800 }} 800w, {{ img_m | image_url: width: 1200 }} 1200w" sizes="92vw">
-            <img src="{{ img_d | image_url: width: 1200 }}" srcset="{{ img_d | image_url: width: 800 }} 800w, {{ img_d | image_url: width: 1400 }} 1400w" sizes="(min-width: 640px) 560px, 92vw" alt="{{ section.settings.heading | escape }}" loading="lazy" width="{{ img_d.width }}" height="{{ img_d.height }}">
+            <source media="(max-width: 767px)" srcset="{{ img_m | image_url: width: 800 }} 800w, {{ img_m | image_url: width: 1200 }} 1200w" sizes="92vw">
+            <img src="{{ img_d | image_url: width: 1000 }}" srcset="{{ img_d | image_url: width: 700 }} 700w, {{ img_d | image_url: width: 1200 }} 1200w" sizes="(min-width: 768px) 430px, 92vw" alt="{{ section.settings.heading | escape }}" loading="lazy" width="{{ img_d.width }}" height="{{ img_d.height }}">
           </picture>
         </a>
-        <div class="opop__foot">
-          <a href="{{ pop_url }}" class="btn btn--ink">{{ section.settings.button_label }} <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
-          <button type="button" class="opop__later" data-opop-close>Maybe later</button>
-        </div>
-      {%- else -%}
-        <div class="opop__body">
-          <svg class="opop__diya" viewBox="0 0 48 48" width="46" height="46" aria-hidden="true"><path class="opop__flame" d="M24 2c5 7 7 11 7 16a7 7 0 0 1-14 0c0-5 2-9 7-16z" fill="#f5b942"/><path d="M24 9c2.5 4 3.5 6 3.5 8.5a3.5 3.5 0 0 1-7 0c0-2.5 1-4.5 3.5-8.5z" fill="#fff1bd"/><path d="M3 25h42c0 10-9 17-21 17S3 35 3 25z" fill="#d9b25f"/><path d="M3 25h42" stroke="#7a521a" stroke-width="1.4"/><path d="M14 42h20l-2 4H16z" fill="#8a5c1a"/></svg>
-          <p class="opop__eyebrow">{% if camp_name != blank %}{{ camp_name }}{% else %}{{ section.settings.heading }}{% endif %}</p>
-          <h2 class="opop__title">{% if camp_title != blank %}{{ camp_title }}{% else %}{{ section.settings.heading }}{% endif %}</h2>
-          {%- if camp != '' -%}
-            <ul class="opop__tiers">
-              {%- if camp_tier1_amt != blank -%}<li><b>{{ camp_tier1_gift }}</b><span>{{ camp_tier1_amt }}</span></li>{%- endif -%}
-              {%- if camp_tier2_amt != blank -%}<li><b>{{ camp_tier2_gift }}</b><span>{{ camp_tier2_amt }}</span></li>{%- endif -%}
-              {%- if camp_tier3_amt != blank -%}<li><b>{{ camp_tier3_gift }}</b><span>{{ camp_tier3_amt }}</span></li>{%- endif -%}
-            </ul>
-            <p class="opop__dates">{{ camp_dates }}</p>
-          {%- else -%}
-            <p class="opop__text">{{ section.settings.text }}</p>
-          {%- endif -%}
-          <a href="{{ pop_url }}" class="btn btn--bone btn--lg">{{ section.settings.button_label }} <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
-          <button type="button" class="opop__later" data-opop-close>Maybe later</button>
-        </div>
       {%- endif -%}
+      <div class="opop__body">
+        <svg class="opop__diya" viewBox="0 0 48 48" width="46" height="46" aria-hidden="true"><path class="opop__flame" d="M24 2c5 7 7 11 7 16a7 7 0 0 1-14 0c0-5 2-9 7-16z" fill="#f5b942"/><path d="M24 9c2.5 4 3.5 6 3.5 8.5a3.5 3.5 0 0 1-7 0c0-2.5 1-4.5 3.5-8.5z" fill="#fff1bd"/><path d="M3 25h42c0 10-9 17-21 17S3 35 3 25z" fill="#d9b25f"/><path d="M3 25h42" stroke="#7a521a" stroke-width="1.4"/><path d="M14 42h20l-2 4H16z" fill="#8a5c1a"/></svg>
+        <p class="opop__eyebrow">{% if camp_name != blank %}{{ camp_name }}{% else %}{{ section.settings.heading }}{% endif %}</p>
+        <h2 class="opop__title">{% if camp_title != blank %}{{ camp_title }}{% else %}{{ section.settings.heading }}{% endif %}</h2>
+        {%- if camp != '' -%}
+          <ul class="opop__tiers">
+            {%- if camp_tier1_amt != blank -%}<li><b>{{ camp_tier1_gift }}</b><span>{{ camp_tier1_amt }}</span></li>{%- endif -%}
+            {%- if camp_tier2_amt != blank -%}<li><b>{{ camp_tier2_gift }}</b><span>{{ camp_tier2_amt }}</span></li>{%- endif -%}
+            {%- if camp_tier3_amt != blank -%}<li><b>{{ camp_tier3_gift }}</b><span>{{ camp_tier3_amt }}</span></li>{%- endif -%}
+          </ul>
+          <p class="opop__dates">{{ camp_dates }}</p>
+        {%- else -%}
+          <p class="opop__text">{{ section.settings.text }}</p>
+        {%- endif -%}
+        <a href="{{ pop_url }}" class="btn btn--bone btn--lg">{{ section.settings.button_label }} <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+        <button type="button" class="opop__later" data-opop-close>Maybe later</button>
+      </div>
     </div>
   </div>
 
@@ -57,11 +52,16 @@
     .opop { position: fixed; inset: 0; z-index: 600; display: grid; place-items: center; padding: 1rem; }
     .opop[hidden] { display: none; }
     .opop__scrim { position: absolute; inset: 0; background: rgba(20,12,8,.68); animation: opop-fade .4s ease both; }
-    .opop__card { position: relative; width: min(34rem, 100%); max-height: 92vh; overflow: auto; border-radius: 1.6rem; background: var(--sp-bone, #f2e8d0); border: 1.5px solid #c9a35c; box-shadow: 0 0 0 5px rgba(58,20,16,.9), 0 0 0 6px rgba(201,163,92,.8), 0 40px 90px -20px rgba(0,0,0,.7); animation: opop-in .55s var(--ease-silk, cubic-bezier(.22,1,.36,1)) both; }
+    .opop__card { position: relative; width: min(34rem, 100%); display: grid; max-height: 92vh; overflow: auto; border-radius: 1.6rem; background: var(--sp-bone, #f2e8d0); border: 1.5px solid #c9a35c; box-shadow: 0 0 0 5px rgba(58,20,16,.9), 0 0 0 6px rgba(201,163,92,.8), 0 40px 90px -20px rgba(0,0,0,.7); animation: opop-in .55s var(--ease-silk, cubic-bezier(.22,1,.36,1)) both; }
     .opop__x { position: absolute; top: .55rem; right: .7rem; z-index: 3; width: 2.3rem; height: 2.3rem; border-radius: 50%; background: rgba(242,232,208,.92); color: var(--sp-ink, #241a10); font-size: 1.5rem; line-height: 1; display: grid; place-items: center; border: 1px solid rgba(36,26,16,.2); }
-    .opop__media { display: block; line-height: 0; }
-    .opop__media img { display: block; width: 100%; height: auto; }
-    .opop__foot { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; padding: 1rem 1.25rem 1.2rem; }
+    .opop__media { display: block; line-height: 0; order: -1; }
+    .opop__media img { display: block; width: 100%; height: 100%; max-height: 42vh; object-fit: cover; }
+    @media (min-width: 768px) {
+      .opop__card--img { width: min(58rem, 100%); grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+      .opop__card--img .opop__body { order: 1; display: flex; flex-direction: column; justify-content: center; }
+      .opop__card--img .opop__media { order: 2; }
+      .opop__media img { max-height: none; min-height: 100%; }
+    }
     .opop__later { font-family: var(--font-display); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sp-gold-deep, #8a6a2e); }
     .opop__body { text-align: center; padding: 2.2rem 1.6rem 1.6rem; background: radial-gradient(120% 90% at 50% 0%, #5a2018 0%, #3a1410 55%, #2a0f0b 100%); color: #f1dba0; }
     .opop__diya { display: block; margin: 0 auto .6rem; filter: drop-shadow(0 0 8px rgba(245,185,66,.7)); }
