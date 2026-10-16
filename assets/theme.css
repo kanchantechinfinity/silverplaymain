@@ -2114,6 +2114,6 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .hamper-cta { text-align: center; margin: 1.5rem 0 0; }
 
-/* Optional banner above the header (header section settings) */
-.topbanner { display: block; position: relative; z-index: 51; line-height: 0; background: var(--sp-ink); }
-.topbanner img { display: block; width: 100%; height: auto; }
+/* Optional header background image (header section settings) */
+html body .header.header--bgimg .header__bar { background-image: var(--hbg-d) !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
+@media (max-width: 767px) { html body .header.header--bgimg .header__bar { background-image: var(--hbg-m) !important; } }

@@ -184,22 +184,6 @@
   }
 
   /* ------------------------------------------------------------- header */
-  /* Optional banner above the header: the (fixed) header sits just under it and
-     slides up to the top of the screen as the banner scrolls away. */
-  function initTopBanner() {
-    var banner = $("[data-topbanner]"), header = $("[data-header]");
-    if (!banner || !header) return;
-    function place() {
-      var b = banner.getBoundingClientRect().bottom;
-      header.style.top = Math.max(0, b) + "px";
-    }
-    window.addEventListener("scroll", place, { passive: true });
-    window.addEventListener("resize", place);
-    window.addEventListener("load", place);
-    var img = $("img", banner); if (img && !img.complete) img.addEventListener("load", place);
-    place();
-  }
-
   function initHeader() {
     var header = $("[data-header]");
     if (!header) return;
@@ -2094,7 +2078,7 @@
   /* ------------------------------------------------------------- boot */
   function boot() {
     /* each init is isolated: one failing must not stop the rest (cart buttons, search ...) */
-    var steps = [initRteFaq, initContactMore, initSplit, initReveal, initTopBanner, initHeader, initOfferReelHeight, initCineheroSlider, initMarquee, initTabs, initCineHero, initDeck, initFlip, initArc, initDisclosures, initDragRails, initKavach, initElegance, initStones, initGallery, initModals, initQuickView, initWishlist, initWishlistPage, initRecentlyViewed, initCart, initSearchDrawer, initSearchResultsPage, initColourVariantCards, initVariants, initSort, initFilters, initNotes, initReels, initPin, initGift, initCoinOffer];
+    var steps = [initRteFaq, initContactMore, initSplit, initReveal, initHeader, initOfferReelHeight, initCineheroSlider, initMarquee, initTabs, initCineHero, initDeck, initFlip, initArc, initDisclosures, initDragRails, initKavach, initElegance, initStones, initGallery, initModals, initQuickView, initWishlist, initWishlistPage, initRecentlyViewed, initCart, initSearchDrawer, initSearchResultsPage, initColourVariantCards, initVariants, initSort, initFilters, initNotes, initReels, initPin, initGift, initCoinOffer];
     steps.forEach(function (fn) {
       try { fn(); } catch (err) { if (window.console) console.error("[theme] " + (fn.name || "init") + " failed:", err); }
     });
