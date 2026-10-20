@@ -1,4 +1,4 @@
 {
-  "sections": { "main": { "type": "main-list-collections", "settings": { "list": ["pendants", "mens-collection", "offer", "semi-precious-gemstone-earings", "under-rs-5000", "drop-and-dangle-earings", "meenakari", "designer-statement-earrings", "sterling-silver", "minimalistic-and-delicate"], "eyebrow": "Browse", "heading": "All Collections", "description": "From everyday earrings to spiritual Kavach pendants — every Silver Play edit in one place." } } },
+  "sections": { "main": { "type": "main-list-collections", "settings": { "list": ["pendants", "mens-collection", "under-rs-5000", "huggies-and-hoop", "studs", "drop-and-dangle-earings", "minimalistic-and-delicate", "designer-statement-earrings", "meenakari"], "eyebrow": "Browse", "heading": "All Collections", "description": "From everyday earrings to spiritual Kavach pendants — every Silver Play edit in one place." } } },
   "order": ["main"]
 }
