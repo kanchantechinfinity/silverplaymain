@@ -853,7 +853,7 @@ input, textarea, select { font: inherit; color: inherit; }
      clearly against the busy mandala-line background instead of the two
      seeming to merge into each other. */
   box-shadow: 0 12px 30px -14px rgba(0,0,0,.6), 0 0 0 1px rgba(242,232,208,.16);
-  transform: scale(.84); opacity: .58;
+  transform: scale(.84); opacity: 1;
   transition: transform .8s var(--ease-silk), opacity .25s, box-shadow .25s;
   cursor: pointer;
 }
@@ -862,14 +862,12 @@ input, textarea, select { font: inherit; color: inherit; }
    flash on hover/focus of any other card and vanish the moment the cursor
    left, which read as a glitch rather than a hover cue. */
 .deck__card:not(.is-active):hover,
-.deck__card:not(.is-active):focus-visible { opacity: .75; }
+.deck__card:not(.is-active):focus-visible { opacity: 1; }
 .deck__card:focus-visible { outline: none; }
 .deck__card img { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; }
 .deck__wash {
   position: absolute; inset: 0;
-  background:
-    linear-gradient(rgba(36,26,16,.4), rgba(36,26,16,.4)),
-    linear-gradient(to top, var(--sp-ink), rgba(36,26,16,.25) 55%, transparent);
+  background: linear-gradient(to top, rgba(36,26,16,.78), rgba(36,26,16,.18) 45%, transparent 70%);
 }
 .deck__chip {
   position: absolute; inset-inline: 0; top: 1.25rem; display: flex; justify-content: center;
