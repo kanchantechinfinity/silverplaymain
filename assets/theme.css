@@ -2149,7 +2149,3 @@ input, textarea, select { font: inherit; color: inherit; }
 .cardtile img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease-silk); }
 .cardtile:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 26px 46px -18px rgba(36,26,16,.7); }
 .cardtile:hover img { transform: scale(1.05); }
-
-/* Archive flip cards with the new artwork: taller card, no text overlay on the front (the name is in the picture) */
-.flipcard--art { aspect-ratio: 2 / 3; }
-.collage--cards .flipcard__face { border-radius: var(--radius-xl, 1.6rem); }
