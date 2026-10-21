@@ -127,7 +127,7 @@
   .psearch__group h3 { margin: 0 0 .2rem; font-family: var(--font-display); font-size: 1.05rem; letter-spacing: .06em; text-transform: none; color: var(--sp-ink, #241a10); font-weight: 700; line-height: 1.5; }
   .psearch__group p { margin: 0; display: flex; flex-wrap: wrap; align-items: center; row-gap: .12rem; }
   .psearch__group a { font-family: var(--font-body); font-size: 1rem; font-weight: 700; letter-spacing: .01em; text-transform: none; line-height: 1.5; color: rgba(36,26,16,.9); text-decoration: none; position: relative; padding: 0 .8rem 0 0; margin-right: .8rem; white-space: nowrap; transition: color .2s; }
-  .psearch__group a::after { content: ""; position: absolute; right: -.8rem; top: 50%; width: 1px; height: .85em; transform: translateY(-50%); background: rgba(36,26,16,.38); }
+  .psearch__group a::after { content: ""; position: absolute; right: 0; top: 50%; width: 1px; height: .85em; transform: translateY(-50%); background: rgba(36,26,16,.38); }
   .psearch__group a:last-child::after { display: none; }
   .psearch__group a:hover { color: var(--sp-ink, #241a10); text-decoration: underline; text-decoration-color: var(--sp-gold-mid, #c9a35c); text-underline-offset: 3px; }
   .psearch__more { display: none; }
@@ -140,7 +140,7 @@
     .psearch__group { grid-template-columns: 1fr; row-gap: .15rem; padding: .55rem 0; }
     .psearch__group h3 { font-size: .92rem; }
     .psearch__group a { font-size: .95rem; padding-right: .6rem; margin-right: .6rem; white-space: normal; }
-    .psearch__group a::after { right: -.6rem; }
+    .psearch__group a::after { right: 0; }
     .psearch__more { display: block; margin: .6rem 0 0; padding: .4rem 0; font-family: var(--font-display); font-size: .74rem; letter-spacing: .12em; text-transform: none; font-weight: 700; color: var(--sp-gold-deep, #8a6a2e); text-decoration: underline; text-underline-offset: 4px; }
   }
 </style>
