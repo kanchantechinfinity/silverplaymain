@@ -5,7 +5,7 @@
 {%- endcomment -%}
 {%- liquid
   assign col = collections[section.settings.collection]
-  assign items = col.products
+  assign items = col.products | where: 'available'
 -%}
 
 <section class="deck" data-deck

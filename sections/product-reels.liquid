@@ -32,7 +32,8 @@
             </button>
           {%- endfor -%}
         {%- elsif col.products.size > 0 -%}
-          {%- for p in col.products limit: 8 -%}
+          {%- assign in_stock = col.products | where: 'available' -%}
+          {%- for p in in_stock limit: 8 -%}
             <button type="button" class="reels__tile" data-reel-open>
               <span class="reels__inner">
                 {%- if p.featured_media -%}

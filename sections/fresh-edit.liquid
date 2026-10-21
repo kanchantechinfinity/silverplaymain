@@ -59,6 +59,7 @@
            {% unless forloop.first %}hidden{% endunless %}>
         {%- assign shown = 0 -%}
         {%- for product in col.products -%}
+          {%- unless product.available -%}{%- continue -%}{%- endunless -%}
           {%- if block.settings.hide_pendants and product.type == 'Pendants' -%}{%- continue -%}{%- endif -%}
           {%- if shown >= section.settings.count -%}{%- break -%}{%- endif -%}
           {%- assign shown = shown | plus: 1 -%}

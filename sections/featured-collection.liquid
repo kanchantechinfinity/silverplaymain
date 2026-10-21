@@ -25,7 +25,8 @@
     </div>
 
     <div class="grid-products mt-14">
-      {%- for product in col.products limit: section.settings.count -%}
+      {%- assign in_stock = col.products | where: 'available' -%}
+      {%- for product in in_stock limit: section.settings.count -%}
         {% render 'product-card', product: product, style: section.settings.card_style %}
       {%- else -%}
         {%- for i in (1..4) -%}
