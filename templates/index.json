@@ -213,20 +213,12 @@
         "h1": {
           "type": "tile",
           "settings": {
-            "collection": "huggies-and-hoop",
-            "title": "Hoops",
-            "devanagari": "बाली"
+            "collection": "designer-statement-earrings",
+            "title": "Designer Statement Earrings",
+            "devanagari": "शान"
           }
         },
         "h2": {
-          "type": "tile",
-          "settings": {
-            "collection": "studs",
-            "title": "Studs",
-            "devanagari": "टॉप्स"
-          }
-        },
-        "h3": {
           "type": "tile",
           "settings": {
             "collection": "drop-and-dangle-earings",
@@ -234,20 +226,28 @@
             "devanagari": "बूंदे"
           }
         },
+        "h3": {
+          "type": "tile",
+          "settings": {
+            "collection": "semi-precious-gemstone-earings",
+            "title": "Gemstone",
+            "devanagari": "रत्न"
+          }
+        },
         "h4": {
           "type": "tile",
           "settings": {
-            "collection": "minimalistic-and-delicate",
-            "title": "Minimalist Earrings",
-            "devanagari": "सादगी"
+            "collection": "huggies-and-hoop",
+            "title": "Hoops",
+            "devanagari": "बाली"
           }
         },
         "h5": {
           "type": "tile",
           "settings": {
-            "collection": "designer-statement-earrings",
-            "title": "Designer Statement Earrings",
-            "devanagari": "शान"
+            "collection": "jhumka-earrings",
+            "title": "Jhumka",
+            "devanagari": "झुमका"
           }
         },
         "h6": {
@@ -257,6 +257,22 @@
             "title": "Meenakari",
             "devanagari": "मीनाकारी"
           }
+        },
+        "h7": {
+          "type": "tile",
+          "settings": {
+            "collection": "minimalistic-and-delicate",
+            "title": "Minimalist Earrings",
+            "devanagari": "सादगी"
+          }
+        },
+        "h8": {
+          "type": "tile",
+          "settings": {
+            "collection": "studs",
+            "title": "Studs",
+            "devanagari": "टॉप्स"
+          }
         }
       },
       "block_order": [
@@ -265,7 +281,9 @@
         "h3",
         "h4",
         "h5",
-        "h6"
+        "h6",
+        "h7",
+        "h8"
       ],
       "settings": {
         "eyebrow": "Heritage",

@@ -29,7 +29,7 @@
       {%- endif -%}
     </div>
 
-    <div class="collage">
+    <div class="collage collage--cards">
       {%- for block in section.blocks -%}
         {%- liquid
           assign col = collections[block.settings.collection]
@@ -60,6 +60,35 @@
           assign back = col.products.first.featured_media.preview_image
           assign deva = block.settings.devanagari | default: col.metafields.custom.deva_title.value
         -%}
+        {%- liquid
+          assign card_img = ''
+          case col.handle
+            when 'designer-statement-earrings'
+              assign card_img = 'archive-card-designer.jpg'
+            when 'drop-and-dangle-earings'
+              assign card_img = 'archive-card-drop.jpg'
+            when 'semi-precious-gemstone-earings'
+              assign card_img = 'archive-card-gemstone.jpg'
+            when 'huggies-and-hoop'
+              assign card_img = 'archive-card-hoops.jpg'
+            when 'jhumka-earrings'
+              assign card_img = 'archive-card-jhumka.jpg'
+            when 'meenakari'
+              assign card_img = 'archive-card-meenakari.jpg'
+            when 'minimalistic-and-delicate'
+              assign card_img = 'archive-card-minimalist.jpg'
+            when 'studs'
+              assign card_img = 'archive-card-studs.jpg'
+          endcase
+        -%}
+        {%- if card_img != blank and block.settings.image == blank -%}
+          <div class="collage__slot" {{ block.shopify_attributes }}>
+            <a href="{{ col.url }}" class="cardtile" aria-label="{{ col.title | escape }}">
+              <img src="{{ card_img | asset_url }}" alt="{{ col.title | escape }}" loading="lazy" decoding="async" width="666" height="1000">
+            </a>
+          </div>
+          {%- continue -%}
+        {%- endif -%}
         <div class="collage__slot" {{ block.shopify_attributes }}>
           <div class="flipcard" role="button" tabindex="0"
                aria-label="{{ col.title | default: block.settings.title | escape }} — flip to see a piece from this collection">
