@@ -2132,12 +2132,3 @@ input, textarea, select { font: inherit; color: inherit; }
 @keyframes hz-glow { 0%, 100% { filter: drop-shadow(0 0 3px rgba(245,185,66,.4)); } 50% { filter: drop-shadow(0 0 7px rgba(245,185,66,.8)); } }
 @media (prefers-reduced-motion: reduce) { .hz-track, .hz-flame, .hz-diya { animation: none; } }
 .header.is-pinned .header__haiku { max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; }
-
-/* Archive section: plain image cards (text is part of the artwork), four per row on desktop */
-.collage--cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-@media (min-width: 768px) { .collage--cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; } }
-.collage--cards .collage__slot { transform: none !important; }
-.cardtile { display: block; aspect-ratio: 2 / 3; border-radius: var(--radius-lg, 1.25rem); overflow: hidden; background: var(--sp-ink-2); box-shadow: 0 14px 30px -16px rgba(36,26,16,.55); transition: transform .4s var(--ease-silk), box-shadow .4s; }
-.cardtile img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease-silk); }
-.cardtile:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -18px rgba(36,26,16,.6); }
-.cardtile:hover img { transform: scale(1.04); }
