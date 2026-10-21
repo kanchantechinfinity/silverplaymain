@@ -81,16 +81,13 @@
               assign card_img = 'archive-card-studs.jpg'
           endcase
         -%}
+        {%- assign new_art = false -%}
         {%- if card_img != blank and block.settings.image == blank -%}
-          <div class="collage__slot" {{ block.shopify_attributes }}>
-            <a href="{{ col.url }}" class="cardtile" aria-label="{{ col.title | escape }}">
-              <img src="{{ card_img | asset_url }}" alt="{{ col.title | escape }}" loading="lazy" decoding="async" width="666" height="1000">
-            </a>
-          </div>
-          {%- continue -%}
+          {%- assign front_asset = card_img -%}
+          {%- assign new_art = true -%}
         {%- endif -%}
         <div class="collage__slot" {{ block.shopify_attributes }}>
-          <div class="flipcard" role="button" tabindex="0"
+          <div class="flipcard{% if new_art %} flipcard--art{% endif %}" role="button" tabindex="0"
                aria-label="{{ col.title | default: block.settings.title | escape }} — flip to see a piece from this collection">
             <div class="flipcard__inner">
               <div class="flipcard__face flipcard__face--front">
@@ -101,11 +98,13 @@
                 {%- else -%}
                   <img src="{{ 'archive-balcony.jpg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1600" height="1067">
                 {%- endif -%}
+                {%- unless new_art -%}
                 <span class="flipcard__scrim" aria-hidden="true"></span>
                 <div class="flipcard__body">
                   {%- if deva != blank -%}<p class="flipcard__deva">{{ deva }}</p>{%- endif -%}
                   <p class="flipcard__name">{{ block.settings.title | default: col.title }}</p>
                 </div>
+                {%- endunless -%}
               </div>
               <div class="flipcard__face flipcard__face--back">
                 {%- if back -%}
