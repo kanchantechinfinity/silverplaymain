@@ -1,9 +1,11 @@
+{%- if section.settings.banner_image != blank -%}{%- assign hero_tone = 'light' -%}{%- endif -%}
 {% render 'page-hero',
   eyebrow: section.settings.eyebrow,
   heading: section.settings.heading,
   image: section.settings.banner_image,
   description: section.settings.description,
   fallback: 'heritage-mandala-dark.jpg',
+  tone: hero_tone,
   min_height: '46vh' %}
 
 <div class="collist">

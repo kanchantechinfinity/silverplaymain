@@ -2151,3 +2151,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .coltile__go { font-family: var(--font-display); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: #e9c46b; white-space: nowrap; transition: transform .3s; }
 .collist .coltile:hover .coltile__go { transform: translateX(3px); }
 @media (max-width: 699px) { .collist { padding-block: 2.2rem 3.5rem; } .collist .coltile__body { padding: 1rem .9rem .95rem; } .collist .coltile__body p:first-of-type { font-size: .78rem; } .coltile__deva { font-size: 1.1rem; } .coltile__go { display: none; } }
+
+/* Bright page hero (e.g. All Collections with a light festive image): soft light veil, dark text */
+.pagehero--light { background: var(--sp-bone); }
+.pagehero--light .pagehero__media img { opacity: 1; }
+.pagehero--light .pagehero__media::after { background: linear-gradient(to right, rgba(245,236,214,.78), rgba(245,236,214,.38) 55%, rgba(245,236,214,.1)); }
+.pagehero--light .pagehero__title { color: var(--sp-ink); }
+.pagehero--light .eyebrow { color: var(--sp-gold-deep); }
+.pagehero--light .pagehero__desc, .pagehero--light .pagehero__desc * { color: rgba(36,26,16,.82) !important; }

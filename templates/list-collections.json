@@ -1,4 +1,4 @@
 {
-  "sections": { "main": { "type": "main-list-collections", "settings": { "list": ["pendants", "mens-collection", "earrings", "under-rs-5000", "99-9-coin-shagun", "best-seller", "huggies-and-hoop", "studs", "drop-and-dangle-earings", "minimalistic-and-delicate", "designer-statement-earrings", "meenakari"], "eyebrow": "Browse", "heading": "All Collections", "description": "From everyday earrings to spiritual Kavach pendants — every Silver Play edit in one place." } } },
+  "sections": { "main": { "type": "main-list-collections", "settings": { "list": ["pendants", "mens-collection", "earrings", "under-rs-5000", "99-9-coin-shagun", "best-seller", "huggies-and-hoop", "studs", "drop-and-dangle-earings", "minimalistic-and-delicate", "designer-statement-earrings", "meenakari"], "eyebrow": "Browse", "heading": "All Collections", "banner_image": "shopify://shop_images/0f6202b4-0c3d-4d96-88e3-5e4411f1f304.jpg", "description": "From everyday earrings to spiritual Kavach pendants — every Silver Play edit in one place." } } },
   "order": ["main"]
 }
