@@ -2161,3 +2161,6 @@ input, textarea, select { font: inherit; color: inherit; }
 .pagehero--light .pagehero__desc, .pagehero--light .pagehero__desc * { color: rgba(36,26,16,.82) !important; }
 .pagehero--light { padding-top: calc(var(--hdr-h, 8rem) + 2rem); }
 .pagehero--light .eyebrow { margin-bottom: .6rem; }
+/* Bright hero melts into the page below (no hard edge) */
+.pagehero--light::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: linear-gradient(to bottom, rgba(242,232,208,0), rgba(242,232,208,.75) 60%, var(--sp-bone)); pointer-events: none; z-index: 1; }
+.collist { padding-top: 1.5rem; }
