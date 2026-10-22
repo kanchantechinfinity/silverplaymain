@@ -2164,3 +2164,7 @@ input, textarea, select { font: inherit; color: inherit; }
 /* Bright hero melts into the page below (no hard edge) */
 .pagehero--light::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 55%; background: linear-gradient(to bottom, rgba(242,232,208,0), rgba(242,232,208,.75) 60%, var(--sp-bone)); pointer-events: none; z-index: 1; }
 .collist { padding-top: 1.5rem; }
+/* Bright hero: all text centred, with a centred veil */
+.pagehero--light .pagehero__body { text-align: center; }
+.pagehero--light .pagehero__title, .pagehero--light .pagehero__desc { margin-inline: auto; }
+.pagehero--light .pagehero__media::after { background: radial-gradient(ellipse at 50% 55%, rgba(245,236,214,.82), rgba(245,236,214,.45) 55%, rgba(245,236,214,.15) 85%); }
