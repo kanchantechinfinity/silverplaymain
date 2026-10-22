@@ -2,10 +2,13 @@
   eyebrow: section.settings.eyebrow,
   heading: section.settings.heading,
   image: section.settings.banner_image,
-  description: section.settings.description %}
+  description: section.settings.description,
+  fallback: 'heritage-mandala-dark.jpg',
+  min_height: '46vh' %}
 
-<div class="wrap" style="padding-block:4rem">
-  <div class="grid-products">
+<div class="collist">
+<div class="wrap collist__wrap">
+  <div class="collist__grid">
     {%- if section.settings.list != blank -%}
       {%- for col in section.settings.list -%}
         {%- render 'collection-tile', col: col, show_empty: section.settings.show_empty -%}
@@ -24,6 +27,7 @@
       {%- endpaginate -%}
     {%- endif -%}
   </div>
+</div>
 </div>
 
 {% schema %}

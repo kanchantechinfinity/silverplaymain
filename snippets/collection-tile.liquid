@@ -8,6 +8,7 @@
       assign cover = col.products.first.featured_media.preview_image
     endif
   -%}
+  {%- assign deva = col.metafields.custom.deva_title.value -%}
   <a href="{{ col.url }}" class="coltile">
     {%- if cover -%}
       <img src="{{ cover | image_url: width: 700 }}" alt="{{ col.title | escape }}" loading="lazy" decoding="async" width="700" height="875">
@@ -16,8 +17,9 @@
     {%- endif -%}
     <span class="coltile__scrim" aria-hidden="true"></span>
     <span class="coltile__body">
+      {%- if deva != blank -%}<span class="coltile__deva">{{ deva }}</span>{%- endif -%}
       <p>{{ col.title }}</p>
-      <p>{{ 'products.facets.product_count' | t: count: col.products_count }}</p>
+      <span class="coltile__meta"><span>{{ 'products.facets.product_count' | t: count: col.products_count }}</span><span class="coltile__go" aria-hidden="true">Explore &rarr;</span></span>
     </span>
   </a>
 {%- endif -%}
