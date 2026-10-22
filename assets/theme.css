@@ -2159,3 +2159,5 @@ input, textarea, select { font: inherit; color: inherit; }
 .pagehero--light .pagehero__title { color: var(--sp-ink); }
 .pagehero--light .eyebrow { color: var(--sp-gold-deep); }
 .pagehero--light .pagehero__desc, .pagehero--light .pagehero__desc * { color: rgba(36,26,16,.82) !important; }
+.pagehero--light { padding-top: calc(var(--hdr-h, 8rem) + 2rem); }
+.pagehero--light .eyebrow { margin-bottom: .6rem; }
