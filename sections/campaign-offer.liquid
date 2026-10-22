@@ -84,21 +84,6 @@
   </div>
 </section>
 
-{%- if camp_col != blank and camp_col.products.size > 0 -%}
-<section class="sec" style="background:var(--sp-bone);padding-top:0">
-  <div class="wrap">
-    <h2 class="h-sec text-center" style="font-size:clamp(1.6rem,3vw,2.3rem)">{{ camp_col.title }}</h2>
-    <div class="grid-products grid-products--3 mt-8">
-      {%- for product in camp_col.products limit: 8 -%}
-        {% render 'product-card', product: product %}
-      {%- endfor -%}
-    </div>
-    <div class="text-center mt-8">
-      <a href="{{ camp_col.url }}" class="btn btn--ink">View all <span class="btn__arrow">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-{%- endif -%}
 {%- endif -%}
 
 {%- liquid
@@ -127,6 +112,24 @@
     </p>
   </div>
 </section>
+{%- endif -%}
+
+{%- if camp != '' -%}
+{%- if camp_col != blank and camp_col.products.size > 0 -%}
+<section class="sec" style="background:var(--sp-bone);padding-top:0">
+  <div class="wrap">
+    <h2 class="h-sec text-center" style="font-size:clamp(1.6rem,3vw,2.3rem)">{{ camp_col.title }}</h2>
+    <div class="grid-products grid-products--3 mt-8">
+      {%- for product in camp_col.products limit: 8 -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+    <div class="text-center mt-8">
+      <a href="{{ camp_col.url }}" class="btn btn--ink">View all <span class="btn__arrow">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+{%- endif -%}
 {%- endif -%}
 
 <section class="sec" style="background:var(--sp-ink);color:var(--sp-bone)">
@@ -175,7 +178,7 @@
   "settings": [
     { "type": "paragraph", "content": "Content is driven by the festive calendar in snippets/campaign-data.liquid." },
     { "type": "header", "content": "Extra collection (optional)" },
-    { "type": "collection", "id": "extra_collection", "label": "Collection to show below the offer products" },
+    { "type": "collection", "id": "extra_collection", "label": "Collection shown first, above the offer products" },
     { "type": "text", "id": "extra_heading", "label": "Heading (defaults to the collection name)" },
     { "type": "range", "id": "extra_limit", "min": 4, "max": 24, "step": 4, "label": "Products to show", "default": 8 }
   ],
