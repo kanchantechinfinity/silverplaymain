@@ -58,7 +58,14 @@
       <div class="grid-products mt-14" role="tabpanel" data-tab-panel="{{ block.id }}"
            {% unless forloop.first %}hidden{% endunless %}>
         {%- assign shown = 0 -%}
-        {%- for product in col.products -%}
+        {%- if block.settings.newest_first -%}
+          {%- paginate col.products by 250 -%}
+            {%- assign plist = col.products | sort: 'created_at' | reverse -%}
+          {%- endpaginate -%}
+        {%- else -%}
+          {%- assign plist = col.products -%}
+        {%- endif -%}
+        {%- for product in plist -%}
           {%- unless product.available -%}{%- continue -%}{%- endunless -%}
           {%- if block.settings.hide_pendants and product.type == 'Pendants' -%}{%- continue -%}{%- endif -%}
           {%- if shown >= section.settings.count -%}{%- break -%}{%- endif -%}
@@ -246,7 +253,8 @@
       "settings": [
         { "type": "text", "id": "label", "label": "Tab label", "default": "New Arrivals" },
         { "type": "collection", "id": "collection", "label": "Collection" },
-        { "type": "checkbox", "id": "hide_pendants", "label": "Hide pendants in this tab", "default": false }
+        { "type": "checkbox", "id": "hide_pendants", "label": "Hide pendants in this tab", "default": false },
+        { "type": "checkbox", "id": "newest_first", "label": "Show the newest products first", "info": "Looks at every product in the collection and shows the most recently added first.", "default": false }
       ]
     }
   ],

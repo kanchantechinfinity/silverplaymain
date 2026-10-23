@@ -162,7 +162,8 @@
           "settings": {
             "label": "Pendants",
             "collection": "pendants",
-            "hide_pendants": false
+            "hide_pendants": false,
+            "newest_first": true
           }
         },
         "t4": {
