@@ -6,12 +6,15 @@
 {%- assign hamper_product = section.settings.hamper_product -%}
 {%- if hamper_product == blank -%}{%- assign hamper_product = all_products['diwali-hamper'] -%}{%- endif -%}
 
+<div data-hb-hero>
 {% render 'page-hero',
   eyebrow: 'Diwali Hampers',
   heading: 'Choose your hamper',
   image: section.settings.banner_image,
   description: 'Pick a hamper to see what is inside and choose your diya and coin.',
   min_height: '40vh' %}
+</div>
+<script>if(/[?&]h=\d/.test(location.search)){var _h=document.querySelector("[data-hb-hero]");if(_h)_h.hidden=true;}</script>
 
 <section class="heritage-sec sec hb" style="background: {{ section.settings.bg_color }}">
   {% render 'heritage-bg',
@@ -69,6 +72,7 @@
   .hb__opt span img { width: 1.6rem; height: 1.6rem; border-radius: 50%; object-fit: cover; vertical-align: middle; margin: -.2rem .5rem -.2rem -.45rem; }
   .hb__bar { text-align: center; margin-bottom: 2rem; }
   .hb { padding-top: 2.5rem; }
+  .hb.hb--detail { padding-top: clamp(7.5rem, 11vw, 9.5rem); }
   .hb__h1 { font-size: clamp(1.3rem, 6.2vw, 2.6rem); white-space: nowrap; }
   .hb__tab .short { display: none; }
   .hb__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
@@ -230,7 +234,13 @@
         }).catch(function () { btn.disabled = false; msg.textContent = 'Something went wrong. Please try again.'; });
     });
   }
-  function render() { var i = current(); if (i < 0) renderList(); else renderDetail(i); }
+  function render() {
+    var i = current(), hero = document.querySelector('[data-hb-hero]'), hdr = document.querySelector('[data-header]'), sec = root.closest('.hb');
+    if (hero) hero.hidden = i >= 0;
+    if (sec) sec.classList.toggle('hb--detail', i >= 0);
+    if (hdr) { if (i >= 0) hdr.classList.add('header--nohero'); else if (hero) hdr.classList.remove('header--nohero'); }
+    if (i < 0) renderList(); else renderDetail(i);
+  }
   root.addEventListener('click', function (e) {
     var a = e.target.closest('[data-hb-open], [data-hb-back], [data-hb-tab]'); if (!a) return;
     e.preventDefault();
