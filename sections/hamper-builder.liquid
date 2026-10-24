@@ -188,7 +188,7 @@
     HAMPERS.forEach(function (h, i) {
       if (h.box !== boxes[t]) return;
       var src = imgFor(h);
-      html += '<a class="hb__card" href="?h=' + i + '" data-hb-open="' + i + '"><div class="hb__ph">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '" loading="lazy">' : '') + '</div><div class="hb__body"><span class="hb__name">' + esc(h.name) + '</span><span class="hb__content">' + esc(h.content) + '</span><span class="hb__row"><span class="hb__price">' + money(h.price) + '</span><span class="hb__cta">Customise &rarr;</span></span></div></a>';
+      html += '<a class="card" href="?h=' + i + '" data-hb-open="' + i + '"><div class="card__frame"><div class="card__mat"><div class="card__media">' + (src ? '<img class="card__img card__img--main" src="' + esc(src) + '" alt="' + esc(h.name) + '" loading="lazy">' : '') + '<span class="photo-vignette" aria-hidden="true"></span></div></div><div class="card__body"><h3 class="card__title">' + esc(h.name) + '</h3><p class="card__price"><span>' + money(h.price) + '</span></p><span class="card__buy">Customise</span></div></div></a>';
     });
     root.innerHTML = html + '</div>';
   }
