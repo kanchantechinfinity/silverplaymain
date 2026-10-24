@@ -16,7 +16,113 @@
         "bg_image": "shopify://shop_images/Elegant_Navratri_Dandiya_Glow.jpg",
         "wash": "rgba(219,197,150,0.35)"
       }
+    },
+    "hb_celeb": {
+      "type": "celeb-love",
+      "blocks": {
+        "r1": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Bw8fG0b0Ml8AnuOu1kjegA.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": "Ankita"
+          }
+        },
+        "r2": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/EzQUQ21EmlImTKIaPCo3dw.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": "Rashmi"
+          }
+        },
+        "r3": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/iHjFhMNZaGILxAoR8hcTow.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": ""
+          }
+        },
+        "r4": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/YZmcnZE8jx3Czcmjc1PSLQ.mp4",
+            "video_url": "",
+            "video_asset": "",
+            "name": ""
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "eyebrow": "As Seen & Loved",
+        "heading": "Celebs Who Love Us",
+        "lede": "Real reels from the faces who wear Silver Play."
+      }
+    },
+    "hb_recent": {
+      "type": "recently-viewed",
+      "settings": {
+        "heading": "Recently Viewed"
+      }
+    },
+    "hb_faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "Orders are dispatched within 2–3 business days. Delivery typically takes 5–7 business days across India. Prepaid orders ship free."
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the return policy?",
+            "answer": "We only replace or refund an item if it arrives damaged, defective, or not matching what you ordered — reported within 24 hours of delivery with photos or an unboxing video."
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I care for my silver jewellery?",
+            "answer": "Store in the anti-tarnish pouch provided. Avoid contact with perfume, lotions, and water. Wipe gently with a soft cloth after wearing."
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Why is silver called sterling silver?",
+            "answer": "Sterling silver is 92.5% pure silver blended with 7.5% other metals for strength — which is why every piece is stamped '925'."
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "eyebrow": "Good To Know",
+        "heading": "Frequently Asked"
+      }
     }
   },
-  "order": ["hampers"]
+  "order": [
+    "hampers",
+    "hb_celeb",
+    "hb_recent",
+    "hb_faq"
+  ]
 }

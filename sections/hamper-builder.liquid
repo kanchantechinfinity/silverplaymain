@@ -16,7 +16,7 @@
   modifier: 'pagehero--hampers',
   min_height: '50vh' %}
 </div>
-<script>(function(){var h=document.querySelector("[data-hb-hero]"),d=document.querySelector("[data-header]");if(/[?&]h=\d/.test(location.search)){if(h)h.hidden=true;}else if(d){d.classList.add("header--light");}})();</script>
+<script>(function(){if(/[?&]h=\d/.test(location.search))document.body.classList.add("hb-detail");var h=document.querySelector("[data-hb-hero]"),d=document.querySelector("[data-header]");if(/[?&]h=\d/.test(location.search)){if(h)h.hidden=true;}else if(d){d.classList.add("header--light");}})();</script>
 
 <section class="heritage-sec sec hb" style="background: {{ section.settings.bg_color }}">
   {% render 'heritage-bg',
@@ -76,7 +76,10 @@
   .hb__opt span img { width: 1.6rem; height: 1.6rem; border-radius: 50%; object-fit: cover; vertical-align: middle; margin: -.2rem .5rem -.2rem -.45rem; }
   .hb__bar { text-align: center; margin-bottom: 2rem; }
   .hb { padding-top: 2.5rem; }
-  .hb.hb--detail { padding-top: clamp(7.5rem, 11vw, 9.5rem); }
+  .hb.hb--detail { padding-top: clamp(6rem, 9vw, 7.5rem); padding-bottom: 0; background: var(--sp-bone) !important; }
+  .hb.hb--detail .heritage-sec__bg, .hb.hb--detail .heritage-sec__wash { display: none; }
+  .hb.hb--detail .wrap { padding-inline: 0; max-width: none; }
+  body:not(.hb-detail) [id$="__hb_celeb"], body:not(.hb-detail) [id$="__hb_recent"], body:not(.hb-detail) [id$="__hb_faq"] { display: none; }
   .hb__h1 { font-size: clamp(1.3rem, 6.2vw, 2.6rem); white-space: nowrap; }
   .hb__tab .short { display: none; }
   .hb__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
@@ -204,8 +207,9 @@
       c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + esc(v) + '</span></label>'; });
       opts += '</div></fieldset>';
     });
-    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__media"><div class="hb__hero">' + (src ? '<img data-hb-main src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div>' + thumbs + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + ' <small>Inclusive of all taxes</small></p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
-    var form = root.querySelector('[data-hb-form]'), msg = root.querySelector('[data-hb-msg]'), btn = form.querySelector('button[type=submit]');
+    root.innerHTML = '<div class="pdp"><div class="wrap wrap--narrow" style="max-width:1400px"><nav aria-label="Breadcrumb" class="breadcrumb"><a href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>Diwali Hampers</a><span>/</span><span style="color:rgba(36,26,16,.75)">' + esc(h.name) + '</span></nav><div class="pdp__grid"><div class="pdp__media"><div class="hb__hero">' + (src ? '<img data-hb-main src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div>' + thumbs + '</div><div><form data-hb-form><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap"><span class="buybox__chip">' + esc(h.box) + '</span></div><h1 class="buybox__title">' + esc(h.name) + '</h1><p class="buybox__price"><span>' + money(h.price) + '</span></p><p class="buybox__tax">Inclusive of all taxes</p><h4 class="hb__h4">What\u2019s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><div class="buybox__actions"><button type="submit" class="btn btn--ink btn--lg" data-hb-buy>' + (variants.length ? 'Buy now' : 'Enquire') + '</button><button type="submit" class="btn btn--outline-gold btn--lg" data-hb-add>' + (variants.length ? 'Add to cart' : 'Enquire about this hamper') + '</button></div><div class="buybox__trust"><div><span>&#10003;</span><span>BIS Certified</span></div><div><span>&#10022;</span><span>925 Sterling Silver</span></div><div><span>&#9825;</span><span>Skin-Friendly</span></div></div></form></div></div></div></div>';
+    var form = root.querySelector('[data-hb-form]'), msg = root.querySelector('[data-hb-msg]'), btn = form.querySelector('[data-hb-add]'), buyBtn = form.querySelector('[data-hb-buy]'), goCheckout = false;
+    [btn, buyBtn].forEach(function (b) { if (b) b.addEventListener('click', function () { goCheckout = (b === buyBtn); }); });
     root.querySelectorAll('[data-hb-thumb]').forEach(function (b) { b.addEventListener('click', function () { var m = root.querySelector('[data-hb-main]'); if (m) m.src = b.getAttribute('data-hb-thumb'); root.querySelectorAll('.hb__thumb').forEach(function (x) { x.classList.toggle('is-on', x === b); }); }); });
     form.addEventListener('change', function (e) {
       var r = e.target; if (!r || r.type !== 'radio') return;
@@ -227,15 +231,16 @@
       var v = variantFor(h);
       if (!v) { msg.textContent = 'This hamper is not available to order online yet. Please contact us.'; return; }
       if (!v.available) { msg.textContent = 'This hamper is sold out.'; return; }
-      msg.textContent = ''; btn.disabled = true;
+      msg.textContent = ''; btn.disabled = true; if (buyBtn) buyBtn.disabled = true;
       fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: [{ id: v.id, quantity: 1, properties: props }] }) })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
-          btn.disabled = false;
+          btn.disabled = false; if (buyBtn) buyBtn.disabled = false;
           if (!res.ok) { msg.textContent = res.j.description || res.j.message || 'Could not add the hamper.'; return; }
+          if (goCheckout) { window.location.href = '/checkout'; return; }
           var opener = document.querySelector('[data-cart-open]');
           if (opener) opener.click(); else window.location.href = '/cart';
-        }).catch(function () { btn.disabled = false; msg.textContent = 'Something went wrong. Please try again.'; });
+        }).catch(function () { btn.disabled = false; if (buyBtn) buyBtn.disabled = false; msg.textContent = 'Something went wrong. Please try again.'; });
     });
   }
   function render() {
@@ -243,6 +248,7 @@
     if (hero) hero.hidden = i >= 0;
     if (hdr && hero) hdr.classList.toggle('header--light', i < 0);
     if (sec) sec.classList.toggle('hb--detail', i >= 0);
+    document.body.classList.toggle('hb-detail', i >= 0);
     if (hdr) { if (i >= 0) hdr.classList.add('header--nohero'); else if (hero) hdr.classList.remove('header--nohero'); }
     if (i < 0) renderList(); else renderDetail(i);
   }

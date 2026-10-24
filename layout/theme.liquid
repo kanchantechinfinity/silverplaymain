@@ -60,7 +60,7 @@
     {{ content_for_layout }}
   </main>
 
-  {% section 'popular-searches' %}
+  {% if template.name == 'index' %}{% section 'popular-searches' %}{% endif %}
   {% section 'footer' %}
   {% section 'offer-popup' %}
 
