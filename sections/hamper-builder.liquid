@@ -14,9 +14,10 @@
   description: 'Pick a hamper to see what is inside and choose your diya and coin.',
   fallback: 'hamper-hero.jpg',
   modifier: 'pagehero--hampers',
-  min_height: '56vh' %}
+  tone: 'light',
+  min_height: '50vh' %}
 </div>
-<script>if(/[?&]h=\d/.test(location.search)){var _h=document.querySelector("[data-hb-hero]");if(_h)_h.hidden=true;}</script>
+<script>(function(){var h=document.querySelector("[data-hb-hero]"),d=document.querySelector("[data-header]");if(/[?&]h=\d/.test(location.search)){if(h)h.hidden=true;}else if(d){d.classList.add("header--light");}})();</script>
 
 <section class="heritage-sec sec hb" style="background: {{ section.settings.bg_color }}">
   {% render 'heritage-bg',
@@ -239,6 +240,7 @@
   function render() {
     var i = current(), hero = document.querySelector('[data-hb-hero]'), hdr = document.querySelector('[data-header]'), sec = root.closest('.hb');
     if (hero) hero.hidden = i >= 0;
+    if (hdr && hero) hdr.classList.toggle('header--light', i < 0);
     if (sec) sec.classList.toggle('hb--detail', i >= 0);
     if (hdr) { if (i >= 0) hdr.classList.add('header--nohero'); else if (hero) hdr.classList.remove('header--nohero'); }
     if (i < 0) renderList(); else renderDetail(i);

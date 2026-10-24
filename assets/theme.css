@@ -2169,12 +2169,14 @@ input, textarea, select { font: inherit; color: inherit; }
 .pagehero--light .pagehero__title, .pagehero--light .pagehero__desc { margin-inline: auto; }
 .pagehero--light .pagehero__media::after { background: radial-gradient(ellipse at 50% 55%, rgba(245,236,214,.82), rgba(245,236,214,.45) 55%, rgba(245,236,214,.15) 85%); }
 
-/* Diwali hampers page hero: festive hamper photo, copy on the left over a soft dark fade */
-.pagehero--hampers .pagehero__media img { opacity: 1; object-position: 72% 40%; }
-.pagehero--hampers .pagehero__media::after { background: linear-gradient(90deg, rgba(26,12,8,.9) 0%, rgba(26,12,8,.65) 38%, rgba(26,12,8,.12) 72%), linear-gradient(to top, rgba(26,12,8,.55), transparent 45%); }
-.pagehero--hampers .pagehero__body { padding-bottom: 4.5rem; }
-.pagehero--hampers .eyebrow { color: #e9c46b; letter-spacing: .32em; }
-.pagehero--hampers .pagehero__title { max-width: 14ch; text-shadow: 0 2px 24px rgba(0,0,0,.45); }
-.pagehero--hampers .pagehero__title::after { content: ""; display: block; width: 4rem; height: 2px; margin-top: 1rem; background: linear-gradient(90deg, #e9c46b, transparent); }
-.pagehero--hampers .pagehero__desc { max-width: 28rem; color: rgba(246,232,189,.92) !important; }
-@media (max-width: 767px) { .pagehero--hampers { min-height: 62vh; } .pagehero--hampers .pagehero__media img { object-position: 62% 30%; } .pagehero--hampers .pagehero__media::after { background: linear-gradient(to top, rgba(26,12,8,.92), rgba(26,12,8,.55) 55%, rgba(26,12,8,.25)); } }
+/* Diwali hampers page hero: bright festive photo, everything centred, fading into the cream page below */
+.pagehero--hampers { padding-top: calc(var(--hdr-h, 8rem) + 1.5rem); }
+.pagehero--hampers .pagehero__media img { opacity: 1; object-position: 50% 45%; }
+.pagehero--hampers .pagehero__media::after { background: radial-gradient(ellipse at 50% 55%, rgba(246,236,214,.86), rgba(246,236,214,.5) 58%, rgba(246,236,214,.18) 88%); }
+.pagehero--hampers::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: linear-gradient(to bottom, rgba(242,232,208,0), rgba(242,232,208,.8) 60%, var(--sp-bone)); pointer-events: none; z-index: 1; }
+.pagehero--hampers .pagehero__body { text-align: center; padding-bottom: 3.2rem; }
+.pagehero--hampers .eyebrow { color: var(--sp-gold-deep); letter-spacing: .32em; }
+.pagehero--hampers .pagehero__title { max-width: none; margin-inline: auto; white-space: nowrap; font-size: clamp(1.7rem, 6.4vw, 3.6rem); color: var(--sp-ink); }
+.pagehero--hampers .pagehero__title::after { content: ""; display: block; width: 4rem; height: 2px; margin: 1rem auto 0; background: linear-gradient(90deg, transparent, var(--sp-gold-mid), transparent); }
+.pagehero--hampers .pagehero__desc { margin-inline: auto; max-width: 30rem; }
+.hb { padding-top: 1.5rem; }
