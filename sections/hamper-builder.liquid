@@ -42,6 +42,19 @@
   }
 </script>
 
+<script type="application/json" data-hb-gallery>
+  {
+    "Samriddhi Shree Charan Blessings - I": [{{ 'hamper-photo-05.jpg' | asset_url | json }}, {{ 'hamper-photo-07.jpg' | asset_url | json }}],
+    "Samriddhi Shree Charan Blessings - II": [{{ 'hamper-photo-05.jpg' | asset_url | json }}, {{ 'hamper-photo-07.jpg' | asset_url | json }}],
+    "Dhan Laxmi Shagun - II": [{{ 'hamper-photo-01.jpg' | asset_url | json }}],
+    "Shri Samriddhi": [{{ 'hamper-photo-02.jpg' | asset_url | json }}, {{ 'hamper-photo-03.jpg' | asset_url | json }}, {{ 'hamper-photo-04.jpg' | asset_url | json }}],
+    "Dhan Vriddhi": [{{ 'hamper-photo-11.jpg' | asset_url | json }}],
+    "Laxmi Kripa Hamper": [{{ 'hamper-photo-08.jpg' | asset_url | json }}, {{ 'hamper-photo-09.jpg' | asset_url | json }}, {{ 'hamper-photo-10.jpg' | asset_url | json }}],
+    "Raajsi Diwali Hamper": [{{ 'hamper-photo-06.jpg' | asset_url | json }}, {{ 'hamper-photo-13.jpg' | asset_url | json }}],
+    "Shubh Samriddhi Hamper": [{{ 'hamper-photo-14.jpg' | asset_url | json }}],
+    "Shree Samriddhi Diwali Hamper": [{{ 'hamper-photo-15.jpg' | asset_url | json }}, {{ 'hamper-photo-16.jpg' | asset_url | json }}, {{ 'hamper-photo-17.jpg' | asset_url | json }}]
+  }
+</script>
 <script type="application/json" data-hb-optimgs>
   {
     "diya": {"Amethyst": {{ 'hamper-diya-amethyst.jpg' | asset_url | json }}, "Tiger Eye": {{ 'hamper-diya-tiger-eye.jpg' | asset_url | json }}, "Rose Quartz": {{ 'hamper-diya-rose-quartz.jpg' | asset_url | json }}},
@@ -93,6 +106,10 @@
   .hb__detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
   @media (min-width: 900px) { .hb__detail { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: start; } }
   .hb__hero { border: 1.5px solid var(--sp-gold-mid, #c9a35c); border-radius: var(--radius-xl, 1.5rem); overflow: hidden; background: var(--sp-bone-2, #e8d8b3); aspect-ratio: 1/1; }
+  .hb__thumbs { display: flex; gap: .6rem; margin-top: .75rem; }
+  .hb__thumb { width: 4.6rem; height: 4.6rem; padding: 0; border: 1.5px solid rgba(36,26,16,.2); border-radius: .8rem; overflow: hidden; background: var(--sp-bone-2, #e8d8b3); cursor: pointer; opacity: .75; transition: all .2s; }
+  .hb__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hb__thumb.is-on, .hb__thumb:hover { opacity: 1; border-color: var(--sp-gold-deep, #8a6a2e); }
   .hb__hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hb__title { margin: .3rem 0 .4rem; font-size: clamp(1.7rem, 3vw, 2.4rem); }
   .hb__dprice { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: .5rem; }
@@ -120,14 +137,16 @@
   if (!root) return;
   var HAMPERS = [{"box": "Medium Box", "name": "Samriddhi Shree Charan Blessings - I", "content": "Charan Paduka on White Lotus Marble (Small charan - 1.30 × 1.10 inches) + Stone Ganesha", "price": 3100, "opts": ["ganesha"]}, {"box": "Medium Box", "name": "Shubh Shagun", "content": "SS Coin (5g) + Raw stone diya", "price": 3499, "opts": ["diya", "coin5"]}, {"box": "Medium Box", "name": "Samriddhi Shree Charan Blessings - II", "content": "Charan Paduka on White Lotus Marble (Big charan - 1.5 × 1.25 inches) + Stone Ganesha", "price": 3700, "opts": ["ganesha"]}, {"box": "Medium Box", "name": "Dhan Laxmi Shagun - I", "content": "Fish (5g) + Diya", "price": 4100, "opts": ["diya"]}, {"box": "Medium Box", "name": "Dhan Laxmi Shagun - II", "content": "Tortoise (5g) + Diya", "price": 4100, "opts": ["diya"]}, {"box": "Medium Box", "name": "Shri Samriddhi", "content": "SS Coin (5g) + Stone Ganpati", "price": 4100, "opts": ["ganesha", "coin5"]}, {"box": "Medium Box", "name": "Dhan Vriddhi", "content": "SS Coin (5g) + Diya + Laxmi Yantra", "price": 4700, "opts": ["diya", "coin5"]}, {"box": "Premium Hamper League (Large Box)", "name": "Laxmi Kripa Hamper", "content": "SS Coin (10g) + Fish (5g) + Laxmi Yantra", "price": 6999, "opts": ["coin10"]}, {"box": "Premium Hamper League (Large Box)", "name": "Raajsi Diwali Hamper", "content": "SS Coin (10g) + Tortoise (5g) + Laxmi Yantra", "price": 6999, "opts": ["coin10"]}, {"box": "Premium Hamper League (Large Box)", "name": "Shubh Samriddhi Hamper", "content": "SS Coin (10g) + Charan Paduka + Tortoise (5g)", "price": 9999, "opts": ["coin10"]}, {"box": "Premium Hamper League (Large Box)", "name": "Dhan Samriddhi Hamper", "content": "SS Coin (10g) + Fish (5g) + Tortoise (5g) + Laxmi Yantra + Diya", "price": 9999, "opts": ["coin10", "diya"]}, {"box": "Premium Hamper League (Large Box)", "name": "The Royal Shagun Hamper", "content": "Laxmi Charan Paduka + Vishnu Charan Paduka + Fish (5g) + Tortoise (5g) + Diya", "price": 19000, "opts": ["diya"]}, {"box": "Premium Hamper League (Large Box)", "name": "Shree Samriddhi Diwali Hamper", "content": "SS Coin (10g) + Laxmi Charan Paduka + Vishnu Charan Paduka + Fish (10g) + Tortoise (10g) + Diya + Laxmi Yantra (2 wooden boxes)", "price": 24999, "opts": ["coin10", "diya"]}];
   var CATS = {"diya": {"label": "Diya", "values": ["Amethyst", "Tiger Eye", "Rose Quartz"]}, "ganesha": {"label": "Stone Ganesha", "values": ["Amethyst", "Rose Quartz", "Tiger's Eye", "Labradorite"]}, "coin5": {"label": "5 gm Silver Coin", "values": ["Ganesh Ji", "Laxmi Ji", "Laxmi-Ganesha", "Kuber Ji"]}, "coin10": {"label": "10 gm Silver Coin", "values": ["Laxmi Ji", "Laxmi-Ganesha", "Kuber Ji"]}};
-  var variants = [], IMGS = {}, OPTIMG = {};
+  var variants = [], IMGS = {}, OPTIMG = {}, GALLERY = {};
+  try { GALLERY = JSON.parse(document.querySelector('[data-hb-gallery]').textContent || '{}'); } catch (e) {}
   try { OPTIMG = JSON.parse(document.querySelector('[data-hb-optimgs]').textContent || '{}'); } catch (e) {}
   try { variants = JSON.parse(document.querySelector('[data-hb-variants]').textContent || '[]'); } catch (e) {}
   try { IMGS = JSON.parse(document.querySelector('[data-hb-imgs]').textContent || '{}'); } catch (e) {}
   function money(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function variantFor(h) { return variants.filter(function (x) { return x.title.trim().toLowerCase() === h.name.trim().toLowerCase(); })[0]; }
-  function imgFor(h) { var v = variantFor(h); return (v && v.img) || (variants[0] && variants[0].img) || ''; }
+  function gallery(h) { var g = (GALLERY[h.name] || []).slice(0, 3); if (g.length) return g; var v = variantFor(h), one = (v && v.img) || (variants[0] && variants[0].img) || ''; return one ? [one] : []; }
+  function imgFor(h) { return gallery(h)[0] || ''; }
   function itemKey(t) {
     var s = t.toLowerCase();
     if (s.indexOf('vishnu') > -1) return 'vishnu_paduka';
@@ -161,7 +180,8 @@
     root.innerHTML = html + '</div>';
   }
   function renderDetail(i) {
-    var h = HAMPERS[i], src = imgFor(h);
+    var h = HAMPERS[i], gal = gallery(h), src = gal[0] || '';
+    var thumbs = gal.length > 1 ? '<div class="hb__thumbs">' + gal.map(function (g, n) { return '<button type="button" class="hb__thumb' + (n === 0 ? ' is-on' : '') + '" data-hb-thumb="' + esc(g) + '" aria-label="Photo ' + (n + 1) + '"><img src="' + esc(g) + '" alt=""></button>'; }).join('') + '</div>' : '';
     var inside = '';
     var catOf = function (k) { for (var n = 0; n < h.opts.length; n++) { var ck = h.opts[n].replace(/\d+$/, ''); if (ck === k) return h.opts[n]; } return ''; };
     var defaultImg = function (k) { var ck = catOf(k); if (!ck || !OPTIMG[k]) return ''; for (var n = 0; n < CATS[ck].values.length; n++) { if (OPTIMG[k][CATS[ck].values[n]]) return OPTIMG[k][CATS[ck].values[n]]; } return ''; };
@@ -176,8 +196,9 @@
       c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + esc(v) + '</span></label>'; });
       opts += '</div></fieldset>';
     });
-    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__hero">' + (src ? '<img src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + ' <small>Inclusive of all taxes</small></p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
+    root.innerHTML = '<a class="hb__back" href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>&larr; All hampers</a><div class="hb__detail"><div class="hb__media"><div class="hb__hero">' + (src ? '<img data-hb-main src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div>' + thumbs + '</div><form data-hb-form><p class="eyebrow">' + esc(h.box) + '</p><h1 class="hb__title">' + esc(h.name) + '</h1><p class="hb__dprice">' + money(h.price) + ' <small>Inclusive of all taxes</small></p><h4 class="hb__h4">What’s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><button type="submit" class="btn btn--ink btn--block btn--lg">' + (variants.length ? 'Add hamper to bag · ' + money(h.price) : 'Enquire about this hamper') + '</button></form></div>';
     var form = root.querySelector('[data-hb-form]'), msg = root.querySelector('[data-hb-msg]'), btn = form.querySelector('button[type=submit]');
+    root.querySelectorAll('[data-hb-thumb]').forEach(function (b) { b.addEventListener('click', function () { var m = root.querySelector('[data-hb-main]'); if (m) m.src = b.getAttribute('data-hb-thumb'); root.querySelectorAll('.hb__thumb').forEach(function (x) { x.classList.toggle('is-on', x === b); }); }); });
     form.addEventListener('change', function (e) {
       var r = e.target; if (!r || r.type !== 'radio') return;
       var k = r.getAttribute('data-k'), s = OPTIMG[k] && OPTIMG[k][r.value];

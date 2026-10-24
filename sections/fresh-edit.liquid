@@ -19,9 +19,9 @@
 
     {%- if section.settings.hamper_label != blank -%}
       <div class="hamper-cta" data-reveal data-delay="0.1">
-        <button type="button" class="btn btn--ink" data-hamper-open>
+        <a href="{{ routes.root_url }}pages/diwali-hamper" class="btn btn--ink">
           {{ section.settings.hamper_label }} <span class="btn__arrow" aria-hidden="true">&rarr;</span>
-        </button>
+        </a>
       </div>
     {%- endif -%}
 
