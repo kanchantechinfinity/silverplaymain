@@ -2178,5 +2178,9 @@ input, textarea, select { font: inherit; color: inherit; }
 .pagehero--hampers .pagehero__title { max-width: none; margin: .5rem 0 0; white-space: nowrap; font-size: clamp(1.7rem, 6.4vw, 3.6rem); color: #fbf1d6; text-shadow: 0 2px 22px rgba(0,0,0,.4); }
 .pagehero--hampers .pagehero__title::after { content: ""; display: block; width: 4rem; height: 2px; margin-top: 1rem; background: linear-gradient(90deg, #f0cf78, transparent); }
 .pagehero--hampers .pagehero__desc { max-width: 28rem; color: rgba(251,241,214,.95) !important; }
-@media (max-width: 767px) { .pagehero--hampers .pagehero__media::after { background: linear-gradient(to top, rgba(40,18,8,.85), rgba(40,18,8,.45) 60%, rgba(40,18,8,.2)); } }
+@media (max-width: 767px) {
+  .pagehero--hampers .pagehero__media::after { background: linear-gradient(rgba(32,14,6,.62), rgba(32,14,6,.62)), linear-gradient(to top, rgba(32,14,6,.55), transparent 60%); }
+  .pagehero--hampers .pagehero__title, .pagehero--hampers .pagehero__desc, .pagehero--hampers .eyebrow { text-shadow: 0 1px 14px rgba(0,0,0,.7); }
+  .pagehero--hampers .pagehero__desc { font-size: 1.02rem; line-height: 1.55; }
+}
 .hb { padding-top: 1.5rem; }
