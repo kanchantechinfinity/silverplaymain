@@ -12,7 +12,9 @@
   heading: 'Choose your hamper',
   image: section.settings.banner_image,
   description: 'Pick a hamper to see what is inside and choose your diya and coin.',
-  min_height: '40vh' %}
+  fallback: 'hamper-hero.jpg',
+  modifier: 'pagehero--hampers',
+  min_height: '56vh' %}
 </div>
 <script>if(/[?&]h=\d/.test(location.search)){var _h=document.querySelector("[data-hb-hero]");if(_h)_h.hidden=true;}</script>
 
