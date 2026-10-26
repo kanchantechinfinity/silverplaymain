@@ -89,9 +89,17 @@
     .hb .buybox__title { font-size: 1.6rem; margin-top: .6rem; }
     .hb .buybox__price { margin-top: .6rem; }
     .hb__items { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
-    .hb__opts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
-    .hb__opt span { padding: .35rem .35rem .5rem; font-size: .66rem; }
-    .hb__opt span b { font-size: .62rem; }
+    .hb form[data-hb-form] { display: flex; flex-direction: column; }
+    .hb form[data-hb-form] .hb__group { order: 1; }
+    .hb form[data-hb-form] .hb__h4, .hb form[data-hb-form] .hb__items { order: 2; }
+    .hb form[data-hb-form] .hb__msg { order: 3; }
+    .hb form[data-hb-form] .buybox__actions { order: 4; }
+    .hb form[data-hb-form] .buybox__trust { order: 5; }
+    .hb__opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+    .hb__opt span { display: block; padding: .35rem .35rem .5rem; border-radius: 1rem; text-align: center; letter-spacing: .03em; }
+    .hb__opt span img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: .7rem; margin-bottom: .4rem; }
+    .hb__opt span b { display: block; font-weight: 600; font-size: .62rem; line-height: 1.25; }
+    .hb__opt input:checked + span { box-shadow: 0 0 0 2px var(--sp-gold-deep); }
     .hb .buybox__actions { gap: .5rem; }
     .hb .buybox__actions .btn { flex: 1 1 0; min-width: 0; padding: .85rem .5rem; font-size: .7rem; letter-spacing: .08em; white-space: nowrap; }
     .hb .buybox__trust { margin-top: 1.4rem; }
@@ -142,11 +150,7 @@
   .hb__taxnote { font-family: var(--font-body); font-size: .95rem; font-weight: 400; color: rgba(36,26,16,.55); letter-spacing: 0; }
   .hb .pdp__grid > *, .hb .pdp__media, .hb form { min-width: 0; max-width: 100%; }
   .hb .buybox__price { flex-wrap: wrap; align-items: baseline; column-gap: .75rem; }
-  .hb__opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr)); gap: .7rem; }
-  .hb__opt span { display: block; padding: .4rem .4rem .55rem; border-radius: 1rem; text-align: center; letter-spacing: .04em; }
-  .hb__opt span img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: .7rem; margin-bottom: .45rem; }
-  .hb__opt span b { display: block; font-weight: 600; font-size: .7rem; line-height: 1.25; }
-  .hb__opt input:checked + span { box-shadow: 0 0 0 2px var(--sp-gold-deep); }
+  .hb__opt span img { display: none; }
   .hb__thumbs { display: flex; gap: .6rem; margin-top: .75rem; }
   .hb__thumb { width: 4.6rem; height: 4.6rem; padding: 0; border: 1.5px solid rgba(36,26,16,.2); border-radius: .8rem; overflow: hidden; background: var(--sp-bone-2, #e8d8b3); cursor: pointer; opacity: .75; transition: all .2s; }
   .hb__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -237,7 +241,7 @@
       c.values.forEach(function (v) { var th = OPTIMG[ok] && OPTIMG[ok][v]; opts += '<label class="hb__opt"><input type="radio" name="' + esc(c.label) + '" value="' + esc(v) + '" data-k="' + ok + '"><span>' + (th ? '<img src="' + esc(th) + '" alt="" loading="lazy">' : '') + '<b>' + esc(v) + '</b></span></label>'; });
       opts += '</div></fieldset>';
     });
-    root.innerHTML = '<div class="pdp"><div class="wrap wrap--narrow" style="max-width:1400px"><nav aria-label="Breadcrumb" class="breadcrumb"><a href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>Diwali Hampers</a><span>/</span><span style="color:rgba(36,26,16,.75)">' + esc(h.name) + '</span></nav><div class="pdp__grid"><div class="pdp__media"><div class="hb__hero">' + (src ? '<img data-hb-main src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div>' + thumbs + '</div><div><form data-hb-form><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap"><span class="buybox__chip">' + esc(h.box) + '</span></div><h1 class="buybox__title">' + esc(h.name) + '</h1><p class="buybox__price"><span>' + money(h.price) + '</span><small class="hb__taxnote">Inclusive of all taxes</small></p>' + opts + '<h4 class="hb__h4">What\u2019s inside</h4><div class="hb__items">' + inside + '</div><p class="hb__msg" data-hb-msg role="status"></p><div class="buybox__actions"><button type="submit" class="btn btn--ink btn--lg" data-hb-buy>' + (variants.length ? 'Buy now' : 'Enquire') + '</button><button type="submit" class="btn btn--outline-gold btn--lg" data-hb-add>' + (variants.length ? 'Add to cart' : 'Enquire about this hamper') + '</button></div><div class="buybox__trust"><div><span>&#10003;</span><span>BIS Certified</span></div><div><span>&#10022;</span><span>925 Sterling Silver</span></div><div><span>&#9825;</span><span>Skin-Friendly</span></div></div></form></div></div></div></div>';
+    root.innerHTML = '<div class="pdp"><div class="wrap wrap--narrow" style="max-width:1400px"><nav aria-label="Breadcrumb" class="breadcrumb"><a href="' + window.location.pathname + '?t=' + boxIndex(h.box) + '" data-hb-back>Diwali Hampers</a><span>/</span><span style="color:rgba(36,26,16,.75)">' + esc(h.name) + '</span></nav><div class="pdp__grid"><div class="pdp__media"><div class="hb__hero">' + (src ? '<img data-hb-main src="' + esc(src) + '" alt="' + esc(h.name) + '">' : '') + '</div>' + thumbs + '</div><div><form data-hb-form><div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap"><span class="buybox__chip">' + esc(h.box) + '</span></div><h1 class="buybox__title">' + esc(h.name) + '</h1><p class="buybox__price"><span>' + money(h.price) + '</span><small class="hb__taxnote">Inclusive of all taxes</small></p><h4 class="hb__h4">What\u2019s inside</h4><div class="hb__items">' + inside + '</div>' + opts + '<p class="hb__msg" data-hb-msg role="status"></p><div class="buybox__actions"><button type="submit" class="btn btn--ink btn--lg" data-hb-buy>' + (variants.length ? 'Buy now' : 'Enquire') + '</button><button type="submit" class="btn btn--outline-gold btn--lg" data-hb-add>' + (variants.length ? 'Add to cart' : 'Enquire about this hamper') + '</button></div><div class="buybox__trust"><div><span>&#10003;</span><span>BIS Certified</span></div><div><span>&#10022;</span><span>925 Sterling Silver</span></div><div><span>&#9825;</span><span>Skin-Friendly</span></div></div></form></div></div></div></div>';
     var form = root.querySelector('[data-hb-form]'), msg = root.querySelector('[data-hb-msg]'), btn = form.querySelector('[data-hb-add]'), buyBtn = form.querySelector('[data-hb-buy]'), goCheckout = false;
     [btn, buyBtn].forEach(function (b) { if (b) b.addEventListener('click', function () { goCheckout = (b === buyBtn); }); });
     root.querySelectorAll('[data-hb-thumb]').forEach(function (b) { b.addEventListener('click', function () { var m = root.querySelector('[data-hb-main]'); if (m) m.src = b.getAttribute('data-hb-thumb'); root.querySelectorAll('.hb__thumb').forEach(function (x) { x.classList.toggle('is-on', x === b); }); }); });
