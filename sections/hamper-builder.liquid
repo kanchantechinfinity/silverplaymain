@@ -80,7 +80,20 @@
   .hb { padding-top: 2.5rem; }
   .hb.hb--detail { padding-top: clamp(6rem, 9vw, 7.5rem); padding-bottom: 0; background: var(--sp-bone) !important; }
   .hb.hb--detail .heritage-sec__bg, .hb.hb--detail .heritage-sec__wash { display: none; }
-  .hb.hb--detail .wrap { padding-inline: 0; max-width: none; }
+  .hb.hb--detail > .wrap { padding-inline: 0; max-width: none; }
+  .hb.hb--detail .pdp .wrap { padding-inline: 1.25rem; }
+  @media (min-width: 768px) { .hb.hb--detail .pdp .wrap { padding-inline: 2.5rem; } }
+  @media (max-width: 767px) {
+    .hb.hb--detail { padding-top: 5.5rem; }
+    .hb .pdp__grid { gap: 1.5rem; padding-bottom: 3.5rem; }
+    .hb .buybox__title { font-size: 1.6rem; margin-top: .6rem; }
+    .hb .buybox__price { margin-top: .6rem; }
+    .hb__items { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
+    .hb__opt span { padding: .5rem .85rem; font-size: .72rem; }
+    .hb .buybox__actions { gap: .5rem; }
+    .hb .buybox__actions .btn { flex: 1 1 0; min-width: 0; padding: .85rem .5rem; font-size: .7rem; letter-spacing: .08em; white-space: nowrap; }
+    .hb .buybox__trust { margin-top: 1.4rem; }
+  }
   body:not(.hb-detail) [id$="__hb_celeb"], body:not(.hb-detail) [id$="__hb_recent"], body:not(.hb-detail) [id$="__hb_faq"] { display: none; }
   .hb__h1 { font-size: clamp(1.3rem, 6.2vw, 2.6rem); white-space: nowrap; }
   .hb__tab .short { display: none; }
