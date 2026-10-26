@@ -1374,7 +1374,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .faq__q { position: relative; min-width: 0; flex: 1; }
 .faq__q h3 { font-family: var(--font-display); font-size: 1.275rem; font-weight: 700; line-height: 1.35; color: var(--sp-bone); transition: color .4s; }
 @media (min-width: 768px) { .faq__q h3 { font-size: 1.525rem; } }
-.faq__a { display: block; max-width: 28rem; overflow: hidden; max-height: 0; opacity: 0; font-family: var(--font-body); font-size: 0.985rem; line-height: 1.7; color: rgba(36,26,16,.7); transition: max-height .4s var(--ease-silk), opacity .4s, margin-top .4s; }
+.faq__a { display: block; max-width: none; overflow: hidden; max-height: 0; opacity: 0; font-family: var(--font-body); font-size: 0.985rem; line-height: 1.7; color: rgba(36,26,16,.7); transition: max-height .4s var(--ease-silk), opacity .4s, margin-top .4s; }
 .faq__row.is-open .faq__a { max-height: 22rem; opacity: 1; margin-top: .5rem; }
 .faq__row.is-open .faq__num { color: rgba(36,26,16,.5); }
 .faq__row.is-open .faq__q h3 { color: var(--sp-ink); }
