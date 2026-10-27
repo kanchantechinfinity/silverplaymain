@@ -1,11 +1,11 @@
 {%- comment -%}
   Interior page banner: a real image behind a dark scrim, the header sits
-  transparent over it. Params: eyebrow, heading, image, description, min_height, fallback (asset filename used when no image is set), tone ('light' for a bright image: dark text, soft light veil)
+  transparent over it. Params: eyebrow, heading, image, description, min_height, focus (CSS object-position for the banner), fallback (asset filename used when no image is set), tone ('light' for a bright image: dark text, soft light veil)
 {%- endcomment -%}
 <section class="pagehero{% if tone == 'light' %} pagehero--light{% endif %}{% if modifier != blank %} {{ modifier }}{% endif %}" data-page-hero style="min-height: {{ min_height | default: '52vh' }}">
   <div class="pagehero__media">
     {%- if image != blank -%}
-      <img src="{{ image | image_url: width: 2000 }}" alt="{{ heading | escape }}" width="2000" height="1200" loading="eager" fetchpriority="high">
+      <img src="{{ image | image_url: width: 2000 }}" alt="{{ heading | escape }}" width="2000" height="1200" loading="eager" fetchpriority="high"{% if focus != blank %} style="object-position: {{ focus }}"{% endif %}>
     {%- else -%}
       <img src="{{ fallback | default: 'archive-balcony.jpg' | asset_url }}" alt="" width="1600" height="1000">
     {%- endif -%}
