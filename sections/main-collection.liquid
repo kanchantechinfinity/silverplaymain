@@ -15,7 +15,7 @@
   assign description = collection.description | strip_html | truncatewords: 20
 -%}
 
-{%- if collection.handle == 'mangalsutra-collection' -%}{%- assign hero_focus = '50% 94%' -%}{%- endif -%}
+{%- if collection.handle == 'mangalsutra-collection' -%}{%- assign hero_focus = '50% 82%' -%}{%- endif -%}
 {% render 'page-hero', eyebrow: section.settings.eyebrow, heading: collection.title, image: banner, description: description, min_height: '30vh', focus: hero_focus %}
 
 <div class="wrap" style="padding-block:1.5rem 4rem">
