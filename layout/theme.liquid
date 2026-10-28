@@ -11,6 +11,9 @@
   <link rel="canonical" href="{{ canonical_url }}">
   {% if settings.favicon != blank %}
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {% else %}
+    <link rel="icon" type="image/png" sizes="256x256" href="{{ 'favicon.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
   {% endif %}
   {{ content_for_header }}
 

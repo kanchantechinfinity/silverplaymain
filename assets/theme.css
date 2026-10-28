@@ -2184,3 +2184,6 @@ input, textarea, select { font: inherit; color: inherit; }
   .pagehero--hampers .pagehero__desc { font-size: 1.02rem; line-height: 1.55; }
 }
 .hb { padding-top: 1.5rem; }
+
+/* Chrome monogram logo: no colour inversion on any header state, just a soft shadow */
+html body .header .header__logo img, html body .header--light .header__logo img, html body .header.is-pinned .header__logo img, html body .header--light-mobile:not(.is-pinned) .header__logo img { filter: drop-shadow(0 1px 4px rgba(0,0,0,.28)) !important; }
