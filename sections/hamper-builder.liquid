@@ -42,7 +42,7 @@
     {%- for k in hk -%}
       {%- assign sid = 'img_' | append: k -%}
       {%- assign im = section.settings[sid] -%}
-      "{{ k }}": {% if im != blank %}{{ im | image_url: width: 300 | json }}{% elsif k == 'fish' %}{{ 'hamper-item-fish.jpg' | asset_url | json }}{% elsif k == 'laxmi_paduka' %}{{ 'hamper-item-laxmi-paduka.jpg' | asset_url | json }}{% elsif k == 'vishnu_paduka' %}{{ 'hamper-item-vishnu-paduka.jpg' | asset_url | json }}{% elsif k == 'tortoise' %}{{ 'hamper-item-tortoise.jpg' | asset_url | json }}{% else %}""{% endif %}{% unless forloop.last %},{% endunless %}
+      "{{ k }}": {% if im != blank %}{{ im | image_url: width: 300 | json }}{% elsif k == 'fish' %}{{ 'hamper-item-fish.jpg' | asset_url | json }}{% elsif k == 'laxmi_paduka' %}{{ 'hamper-item-laxmi-paduka.jpg' | asset_url | json }}{% elsif k == 'vishnu_paduka' %}{{ 'hamper-item-vishnu-paduka.jpg' | asset_url | json }}{% elsif k == 'yantra' %}{{ 'hamper-item-yantra.jpg' | asset_url | json }}{% elsif k == 'tortoise' %}{{ 'hamper-item-tortoise.jpg' | asset_url | json }}{% else %}""{% endif %}{% unless forloop.last %},{% endunless %}
     {%- endfor -%}
   }
 </script>
