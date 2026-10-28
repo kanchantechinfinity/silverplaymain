@@ -14,13 +14,18 @@
   {%- assign img_d = section.settings.image_desktop -%}
   {%- assign img_m = section.settings.image_mobile | default: img_d -%}
   {%- assign img_d = img_d | default: img_m -%}
+  {%- assign use_royal = section.settings.use_royal_photo -%}
+  {%- assign has_img = false -%}
+  {%- if img_d != blank or use_royal -%}{%- assign has_img = true -%}{%- endif -%}
   {%- assign pop_url = section.settings.button_url | default: '/pages/festive-season-offer' -%}
   <div class="opop" data-opop data-delay="{{ section.settings.delay }}" data-freq="{{ section.settings.frequency }}" data-design="{{ request.design_mode }}" hidden aria-hidden="true">
     <div class="opop__scrim" data-opop-close></div>
-    <div class="opop__card{% if img_d != blank %} opop__card--img{% endif %}" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading | escape }}">
+    <div class="opop__card{% if has_img %} opop__card--img{% endif %}" role="dialog" aria-modal="true" aria-label="{{ section.settings.heading | escape }}">
       <button type="button" class="opop__x" data-opop-close aria-label="Close offer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg></button>
 
-      {%- if img_d != blank -%}
+      {%- if use_royal -%}
+        <a href="{{ pop_url }}" class="opop__media"><img src="{{ 'hamper-photo-17.jpg' | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="720" height="720"></a>
+      {%- elsif img_d != blank -%}
         <a href="{{ pop_url }}" class="opop__media">
           <picture>
             <source media="(max-width: 767px)" srcset="{{ img_m | image_url: width: 800 }} 800w, {{ img_m | image_url: width: 1200 }} 1200w" sizes="92vw">
@@ -168,6 +173,7 @@
     { "type": "checkbox", "id": "enabled", "label": "Show the pop-up", "default": true },
     { "type": "checkbox", "id": "always", "label": "Show outside festive campaign dates too", "default": false,
       "info": "By default it only appears while a festive campaign is live (or starts within 5 days)." },
+    { "type": "checkbox", "id": "use_royal_photo", "label": "Use the Royal Shagun hamper photo", "info": "Shows the built-in hamper photo instead of the images below. Untick to use your own image.", "default": true },
     { "type": "image_picker", "id": "image_desktop", "label": "Offers image — desktop", "info": "Your Diwali offers artwork. Without an image the pop-up shows the campaign offers as text." },
     { "type": "image_picker", "id": "image_mobile", "label": "Offers image — mobile", "info": "Falls back to the desktop image." },
     { "type": "text", "id": "heading", "label": "Heading (used for accessibility / no-image text)", "default": "Diwali Offers" },

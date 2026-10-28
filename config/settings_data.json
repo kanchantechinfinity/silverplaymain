@@ -128,6 +128,7 @@
         "settings": {
           "enabled": true,
           "always": false,
+          "use_royal_photo": true,
           "image_desktop": "shopify://shop_images/b6fd34fc-2cbb-4e88-90ac-4c8a78a0d683.png",
           "heading": "Diwali Offers",
           "text": "Festive silver, gifting hampers and offers, made for Diwali.",
