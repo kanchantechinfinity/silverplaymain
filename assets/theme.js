@@ -1229,12 +1229,21 @@
      duplicating, if some are already there), so a real gift shows up
      instead of just a banner promising one. */
   function ensureCoinsInCart(variantId, targetQty) {
-    if (!variantId || targetQty <= 0) return Promise.resolve();
+    if (!variantId) return Promise.resolve();
     return fetch("/cart.js")
       .then(function (r) { return r.json(); })
       .then(function (cart) {
         var line = cart.items.filter(function (i) { return i.variant_id === Number(variantId); })[0];
         var have = line ? line.quantity : 0;
+        /* No longer qualifying (items removed): take the gift coins back out so the
+           shopper is never left paying for coins that are only free above the threshold. */
+        if (targetQty <= 0) {
+          if (!line) return null;
+          return fetch("/cart/change.js", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: line.key, quantity: 0 })
+          });
+        }
         if (have >= targetQty) return null;
         return fetch("/cart/add.js", {
           method: "POST", headers: { "Content-Type": "application/json" },
