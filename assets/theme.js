@@ -1223,6 +1223,7 @@
 
   /* -------------------------------------------- free silver coin offer */
   var COIN_TIER_KEY = "sp_coin_tier";
+  /* gift coins: added when the order qualifies, removed again if it stops qualifying */
   /* The "Buy X get Y" automatic discount only zeroes the coin's price if
      it's already a line in the cart -- it never adds the coin itself.
      This adds exactly as many as the shopper has earned (topping up, not
