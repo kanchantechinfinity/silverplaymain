@@ -672,3 +672,9 @@ class names, at a 1280×900 viewport:
 
 ### Next
 Awaiting change requests from the user.
+
+### 2026-10-30 — Hamper photo set replaced
+- 13 new 1:1 photos → `assets/hamper-photo-23..35.jpg` (uncropped); `data-hb-gallery` in `sections/hamper-builder.liquid` repointed per hamper.
+- `.hb__ph` and `.hb__hero` frames changed to `aspect-ratio: 1/1`.
+- Charan Blessings I and II share photo 35; Shree Samriddhi has 26 + 27. Commits 6b9db1a, 54fc9cb.
+- Zoho Inventory ↔ Shopify: blocked on "Store Contact Email must match a Zoho user with Manage Integration".

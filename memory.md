@@ -286,3 +286,6 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - Reference for visual fidelity = the **Vercel site**; when in doubt, match it exactly.
 - Real content over placeholders — several commits replaced stock/placeholder images and generic text with real brand photography and real imported collections (f524482, 35bc03f, fb0017a, fc6b833).
 - Fixes are committed one concern at a time with a descriptive message naming the root cause.
+
+## Hampers
+- Gallery map lives in `sections/hamper-builder.liquid` (`data-hb-gallery`); live page is `/pages/diwali-hamper`. Photos are 1:1, never crop (user rule).
