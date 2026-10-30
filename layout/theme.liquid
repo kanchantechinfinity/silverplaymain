@@ -9,7 +9,7 @@
   <title>{{ page_title }}{% unless page_title contains shop.name %} | {{ shop.name }}{% endunless %}</title>
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
   <link rel="canonical" href="{{ canonical_url }}">
-  {%- if product.template_suffix == 'free-gift' %}<meta name="robots" content="noindex, nofollow">{% endif %}
+  {%- if product.template_suffix == 'free-gift' or product.tags contains 'gift-only' %}<meta name="robots" content="noindex, nofollow">{% endif %}
   {% if settings.favicon != blank %}
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {% else %}

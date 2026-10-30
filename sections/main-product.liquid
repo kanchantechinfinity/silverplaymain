@@ -3,6 +3,15 @@
   Anything that isn't a natural product field is read from a metafield —
   see the theme README for the definitions the merchant must create.
 {%- endcomment -%}
+{%- if product.tags contains 'gift-only' -%}
+<section class="sec" style="background:var(--sp-bone);min-height:40vh">
+  <div class="wrap text-center" style="padding-top:8rem">
+    <p class="lede">This is a complimentary festive gift and is not sold separately.</p>
+    <p class="mt-6"><a class="btn btn--ink" href="{{ routes.root_url }}">Back to home</a></p>
+  </div>
+</section>
+<script>setTimeout(function () { location.replace({{ routes.root_url | json }}); }, 1500);</script>
+{%- else -%}
 {%- liquid
   assign v = product.selected_or_first_available_variant
   assign rating = product.metafields.reviews.rating.value.rating | default: 0
@@ -164,6 +173,7 @@
     </div>
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {

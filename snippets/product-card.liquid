@@ -1,4 +1,4 @@
-{%- if product.template_suffix != 'free-gift' -%}
+{%- unless product.template_suffix == 'free-gift' or product.tags contains 'gift-only' -%}
 {%- comment -%}
   Product tile.
   Params:
@@ -105,4 +105,4 @@
     {%- if card_style == 'heritage' -%}</div>{%- endif -%}
   </div>
 </a>
-{%- endif -%}
+{%- endunless -%}
