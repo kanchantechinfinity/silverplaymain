@@ -12,8 +12,8 @@
     "campaign": {
       "type": "campaign-offer",
       "settings": {
-        "extra_collection": "mangalsutra-collection",
-        "extra_heading": "Mangalsutra Collection",
+        "extra_collection": "diwali-product",
+        "extra_heading": "Diwali offer",
         "extra_limit": 4
       }
     },
