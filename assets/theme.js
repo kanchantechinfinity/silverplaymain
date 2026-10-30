@@ -1061,6 +1061,8 @@
         if (!match) return;
         if (idInput) idInput.value = match.id;
         if (priceEl) priceEl.textContent = money(match.price);
+        var skuEl = $("[data-variant-sku]");
+        if (skuEl) { var skuVal = $("[data-variant-sku-val]", skuEl); if (skuVal) skuVal.textContent = match.sku || ""; skuEl.hidden = !match.sku; }
         if (wasEl) {
           if (false && match.compare_at_price > match.price) {
             wasEl.textContent = money(match.compare_at_price); wasEl.hidden = false;
