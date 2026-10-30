@@ -1698,7 +1698,11 @@
       var url = base + "/suggest.json?q=" + encodeURIComponent(q) +
                 "&resources[type]=product,article,page&resources[limit]=10" +
                 "&resources[options][unavailable_products]=last";
-      return fetch(url, signal ? { signal: signal } : undefined).then(function (res) { return res.json(); });
+      return fetch(url, signal ? { signal: signal } : undefined).then(function (res) { return res.json(); }).then(function (data) {
+        var r = data && data.resources && data.resources.results;
+        if (r && r.products) r.products = r.products.filter(function (p) { return !/\/products\/free-gift-/.test(p.url || ""); });
+        return data;
+      });
     }
     function resultCount(data) {
       var r = (data && data.resources && data.resources.results) || {};

@@ -30,7 +30,7 @@
         {%- endcomment -%}
         <div class="grid-products grid-products--3 mt-4">
           {%- for item in search.results -%}
-            {%- if item.object_type == 'product' -%}
+            {%- if item.object_type == 'product' and item.template_suffix != 'free-gift' -%}
               {% render 'product-card', product: item %}
             {%- endif -%}
           {%- endfor -%}

@@ -31,7 +31,10 @@
   assign camp_coin_threshold = 0
   assign camp_coin_qty = 0
   assign camp_coin_grams = 2
-  assign camp_coin_handle = 'lakshmi-silver-coin-in-gift-booklet'
+  assign camp_coin_handle = 'free-gift-2g-silver-coin'
+  if all_products[camp_coin_handle] == blank
+    assign camp_coin_handle = 'lakshmi-silver-coin-in-gift-booklet'
+  endif
   assign camp_end_label = ''
   assign camp_image = ''
 

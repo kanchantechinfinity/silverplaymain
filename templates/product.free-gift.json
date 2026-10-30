@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "main": { "type": "free-gift-redirect", "settings": {} }
+  },
+  "order": ["main"]
+}

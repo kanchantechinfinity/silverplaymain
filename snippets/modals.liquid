@@ -83,7 +83,7 @@
     <div class="coin-modal__stars" aria-hidden="true">
       {%- for i in (1..14) -%}<span class="coin-modal__star"></span>{%- endfor -%}
     </div>
-    {%- assign coin_product = all_products['lakshmi-silver-coin-in-gift-booklet'] -%}
+    {%- assign coin_product = all_products['free-gift-2g-silver-coin'] | default: all_products['lakshmi-silver-coin-in-gift-booklet'] -%}
     {%- if coin_product != blank and coin_product.featured_image != blank -%}
       <img class="coin-modal__medal-img" src="{{ coin_product.featured_image | image_url: width: 160 }}" alt="" width="80" height="80">
     {%- else -%}
