@@ -16,7 +16,10 @@
 -%}
 
 {%- if collection.handle == 'mangalsutra-collection' -%}{%- assign hero_focus = '50% 82%' -%}{%- endif -%}
-{% render 'page-hero', eyebrow: section.settings.eyebrow, heading: collection.title, image: banner, description: description, min_height: '30vh', focus: hero_focus %}
+{%- capture liner_text -%}{% render 'collection-liner' %}{%- endcapture -%}
+{%- assign liner_text = liner_text | strip -%}
+{%- if liner_text != blank -%}{%- assign description = liner_text -%}{%- endif -%}
+{% render 'page-hero', eyebrow: section.settings.eyebrow, heading: collection.title, image: banner, description: description, min_height: '30vh', focus: hero_focus, modifier: 'pagehero--collection' %}
 
 <div class="wrap" style="padding-block:1.5rem 4rem">
   <div class="shop">
