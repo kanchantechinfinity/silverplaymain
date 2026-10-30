@@ -678,3 +678,10 @@ Awaiting change requests from the user.
 - `.hb__ph` and `.hb__hero` frames changed to `aspect-ratio: 1/1`.
 - Charan Blessings I and II share photo 35; Shree Samriddhi has 26 + 27. Commits 6b9db1a, 54fc9cb.
 - Zoho Inventory ↔ Shopify: blocked on "Store Contact Email must match a Zoho user with Manage Integration".
+
+### 2026-10-30 — Dhanteras offer: free 2g coins only
+- Offer is now only "2 free 2g silver coins above ₹12,000" + delivery promise (10% removed from offer page; deactivate the 10% discount in Shopify).
+- Gift coin = hidden product `free-gift-2g-silver-coin` (tag `gift-only`, SKU SPGF1026-001, ₹740). Hidden by tag in product-card, product page (redirect + noindex), search drawer. Shopify discount "Buy X get Y" (min ₹12,000.01, free qty 2) uses a collection that excludes the gift (tag not gift-only).
+- theme.js: gift coins auto-added on qualifying add-to-bag, removed again if cart drops below threshold.
+- SKU shown on product + hamper pages; 60 blank SKUs filled via import (type+MMYY+serial, e.g. SPSP1026-001).
+- Festive offer page hero: Diwali image (Pexels, free licence) on the right.

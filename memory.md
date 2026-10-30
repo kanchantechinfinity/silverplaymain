@@ -289,3 +289,8 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 
 ## Hampers
 - Gallery map lives in `sections/hamper-builder.liquid` (`data-hb-gallery`); live page is `/pages/diwali-hamper`. Photos are 1:1, never crop (user rule).
+
+## Offers / free coin
+- Dhanteras/Diwali 2026 campaign lives in `snippets/campaign-data.liquid` (copy in `snippets/coin-offer.liquid` — keep in sync). Gift coin handle `free-gift-2g-silver-coin`; Shopify's Buy X get Y only zeroes the price, the theme adds/removes the coins.
+- Shopify non-combinable discounts: best single value wins, so a 10% discount would beat the coins above ~₹14.8k — hence 10% dropped.
+- Shopify theme sync can lag; push a tiny follow-up commit to retrigger.
