@@ -1808,6 +1808,8 @@
     }
 
     function showInDrawer(label, products, q) {
+      /* the free gift coin is never shown as a result */
+      products = (products || []).filter(function (p) { return !/\/products\/free-gift-/.test((p && p.url) || ""); });
       if (!products.length) return false;
       results.innerHTML = group(label, products.slice(0, 10), function (p) { return esc(p._priceText); });
       if (allLink) { allLink.hidden = false; allLink.href = base + "?q=" + encodeURIComponent(q); }
