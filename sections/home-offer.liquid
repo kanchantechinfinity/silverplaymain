@@ -28,9 +28,10 @@
                  style="object-position: {{ section.settings.side_image_focus | default: '50% 50%' }}"></video>
         </div>
       {%- endif -%}
-      {%- if gift_card_product != blank -%}
-        <div class="offer-split__image offer-split__image--card">
-          {% render 'product-card', product: gift_card_product, style: 'gilt', lazy: 'lazy' %}
+      {%- if gift_card_product != blank and gift_card_product.featured_image != blank -%}
+        {%- comment -%} The free gift product is hidden from product cards, so show its photo directly. {%- endcomment -%}
+        <div class="offer-split__image">
+          <img src="{{ gift_card_product.featured_image | image_url: width: 1000 }}" alt="Free 2g silver coin" loading="lazy" decoding="async" width="1000" height="1250">
         </div>
       {%- elsif section.settings.side_image != blank -%}
         <div class="offer-split__image">
