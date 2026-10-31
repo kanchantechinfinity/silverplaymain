@@ -28,11 +28,8 @@
                  style="object-position: {{ section.settings.side_image_focus | default: '50% 50%' }}"></video>
         </div>
       {%- endif -%}
-      {%- if gift_card_product != blank and gift_card_product.featured_image != blank -%}
-        {%- comment -%} The free gift product is hidden from product cards, so show its photo directly. {%- endcomment -%}
-        <div class="offer-split__image">
-          <img src="{{ gift_card_product.featured_image | image_url: width: 1000 }}" alt="Free 2g silver coin" loading="lazy" decoding="async" width="1000" height="1250">
-        </div>
+      {%- comment -%} The gift coin is hidden from product cards, so no card/photo is shown beside the video. {%- endcomment -%}
+      {%- if section.settings.side_video_url != blank -%}
       {%- elsif section.settings.side_image != blank -%}
         <div class="offer-split__image">
           <img src="{{ section.settings.side_image | image_url: width: 1200 }}" alt="" loading="lazy" decoding="async" width="1200" height="1500" style="object-position: {{ section.settings.side_image_2_focus | default: '50% 0%' }}">
