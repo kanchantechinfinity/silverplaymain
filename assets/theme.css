@@ -2196,3 +2196,10 @@ html body .header .header__logo img, html body .header--light .header__logo img,
 .buybox__sku[hidden] { display: none; }
 /* Offer band with only the reel (no card/photo beside it): let the video fill its whole column. */
 @media (min-width: 900px) { .offer-split__media > .offer-split__image--reel:only-child { flex: 1 1 100%; width: 100%; aspect-ratio: auto; height: 30rem; } }
+/* Hampers shown on their own in search (see snippets/hamper-search.liquid) */
+.hamper-search { margin-top: 2rem; }
+.hamper-search__grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; margin-top: 1rem; }
+@media (min-width: 640px) { .hamper-search__grid { gap: 1.25rem; } }
+@media (min-width: 1024px) { .hamper-search__grid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.5rem; } }
+@media (min-width: 1280px) { .hamper-search__grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.js .search-page--pending .hamper-search { visibility: hidden; }

@@ -1670,6 +1670,49 @@
              items.map(function (i) { return row(i, metaFor ? metaFor(i) : ""); }).join("") + "</div>";
     }
 
+    /* Diwali hampers are variants of ONE product, so Shopify search can't show them
+       one by one. A hamper whose name matches the query is put at the top of the
+       results, linking straight to that hamper's own customise page; the generic
+       "Diwali Hamper" product is dropped when hampers are shown. */
+    var hamperList = null;
+    function hamperData() {
+      if (hamperList === null) {
+        try { hamperList = JSON.parse($("[data-hamper-search]").textContent) || []; } catch (e) { hamperList = []; }
+      }
+      return hamperList;
+    }
+    function hamperHits(q) {
+      var skip = { diwali: 1, hamper: 1, hampers: 1, the: 1, of: 1, gift: 1, gifts: 1 };
+      var toks = String(q || "").toLowerCase().replace(/["'\-]/g, " ").split(/\s+/).filter(Boolean);
+      var hasWord = toks.some(function (t) { return t === "hamper" || t === "hampers"; });
+      var spec = toks.filter(function (t) { return t.length >= 2 && !skip[t]; });
+      if (!spec.length && !hasWord) return [];
+      return hamperData().filter(function (h) {
+        return spec.every(function (t) { return h.kw.indexOf(t) !== -1; });
+      }).map(function (h) { return { title: h.name, url: h.url, image: h.img, _priceText: h.price }; });
+    }
+    var hamperBusy = false;
+    function addHamperRows() {
+      if (hamperBusy || !results) return;
+      try {
+        var q = (input && input.value || "").trim();
+        var hits = hamperHits(q);
+        if (!hits.length || $("[data-hamper-group]", results)) return;
+        hamperBusy = true;
+        $$('a.sresult[href^="/products/diwali-hamper"]', results).forEach(function (a) {
+          var g = a.parentNode; a.remove();
+          if (g && g.classList && g.classList.contains("search-drawer__group") && !$(".sresult", g)) g.remove();
+        });
+        var hint2 = $(".search-drawer__hint", results); if (hint2) hint2.remove();
+        results.insertAdjacentHTML("afterbegin",
+          '<div data-hamper-group>' + group("Diwali hampers", hits, function (p) { return esc(p._priceText); }) + "</div>");
+        if (allLink) { allLink.hidden = false; allLink.href = base + "?q=" + encodeURIComponent(q); }
+      } catch (e) { /* never let this break search */ } finally { hamperBusy = false; }
+    }
+    if (results && typeof MutationObserver !== "undefined") {
+      new MutationObserver(addHamperRows).observe(results, { childList: true });
+    }
+
     var correctQuery = correctSearchQuery;
 
     function render(data, q) {

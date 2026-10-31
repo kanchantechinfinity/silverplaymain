@@ -6,6 +6,7 @@
   Progressive enhancement: the header trigger keeps its href to routes.search_url
   and the form posts there, so the full /search page still works without JS.
 {%- endcomment -%}
+<script type="application/json" data-hamper-search>{% render 'hamper-search', mode: 'json' %}</script>
 <div class="search-drawer" data-search-drawer aria-hidden="true">
   <div class="search-drawer__scrim" data-search-close></div>
   <aside class="search-drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">

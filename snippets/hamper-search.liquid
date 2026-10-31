@@ -1,0 +1,98 @@
+{%- comment -%}
+  Diwali hamper search index. The Diwali Hamper is ONE Shopify product whose variants are the 13
+  hampers; the "Choose your hamper" page (sections/hamper-builder.liquid) shows each hamper as its own
+  view at /pages/diwali-hamper?h=N (N = position in that section's HAMPERS list). This snippet lets
+  search show a hamper on its own and link straight to that view.
+
+  Params:
+    mode  — 'json'  : array for the search drawer (theme.js reads [data-hamper-search])
+            'cards' : result cards for the /search page (needs `terms`)
+            'map'   : { variantId: hamperIndex } used to redirect the generic product page
+    terms — the search terms (cards mode)
+
+  Row format: index ~ hamper name ~ photo asset ~ extra search words. Keep the index and name in sync
+  with the HAMPERS list in sections/hamper-builder.liquid, and the photo with its data-hb-gallery.
+{%- endcomment -%}
+{%- liquid
+  assign hp_product = all_products['diwali-hamper']
+  assign rows = '0~Samriddhi Shree Charan Blessings - I~hamper-photo-35.jpg~samriddhi samridhi shree shri charan blessing blessings paduka small|||1~Shubh Shagun~hamper-photo-30.jpg~shubh shagun shubhshagun|||2~Samriddhi Shree Charan Blessings - II~hamper-photo-36.jpg~samriddhi samridhi shree shri charan blessing blessings paduka big|||3~Dhan Laxmi Shagun - I~hamper-photo-32.jpg~dhan laxmi lakshmi shagun fish dhanlaxmi|||4~Dhan Laxmi Shagun - II~hamper-photo-31.jpg~dhan laxmi lakshmi shagun tortoise dhanlaxmi|||5~Shri Samriddhi~hamper-photo-28.jpg~shri shree samriddhi samridhi|||6~Dhan Vriddhi~hamper-photo-39.jpg~dhan vriddhi vridhi vridhhi dhanvridhi dhanvriddhi|||7~Laxmi Kripa Hamper~hamper-photo-23.jpg~laxmi lakshmi kripa|||8~Raajsi Diwali Hamper~hamper-photo-24.jpg~raajsi rajsi raajasi rajasi|||9~Shubh Samriddhi Hamper~hamper-photo-38.jpg~shubh samriddhi samridhi|||10~Dhan Samriddhi Hamper~hamper-photo-33.jpg~dhan samriddhi samridhi|||11~The Royal Shagun Hamper~hamper-photo-25.jpg~royal shagun|||12~Shree Samriddhi Diwali Hamper~hamper-photo-26.jpg~shree shri samriddhi samridhi' | split: '|||'
+-%}
+{%- if hp_product != blank -%}
+{%- if mode == 'map' -%}
+{ {%- assign first = true -%}
+  {%- for row in rows -%}
+    {%- assign f = row | split: '~' -%}
+    {%- for v in hp_product.variants -%}
+      {%- if v.title == f[1] -%}{%- unless first -%},{%- endunless -%}"{{ v.id }}":{{ f[0] }}{%- assign first = false -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%} }
+{%- elsif mode == 'json' -%}
+[ {%- assign first = true -%}
+  {%- for row in rows -%}
+    {%- assign f = row | split: '~' -%}
+    {%- assign price = 0 -%}
+    {%- for v in hp_product.variants -%}{%- if v.title == f[1] -%}{%- assign price = v.price -%}{%- endif -%}{%- endfor -%}
+    {%- unless first -%},{%- endunless -%}
+    {"name":{{ f[1] | json }},"url":"{{ routes.root_url | append: 'pages/diwali-hamper?h=' | append: f[0] }}","img":{{ f[2] | asset_url | json }},"price":{{ price | money | json }},"kw":{{ f[1] | downcase | append: ' ' | append: f[3] | json }}}
+    {%- assign first = false -%}
+  {%- endfor -%} ]
+{%- elsif mode == 'cards' -%}
+  {%- liquid
+    assign generic = 'diwali,hamper,hampers,the,of,gift,gifts' | split: ','
+    assign clean = terms | downcase | replace: '"', ' ' | replace: "'", ' ' | replace: '-', ' '
+    assign raw_tokens = clean | split: ' '
+    assign spec = ''
+    assign has_hamper_word = false
+    for t in raw_tokens
+      if t == 'hamper' or t == 'hampers'
+        assign has_hamper_word = true
+      endif
+      if t.size >= 2
+        unless generic contains t
+          assign spec = spec | append: t | append: '~'
+        endunless
+      endif
+    endfor
+    assign spec_tokens = spec | split: '~'
+    assign show_all = false
+    if spec_tokens.size == 0 and has_hamper_word
+      assign show_all = true
+    endif
+  -%}
+  {%- capture cards -%}
+    {%- if show_all or spec_tokens.size > 0 -%}
+      {%- for row in rows -%}
+        {%- assign f = row | split: '~' -%}
+        {%- assign kw = f[1] | downcase | append: ' ' | append: f[3] -%}
+        {%- assign ok = true -%}
+        {%- unless show_all -%}
+          {%- for t in spec_tokens -%}{%- unless kw contains t -%}{%- assign ok = false -%}{%- endunless -%}{%- endfor -%}
+        {%- endunless -%}
+        {%- if ok -%}
+          {%- assign price = 0 -%}
+          {%- for v in hp_product.variants -%}{%- if v.title == f[1] -%}{%- assign price = v.price -%}{%- endif -%}{%- endfor -%}
+          <a href="{{ routes.root_url }}pages/diwali-hamper?h={{ f[0] }}" class="card" data-hamper-card>
+            <div class="card__frame">
+              <div class="card__mat"><div class="card__media">
+                <img class="card__img card__img--main" src="{{ f[2] | asset_url }}" alt="{{ f[1] | escape }}" width="800" height="800" loading="lazy">
+                <span class="photo-vignette" aria-hidden="true"></span>
+              </div></div>
+              <div class="card__body">
+                <h3 class="card__title">{{ f[1] }}</h3>
+                <p class="card__price"><span>{{ price | money }}</span></p>
+                <span class="card__buy">Customise</span>
+              </div>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- if cards contains 'data-hamper-card' -%}
+    <div class="hamper-search">
+      <p class="eyebrow">Diwali hampers</p>
+      <div class="hamper-search__grid">{{ cards }}</div>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+{%- endif -%}
