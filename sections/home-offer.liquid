@@ -4,6 +4,7 @@
   validity/fine-print line below the button.
 {%- endcomment -%}
 {%- include 'campaign-data' -%}
+{%- comment -%} media column: video only when a video is set {%- endcomment -%}
 {%- liquid
   if camp != ''
     if camp_coin_qty > 0
