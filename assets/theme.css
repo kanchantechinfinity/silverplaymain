@@ -2194,3 +2194,5 @@ html body .header .header__logo img, html body .header--light .header__logo img,
 @media (max-width: 640px) { .pagehero--collection .pagehero__desc { font-size: .95rem; line-height: 1.6; } }
 .buybox__sku { margin: .6rem 0 0; font-family: var(--font-body); font-size: .85rem; letter-spacing: .04em; color: rgba(36,26,16,.6); }
 .buybox__sku[hidden] { display: none; }
+/* Offer band with only the reel (no card/photo beside it): let the video fill its whole column. */
+@media (min-width: 900px) { .offer-split__media > .offer-split__image--reel:only-child { flex: 1 1 100%; width: 100%; aspect-ratio: auto; height: 30rem; } }
