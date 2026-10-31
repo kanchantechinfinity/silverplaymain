@@ -33,7 +33,7 @@
     {%- assign price = 0 -%}
     {%- for v in hp_product.variants -%}{%- if v.title == f[1] -%}{%- assign price = v.price -%}{%- endif -%}{%- endfor -%}
     {%- unless first -%},{%- endunless -%}
-    {"name":{{ f[1] | json }},"url":"{{ routes.root_url | append: 'pages/diwali-hamper?h=' | append: f[0] }}","img":{{ f[2] | asset_url | json }},"price":{{ price | money | json }},"kw":{{ f[1] | downcase | append: ' ' | append: f[3] | json }}}
+    {"name":{{ f[1] | json }},"url":"{{ routes.root_url | append: 'pages/diwali-hamper?h=' | append: f[0] }}","img":{{ f[2] | asset_url | json }},"price":{{ price | money | strip_html | json }},"kw":{{ f[1] | downcase | append: ' ' | append: f[3] | json }}}
     {%- assign first = false -%}
   {%- endfor -%} ]
 {%- elsif mode == 'cards' -%}
