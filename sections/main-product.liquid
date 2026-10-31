@@ -12,6 +12,20 @@
 </section>
 <script>setTimeout(function () { location.replace({{ routes.root_url | json }}); }, 1500);</script>
 {%- else -%}
+{%- if product.handle == 'diwali-hamper' -%}
+  {%- comment -%} The Diwali Hamper is sold through the "Choose your hamper" page; send visitors to the right hamper there. {%- endcomment -%}
+  {%- capture hp_map -%}{% render 'hamper-search', mode: 'map' %}{%- endcapture -%}
+  <script>
+    (function () {
+      try {
+        var map = {{ hp_map | strip | default: '{}' }};
+        var v = new URLSearchParams(location.search).get('variant');
+        var i = v && map[v] !== undefined ? '?h=' + map[v] : '';
+        location.replace('/pages/diwali-hamper' + i);
+      } catch (e) {}
+    })();
+  </script>
+{%- endif -%}
 {%- liquid
   assign v = product.selected_or_first_available_variant
   assign rating = product.metafields.reviews.rating.value.rating | default: 0
