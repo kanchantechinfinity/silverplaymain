@@ -67,6 +67,8 @@
         {%- endif -%}
         {%- for product in plist -%}
           {%- unless product.available -%}{%- continue -%}{%- endunless -%}
+          {%- comment -%} the free gift coin is hidden from cards, so it must not use up one of the slots {%- endcomment -%}
+          {%- if product.tags contains 'gift-only' -%}{%- continue -%}{%- endif -%}
           {%- if block.settings.hide_pendants and product.type == 'Pendants' -%}{%- continue -%}{%- endif -%}
           {%- if shown >= section.settings.count -%}{%- break -%}{%- endif -%}
           {%- assign shown = shown | plus: 1 -%}
