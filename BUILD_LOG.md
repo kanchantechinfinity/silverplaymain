@@ -685,3 +685,26 @@ Awaiting change requests from the user.
 - theme.js: gift coins auto-added on qualifying add-to-bag, removed again if cart drops below threshold.
 - SKU shown on product + hamper pages; 60 blank SKUs filled via import (type+MMYY+serial, e.g. SPSP1026-001).
 - Festive offer page hero: Diwali image (Pexels, free licence) on the right.
+
+## 2026-11-02 — Price sheet comparison (client Google Sheet vs live)
+- Compared client sheet to live by SKU: no price changes in the 219 catalog rows. Changes only in coins: Ganesha 5g 1485→1850; Lakshmi 5g 1850→1475, 10g 3300→2725; Kuber 5g 1850→1475, 10g 3300→2725; Guru Nanak 20g 6135→5550.
+- New (not live): Sphere of Balance, Celestial Grove Green Onyx, Infinite Wealth Koi Fish & Pyrite pendants; Lakshmi-Ganesha coin 5g/10g; Bansuri Radha Krishna Mangalsutra. Proposed SKUs SPPD1026-020..022, SPCN1026-007/008, SPMS1026-006.
+- Files in ~/Desktop/diwali offer: price_update_coins.csv, new_products_import.csv (draft, qty 0, no images).
+- Zoho: org trial expired → free plan; care@silverplay.in added as Zoho Admin; connect pending (rate-limit block).
+
+### 2026-11-02 — Site changes
+- Hamper search: `snippets/hamper-search.liquid` + search drawer (`assets/theme.js`) + `sections/main-search.liquid`; hampers listed first, each links to `/pages/diwali-hamper?h=N`. `/products/diwali-hamper` redirects to the builder (main-product.liquid).
+- Home "Find your pick" tabs: `sections/fresh-edit.liquid` skips `gift-only` products so each tab shows 4 cards (a957ffc).
+- Contact page: "Call Us" card +91 72042 42651 (`sections/contact-form.liquid`, 25120d3). Live, verified.
+- Hamper Kuber Ji coin image replaced: `assets/hamper-coin-kuber.jpg` 700x700, same filename, no code change (f035965). Live, verified on `/pages/diwali-hamper?h=1`.
+- Coin prices live: Ganesha 5g 1850; Lakshmi/Kuber 5g 1475, 10g 2725; Guru Nanak 20g 5550. Bansuri Radha Krishna Mangalsutra (SPMS1026-006, ₹5,999) live.
+- Diya stock (stone pool: RQ13 BA27 AM6 GA3 YH35 LL2 CQ12 TE14) loaded per pair variant so total can never exceed the pool: file `~/Desktop/diwali offer/diya_inventory_safe_no_oversell.csv`, total 56 pairs, 33 of 64 variants >0. GA/LL as Diya 1 are 0 (rebalance pending).
+
+### 2026-11-02 — Zoho Inventory ↔ Shopify
+- Connected (shop ctirqe-1i). Zoho org: Silver Play, ID 60071526785, plan FREE (must upgrade to paid with Shopify integration). Users: accounts@, care@ (shows Invited), admin@, marketing@ — all Admin.
+- Configure saved: Map Items = SKU Only, Sync Stock OFF, Fetch Stock Counts OFF, Orders Import From 02/11/2026, customer map Custom/Email, shipment emails + archive orders off, Invoice/Sales Return modules off.
+- Findings (Item.csv export): 448 Zoho items; 189 tracked/259 untracked; 79 items without SKU (old copies); 77 Shopify SKUs missing in Zoho. Shopify inventory export: 389 rows, 27 variants without SKU.
+- Zoho cannot bulk-enable tracking; used Import Items (Overwrite) + Import Opening Stock. 5-item test (SPER0526-001/002/004/005/006) step 1 worked (Inventory type).
+- Full import files in `~/Desktop/zoho_import/`: 1 overwrite/make inventory (151), 2 new items (81), 3 opening stock (244, location "Shop location"), 4 manual adjustments (20).
+- Sync rules: Zoho→Shopify stock only (hourly, Available for Sale); orders Shopify→Zoho; prices/photos/descriptions stay in Shopify; native integration is not two-way.
+- Pending: run imports, verify 15 SKUs, tick Sync Stock, test ±1 on DIYA-RQ-RQ, real order test, upgrade Zoho plan, SKUs for 27 variants, mark 79 old Zoho items inactive, accountant to confirm HSN/tax exemption.

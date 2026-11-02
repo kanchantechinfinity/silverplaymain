@@ -294,3 +294,13 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - Dhanteras/Diwali 2026 campaign lives in `snippets/campaign-data.liquid` (copy in `snippets/coin-offer.liquid` — keep in sync). Gift coin handle `free-gift-2g-silver-coin`; Shopify's Buy X get Y only zeroes the price, the theme adds/removes the coins.
 - Shopify non-combinable discounts: best single value wins, so a 10% discount would beat the coins above ~₹14.8k — hence 10% dropped.
 - Shopify theme sync can lag; push a tiny follow-up commit to retrigger.
+
+- Client price sheet (Nov 2026): coins repriced (5g 1475, 10g 2725, 20g 5550; Ganesha 5g 1850). New products pending add: see BUILD_LOG 2026-11-02. Diya per-colour stock list received but live stock is per pair variant — needs a mapping rule before import.
+
+## Zoho Inventory ↔ Shopify (Nov 2026)
+- Zoho org "Silver Play" ID 60071526785 (India edition, FREE plan — client must upgrade). Shopify shop ctirqe-1i connected; Sync Stock still OFF until imports verified.
+- Stock master = Zoho (hourly Zoho→Shopify, Available for Sale). Prices/photos/descriptions stay in Shopify. Native integration is NOT two-way; edits to Shopify stock get overwritten.
+- Zoho can't bulk-enable tracking: use Import Items (Overwrite, Item Type=Inventory) then Import Opening Stock (Location Name "Shop location"). Files: `~/Desktop/zoho_import/`.
+- 27 Shopify variants have no SKU (can't map); 79 old SKU-less Zoho items to mark inactive later.
+- Diya stock rule: per pair variant allocated from stone pool so total ≤ pool (56 pairs); keep Zoho/Shopify per-variant.
+- Contact phone +91 72042 42651 is on the contact page only.
