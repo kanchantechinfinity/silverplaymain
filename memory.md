@@ -304,3 +304,9 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - 27 Shopify variants have no SKU (can't map); 79 old SKU-less Zoho items to mark inactive later.
 - Diya stock rule: per pair variant allocated from stone pool so total ≤ pool (56 pairs); keep Zoho/Shopify per-variant.
 - Contact phone +91 72042 42651 is on the contact page only.
+
+## Sequel Logistics API (received 2026-11-03)
+- Client code 31509. Docs: http://sequel247.com/api/ (apidoc; data at /api/api_data.json). Test base https://test.sequel247.com/, prod https://sequel247.com/. Tokens were emailed (NOT stored here; keep in a secret store, never in the theme).
+- Store codes (pickup addresses): MUMSPLY and 2701. Shipment type for silver: D&J.
+- Endpoints: POST /api/checkServiceability, /api/shipment/calculateEDD, /api/shipment/create (Ecommerce), /api/track, /api/trackMultiple, /api/cancel. Token goes in the request body ("token"), so calls must be server-side.
+- Sequel has no Shopify plugin → needs middleware (serverless function or Zapier/Make) triggered by Shopify order webhooks.
