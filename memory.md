@@ -310,3 +310,7 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - Store codes (pickup addresses): MUMSPLY and 2701. Shipment type for silver: D&J.
 - Endpoints: POST /api/checkServiceability, /api/shipment/calculateEDD, /api/shipment/create (Ecommerce), /api/track, /api/trackMultiple, /api/cancel. Token goes in the request body ("token"), so calls must be server-side.
 - Sequel has no Shopify plugin → needs middleware (serverless function or Zapier/Make) triggered by Shopify order webhooks.
+
+## Sequel / Cloudflare (added)
+- Pincode check Worker: https://sequel-bridge.care-c4c.workers.dev (test server returned failures for all pins; production base https://sequel247.com works with the given token). No secrets in repo.
+- Git push needs gh account kanchantechinfinity active (`gh auth switch -u kanchantechinfinity`, push, then switch back to techinfinitydevelopers).

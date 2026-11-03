@@ -708,3 +708,10 @@ Awaiting change requests from the user.
 - Full import files in `~/Desktop/zoho_import/`: 1 overwrite/make inventory (151), 2 new items (81), 3 opening stock (244, location "Shop location"), 4 manual adjustments (20).
 - Sync rules: Zoho→Shopify stock only (hourly, Available for Sale); orders Shopify→Zoho; prices/photos/descriptions stay in Shopify; native integration is not two-way.
 - Pending: run imports, verify 15 SKUs, tick Sync Stock, test ±1 on DIYA-RQ-RQ, real order test, upgrade Zoho plan, SKUs for 27 variants, mark 79 old Zoho items inactive, accountant to confirm HSN/tax exemption.
+
+## Sequel pincode check (Cloudflare Worker)
+- Worker `sequel-bridge` at https://sequel-bridge.care-c4c.workers.dev/?pin=XXXXXX (source: ~/Desktop/sequel-bridge/worker.js, not in repo). Calls Sequel checkServiceability + calculateEDD, 1h cache, CORS only silverplay.in / www.
+- Settings live in Cloudflare (SEQUEL_TOKEN, SEQUEL_BASE=https://sequel247.com, ORIGIN_PINCODE=400011 unconfirmed, ALLOWED_ORIGINS). Token was shown in a screenshot in chat: set as Secret and ask Sequel to rotate.
+- Theme: assets/theme.js initPin() now calls the Worker (falls back to the old static text); same pin box added to sections/main-cart.liquid (renders only when cart has items). Commit 5bf9b56. Product page verified live (395002 -> Surat, 12 Nov).
+- Worker still returns a temporary `sequel` debug field on non-serviceable pins; remove later.
+- Next: shipment creation, tracking, COD handling; confirm pickup pincode.
