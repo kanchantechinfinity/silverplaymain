@@ -1322,11 +1322,24 @@
     var root = $("[data-pincheck]");
     if (!root) return;
     var input = $("input", root), btn = $("button", root), out = $("[data-pin-out]", root);
-    btn.addEventListener("click", function () {
+    var fallback = function (v) { return "Estimated delivery to " + v + ": 5–7 business days. Dispatched within 2–3 days of order."; };
+    function check() {
       var v = (input.value || "").replace(/\D/g, "");
       if (v.length !== 6) { out.textContent = "Enter a 6-digit PIN code."; return; }
-      out.textContent = "Estimated delivery to " + v + ": 5–7 business days. Dispatched within 2–3 days of order.";
-    });
+      out.textContent = "Checking...";
+      fetch("https://sequel-bridge.care-c4c.workers.dev/?pin=" + v)
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.ok && d.serviceable) {
+            out.textContent = (d.deliveryBy ? "Delivery by " + d.deliveryBy : "Delivery available") + (d.city ? " to " + d.city : "") + " (" + v + ").";
+          } else if (d && d.ok) {
+            out.textContent = "Sorry, we cannot deliver to " + v + " yet. Please contact us.";
+          } else { out.textContent = fallback(v); }
+        })
+        .catch(function () { out.textContent = fallback(v); });
+    }
+    btn.addEventListener("click", check);
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); check(); } });
   }
 
   /* --------------------------------------------------------- gift note */

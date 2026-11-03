@@ -66,6 +66,16 @@
       {%- endif -%}
 
       <div class="mt-8" style="margin-left:auto;max-width:24rem">
+        {%- if settings.pdp_show_pincheck -%}
+          <div class="buybox__box" style="margin-bottom:1rem" data-pincheck>
+            <p>Check Delivery Time</p>
+            <div style="display:flex;gap:.5rem;margin-top:.625rem">
+              <input type="text" inputmode="numeric" maxlength="6" placeholder="Enter PIN code" class="field field--pill" aria-label="PIN code">
+              <button type="button" class="btn btn--outline-gold" style="padding:.625rem 1.25rem;font-size:.62rem;white-space:nowrap">Check</button>
+            </div>
+            <p class="mt-2" style="font-family:var(--font-body);font-size:.8rem;color:var(--sp-gold-deep)" data-pin-out></p>
+          </div>
+        {%- endif -%}
         <div class="cart-totals">
           <span>{{ 'cart.general.subtotal' | t }}</span>
           <span>{{ cart.total_price | money }}</span>
