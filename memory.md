@@ -314,3 +314,5 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 ## Sequel / Cloudflare (added)
 - Pincode check Worker: https://sequel-bridge.care-c4c.workers.dev (test server returned failures for all pins; production base https://sequel247.com works with the given token). No secrets in repo.
 - Git push needs gh account kanchantechinfinity active (`gh auth switch -u kanchantechinfinity`, push, then switch back to techinfinitydevelopers).
+- Sequel tracking URL: https://sequel247.com/track/<docket>. Track page live at /pages/track-your-order. Booking not built: needs store code, insurance payer, box sizes, lock numbers per box; token works only on production (no test server), so no test bookings without client approval.
+- Zoho sync does not add SKUs to existing SKU-less Zoho items; add SKU in Zoho (edit or import by Item Name with Overwrite).

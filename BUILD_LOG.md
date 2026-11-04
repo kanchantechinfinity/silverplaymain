@@ -715,3 +715,8 @@ Awaiting change requests from the user.
 - Theme: assets/theme.js initPin() now calls the Worker (falls back to the old static text); same pin box added to sections/main-cart.liquid (renders only when cart has items). Commit 5bf9b56. Product page verified live (395002 -> Surat, 12 Nov).
 - Worker still returns a temporary `sequel` debug field on non-serviceable pins; remove later.
 - Next: shipment creation, tracking, COD handling; confirm pickup pincode.
+
+## Track Your Order page
+- sections/track-order.liquid + templates/page.track-order.json (commit 10a7319). Customer enters docket number, opens Sequel's page https://sequel247.com/track/<docket> in a new tab (URL found in sequelglobal.com site JS; may ask for OTP, untested with a real docket).
+- Shopify page created via admin: /pages/track-your-order (template track-order, published). Footer menu link not added yet.
+- SKUs added in Shopify (drafts + 4 pendants incl. one active) for Zoho mapping: SPRK0726-016..018, SPSP1026-018/019, SPCN1026-007..011, SPPD1026-020..035. Only "Silver Ganesha Coin (Copy)" left without SKU.
