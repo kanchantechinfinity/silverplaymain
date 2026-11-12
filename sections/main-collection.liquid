@@ -71,6 +71,7 @@
             {%- else -%}
               <div class="grid-products grid-products--3">
                 {%- for product in collection.products -%}
+                  {%- if collection.handle == 'best-seller' and product.handle == 'diwali-hamper' -%}{%- continue -%}{%- endif -%}
                   {% render 'product-card', product: product, lazy: forloop.first %}
                 {%- endfor -%}
               </div>

@@ -26,7 +26,13 @@
 
     <div class="grid-products mt-14">
       {%- assign in_stock = col.products | where: 'available' -%}
-      {%- for product in in_stock limit: section.settings.count -%}
+      {%- assign fc_shown = 0 -%}
+      {%- assign fc_limit = section.settings.count | plus: 1 -%}
+      {%- for product in in_stock limit: fc_limit -%}
+        {%- comment -%} the Diwali Hamper is sold through its own hamper page, not in this grid {%- endcomment -%}
+        {%- if product.handle == 'diwali-hamper' -%}{%- continue -%}{%- endif -%}
+        {%- if fc_shown >= section.settings.count -%}{%- break -%}{%- endif -%}
+        {%- assign fc_shown = fc_shown | plus: 1 -%}
         {% render 'product-card', product: product, style: section.settings.card_style %}
       {%- else -%}
         {%- for i in (1..4) -%}
