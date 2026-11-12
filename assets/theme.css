@@ -2205,10 +2205,8 @@ html body .header .header__logo img, html body .header--light .header__logo img,
 @media (min-width: 1280px) { .hamper-search__grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
 .js .search-page--pending .hamper-search { visibility: hidden; }
 
-/* Find Your Pick: keep text readable over the busy feather art on mobile */
+/* Light-wash photo sections: fade busy background art on mobile so text stays readable */
 @media (max-width: 767px) {
-  .heritage-sec[data-tabs] .heritage-sec__bg { opacity: .28; }
-  .heritage-sec[data-tabs] .section-head { position: relative; z-index: 1; }
-  .heritage-sec[data-tabs] .section-head h2,
-  .heritage-sec[data-tabs] .section-head p { color: #241a10; text-shadow: 0 0 14px rgba(242,232,208,.9); }
+  .heritage-sec:not(:has(.heritage-sec__wash[style*="rgba(36"])):not(:has(.heritage-sec__wash[style*="rgba(58"])) .heritage-sec__bg { opacity: .25; }
+  .heritage-sec:not(:has(.heritage-sec__wash[style*="rgba(36"])):not(:has(.heritage-sec__wash[style*="rgba(58"])) :is(h2, h3, .eyebrow, .lede, .section-head p) { text-shadow: 0 0 14px rgba(242,232,208,.95); }
 }
