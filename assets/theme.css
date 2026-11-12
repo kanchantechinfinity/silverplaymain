@@ -2204,3 +2204,11 @@ html body .header .header__logo img, html body .header--light .header__logo img,
 @media (min-width: 1024px) { .hamper-search__grid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.5rem; } }
 @media (min-width: 1280px) { .hamper-search__grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
 .js .search-page--pending .hamper-search { visibility: hidden; }
+
+/* Find Your Pick: keep text readable over the busy feather art on mobile */
+@media (max-width: 767px) {
+  .heritage-sec[data-tabs] .heritage-sec__bg { opacity: .28; }
+  .heritage-sec[data-tabs] .section-head { position: relative; z-index: 1; }
+  .heritage-sec[data-tabs] .section-head h2,
+  .heritage-sec[data-tabs] .section-head p { color: #241a10; text-shadow: 0 0 14px rgba(242,232,208,.9); }
+}
