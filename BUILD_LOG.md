@@ -730,3 +730,9 @@ Awaiting change requests from the user.
 - Shopify: "International shipping" rate (General profile) set inactive. International market (50 countries) still ACTIVE (offered to set Draft).
 - 23 out-of-stock active products set to DRAFT (all inventoryPolicy DENY). Re-activate manually when restocked; Zoho stock sync does NOT republish.
 - Perf audit (no code changed): TTFB ~0.5s, 147 imgs/138 lazy, only Shopify scripts (no app bloat). Heavy: 5 autoplay videos in /assets (1.3-1.9MB each), large raw JPGs in /assets (about-closing 3.3MB), 4 Google font families.
+
+## 2026-11-12 (later) — Diwali removal, site check
+- Removed from home: Diwali hero slide, dandiya bgs (Find Your Pick, Royal Simplicity, Archive Treasure, Journal, offer band), All Collections hero dandiya; header strip now plain trust-claims marquee (haiku setting).
+- Diwali Hamper product kept Active; hidden from Find Your Pick tabs + Best Seller grids via theme (smart collections can't be edited via API). "Customise Your Diwali Hamper" button kept.
+- Fixed mega-nav link /collections/moonlight-sparkle -> moonlit-sparkle.
+- Smoke test: 22 key URLs 200 (drafted product 404 expected); cart add/clear + cart pincode box OK; Sequel worker OK; no console errors on Best Seller page.
