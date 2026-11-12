@@ -736,3 +736,8 @@ Awaiting change requests from the user.
 - Diwali Hamper product kept Active; hidden from Find Your Pick tabs + Best Seller grids via theme (smart collections can't be edited via API). "Customise Your Diwali Hamper" button kept.
 - Fixed mega-nav link /collections/moonlight-sparkle -> moonlit-sparkle.
 - Smoke test: 22 key URLs 200 (drafted product 404 expected); cart add/clear + cart pincode box OK; Sequel worker OK; no console errors on Best Seller page.
+
+## 2026-11-12 — Sequel booking worker (draft)
+- Mobile legibility fix: faded bg art on light-wash photo sections (c920bc8).
+- Read Sequel API docs; verified pickup address MUMSPLY on test server.
+- Wrote booking worker (approval via order tag). Not deployed, not tested; live test call was blocked by tool permissions.

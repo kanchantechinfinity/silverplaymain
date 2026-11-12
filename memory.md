@@ -318,3 +318,9 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - Zoho sync does not add SKUs to existing SKU-less Zoho items; add SKU in Zoho (edit or import by Item Name with Overwrite).
 - 2026-11-04: Zoho SKUs done; shipping email saved by user. Test it: fulfil an order with carrier "Sequel" + docket.
 - 2026-11-12: international shipping rate off; 23 OOS products drafted; perf audit done (see BUILD_LOG).
+
+## Sequel booking (2026-11-12)
+- Sequel API docs: http://sequel247.com/api/ (JS-rendered; read via browser). Endpoints: /api/shipment/create (returns docketNumber, docket_print), /api/cancel, /api/create_address, /api/search_address, /api/checkServiceability, /api/shipment/calculateEDD. No tracking/webhook API; tracking = https://sequel247.com/track/<docket>.
+- Client code 31509. Pickup store code MUMSPLY (Silver Play, Planet Godrej Mahalaxmi, Mumbai 400011); 2701 is a duplicate entry. Test base test.sequel247.com; prod sequel247.com. Tokens were pasted in chat: never store in repo; use Cloudflare Secrets.
+- Booking worker (untested) at ~/Desktop/sequel-bridge/booking/worker.js: staff tag order `sequel-book` -> Shopify orders/updated webhook -> books Sequel -> fulfils with carrier Sequel + docket -> tags sequel-booked / sequel-error.
+- Open: confirm request format (Secure-Ecommerce vs others, D&J/vulnerable) with Sequel; package weight; COD yes/no.
