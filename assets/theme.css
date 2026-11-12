@@ -2124,6 +2124,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .hz-txt { font-family: var(--font-display); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; color: #f1dba0; }
 @media (min-width: 768px) { .hz-txt { font-size: .7rem; letter-spacing: .26em; } .hz-group { gap: 1.5rem; padding-right: 1.5rem; } }
 .hz-ic { flex: none; display: block; }
+.hz-dot { flex: none; width: 5px; height: 5px; border-radius: 50%; background: #d9b25f; opacity: .8; }
 .hz-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: hz-flick 1.8s ease-in-out infinite; }
 .hz-lantern .hz-flame { animation-duration: 2.4s; animation-delay: -.7s; }
 .hz-diya { filter: drop-shadow(0 0 4px rgba(245,185,66,.55)); animation: hz-glow 2.6s ease-in-out infinite; }
