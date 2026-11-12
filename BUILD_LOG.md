@@ -720,3 +720,13 @@ Awaiting change requests from the user.
 - sections/track-order.liquid + templates/page.track-order.json (commit 10a7319). Customer enters docket number, opens Sequel's page https://sequel247.com/track/<docket> in a new tab (URL found in sequelglobal.com site JS; may ask for OTP, untested with a real docket).
 - Shopify page created via admin: /pages/track-your-order (template track-order, published). Footer menu link not added yet.
 - SKUs added in Shopify (drafts + 4 pendants incl. one active) for Zoho mapping: SPRK0726-016..018, SPSP1026-018/019, SPCN1026-007..011, SPPD1026-020..035. Only "Silver Ganesha Coin (Copy)" left without SKU.
+
+## 2026-11-04 — Zoho SKUs complete, shipping email
+- Zoho: all items have SKUs (imports in ~/Desktop/zoho_import; duplicates got LEGACY-* placeholders, to be zeroed + inactivated).
+- Shipping confirmation template edited in Shopify by user (Sequel track link when carrier = "Sequel"). Not yet tested with a real fulfilment.
+- Sequel open: SEQUEL_TOKEN as Secret + rotate, confirm pickup pincode 400011, remove debug field in worker, booking/COD not built.
+
+## 2026-11-12 — Shipping, OOS drafts, perf audit
+- Shopify: "International shipping" rate (General profile) set inactive. International market (50 countries) still ACTIVE (offered to set Draft).
+- 23 out-of-stock active products set to DRAFT (all inventoryPolicy DENY). Re-activate manually when restocked; Zoho stock sync does NOT republish.
+- Perf audit (no code changed): TTFB ~0.5s, 147 imgs/138 lazy, only Shopify scripts (no app bloat). Heavy: 5 autoplay videos in /assets (1.3-1.9MB each), large raw JPGs in /assets (about-closing 3.3MB), 4 Google font families.

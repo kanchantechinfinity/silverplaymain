@@ -316,3 +316,5 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - Git push needs gh account kanchantechinfinity active (`gh auth switch -u kanchantechinfinity`, push, then switch back to techinfinitydevelopers).
 - Sequel tracking URL: https://sequel247.com/track/<docket>. Track page live at /pages/track-your-order. Booking not built: needs store code, insurance payer, box sizes, lock numbers per box; token works only on production (no test server), so no test bookings without client approval.
 - Zoho sync does not add SKUs to existing SKU-less Zoho items; add SKU in Zoho (edit or import by Item Name with Overwrite).
+- 2026-11-04: Zoho SKUs done; shipping email saved by user. Test it: fulfil an order with carrier "Sequel" + docket.
+- 2026-11-12: international shipping rate off; 23 OOS products drafted; perf audit done (see BUILD_LOG).
