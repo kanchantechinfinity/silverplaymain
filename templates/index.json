@@ -12,21 +12,6 @@
     "hero": {
       "type": "cinematic-hero",
       "blocks": {
-        "slide_3eJNw3": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/WhatsApp_Image_2026-10-30_at_11.15.31_PM.jpg",
-            "image_mobile": "shopify://shop_images/WhatsApp_Image_2026-10-30_at_11.15.31_PM_1.jpg",
-            "link_url": "shopify://pages/festive-season-offer",
-            "image_position": "",
-            "devanagari": "",
-            "heading": "",
-            "subtitle": "",
-            "cta_label": "",
-            "cta_url": ""
-          }
-        },
         "slide_pjyYkX": {
           "type": "slide",
           "settings": {
@@ -57,7 +42,6 @@
         }
       },
       "block_order": [
-        "slide_3eJNw3",
         "slide_pjyYkX",
         "slide_r4937i"
       ],
@@ -191,11 +175,11 @@
         "lede": "From everyday affordable picks to new arrivals, earrings and pendants — browse by budget or category.",
         "count": 4,
         "bg_color": "#dbc596",
-        "bg_image": "shopify://shop_images/Elegant_Navratri_Dandiya_Glow.jpg",
+        "bg_image": "",
         "wash": "rgba(219,197,150,0.35)",
         "cta_label": "Shop",
         "cta_url": "",
-        "hamper_label": "Customise Your Diwali Hamper",
+        "hamper_label": "",
         "hamper_product": ""
       }
     },
