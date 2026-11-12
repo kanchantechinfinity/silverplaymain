@@ -11,12 +11,12 @@
       <div class="hz-group">
         {%- for part in hz_parts -%}
           <span class="hz-txt">{{ part | escape }}</span>
-          <span class="hz-dot" aria-hidden="true"></span>
+          <span class="hz-dot" aria-hidden="true">&mdash;</span>
         {%- endfor -%}
       </div>
     {%- endcapture -%}
     <div class="header__haiku" data-header-haiku role="note" aria-label="{{ section.settings.haiku | escape }}">
-      <div class="hz-track" aria-hidden="true">{% for i in (1..30) %}{{ hz_group }}{% endfor %}</div>
+      <div class="hz-track" aria-hidden="true">{% for i in (1..6) %}{{ hz_group }}{% endfor %}</div>
     </div>
   {%- endif -%}
   <div class="header__bar">
