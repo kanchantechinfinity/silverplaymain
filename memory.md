@@ -324,3 +324,10 @@ almost always this, not missing data.** Check `getComputedStyle(el).opacity` fir
 - Client code 31509. Pickup store code MUMSPLY (Silver Play, Planet Godrej Mahalaxmi, Mumbai 400011); 2701 is a duplicate entry. Test base test.sequel247.com; prod sequel247.com. Tokens were pasted in chat: never store in repo; use Cloudflare Secrets.
 - Booking worker (untested) at ~/Desktop/sequel-bridge/booking/worker.js: staff tag order `sequel-book` -> Shopify orders/updated webhook -> books Sequel -> fulfils with carrier Sequel + docket -> tags sequel-booked / sequel-error.
 - Open: confirm request format (Secure-Ecommerce vs others, D&J/vulnerable) with Sequel; package weight; COD yes/no.
+
+## Sequel booking: tested on UAT (2026-11-13)
+- Worker `sequel-booking` (Cloudflare, care-c4c.workers.dev) deployed; source ~/Desktop/sequel-bridge/booking/worker.js. Shopify Dev Dashboard app "Sequel Booking" created in the Silver Play owner's org (client-credentials token), webhook orders/update -> worker, signing secret in SHOPIFY_WEBHOOK_SECRET.
+- Test order #1063: tag `sequel-book` -> booked on test.sequel247.com, fulfilled with carrier Sequel + docket, tracking email received. Tags: sequel-booked / sequel-error; note holds docket/error.
+- Sequel quirks: pickUpTime is required (code 105) despite docs; response key is `docket_number`; format = Secure-Ecommerce, D&J, vulnerable; min weight 400 g; no COD.
+- Shopify setting changed: Checkout > Order processing now "Don't fulfill automatically" (was auto-fulfil, which blocked tracking).
+- To go live: set SEQUEL_BASE=https://sequel247.com and SEQUEL_TOKEN=production token (Cloudflare). Phone must be required at checkout.

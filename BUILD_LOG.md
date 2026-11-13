@@ -741,3 +741,8 @@ Awaiting change requests from the user.
 - Mobile legibility fix: faded bg art on light-wash photo sections (c920bc8).
 - Read Sequel API docs; verified pickup address MUMSPLY on test server.
 - Wrote booking worker (approval via order tag). Not deployed, not tested; live test call was blocked by tool permissions.
+
+## 2026-11-13 — Sequel booking automation (UAT passed)
+- Built/deployed Cloudflare worker `sequel-booking`; Dev Dashboard app + orders/update webhook; order tag `sequel-book` = approval.
+- Fixed Sequel quirks (pickUpTime required, docket_number key). Test order #1063 booked, fulfilled with tracking, email received.
+- Turned off Shopify auto-fulfilment. Pending: production token switch, phone-required checkout, rotate tokens pasted in chat.
